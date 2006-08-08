@@ -1,0 +1,3 @@
+include *.py
+recursive-include docs *.html
+recursive-include tests *.po *.mo
