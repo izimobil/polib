@@ -1,0 +1,654 @@
+
+<!doctype html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module polib</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>polib</strong></big></big> (version , )</font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/mnt/izi/projects/polib/polib.py">/mnt/izi/projects/polib/polib.py</a></font></td></tr></table>
+    <p><tt>a&nbsp;library&nbsp;to&nbsp;manipulate&nbsp;gettext&nbsp;catalogs&nbsp;files&nbsp;(.po/.mo&nbsp;files).<br>
+&nbsp;<br>
+polib&nbsp;allows&nbsp;you&nbsp;to&nbsp;manipulate,&nbsp;create,&nbsp;modify&nbsp;gettext&nbsp;.pot/.po/.mo<br>
+files.&nbsp;&nbsp;You&nbsp;can&nbsp;load&nbsp;existing&nbsp;files,&nbsp;iterate&nbsp;through&nbsp;it's&nbsp;entries,&nbsp;add,<br>
+modify&nbsp;entries,&nbsp;comments&nbsp;or&nbsp;metadata,&nbsp;etc...&nbsp;or&nbsp;create&nbsp;new&nbsp;po/pot&nbsp;files<br>
+from&nbsp;scratch.<br>
+&nbsp;<br>
+polib&nbsp;provides&nbsp;a&nbsp;simple&nbsp;and&nbsp;pythonic&nbsp;API,&nbsp;exporting&nbsp;only&nbsp;two<br>
+convenience&nbsp;functions&nbsp;'pofile'&nbsp;and&nbsp;'mofile',&nbsp;and&nbsp;the&nbsp;4&nbsp;core&nbsp;classes:<br>
+<a href="#POFile">POFile</a>,&nbsp;<a href="#MOFile">MOFile</a>,&nbsp;<a href="#POEntry">POEntry</a>&nbsp;and&nbsp;<a href="#MOEntry">MOEntry</a>&nbsp;for&nbsp;creating&nbsp;new&nbsp;files/entries.<br>
+&nbsp;<br>
+Basic&nbsp;example:<br>
+--------------<br>
+&gt;&gt;&gt;&nbsp;import&nbsp;polib<br>
+&gt;&gt;&gt;&nbsp;#&nbsp;load&nbsp;an&nbsp;existing&nbsp;po&nbsp;file<br>
+&gt;&gt;&gt;&nbsp;po&nbsp;=&nbsp;polib.<a href="#-pofile">pofile</a>('tests/test.po')<br>
+&gt;&gt;&gt;&nbsp;for&nbsp;entry&nbsp;in&nbsp;po:<br>
+...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;do&nbsp;something&nbsp;with&nbsp;entry...<br>
+...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pass<br>
+&gt;&gt;&gt;&nbsp;#&nbsp;add&nbsp;an&nbsp;entry<br>
+&gt;&gt;&gt;&nbsp;entry&nbsp;=&nbsp;polib.<a href="#POEntry">POEntry</a>()<br>
+&gt;&gt;&gt;&nbsp;entry.msgid&nbsp;&nbsp;=&nbsp;'Welcome'<br>
+&gt;&gt;&gt;&nbsp;entry.msgstr&nbsp;=&nbsp;'Bienvenue'<br>
+&gt;&gt;&gt;&nbsp;entry.occurences&nbsp;&nbsp;=&nbsp;[('welcome.py',&nbsp;'12'),&nbsp;('anotherfile.py',&nbsp;'34')]<br>
+&gt;&gt;&gt;&nbsp;po.append(entry)<br>
+&gt;&gt;&gt;&nbsp;#&nbsp;save&nbsp;our&nbsp;modified&nbsp;po&nbsp;file<br>
+&gt;&gt;&gt;&nbsp;po.save()<br>
+&nbsp;<br>
+Some&nbsp;references:<br>
+----------------<br>
+*&nbsp;Gettext&nbsp;manual:&nbsp;<a href="http://www.gnu.org/software/gettext/manual/">http://www.gnu.org/software/gettext/manual/</a><br>
+*&nbsp;PO&nbsp;file&nbsp;format:<br>
+&nbsp;&nbsp;<a href="http://www.gnu.org/software/gettext/manual/html_node/gettext_9.html">http://www.gnu.org/software/gettext/manual/html_node/gettext_9.html</a><br>
+*&nbsp;MO&nbsp;file&nbsp;format:<br>
+&nbsp;&nbsp;<a href="http://www.gnu.org/software/gettext/manual/html_node/gettext_136.html">http://www.gnu.org/software/gettext/manual/html_node/gettext_136.html</a></tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#fffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="struct.html">struct</a><br>
+</td><td width="25%" valign=top><a href="textwrap.html">textwrap</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="polib.html#_BaseEntry">_BaseEntry</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="polib.html#MOEntry">MOEntry</a>
+</font></dt><dt><font face="helvetica, arial"><a href="polib.html#POEntry">POEntry</a>
+</font></dt></dl>
+</dd>
+<dt><font face="helvetica, arial"><a href="polib.html#_BaseFile">_BaseFile</a>(<a href="__builtin__.html#list">__builtin__.list</a>)
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="polib.html#MOFile">MOFile</a>
+</font></dt><dt><font face="helvetica, arial"><a href="polib.html#POFile">POFile</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="MOEntry">class <strong>MOEntry</strong></a>(<a href="polib.html#_BaseEntry">_BaseEntry</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Represents&nbsp;a&nbsp;mo&nbsp;file&nbsp;entry.<br>
+&nbsp;<br>
+Methods:<br>
+--------<br>
+<a href="#MOEntry-__str__">__str__</a>()&nbsp;-&gt;&nbsp;string<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Return&nbsp;the&nbsp;string&nbsp;representation&nbsp;of&nbsp;the&nbsp;object.<br>
+&nbsp;<br>
+<a href="#MOEntry-__repr__">__repr__</a>()&nbsp;-&gt;&nbsp;string<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Return&nbsp;the&nbsp;"official"&nbsp;string&nbsp;reprsentation&nbsp;of&nbsp;the&nbsp;object.<br>
+&nbsp;<br>
+Properties:<br>
+-----------<br>
+msgid&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;a&nbsp;string&nbsp;containing&nbsp;the&nbsp;msgid&nbsp;to&nbsp;translate<br>
+msgid_plural&nbsp;&nbsp;--&nbsp;a&nbsp;string&nbsp;containing&nbsp;the&nbsp;plural&nbsp;msgid<br>
+msgstr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;a&nbsp;string&nbsp;containing&nbsp;the&nbsp;msgid&nbsp;translation.<br>
+msgstr_plural&nbsp;--&nbsp;a&nbsp;dictionary&nbsp;containing&nbsp;the&nbsp;translations&nbsp;for<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0,1,...,n&nbsp;occurences&nbsp;(eg.&nbsp;msgstr[0],&nbsp;msgstr[1],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;etc...)<br>
+&nbsp;<br>
+An&nbsp;example:<br>
+-----------<br>
+&gt;&gt;&gt;&nbsp;entry&nbsp;=&nbsp;<a href="#MOEntry">MOEntry</a>()<br>
+&gt;&gt;&gt;&nbsp;entry.msgid&nbsp;&nbsp;=&nbsp;'translate&nbsp;me&nbsp;!'<br>
+&gt;&gt;&gt;&nbsp;entry.msgstr&nbsp;=&nbsp;'traduisez&nbsp;moi&nbsp;!'<br>
+&gt;&gt;&gt;&nbsp;print&nbsp;entry<br>
+msgid&nbsp;"translate&nbsp;me&nbsp;!"<br>
+msgstr&nbsp;"traduisez&nbsp;moi&nbsp;!"<br>
+&lt;BLANKLINE&gt;<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="MOEntry-__init__"><strong>__init__</strong></a>(self, msgid<font color="#909090">=''</font>, msgstr<font color="#909090">=''</font>)</dt><dd><tt><a href="#MOEntry">MOEntry</a>&nbsp;constructor.</tt></dd></dl>
+
+<dl><dt><a name="MOEntry-__str__"><strong>__str__</strong></a>(self, wrapwidth<font color="#909090">=78</font>)</dt><dd><tt>Return&nbsp;the&nbsp;string&nbsp;representation&nbsp;of&nbsp;the&nbsp;entry.</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="polib.html#_BaseEntry">_BaseEntry</a>:<br>
+<dl><dt><a name="MOEntry-__repr__"><strong>__repr__</strong></a>(self)</dt><dd><tt>Return&nbsp;the&nbsp;official&nbsp;string&nbsp;representation&nbsp;of&nbsp;the&nbsp;object.</tt></dd></dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="MOFile">class <strong>MOFile</strong></a>(<a href="polib.html#_BaseFile">_BaseFile</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Mo&nbsp;file&nbsp;reader/writer.<br>
+<a href="#MOFile">MOFile</a>&nbsp;objects&nbsp;inherit&nbsp;the&nbsp;list&nbsp;objects&nbsp;methods.<br>
+&nbsp;<br>
+&nbsp;<br>
+Methods:<br>
+--------<br>
+<a href="#MOFile-__str__">__str__</a>()&nbsp;-&gt;&nbsp;string<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Return&nbsp;the&nbsp;string&nbsp;representation&nbsp;of&nbsp;the&nbsp;object&nbsp;(as&nbsp;the&nbsp;po<br>
+&nbsp;&nbsp;&nbsp;&nbsp;format).<br>
+&nbsp;<br>
+<a href="#MOFile-__repr__">__repr__</a>()&nbsp;-&gt;&nbsp;string<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Return&nbsp;the&nbsp;"official"&nbsp;string&nbsp;reprsentation&nbsp;of&nbsp;the&nbsp;object.<br>
+&nbsp;<br>
+<a href="#MOFile-to_binary">to_binary</a>()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Return&nbsp;the&nbsp;binary&nbsp;(mo&nbsp;format)&nbsp;representation&nbsp;of&nbsp;the&nbsp;file.<br>
+&nbsp;<br>
+<a href="#MOFile-save">save</a>([fpath])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Save&nbsp;the&nbsp;binary&nbsp;representation&nbsp;to&nbsp;file&nbsp;&lt;fpath&gt;.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;fpath&nbsp;is&nbsp;ommited&nbsp;and&nbsp;the&nbsp;object&nbsp;points&nbsp;to&nbsp;an&nbsp;existing&nbsp;file,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;existing&nbsp;file&nbsp;is&nbsp;updated.<br>
+&nbsp;<br>
+<a href="#MOFile-save_as_pofile">save_as_pofile</a>(fpath)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Save&nbsp;the&nbsp;string&nbsp;representation&nbsp;of&nbsp;the&nbsp;file&nbsp;(po&nbsp;format)&nbsp;to&nbsp;file<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;fpath&gt;.<br>
+&nbsp;<br>
+<a href="#MOFile-ordered_metadata">ordered_metadata</a>()&nbsp;-&gt;&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Convenience&nbsp;method&nbsp;that&nbsp;return&nbsp;the&nbsp;metadata&nbsp;ordered.&nbsp;The&nbsp;return<br>
+&nbsp;&nbsp;&nbsp;&nbsp;value&nbsp;is&nbsp;list&nbsp;of&nbsp;tuples&nbsp;(metadata&nbsp;name,&nbsp;metadata_value).<br>
+&nbsp;<br>
+<a href="#MOFile-charset">charset</a>()&nbsp;-&gt;&nbsp;string<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Return&nbsp;the&nbsp;file&nbsp;encoding&nbsp;charset.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;the&nbsp;charset&nbsp;cannot&nbsp;be&nbsp;found&nbsp;in&nbsp;metadata,&nbsp;the&nbsp;function<br>
+&nbsp;&nbsp;&nbsp;&nbsp;returns&nbsp;None.<br>
+&nbsp;<br>
+Properties:<br>
+-----------<br>
+magic_number&nbsp;--&nbsp;the&nbsp;magic&nbsp;number&nbsp;of&nbsp;the&nbsp;binary&nbsp;file<br>
+version&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;the&nbsp;version&nbsp;number&nbsp;of&nbsp;the&nbsp;binary&nbsp;file&nbsp;format<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(always&nbsp;0)<br>
+metadata&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;a&nbsp;dict&nbsp;containing&nbsp;the&nbsp;mo&nbsp;file&nbsp;metadata<br>
+wrapwidth&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;an&nbsp;integer,&nbsp;the&nbsp;width&nbsp;at&nbsp;which&nbsp;lines&nbsp;should&nbsp;be<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wrapped<br>
+&nbsp;<br>
+An&nbsp;example:<br>
+-----------<br>
+&gt;&gt;&gt;&nbsp;mo&nbsp;=&nbsp;<a href="#MOFile">MOFile</a>()<br>
+&gt;&gt;&gt;&nbsp;entry1&nbsp;=&nbsp;<a href="#POEntry">POEntry</a>("Some&nbsp;english&nbsp;text",&nbsp;"Un&nbsp;texte&nbsp;en&nbsp;anglais")<br>
+&gt;&gt;&gt;&nbsp;entry2&nbsp;=&nbsp;<a href="#POEntry">POEntry</a>("I&nbsp;need&nbsp;my&nbsp;dirty&nbsp;cheese",&nbsp;"Je&nbsp;veux&nbsp;mon&nbsp;sale&nbsp;fromage")<br>
+&gt;&gt;&gt;&nbsp;mo.<a href="#MOFile-append">append</a>(entry1)<br>
+&gt;&gt;&gt;&nbsp;mo.<a href="#MOFile-append">append</a>(entry2)<br>
+&gt;&gt;&gt;&nbsp;print&nbsp;mo<br>
+msgid&nbsp;""<br>
+msgstr&nbsp;""<br>
+&lt;BLANKLINE&gt;<br>
+msgid&nbsp;"Some&nbsp;english&nbsp;text"<br>
+msgstr&nbsp;"Un&nbsp;texte&nbsp;en&nbsp;anglais"<br>
+&lt;BLANKLINE&gt;<br>
+msgid&nbsp;"I&nbsp;need&nbsp;my&nbsp;dirty&nbsp;cheese"<br>
+msgstr&nbsp;"Je&nbsp;veux&nbsp;mon&nbsp;sale&nbsp;fromage"<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="polib.html#MOFile">MOFile</a></dd>
+<dd><a href="polib.html#_BaseFile">_BaseFile</a></dd>
+<dd><a href="__builtin__.html#list">__builtin__.list</a></dd>
+<dd><a href="__builtin__.html#object">__builtin__.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="MOFile-__init__"><strong>__init__</strong></a>(self, fhandle<font color="#909090">=None</font>, wrapwidth<font color="#909090">=78</font>)</dt><dd><tt><a href="#MOFile">MOFile</a>&nbsp;constructor.</tt></dd></dl>
+
+<dl><dt><a name="MOFile-save"><strong>save</strong></a>(self, fpath)</dt><dd><tt>Save&nbsp;the&nbsp;string&nbsp;representation&nbsp;of&nbsp;the&nbsp;file&nbsp;(po&nbsp;format)&nbsp;to&nbsp;file&nbsp;&lt;fpath&gt;.</tt></dd></dl>
+
+<dl><dt><a name="MOFile-save_as_pofile"><strong>save_as_pofile</strong></a>(self, fpath)</dt><dd><tt>Save&nbsp;the&nbsp;string&nbsp;representation&nbsp;of&nbsp;the&nbsp;file&nbsp;(po&nbsp;format)&nbsp;to&nbsp;file&nbsp;&lt;fpath&gt;.</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="polib.html#_BaseFile">_BaseFile</a>:<br>
+<dl><dt><a name="MOFile-__del__"><strong>__del__</strong></a>(self)</dt><dd><tt>Destructor:&nbsp;close&nbsp;the&nbsp;file&nbsp;handle&nbsp;when&nbsp;the&nbsp;object&nbsp;is<br>
+destroyed.</tt></dd></dl>
+
+<dl><dt><a name="MOFile-__repr__"><strong>__repr__</strong></a>(self)</dt><dd><tt>Return&nbsp;the&nbsp;official&nbsp;string&nbsp;representation&nbsp;of&nbsp;the&nbsp;object.</tt></dd></dl>
+
+<dl><dt><a name="MOFile-__str__"><strong>__str__</strong></a>(self)</dt><dd><tt>Common&nbsp;string&nbsp;representation&nbsp;for&nbsp;po&nbsp;and&nbsp;mo&nbsp;files.</tt></dd></dl>
+
+<dl><dt><a name="MOFile-charset"><strong>charset</strong></a>(self)</dt><dd><tt>Return&nbsp;the&nbsp;file&nbsp;encoding&nbsp;charset.<br>
+If&nbsp;the&nbsp;charset&nbsp;cannot&nbsp;be&nbsp;found&nbsp;in&nbsp;metadata,&nbsp;the&nbsp;function<br>
+returns&nbsp;None.</tt></dd></dl>
+
+<dl><dt><a name="MOFile-ordered_metadata"><strong>ordered_metadata</strong></a>(self)</dt><dd><tt>Convenience&nbsp;method&nbsp;that&nbsp;return&nbsp;the&nbsp;metadata&nbsp;ordered.&nbsp;The&nbsp;return<br>
+value&nbsp;is&nbsp;list&nbsp;of&nbsp;tuples&nbsp;(metadata&nbsp;name,&nbsp;metadata_value).</tt></dd></dl>
+
+<dl><dt><a name="MOFile-to_binary"><strong>to_binary</strong></a>(self)</dt><dd><tt>Return&nbsp;the&nbsp;mofile&nbsp;binary&nbsp;representation.</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="polib.html#_BaseFile">_BaseFile</a>:<br>
+<dl><dt><strong>__dict__</strong> = &lt;dictproxy object&gt;<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dl>
+
+<dl><dt><strong>__weakref__</strong> = &lt;attribute '__weakref__' of '_BaseFile' objects&gt;<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dl>
+
+<hr>
+Methods inherited from <a href="__builtin__.html#list">__builtin__.list</a>:<br>
+<dl><dt><a name="MOFile-__add__"><strong>__add__</strong></a>(...)</dt><dd><tt>x.<a href="#MOFile-__add__">__add__</a>(y)&nbsp;&lt;==&gt;&nbsp;x+y</tt></dd></dl>
+
+<dl><dt><a name="MOFile-__contains__"><strong>__contains__</strong></a>(...)</dt><dd><tt>x.<a href="#MOFile-__contains__">__contains__</a>(y)&nbsp;&lt;==&gt;&nbsp;y&nbsp;in&nbsp;x</tt></dd></dl>
+
+<dl><dt><a name="MOFile-__delitem__"><strong>__delitem__</strong></a>(...)</dt><dd><tt>x.<a href="#MOFile-__delitem__">__delitem__</a>(y)&nbsp;&lt;==&gt;&nbsp;del&nbsp;x[y]</tt></dd></dl>
+
+<dl><dt><a name="MOFile-__delslice__"><strong>__delslice__</strong></a>(...)</dt><dd><tt>x.<a href="#MOFile-__delslice__">__delslice__</a>(i,&nbsp;j)&nbsp;&lt;==&gt;&nbsp;del&nbsp;x[i:j]<br>
+&nbsp;<br>
+Use&nbsp;of&nbsp;negative&nbsp;indices&nbsp;is&nbsp;not&nbsp;supported.</tt></dd></dl>
+
+<dl><dt><a name="MOFile-__eq__"><strong>__eq__</strong></a>(...)</dt><dd><tt>x.<a href="#MOFile-__eq__">__eq__</a>(y)&nbsp;&lt;==&gt;&nbsp;x==y</tt></dd></dl>
+
+<dl><dt><a name="MOFile-__ge__"><strong>__ge__</strong></a>(...)</dt><dd><tt>x.<a href="#MOFile-__ge__">__ge__</a>(y)&nbsp;&lt;==&gt;&nbsp;x&gt;=y</tt></dd></dl>
+
+<dl><dt><a name="MOFile-__getattribute__"><strong>__getattribute__</strong></a>(...)</dt><dd><tt>x.<a href="#MOFile-__getattribute__">__getattribute__</a>('name')&nbsp;&lt;==&gt;&nbsp;x.name</tt></dd></dl>
+
+<dl><dt><a name="MOFile-__getitem__"><strong>__getitem__</strong></a>(...)</dt><dd><tt>x.<a href="#MOFile-__getitem__">__getitem__</a>(y)&nbsp;&lt;==&gt;&nbsp;x[y]</tt></dd></dl>
+
+<dl><dt><a name="MOFile-__getslice__"><strong>__getslice__</strong></a>(...)</dt><dd><tt>x.<a href="#MOFile-__getslice__">__getslice__</a>(i,&nbsp;j)&nbsp;&lt;==&gt;&nbsp;x[i:j]<br>
+&nbsp;<br>
+Use&nbsp;of&nbsp;negative&nbsp;indices&nbsp;is&nbsp;not&nbsp;supported.</tt></dd></dl>
+
+<dl><dt><a name="MOFile-__gt__"><strong>__gt__</strong></a>(...)</dt><dd><tt>x.<a href="#MOFile-__gt__">__gt__</a>(y)&nbsp;&lt;==&gt;&nbsp;x&gt;y</tt></dd></dl>
+
+<dl><dt><a name="MOFile-__hash__"><strong>__hash__</strong></a>(...)</dt><dd><tt>x.<a href="#MOFile-__hash__">__hash__</a>()&nbsp;&lt;==&gt;&nbsp;hash(x)</tt></dd></dl>
+
+<dl><dt><a name="MOFile-__iadd__"><strong>__iadd__</strong></a>(...)</dt><dd><tt>x.<a href="#MOFile-__iadd__">__iadd__</a>(y)&nbsp;&lt;==&gt;&nbsp;x+=y</tt></dd></dl>
+
+<dl><dt><a name="MOFile-__imul__"><strong>__imul__</strong></a>(...)</dt><dd><tt>x.<a href="#MOFile-__imul__">__imul__</a>(y)&nbsp;&lt;==&gt;&nbsp;x*=y</tt></dd></dl>
+
+<dl><dt><a name="MOFile-__iter__"><strong>__iter__</strong></a>(...)</dt><dd><tt>x.<a href="#MOFile-__iter__">__iter__</a>()&nbsp;&lt;==&gt;&nbsp;iter(x)</tt></dd></dl>
+
+<dl><dt><a name="MOFile-__le__"><strong>__le__</strong></a>(...)</dt><dd><tt>x.<a href="#MOFile-__le__">__le__</a>(y)&nbsp;&lt;==&gt;&nbsp;x&lt;=y</tt></dd></dl>
+
+<dl><dt><a name="MOFile-__len__"><strong>__len__</strong></a>(...)</dt><dd><tt>x.<a href="#MOFile-__len__">__len__</a>()&nbsp;&lt;==&gt;&nbsp;len(x)</tt></dd></dl>
+
+<dl><dt><a name="MOFile-__lt__"><strong>__lt__</strong></a>(...)</dt><dd><tt>x.<a href="#MOFile-__lt__">__lt__</a>(y)&nbsp;&lt;==&gt;&nbsp;x&lt;y</tt></dd></dl>
+
+<dl><dt><a name="MOFile-__mul__"><strong>__mul__</strong></a>(...)</dt><dd><tt>x.<a href="#MOFile-__mul__">__mul__</a>(n)&nbsp;&lt;==&gt;&nbsp;x*n</tt></dd></dl>
+
+<dl><dt><a name="MOFile-__ne__"><strong>__ne__</strong></a>(...)</dt><dd><tt>x.<a href="#MOFile-__ne__">__ne__</a>(y)&nbsp;&lt;==&gt;&nbsp;x!=y</tt></dd></dl>
+
+<dl><dt><a name="MOFile-__reversed__"><strong>__reversed__</strong></a>(...)</dt><dd><tt>L.<a href="#MOFile-__reversed__">__reversed__</a>()&nbsp;--&nbsp;return&nbsp;a&nbsp;reverse&nbsp;iterator&nbsp;over&nbsp;the&nbsp;list</tt></dd></dl>
+
+<dl><dt><a name="MOFile-__rmul__"><strong>__rmul__</strong></a>(...)</dt><dd><tt>x.<a href="#MOFile-__rmul__">__rmul__</a>(n)&nbsp;&lt;==&gt;&nbsp;n*x</tt></dd></dl>
+
+<dl><dt><a name="MOFile-__setitem__"><strong>__setitem__</strong></a>(...)</dt><dd><tt>x.<a href="#MOFile-__setitem__">__setitem__</a>(i,&nbsp;y)&nbsp;&lt;==&gt;&nbsp;x[i]=y</tt></dd></dl>
+
+<dl><dt><a name="MOFile-__setslice__"><strong>__setslice__</strong></a>(...)</dt><dd><tt>x.<a href="#MOFile-__setslice__">__setslice__</a>(i,&nbsp;j,&nbsp;y)&nbsp;&lt;==&gt;&nbsp;x[i:j]=y<br>
+&nbsp;<br>
+Use&nbsp;&nbsp;of&nbsp;negative&nbsp;indices&nbsp;is&nbsp;not&nbsp;supported.</tt></dd></dl>
+
+<dl><dt><a name="MOFile-append"><strong>append</strong></a>(...)</dt><dd><tt>L.<a href="#MOFile-append">append</a>(object)&nbsp;--&nbsp;append&nbsp;object&nbsp;to&nbsp;end</tt></dd></dl>
+
+<dl><dt><a name="MOFile-count"><strong>count</strong></a>(...)</dt><dd><tt>L.<a href="#MOFile-count">count</a>(value)&nbsp;-&gt;&nbsp;integer&nbsp;--&nbsp;return&nbsp;number&nbsp;of&nbsp;occurrences&nbsp;of&nbsp;value</tt></dd></dl>
+
+<dl><dt><a name="MOFile-extend"><strong>extend</strong></a>(...)</dt><dd><tt>L.<a href="#MOFile-extend">extend</a>(iterable)&nbsp;--&nbsp;extend&nbsp;list&nbsp;by&nbsp;appending&nbsp;elements&nbsp;from&nbsp;the&nbsp;iterable</tt></dd></dl>
+
+<dl><dt><a name="MOFile-index"><strong>index</strong></a>(...)</dt><dd><tt>L.<a href="#MOFile-index">index</a>(value,&nbsp;[start,&nbsp;[stop]])&nbsp;-&gt;&nbsp;integer&nbsp;--&nbsp;return&nbsp;first&nbsp;index&nbsp;of&nbsp;value</tt></dd></dl>
+
+<dl><dt><a name="MOFile-insert"><strong>insert</strong></a>(...)</dt><dd><tt>L.<a href="#MOFile-insert">insert</a>(index,&nbsp;object)&nbsp;--&nbsp;insert&nbsp;object&nbsp;before&nbsp;index</tt></dd></dl>
+
+<dl><dt><a name="MOFile-pop"><strong>pop</strong></a>(...)</dt><dd><tt>L.<a href="#MOFile-pop">pop</a>([index])&nbsp;-&gt;&nbsp;item&nbsp;--&nbsp;remove&nbsp;and&nbsp;return&nbsp;item&nbsp;at&nbsp;index&nbsp;(default&nbsp;last)</tt></dd></dl>
+
+<dl><dt><a name="MOFile-remove"><strong>remove</strong></a>(...)</dt><dd><tt>L.<a href="#MOFile-remove">remove</a>(value)&nbsp;--&nbsp;remove&nbsp;first&nbsp;occurrence&nbsp;of&nbsp;value</tt></dd></dl>
+
+<dl><dt><a name="MOFile-reverse"><strong>reverse</strong></a>(...)</dt><dd><tt>L.<a href="#MOFile-reverse">reverse</a>()&nbsp;--&nbsp;reverse&nbsp;*IN&nbsp;PLACE*</tt></dd></dl>
+
+<dl><dt><a name="MOFile-sort"><strong>sort</strong></a>(...)</dt><dd><tt>L.<a href="#MOFile-sort">sort</a>(cmp=None,&nbsp;key=None,&nbsp;reverse=False)&nbsp;--&nbsp;stable&nbsp;sort&nbsp;*IN&nbsp;PLACE*;<br>
+cmp(x,&nbsp;y)&nbsp;-&gt;&nbsp;-1,&nbsp;0,&nbsp;1</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="__builtin__.html#list">__builtin__.list</a>:<br>
+<dl><dt><strong>__new__</strong> = &lt;built-in method __new__ of type object&gt;<dd><tt>T.<a href="#MOFile-__new__">__new__</a>(S,&nbsp;...)&nbsp;-&gt;&nbsp;a&nbsp;new&nbsp;object&nbsp;with&nbsp;type&nbsp;S,&nbsp;a&nbsp;subtype&nbsp;of&nbsp;T</tt></dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="POEntry">class <strong>POEntry</strong></a>(<a href="polib.html#_BaseEntry">_BaseEntry</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Represents&nbsp;a&nbsp;po&nbsp;file&nbsp;entry.<br>
+&nbsp;<br>
+Methods:<br>
+--------<br>
+<a href="#POEntry-__str__">__str__</a>()&nbsp;-&gt;&nbsp;string<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Return&nbsp;the&nbsp;string&nbsp;representation&nbsp;of&nbsp;the&nbsp;object.<br>
+&nbsp;<br>
+<a href="#POEntry-__repr__">__repr__</a>()&nbsp;-&gt;&nbsp;string<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Return&nbsp;the&nbsp;"official"&nbsp;string&nbsp;reprsentation&nbsp;of&nbsp;the&nbsp;object.<br>
+&nbsp;<br>
+<a href="#POEntry-translated">translated</a>([fpath])&nbsp;-&gt;&nbsp;boolean<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Return&nbsp;True&nbsp;if&nbsp;the&nbsp;entry&nbsp;has&nbsp;been&nbsp;translated&nbsp;or&nbsp;False&nbsp;otherwise.<br>
+&nbsp;<br>
+Properties:<br>
+-----------<br>
+msgid&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;a&nbsp;string&nbsp;containing&nbsp;the&nbsp;msgid&nbsp;to&nbsp;translate<br>
+msgid_plural&nbsp;&nbsp;--&nbsp;a&nbsp;string&nbsp;containing&nbsp;the&nbsp;plural&nbsp;msgid<br>
+msgstr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;a&nbsp;string&nbsp;containing&nbsp;the&nbsp;msgid&nbsp;translation.<br>
+msgstr_plural&nbsp;--&nbsp;a&nbsp;dictionary&nbsp;containing&nbsp;the&nbsp;translations&nbsp;for<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0,1,...,n&nbsp;occurences&nbsp;(eg.&nbsp;msgstr[0],&nbsp;msgstr[1],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;etc...)<br>
+occurences&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;a&nbsp;list&nbsp;containing&nbsp;tuples&nbsp;of&nbsp;file&nbsp;name,&nbsp;line&nbsp;number<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;representing&nbsp;occurences&nbsp;of&nbsp;the&nbsp;msgid&nbsp;in&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;source&nbsp;code.<br>
+comment&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;a&nbsp;string&nbsp;containing&nbsp;a&nbsp;generated&nbsp;comment<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(eg.&nbsp;#.&nbsp;some&nbsp;text)<br>
+tcomment&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;a&nbsp;string&nbsp;containing&nbsp;a&nbsp;translator&nbsp;comment<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(eg.&nbsp;#&nbsp;some&nbsp;text)<br>
+flags&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;a&nbsp;list&nbsp;of&nbsp;strings&nbsp;reprensenting&nbsp;the&nbsp;entry&nbsp;flags<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(eg:&nbsp;fuzzy,&nbsp;c-format...)<br>
+&nbsp;<br>
+Examples:<br>
+---------<br>
+&gt;&gt;&gt;&nbsp;entry&nbsp;=&nbsp;<a href="#POEntry">POEntry</a>(<br>
+...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;msgid='Welcome',&nbsp;<br>
+...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;msgstr='Bienvenue',<br>
+...&nbsp;)<br>
+&gt;&gt;&gt;&nbsp;entry.occurences&nbsp;=&nbsp;[('welcome.py',&nbsp;12),&nbsp;('anotherfile.py',&nbsp;34)]<br>
+&gt;&gt;&gt;&nbsp;print&nbsp;entry<br>
+#:&nbsp;welcome.py:12&nbsp;anotherfile.py:34<br>
+msgid&nbsp;"Welcome"<br>
+msgstr&nbsp;"Bienvenue"<br>
+&lt;BLANKLINE&gt;<br>
+&nbsp;<br>
+&gt;&gt;&gt;&nbsp;entry&nbsp;=&nbsp;<a href="#POEntry">POEntry</a>()<br>
+&gt;&gt;&gt;&nbsp;entry.occurences&nbsp;=&nbsp;[('src/spam.c',&nbsp;32),&nbsp;('src/eggs.c',&nbsp;45)]<br>
+&gt;&gt;&gt;&nbsp;entry.tcomment&nbsp;=&nbsp;'A&nbsp;plural&nbsp;translation'<br>
+&gt;&gt;&gt;&nbsp;entry.flags.append('c-format')<br>
+&gt;&gt;&gt;&nbsp;entry.msgid&nbsp;=&nbsp;'I&nbsp;have&nbsp;spam&nbsp;but&nbsp;no&nbsp;egg&nbsp;!'<br>
+&gt;&gt;&gt;&nbsp;entry.msgid_plural&nbsp;=&nbsp;'I&nbsp;have&nbsp;spam&nbsp;and&nbsp;%d&nbsp;eggs&nbsp;!'<br>
+&gt;&gt;&gt;&nbsp;entry.msgstr_plural[0]&nbsp;=&nbsp;"J'ai&nbsp;du&nbsp;jambon&nbsp;mais&nbsp;aucun&nbsp;oeuf&nbsp;!"<br>
+&gt;&gt;&gt;&nbsp;entry.msgstr_plural[1]&nbsp;=&nbsp;"J'ai&nbsp;du&nbsp;jambon&nbsp;et&nbsp;%d&nbsp;oeufs&nbsp;!"<br>
+&gt;&gt;&gt;&nbsp;print&nbsp;entry<br>
+#&nbsp;A&nbsp;plural&nbsp;translation<br>
+#:&nbsp;src/spam.c:32&nbsp;src/eggs.c:45<br>
+#,&nbsp;c-format<br>
+msgid&nbsp;"I&nbsp;have&nbsp;spam&nbsp;but&nbsp;no&nbsp;egg&nbsp;!"<br>
+msgid_plural&nbsp;"I&nbsp;have&nbsp;spam&nbsp;and&nbsp;%d&nbsp;eggs&nbsp;!"<br>
+msgstr[0]&nbsp;"J'ai&nbsp;du&nbsp;jambon&nbsp;mais&nbsp;aucun&nbsp;oeuf&nbsp;!"<br>
+msgstr[1]&nbsp;"J'ai&nbsp;du&nbsp;jambon&nbsp;et&nbsp;%d&nbsp;oeufs&nbsp;!"<br>
+&lt;BLANKLINE&gt;<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="POEntry-__init__"><strong>__init__</strong></a>(self, msgid<font color="#909090">=''</font>, msgstr<font color="#909090">=''</font>)</dt><dd><tt><a href="#POEntry">POEntry</a>&nbsp;constructor.</tt></dd></dl>
+
+<dl><dt><a name="POEntry-__str__"><strong>__str__</strong></a>(self, wrapwidth<font color="#909090">=78</font>)</dt><dd><tt>Return&nbsp;the&nbsp;string&nbsp;representation&nbsp;of&nbsp;the&nbsp;entry.</tt></dd></dl>
+
+<dl><dt><a name="POEntry-translated"><strong>translated</strong></a>(self)</dt><dd><tt>Return&nbsp;True&nbsp;if&nbsp;the&nbsp;entry&nbsp;has&nbsp;been&nbsp;translated&nbsp;or&nbsp;False</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="polib.html#_BaseEntry">_BaseEntry</a>:<br>
+<dl><dt><a name="POEntry-__repr__"><strong>__repr__</strong></a>(self)</dt><dd><tt>Return&nbsp;the&nbsp;official&nbsp;string&nbsp;representation&nbsp;of&nbsp;the&nbsp;object.</tt></dd></dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="POFile">class <strong>POFile</strong></a>(<a href="polib.html#_BaseFile">_BaseFile</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Po&nbsp;(or&nbsp;Pot)&nbsp;file&nbsp;reader/writer.<br>
+<a href="#POFile">POFile</a>&nbsp;objects&nbsp;inherit&nbsp;the&nbsp;list&nbsp;objects&nbsp;methods.<br>
+&nbsp;<br>
+Methods:<br>
+--------<br>
+<a href="#POFile-__str__">__str__</a>()&nbsp;-&gt;&nbsp;string<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Return&nbsp;the&nbsp;string&nbsp;representation&nbsp;of&nbsp;the&nbsp;object.<br>
+&nbsp;<br>
+<a href="#POFile-__repr__">__repr__</a>()&nbsp;-&gt;&nbsp;string<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Return&nbsp;the&nbsp;"official"&nbsp;string&nbsp;reprsentation&nbsp;of&nbsp;the&nbsp;object.<br>
+&nbsp;<br>
+<a href="#POFile-to_binary">to_binary</a>()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Return&nbsp;the&nbsp;binary&nbsp;(mo&nbsp;format)&nbsp;representation&nbsp;of&nbsp;the&nbsp;file.<br>
+&nbsp;<br>
+<a href="#POFile-save">save</a>([fpath])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Save&nbsp;the&nbsp;string&nbsp;representation&nbsp;to&nbsp;file&nbsp;&lt;fpath&gt;.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;fpath&nbsp;is&nbsp;ommited&nbsp;and&nbsp;the&nbsp;object&nbsp;points&nbsp;to&nbsp;an&nbsp;existing&nbsp;file,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;existing&nbsp;file&nbsp;is&nbsp;updated.<br>
+&nbsp;<br>
+<a href="#POFile-save_as_mofile">save_as_mofile</a>(fpath)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Save&nbsp;the&nbsp;binary&nbsp;representation&nbsp;of&nbsp;the&nbsp;file&nbsp;(mo&nbsp;format)&nbsp;to&nbsp;file<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;fpath&gt;.<br>
+&nbsp;<br>
+<a href="#POFile-percent_translated">percent_translated</a>()&nbsp;-&gt;&nbsp;integer<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Convenience&nbsp;method&nbsp;that&nbsp;return&nbsp;an&nbsp;integer&nbsp;that&nbsp;correspond&nbsp;to<br>
+&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;percentage&nbsp;of&nbsp;translated&nbsp;messages.<br>
+&nbsp;<br>
+<a href="#POFile-translated_entries">translated_entries</a>()&nbsp;-&gt;&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Convenience&nbsp;method&nbsp;that&nbsp;return&nbsp;the&nbsp;list&nbsp;of&nbsp;translated&nbsp;entries.<br>
+&nbsp;<br>
+<a href="#POFile-untranslated_entries">untranslated_entries</a>()&nbsp;-&gt;&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Convenience&nbsp;method&nbsp;that&nbsp;return&nbsp;the&nbsp;list&nbsp;of&nbsp;untranslated<br>
+&nbsp;&nbsp;&nbsp;&nbsp;entries.<br>
+&nbsp;<br>
+<a href="#POFile-fuzzy_entries">fuzzy_entries</a>()&nbsp;-&gt;&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Convenience&nbsp;method&nbsp;that&nbsp;return&nbsp;the&nbsp;list&nbsp;of&nbsp;'fuzzy'&nbsp;entries.<br>
+&nbsp;<br>
+<a href="#POFile-obsolete_entries">obsolete_entries</a>()&nbsp;-&gt;&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Convenience&nbsp;method&nbsp;that&nbsp;return&nbsp;the&nbsp;list&nbsp;of&nbsp;obsolete&nbsp;entries.<br>
+&nbsp;<br>
+<a href="#POFile-ordered_metadata">ordered_metadata</a>()&nbsp;-&gt;&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Convenience&nbsp;method&nbsp;that&nbsp;return&nbsp;the&nbsp;metadata&nbsp;ordered.&nbsp;The&nbsp;return<br>
+&nbsp;&nbsp;&nbsp;&nbsp;value&nbsp;is&nbsp;list&nbsp;of&nbsp;tuples&nbsp;(metadata&nbsp;name,&nbsp;metadata_value).<br>
+&nbsp;<br>
+<a href="#POFile-charset">charset</a>()&nbsp;-&gt;&nbsp;string<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Return&nbsp;the&nbsp;file&nbsp;encoding&nbsp;charset.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;the&nbsp;charset&nbsp;cannot&nbsp;be&nbsp;found&nbsp;in&nbsp;metadata,&nbsp;the&nbsp;function<br>
+&nbsp;&nbsp;&nbsp;&nbsp;returns&nbsp;None.<br>
+&nbsp;<br>
+Properties:<br>
+-----------<br>
+header&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;a&nbsp;string&nbsp;containing&nbsp;the&nbsp;po&nbsp;file&nbsp;header<br>
+metadata&nbsp;&nbsp;--&nbsp;a&nbsp;dict&nbsp;containing&nbsp;the&nbsp;po&nbsp;file&nbsp;metadata<br>
+wrapwidth&nbsp;--&nbsp;an&nbsp;integer,&nbsp;the&nbsp;width&nbsp;at&nbsp;which&nbsp;lines&nbsp;should&nbsp;be&nbsp;wrapped<br>
+&nbsp;<br>
+An&nbsp;example:<br>
+-----------<br>
+&gt;&gt;&gt;&nbsp;po&nbsp;=&nbsp;<a href="#POFile">POFile</a>()<br>
+&gt;&gt;&gt;&nbsp;entry1&nbsp;=&nbsp;<a href="#POEntry">POEntry</a>("Some&nbsp;english&nbsp;text",&nbsp;"Un&nbsp;texte&nbsp;en&nbsp;anglais")<br>
+&gt;&gt;&gt;&nbsp;entry2&nbsp;=&nbsp;<a href="#POEntry">POEntry</a>("I&nbsp;need&nbsp;my&nbsp;dirty&nbsp;cheese",&nbsp;"Je&nbsp;veux&nbsp;mon&nbsp;sale&nbsp;fromage")<br>
+&gt;&gt;&gt;&nbsp;po.<a href="#POFile-append">append</a>(entry1)<br>
+&gt;&gt;&gt;&nbsp;po.<a href="#POFile-append">append</a>(entry2)<br>
+&gt;&gt;&gt;&nbsp;po.header&nbsp;=&nbsp;"Some&nbsp;Header"<br>
+&gt;&gt;&gt;&nbsp;print&nbsp;po<br>
+#&nbsp;Some&nbsp;Header<br>
+msgid&nbsp;""<br>
+msgstr&nbsp;""<br>
+&lt;BLANKLINE&gt;<br>
+msgid&nbsp;"Some&nbsp;english&nbsp;text"<br>
+msgstr&nbsp;"Un&nbsp;texte&nbsp;en&nbsp;anglais"<br>
+&lt;BLANKLINE&gt;<br>
+msgid&nbsp;"I&nbsp;need&nbsp;my&nbsp;dirty&nbsp;cheese"<br>
+msgstr&nbsp;"Je&nbsp;veux&nbsp;mon&nbsp;sale&nbsp;fromage"<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="polib.html#POFile">POFile</a></dd>
+<dd><a href="polib.html#_BaseFile">_BaseFile</a></dd>
+<dd><a href="__builtin__.html#list">__builtin__.list</a></dd>
+<dd><a href="__builtin__.html#object">__builtin__.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="POFile-__init__"><strong>__init__</strong></a>(self, fhandle<font color="#909090">=None</font>, wrapwidth<font color="#909090">=78</font>)</dt><dd><tt><a href="#POFile">POFile</a>&nbsp;constructor.</tt></dd></dl>
+
+<dl><dt><a name="POFile-__str__"><strong>__str__</strong></a>(self)</dt><dd><tt>Return&nbsp;the&nbsp;string&nbsp;representation&nbsp;of&nbsp;the&nbsp;po&nbsp;file</tt></dd></dl>
+
+<dl><dt><a name="POFile-fuzzy_entries"><strong>fuzzy_entries</strong></a>(self)</dt><dd><tt>Convenience&nbsp;method&nbsp;that&nbsp;return&nbsp;the&nbsp;list&nbsp;of&nbsp;'fuzzy'&nbsp;entries.</tt></dd></dl>
+
+<dl><dt><a name="POFile-obsolete_entries"><strong>obsolete_entries</strong></a>(self)</dt><dd><tt>Convenience&nbsp;method&nbsp;that&nbsp;return&nbsp;the&nbsp;list&nbsp;of&nbsp;obsolete&nbsp;entries.</tt></dd></dl>
+
+<dl><dt><a name="POFile-percent_translated"><strong>percent_translated</strong></a>(self)</dt><dd><tt>Convenience&nbsp;method&nbsp;that&nbsp;return&nbsp;the&nbsp;percentage&nbsp;of&nbsp;translated<br>
+messages.</tt></dd></dl>
+
+<dl><dt><a name="POFile-save_as_mofile"><strong>save_as_mofile</strong></a>(self, fpath)</dt><dd><tt>Save&nbsp;the&nbsp;binary&nbsp;representation&nbsp;of&nbsp;the&nbsp;file&nbsp;(mo&nbsp;format)&nbsp;to&nbsp;file<br>
+&lt;fpath&gt;.</tt></dd></dl>
+
+<dl><dt><a name="POFile-translated_entries"><strong>translated_entries</strong></a>(self)</dt><dd><tt>Convenience&nbsp;method&nbsp;that&nbsp;return&nbsp;a&nbsp;list&nbsp;of&nbsp;translated&nbsp;entries.</tt></dd></dl>
+
+<dl><dt><a name="POFile-untranslated_entries"><strong>untranslated_entries</strong></a>(self)</dt><dd><tt>Convenience&nbsp;method&nbsp;that&nbsp;return&nbsp;a&nbsp;list&nbsp;of&nbsp;untranslated&nbsp;entries.</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="polib.html#_BaseFile">_BaseFile</a>:<br>
+<dl><dt><a name="POFile-__del__"><strong>__del__</strong></a>(self)</dt><dd><tt>Destructor:&nbsp;close&nbsp;the&nbsp;file&nbsp;handle&nbsp;when&nbsp;the&nbsp;object&nbsp;is<br>
+destroyed.</tt></dd></dl>
+
+<dl><dt><a name="POFile-__repr__"><strong>__repr__</strong></a>(self)</dt><dd><tt>Return&nbsp;the&nbsp;official&nbsp;string&nbsp;representation&nbsp;of&nbsp;the&nbsp;object.</tt></dd></dl>
+
+<dl><dt><a name="POFile-charset"><strong>charset</strong></a>(self)</dt><dd><tt>Return&nbsp;the&nbsp;file&nbsp;encoding&nbsp;charset.<br>
+If&nbsp;the&nbsp;charset&nbsp;cannot&nbsp;be&nbsp;found&nbsp;in&nbsp;metadata,&nbsp;the&nbsp;function<br>
+returns&nbsp;None.</tt></dd></dl>
+
+<dl><dt><a name="POFile-ordered_metadata"><strong>ordered_metadata</strong></a>(self)</dt><dd><tt>Convenience&nbsp;method&nbsp;that&nbsp;return&nbsp;the&nbsp;metadata&nbsp;ordered.&nbsp;The&nbsp;return<br>
+value&nbsp;is&nbsp;list&nbsp;of&nbsp;tuples&nbsp;(metadata&nbsp;name,&nbsp;metadata_value).</tt></dd></dl>
+
+<dl><dt><a name="POFile-save"><strong>save</strong></a>(self, fpath<font color="#909090">=None</font>, repr_method<font color="#909090">='__str__'</font>)</dt><dd><tt>Save&nbsp;the&nbsp;po&nbsp;file&nbsp;to&nbsp;file&nbsp;&lt;fpath&gt;&nbsp;if&nbsp;no&nbsp;file&nbsp;handle&nbsp;exists&nbsp;for<br>
+the&nbsp;object.&nbsp;If&nbsp;there's&nbsp;already&nbsp;an&nbsp;open&nbsp;file&nbsp;and&nbsp;no&nbsp;fpath&nbsp;is<br>
+provided,&nbsp;then&nbsp;the&nbsp;existing&nbsp;file&nbsp;is&nbsp;rewritten&nbsp;with&nbsp;the&nbsp;modified<br>
+data.</tt></dd></dl>
+
+<dl><dt><a name="POFile-to_binary"><strong>to_binary</strong></a>(self)</dt><dd><tt>Return&nbsp;the&nbsp;mofile&nbsp;binary&nbsp;representation.</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="polib.html#_BaseFile">_BaseFile</a>:<br>
+<dl><dt><strong>__dict__</strong> = &lt;dictproxy object&gt;<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dl>
+
+<dl><dt><strong>__weakref__</strong> = &lt;attribute '__weakref__' of '_BaseFile' objects&gt;<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dl>
+
+<hr>
+Methods inherited from <a href="__builtin__.html#list">__builtin__.list</a>:<br>
+<dl><dt><a name="POFile-__add__"><strong>__add__</strong></a>(...)</dt><dd><tt>x.<a href="#POFile-__add__">__add__</a>(y)&nbsp;&lt;==&gt;&nbsp;x+y</tt></dd></dl>
+
+<dl><dt><a name="POFile-__contains__"><strong>__contains__</strong></a>(...)</dt><dd><tt>x.<a href="#POFile-__contains__">__contains__</a>(y)&nbsp;&lt;==&gt;&nbsp;y&nbsp;in&nbsp;x</tt></dd></dl>
+
+<dl><dt><a name="POFile-__delitem__"><strong>__delitem__</strong></a>(...)</dt><dd><tt>x.<a href="#POFile-__delitem__">__delitem__</a>(y)&nbsp;&lt;==&gt;&nbsp;del&nbsp;x[y]</tt></dd></dl>
+
+<dl><dt><a name="POFile-__delslice__"><strong>__delslice__</strong></a>(...)</dt><dd><tt>x.<a href="#POFile-__delslice__">__delslice__</a>(i,&nbsp;j)&nbsp;&lt;==&gt;&nbsp;del&nbsp;x[i:j]<br>
+&nbsp;<br>
+Use&nbsp;of&nbsp;negative&nbsp;indices&nbsp;is&nbsp;not&nbsp;supported.</tt></dd></dl>
+
+<dl><dt><a name="POFile-__eq__"><strong>__eq__</strong></a>(...)</dt><dd><tt>x.<a href="#POFile-__eq__">__eq__</a>(y)&nbsp;&lt;==&gt;&nbsp;x==y</tt></dd></dl>
+
+<dl><dt><a name="POFile-__ge__"><strong>__ge__</strong></a>(...)</dt><dd><tt>x.<a href="#POFile-__ge__">__ge__</a>(y)&nbsp;&lt;==&gt;&nbsp;x&gt;=y</tt></dd></dl>
+
+<dl><dt><a name="POFile-__getattribute__"><strong>__getattribute__</strong></a>(...)</dt><dd><tt>x.<a href="#POFile-__getattribute__">__getattribute__</a>('name')&nbsp;&lt;==&gt;&nbsp;x.name</tt></dd></dl>
+
+<dl><dt><a name="POFile-__getitem__"><strong>__getitem__</strong></a>(...)</dt><dd><tt>x.<a href="#POFile-__getitem__">__getitem__</a>(y)&nbsp;&lt;==&gt;&nbsp;x[y]</tt></dd></dl>
+
+<dl><dt><a name="POFile-__getslice__"><strong>__getslice__</strong></a>(...)</dt><dd><tt>x.<a href="#POFile-__getslice__">__getslice__</a>(i,&nbsp;j)&nbsp;&lt;==&gt;&nbsp;x[i:j]<br>
+&nbsp;<br>
+Use&nbsp;of&nbsp;negative&nbsp;indices&nbsp;is&nbsp;not&nbsp;supported.</tt></dd></dl>
+
+<dl><dt><a name="POFile-__gt__"><strong>__gt__</strong></a>(...)</dt><dd><tt>x.<a href="#POFile-__gt__">__gt__</a>(y)&nbsp;&lt;==&gt;&nbsp;x&gt;y</tt></dd></dl>
+
+<dl><dt><a name="POFile-__hash__"><strong>__hash__</strong></a>(...)</dt><dd><tt>x.<a href="#POFile-__hash__">__hash__</a>()&nbsp;&lt;==&gt;&nbsp;hash(x)</tt></dd></dl>
+
+<dl><dt><a name="POFile-__iadd__"><strong>__iadd__</strong></a>(...)</dt><dd><tt>x.<a href="#POFile-__iadd__">__iadd__</a>(y)&nbsp;&lt;==&gt;&nbsp;x+=y</tt></dd></dl>
+
+<dl><dt><a name="POFile-__imul__"><strong>__imul__</strong></a>(...)</dt><dd><tt>x.<a href="#POFile-__imul__">__imul__</a>(y)&nbsp;&lt;==&gt;&nbsp;x*=y</tt></dd></dl>
+
+<dl><dt><a name="POFile-__iter__"><strong>__iter__</strong></a>(...)</dt><dd><tt>x.<a href="#POFile-__iter__">__iter__</a>()&nbsp;&lt;==&gt;&nbsp;iter(x)</tt></dd></dl>
+
+<dl><dt><a name="POFile-__le__"><strong>__le__</strong></a>(...)</dt><dd><tt>x.<a href="#POFile-__le__">__le__</a>(y)&nbsp;&lt;==&gt;&nbsp;x&lt;=y</tt></dd></dl>
+
+<dl><dt><a name="POFile-__len__"><strong>__len__</strong></a>(...)</dt><dd><tt>x.<a href="#POFile-__len__">__len__</a>()&nbsp;&lt;==&gt;&nbsp;len(x)</tt></dd></dl>
+
+<dl><dt><a name="POFile-__lt__"><strong>__lt__</strong></a>(...)</dt><dd><tt>x.<a href="#POFile-__lt__">__lt__</a>(y)&nbsp;&lt;==&gt;&nbsp;x&lt;y</tt></dd></dl>
+
+<dl><dt><a name="POFile-__mul__"><strong>__mul__</strong></a>(...)</dt><dd><tt>x.<a href="#POFile-__mul__">__mul__</a>(n)&nbsp;&lt;==&gt;&nbsp;x*n</tt></dd></dl>
+
+<dl><dt><a name="POFile-__ne__"><strong>__ne__</strong></a>(...)</dt><dd><tt>x.<a href="#POFile-__ne__">__ne__</a>(y)&nbsp;&lt;==&gt;&nbsp;x!=y</tt></dd></dl>
+
+<dl><dt><a name="POFile-__reversed__"><strong>__reversed__</strong></a>(...)</dt><dd><tt>L.<a href="#POFile-__reversed__">__reversed__</a>()&nbsp;--&nbsp;return&nbsp;a&nbsp;reverse&nbsp;iterator&nbsp;over&nbsp;the&nbsp;list</tt></dd></dl>
+
+<dl><dt><a name="POFile-__rmul__"><strong>__rmul__</strong></a>(...)</dt><dd><tt>x.<a href="#POFile-__rmul__">__rmul__</a>(n)&nbsp;&lt;==&gt;&nbsp;n*x</tt></dd></dl>
+
+<dl><dt><a name="POFile-__setitem__"><strong>__setitem__</strong></a>(...)</dt><dd><tt>x.<a href="#POFile-__setitem__">__setitem__</a>(i,&nbsp;y)&nbsp;&lt;==&gt;&nbsp;x[i]=y</tt></dd></dl>
+
+<dl><dt><a name="POFile-__setslice__"><strong>__setslice__</strong></a>(...)</dt><dd><tt>x.<a href="#POFile-__setslice__">__setslice__</a>(i,&nbsp;j,&nbsp;y)&nbsp;&lt;==&gt;&nbsp;x[i:j]=y<br>
+&nbsp;<br>
+Use&nbsp;&nbsp;of&nbsp;negative&nbsp;indices&nbsp;is&nbsp;not&nbsp;supported.</tt></dd></dl>
+
+<dl><dt><a name="POFile-append"><strong>append</strong></a>(...)</dt><dd><tt>L.<a href="#POFile-append">append</a>(object)&nbsp;--&nbsp;append&nbsp;object&nbsp;to&nbsp;end</tt></dd></dl>
+
+<dl><dt><a name="POFile-count"><strong>count</strong></a>(...)</dt><dd><tt>L.<a href="#POFile-count">count</a>(value)&nbsp;-&gt;&nbsp;integer&nbsp;--&nbsp;return&nbsp;number&nbsp;of&nbsp;occurrences&nbsp;of&nbsp;value</tt></dd></dl>
+
+<dl><dt><a name="POFile-extend"><strong>extend</strong></a>(...)</dt><dd><tt>L.<a href="#POFile-extend">extend</a>(iterable)&nbsp;--&nbsp;extend&nbsp;list&nbsp;by&nbsp;appending&nbsp;elements&nbsp;from&nbsp;the&nbsp;iterable</tt></dd></dl>
+
+<dl><dt><a name="POFile-index"><strong>index</strong></a>(...)</dt><dd><tt>L.<a href="#POFile-index">index</a>(value,&nbsp;[start,&nbsp;[stop]])&nbsp;-&gt;&nbsp;integer&nbsp;--&nbsp;return&nbsp;first&nbsp;index&nbsp;of&nbsp;value</tt></dd></dl>
+
+<dl><dt><a name="POFile-insert"><strong>insert</strong></a>(...)</dt><dd><tt>L.<a href="#POFile-insert">insert</a>(index,&nbsp;object)&nbsp;--&nbsp;insert&nbsp;object&nbsp;before&nbsp;index</tt></dd></dl>
+
+<dl><dt><a name="POFile-pop"><strong>pop</strong></a>(...)</dt><dd><tt>L.<a href="#POFile-pop">pop</a>([index])&nbsp;-&gt;&nbsp;item&nbsp;--&nbsp;remove&nbsp;and&nbsp;return&nbsp;item&nbsp;at&nbsp;index&nbsp;(default&nbsp;last)</tt></dd></dl>
+
+<dl><dt><a name="POFile-remove"><strong>remove</strong></a>(...)</dt><dd><tt>L.<a href="#POFile-remove">remove</a>(value)&nbsp;--&nbsp;remove&nbsp;first&nbsp;occurrence&nbsp;of&nbsp;value</tt></dd></dl>
+
+<dl><dt><a name="POFile-reverse"><strong>reverse</strong></a>(...)</dt><dd><tt>L.<a href="#POFile-reverse">reverse</a>()&nbsp;--&nbsp;reverse&nbsp;*IN&nbsp;PLACE*</tt></dd></dl>
+
+<dl><dt><a name="POFile-sort"><strong>sort</strong></a>(...)</dt><dd><tt>L.<a href="#POFile-sort">sort</a>(cmp=None,&nbsp;key=None,&nbsp;reverse=False)&nbsp;--&nbsp;stable&nbsp;sort&nbsp;*IN&nbsp;PLACE*;<br>
+cmp(x,&nbsp;y)&nbsp;-&gt;&nbsp;-1,&nbsp;0,&nbsp;1</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="__builtin__.html#list">__builtin__.list</a>:<br>
+<dl><dt><strong>__new__</strong> = &lt;built-in method __new__ of type object&gt;<dd><tt>T.<a href="#POFile-__new__">__new__</a>(S,&nbsp;...)&nbsp;-&gt;&nbsp;a&nbsp;new&nbsp;object&nbsp;with&nbsp;type&nbsp;S,&nbsp;a&nbsp;subtype&nbsp;of&nbsp;T</tt></dl>
+
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-mofile"><strong>mofile</strong></a>(fpath, wrapwidth<font color="#909090">=78</font>)</dt><dd><tt>Convenience&nbsp;function&nbsp;that&nbsp;parse&nbsp;the&nbsp;mo&nbsp;file&nbsp;&lt;fpath&gt;&nbsp;and&nbsp;return<br>
+a&nbsp;<a href="#MOFile">MOFile</a>&nbsp;instance.<br>
+&nbsp;<br>
+Keyword&nbsp;arguments:<br>
+------------------<br>
+fpath&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;full&nbsp;or&nbsp;relative&nbsp;path&nbsp;to&nbsp;the&nbsp;mo&nbsp;file&nbsp;to&nbsp;parse<br>
+wrapwidth&nbsp;--&nbsp;integer,&nbsp;the&nbsp;wrap&nbsp;width,&nbsp;only&nbsp;useful&nbsp;when&nbsp;-w&nbsp;option<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;was&nbsp;passed&nbsp;to&nbsp;xgettext&nbsp;to&nbsp;generate&nbsp;the&nbsp;po&nbsp;file&nbsp;that<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;was&nbsp;used&nbsp;to&nbsp;format&nbsp;the&nbsp;mo&nbsp;file,&nbsp;default&nbsp;to&nbsp;78<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(optional).<br>
+&nbsp;<br>
+Example:<br>
+--------<br>
+&gt;&gt;&gt;&nbsp;import&nbsp;polib<br>
+&gt;&gt;&gt;&nbsp;mo&nbsp;=&nbsp;polib.<a href="#-mofile">mofile</a>('tests/test.mo')<br>
+&gt;&gt;&gt;&nbsp;mo&nbsp;#doctest:&nbsp;+ELLIPSIS<br>
+&lt;<a href="#MOFile">MOFile</a>&nbsp;instance&nbsp;at&nbsp;...&gt;</tt></dd></dl>
+ <dl><dt><a name="-pofile"><strong>pofile</strong></a>(fpath, wrapwidth<font color="#909090">=78</font>)</dt><dd><tt>Convenience&nbsp;function&nbsp;that&nbsp;parse&nbsp;the&nbsp;po/pot&nbsp;file&nbsp;&lt;fpath&gt;&nbsp;and&nbsp;return<br>
+a&nbsp;<a href="#POFile">POFile</a>&nbsp;instance.<br>
+&nbsp;<br>
+Keyword&nbsp;argument:<br>
+-----------------<br>
+fpath&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;full&nbsp;or&nbsp;relative&nbsp;path&nbsp;to&nbsp;the&nbsp;po/pot&nbsp;file&nbsp;to&nbsp;parse<br>
+wrapwidth&nbsp;--&nbsp;integer,&nbsp;the&nbsp;wrap&nbsp;width,&nbsp;only&nbsp;useful&nbsp;when&nbsp;-w&nbsp;option<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;was&nbsp;passed&nbsp;to&nbsp;xgettext,&nbsp;default&nbsp;to&nbsp;78&nbsp;(optional)<br>
+&nbsp;<br>
+Example:<br>
+--------<br>
+&gt;&gt;&gt;&nbsp;import&nbsp;polib<br>
+&gt;&gt;&gt;&nbsp;po&nbsp;=&nbsp;polib.<a href="#-pofile">pofile</a>('tests/test.po')<br>
+&gt;&gt;&gt;&nbsp;po&nbsp;#doctest:&nbsp;+ELLIPSIS<br>
+&lt;<a href="#POFile">POFile</a>&nbsp;instance&nbsp;at&nbsp;...&gt;</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>__all__</strong> = ['pofile', 'POFile', 'POEntry', 'mofile', 'MOFile', 'MOEntry']<br>
+<strong>__author__</strong> = 'David JEAN LOUIS &lt;izimobil@gmail.com&gt;'<br>
+<strong>__date__</strong> = ''<br>
+<strong>__version__</strong> = ''</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#7799ee">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Author</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#7799ee"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%">David&nbsp;JEAN&nbsp;LOUIS&nbsp;&lt;izimobil@gmail.com&gt;</td></tr></table>
+</body></html>
