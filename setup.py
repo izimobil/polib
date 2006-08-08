@@ -31,6 +31,7 @@ if __name__ == '__main__':
         author_email=maintainer_email,
         maintainer=maintainer,
         maintainer_email=maintainer_email,
+        url='http://code.google.com/p/polib/',
         license='MIT',
         platforms=['posix'],
         classifiers = [
