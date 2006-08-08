@@ -3,7 +3,6 @@
 #
 # License: MIT (see LICENSE file provided)
 
-
 """
 polib setup script.
 """
@@ -13,13 +12,13 @@ __version__  = '0.1.0'
 
 from distutils.core import setup
 
-maintainer = 'David JEAN LOUIS'
+maintainer = 'David JL'
 maintainer_email = 'izimobil@gmail.com'
-desc = 'A library to manipulate gettext catalogs files (.po/.mo files).'
+desc = 'A library to manipulate gettext catalogs files (aka .po and .mo files).'
 long_desc = """polib allows you to manipulate, create, modify gettext \
-.pot/.po/.mo files.  You can load existing files, iterate through it's \
-entries, add, modify entries, comments or metadata, etc... or create new \
-po/pot files from scratch."""
+catalogs (.pot, .po and .mo files).  You can load existing files, iterate \
+through it's entries, add, modify entries, comments or metadata, etc... or \
+create new po files from scratch."""
 
 if __name__ == '__main__':
     setup(
