@@ -5,7 +5,7 @@
 
 ### Description {{{
 """
-a library to manipulate gettext catalogs files (.po/.mo files).
+A library to manipulate gettext catalogs files (aka .po and .mo files).
 
 polib allows you to manipulate, create, modify gettext .pot/.po/.mo
 files.  You can load existing files, iterate through it's entries, add,
