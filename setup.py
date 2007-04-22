@@ -8,7 +8,7 @@ polib setup script.
 """
 
 __author__   = 'David JEAN LOUIS <izimobil@gmail.com>'
-__version__  = '0.1.0'
+__version__  = '0.2.0'
 
 from distutils.core import setup
 
@@ -25,7 +25,7 @@ if __name__ == '__main__':
         name='polib',
         description=desc,
         long_description=long_desc,
-        version='0.1.0',
+        version='0.2.0',
         author=maintainer,
         author_email=maintainer_email,
         maintainer=maintainer,
