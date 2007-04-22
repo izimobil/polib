@@ -1,7 +1,8 @@
 #!/usr/bin/env python
-# -*- coding: latin-1 -*-
+# -*- coding: utf-8 -*-
 #
 # License: MIT (see LICENSE file provided)
+# vim600: fdm=marker tabstop=4 shiftwidth=4 expandtab ai
 
 ### Description {{{
 """
@@ -40,6 +41,12 @@ Some references:
   http://www.gnu.org/software/gettext/manual/html_node/gettext_9.html
 * MO file format:
   http://www.gnu.org/software/gettext/manual/html_node/gettext_136.html
+
+TODO:
+-----
+* Make the tests pass under python 2.3 (they fail because of empty lines)
+* Finish mo file handling (implement _BaseFile::to_binary())
+
 """
 ### }}}
 
@@ -58,7 +65,7 @@ except ImportError, exc:
 
 __all__ = ['pofile', 'POFile', 'POEntry', 'mofile', 'MOFile', 'MOEntry']
 
-### shortcuts for performance improvement and misc variables {{{
+### shortcuts for performance improvement {{{
 # yes, yes, this is quite ugly but *very* efficient
 _dictget    = dict.get
 _listappend = list.append
@@ -78,8 +85,8 @@ def pofile(fpath, wrapwidth=78):
     Convenience function that parse the po/pot file <fpath> and return
     a POFile instance.
 
-    Keyword argument:
-    -----------------
+    Keyword arguments:
+    ------------------
     fpath     -- full or relative path to the po/pot file to parse
     wrapwidth -- integer, the wrap width, only useful when -w option
                  was passed to xgettext, default to 78 (optional)
@@ -228,8 +235,14 @@ class _BaseFile(list):
                 _listappend(ordered_data, (data, value))
             except KeyError:
                 pass
-        # the rest of the metadata won't be order there's no specs for this
-        for data in sorted(metadata.keys()):
+        # the rest of the metadata won't be ordered there's no specs for this
+        try:
+            keys = sorted(metadata.keys())
+        except NameError:
+            # python <= 2.3
+            keys = metadata.keys()
+            keys.sort()
+        for data in keys:
             value = metadata[data]
             _listappend(ordered_data, (data, value))
         return ordered_data
@@ -316,7 +329,11 @@ class POFile(_BaseFile):
     -----------
     >>> po = POFile()
     >>> entry1 = POEntry("Some english text", "Un texte en anglais")
+    >>> entry1.occurences = [('testfile', 12),('another_file', 1)]
+    >>> entry1.comment = "Some useful comment"
     >>> entry2 = POEntry("I need my dirty cheese", "Je veux mon sale fromage")
+    >>> entry2.occurences = [('testfile', 15),('another_file', 5)]
+    >>> entry2.comment = "Another useful comment"
     >>> po.append(entry1)
     >>> po.append(entry2)
     >>> po.header = "Some Header"
@@ -325,9 +342,13 @@ class POFile(_BaseFile):
     msgid ""
     msgstr ""
     <BLANKLINE>
+    #. Some useful comment
+    #: testfile:12 another_file:1
     msgid "Some english text"
     msgstr "Un texte en anglais"
     <BLANKLINE>
+    #. Another useful comment
+    #: testfile:15 another_file:5
     msgid "I need my dirty cheese"
     msgstr "Je veux mon sale fromage"
     '''
@@ -532,7 +553,13 @@ class _BaseEntry:
             msgstrs = self.msgstr_plural
         else:
             msgstrs = {0:self.msgstr}
-        for index in sorted(msgstrs.keys()):
+        try:
+            keys = sorted(msgstrs.keys())
+        except NameError:
+            # python <= 2.3
+            keys = msgstrs.keys()
+            keys.sort()
+        for index in keys:
             msgstr = msgstrs[index]
             lines = _strsplit(msgstr, '\n')
             plural_index = ''
@@ -724,7 +751,6 @@ class MOEntry(_BaseEntry):
     msgid "translate me !"
     msgstr "traduisez moi !"
     <BLANKLINE>
-
     """
     ### class MOEntry {{{
     def __init__(self, msgid='', msgstr=''):
@@ -1083,7 +1109,8 @@ class _MOFileParser:
         It returns a tuple or a mixed value if the tuple length is 1.
         """
         numbytes = struct.calcsize(fmt)
-        tup = struct.unpack(fmt, self.fhandle.read(numbytes))
+        bytes = self.fhandle.read(numbytes)
+        tup = struct.unpack(fmt, bytes)
         if len(tup) == 1:
             return tup[0]
         return tup
@@ -1093,4 +1120,4 @@ class _MOFileParser:
 if __name__ == '__main__':
     import doctest
     doctest.testmod()
-# vim600: fdm=marker tabstop=4 shiftwidth=4 expandtab ai
+
