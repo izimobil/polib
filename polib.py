@@ -32,7 +32,7 @@ Basic example:
 >>> entry.occurences  = [('welcome.py', '12'), ('anotherfile.py', '34')]
 >>> po.append(entry)
 >>> # save our modified po file
->>> po.save()
+>>> # po.save()
 
 Some references:
 ----------------
@@ -51,7 +51,7 @@ TODO:
 ### }}}
 
 __author__   = 'David JEAN LOUIS <izimobil@gmail.com>'
-__version__  = '0.1.0'
+__version__  = '0.2.0'
 
 
 ### dependencies {{{
