@@ -59,8 +59,8 @@ try:
     import struct
     import textwrap
 except ImportError, exc:
-    raise ImportError('polib requires python 2.3 or later with the ' \
-        'standard modules "struct" and "textwrap" (details: %s)' % exc)
+    raise ImportError('polib requires python 2.3 or later with the standard' \
+        ' modules "struct" and "textwrap" (details: %s)' % exc)
 ### }}}
 
 __all__ = ['pofile', 'POFile', 'POEntry', 'mofile', 'MOFile', 'MOEntry']
@@ -170,24 +170,22 @@ class _BaseFile(list):
 
     def __str__(self):
         """Common string representation for po and mo files."""
-        ret = ''
+        ret = []
         if self.metadata_is_fuzzy:
-            ret = '#, fuzzy\n'
-        ret += 'msgid ""\n'
-        ret += 'msgstr ""\n'
+            _listappend(ret, '#, fuzzy')
+        _listappend(ret, 'msgid ""')
+        _listappend(ret, 'msgstr ""')
         for name, value in self.ordered_metadata():
             values = _strsplit(value, '\n')
             for i, value in enumerate(values): # handle multiline metadata
                 if i == 0:
-                    ret += '"%s: %s"\n' % (name, _strstrip(value))
+                    _listappend(ret, '"%s: %s"' % (name, _strstrip(value)))
                 else:
-                    ret += '"%s"\n' % _strstrip(value)
-        ret += '\n'
-        padding = ''
+                    _listappend(ret, '"%s"' % _strstrip(value))
+        _listappend(ret, '')
         for entry in self:
-            ret += '%s%s' % (padding, entry.__str__(self.wrapwidth))
-            padding = '\n'
-        return ret.rstrip()
+            _listappend(ret, entry.__str__(self.wrapwidth))
+        return '\n'.join(ret)
 
     def __repr__(self):
         """Return the official string representation of the object."""
@@ -235,13 +233,9 @@ class _BaseFile(list):
                 _listappend(ordered_data, (data, value))
             except KeyError:
                 pass
-        # the rest of the metadata won't be ordered there's no specs for this
-        try:
-            keys = sorted(metadata.keys())
-        except NameError:
-            # python <= 2.3
-            keys = metadata.keys()
-            keys.sort()
+        # the rest of the metadata won't be ordered there are no specs for this
+        keys = metadata.keys()
+        keys.sort()
         for data in keys:
             value = metadata[data]
             _listappend(ordered_data, (data, value))
@@ -351,6 +345,7 @@ class POFile(_BaseFile):
     #: testfile:15 another_file:5
     msgid "I need my dirty cheese"
     msgstr "Je veux mon sale fromage"
+    <BLANKLINE>
     '''
     ### class POFile {{{
 
@@ -475,7 +470,7 @@ class MOFile(_BaseFile):
     <BLANKLINE>
     msgid "I need my dirty cheese"
     msgstr "Je veux mon sale fromage"
-
+    <BLANKLINE>
     '''
     ### class MOFile {{{
 
@@ -513,15 +508,18 @@ class _BaseEntry:
         self.msgstr_plural = {}
         self.obsolete = 0
         self.has_plural = 0
-        # private vars
-        self._is_multiline_msgid = 0
-        self._is_multiline_msgid_plural = 0
-        self._is_multiline_msgstr = 0
-        self._is_multiline_msgstr_plural = {}
 
     def __repr__(self):
         """Return the official string representation of the object."""
         return '<%s instance at %d>' % (self.__class__.__name__, id(self))
+
+    def str_field(self, fieldname, delflag, plural_index, field):
+        lines = _strsplit(field, '\n')
+        ret = ['%s%s%s "%s"' % (delflag, fieldname, plural_index, lines.pop(0))]
+        if lines:
+            for mstr in lines:
+                _listappend(ret, '%s"%s"' % (delflag, mstr))
+        return ret
 
     def __str__(self, wrapwidth=78):
         """
@@ -533,51 +531,25 @@ class _BaseEntry:
         else:
             delflag = ''
         # write the msgid
-        lines = _strsplit(self.msgid, '\n')
-        if self._is_multiline_msgid:
-            ret = '%smsgid ""\n' % delflag
-            for msgid in lines:
-                ret += '%s"%s"\n' % (delflag, msgid)
-        else:
-            ret = '%smsgid "%s"\n' % (delflag, lines[0])
+        ret = []
+        ret += self.str_field("msgid", delflag, "", self.msgid)
         # write the msgid_plural if any
         if self.msgid_plural:
-            lines = _strsplit(self.msgid_plural, '\n')
-            if self._is_multiline_msgid_plural:
-                ret += '%smsgid_plural ""\n' % delflag
-                for msgid in lines:
-                    ret += '%s"%s"\n' % (delflag, msgid)
-            else:
-                ret += '%smsgid_plural "%s"\n' % (delflag, lines[0])
+            ret += self.str_field("msgid_plural", delflag, "", self.msgid_plural)
         if self.msgstr_plural:
             msgstrs = self.msgstr_plural
         else:
             msgstrs = {0:self.msgstr}
-        try:
-            keys = sorted(msgstrs.keys())
-        except NameError:
-            # python <= 2.3
-            keys = msgstrs.keys()
-            keys.sort()
+        keys = msgstrs.keys()
+        keys.sort()
         for index in keys:
             msgstr = msgstrs[index]
-            lines = _strsplit(msgstr, '\n')
             plural_index = ''
-            is_multiline_msgstr = self._is_multiline_msgstr
             if self.msgstr_plural:
                 plural_index = '[%s]' % index
-                try:
-                    is_multiline_msgstr = \
-                            self._is_multiline_msgstr_plural[index]
-                except:
-                    pass
-            if is_multiline_msgstr:
-                ret += '%smsgstr%s ""\n' % (delflag, plural_index)
-                for mstr in lines:
-                    ret += '%s"%s"\n' % (delflag, mstr)
-            else:
-                ret += '%smsgstr%s "%s"\n' % (delflag, plural_index, lines[0])
-        return ret
+            ret += self.str_field("msgstr", delflag, plural_index, msgstr)
+        ret.append('')
+        return "\n".join(ret)
     ### }}}
 
 
@@ -659,7 +631,7 @@ class POEntry(_BaseEntry):
         """
         Return the string representation of the entry.
         """
-        ret = ''
+        ret = []
         # comment first, if any (with text wrapping as xgettext does)
         if self.comment != '':
             comments = _strsplit(self.comment, '\n')
@@ -669,9 +641,9 @@ class POEntry(_BaseEntry):
                                       initial_indent='#. ',
                                       subsequent_indent='#. ',
                                       break_long_words=False)
-                    ret += _strjoin('\n', lines) + '\n'
+                    _listappend(ret, lines)
                 else:
-                    ret += '#. %s\n' % comment
+                    _listappend(ret, '#. %s' % comment)
         # translator comment, if any (with text wrapping as xgettext does)
         if self.tcomment != '':
             tcomments = _strsplit(self.tcomment, '\n')
@@ -681,39 +653,38 @@ class POEntry(_BaseEntry):
                                       initial_indent='# ',
                                       subsequent_indent='# ',
                                       break_long_words=False)
-                    ret += _strjoin('\n', lines) + '\n'
+                    _listappend(ret, lines)
                 else:
-                    ret += '# %s\n' % tcomment
+                    _listappend(ret, '# %s' % tcomment)
         # occurences (with text wrapping as xgettext does)
         if self.occurences:
+            filelist = []
+            for filepath, lineno in self.occurences:
+                _listappend(filelist, '%s:%s' % (filepath, lineno))
+            filestr = _strjoin(' ', filelist)
             if wrapwidth > 0:
                 # XXX textwrap split words that contain hyphen, this is not 
                 # what we want for filenames, so the dirty hack is to 
                 # temporally replace hyphens with a char that a file cannot 
                 # contain, like "*"
-                filestr, pad = '', ''
-                for filepath, lineno in self.occurences:
-                    filestr += '%s%s:%s' % \
-                        (pad,  _strreplace(filepath, '-', '*'), lineno)
-                    pad = ' '
+                lines = _strreplace(filepath, '-', '*')
                 lines = _textwrap(filestr, wrapwidth,
                                   initial_indent='#: ',
                                   subsequent_indent='#: ',
                                   break_long_words=False)
-                ret += _strjoin('\n', lines) + '\n'
                 # end of the replace hack
-                ret = _strreplace(ret, '*', '-')
+                for line in lines:
+                    _listappend(ret, _strreplace(line, '*', '-'))
             else:
-                try:
-                    ret += '#:'
-                    for filepath, lineno in self.occurences:
-                        ret += ' %s:%s' % (filepath, lineno)
-                except IndexError:
-                    pass
+                _listappend(ret, '#: '+filestr)
         # flags
         if self.flags:
-            ret += '#, %s\n' % _strjoin(', ', self.flags)
-        return ret + _BaseEntry.__str__(self)
+            flags = []
+            for flag in self.flags:
+                _listappend(flags, flag)
+            _listappend(ret, '#, %s' % _strjoin(', ', flags))
+        _listappend(ret, _BaseEntry.__str__(self))
+        return '\n'.join(ret)
 
     def translated(self):
         """Return True if the entry has been translated or False"""
@@ -777,8 +748,7 @@ class _POFileParser:
         Keyword argument:
         fhandle -- a opened file object.
         """
-        self.instance = POFile()
-        self.instance.fhandle = fhandle
+        self.instance = POFile(fhandle=fhandle)
         self.transitions = {}
         self.current_entry = POEntry()
         self.current_state = 'ST'
@@ -909,9 +879,13 @@ class _POFileParser:
         try:
             (action, state) = self.transitions[(symbol, self.current_state)]
         except LookupError:
-            raise IOError('Invalid token in po file on line %s !' % linenum)
+            raise IOError('Syntax error in po file on line %s' % linenum)
         if action():
-            self.current_state = state
+            try:
+                self.current_state = state
+            except Exception, exc:
+                raise IOError('Syntax error in po file on line %s: %s' % \
+                    (linenum, exc))
 
     # state handlers
 
@@ -1003,7 +977,6 @@ class _POFileParser:
             index, value = self.current_token[7], self.current_token[11:-1]
             self.current_entry.msgstr_plural[index] = value
             self.msgstr_index = index
-            self.current_entry._is_multiline_msgstr_plural[index] = 0
         except:
             pass
         return 1
@@ -1012,25 +985,16 @@ class _POFileParser:
         """Handle a msgid or msgstr continuation line."""
         try:
             if self.current_state == 'MI':
-                pad = self.current_entry.msgid != '' and '\n' or ''
-                self.current_entry.msgid += pad + self.current_token[1:-1]
-                self.current_entry._is_multiline_msgid = 1
+                self.current_entry.msgid += '\n' + self.current_token[1:-1]
             elif self.current_state == 'MP':
-                pad = self.current_entry.msgid_plural != '' and '\n' or ''
-                self.current_entry.msgid_plural += pad + \
+                self.current_entry.msgid_plural += '\n' + \
                         self.current_token[1:-1]
-                self.current_entry._is_multiline_msgid_plural = 1
             elif self.current_state == 'MS':
-                pad = self.current_entry.msgstr != '' and '\n' or ''
-                self.current_entry.msgstr += pad + self.current_token[1:-1]
-                self.current_entry._is_multiline_msgstr = 1
+                self.current_entry.msgstr += '\n' + self.current_token[1:-1]
             elif self.current_state == 'MX':
                 msgstr = self.current_entry.msgstr_plural[self.msgstr_index]
-                pad = msgstr != '' and '\n' or ''
-                msgstr += pad + self.current_token[1:-1]
+                msgstr += '\n' + self.current_token[1:-1]
                 self.current_entry.msgstr_plural[self.msgstr_index] = msgstr
-                self.current_entry._is_multiline_msgstr_plural\
-                        [self.msgstr_index] = 1
         except:
             pass
         return 0
