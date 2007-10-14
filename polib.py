@@ -21,7 +21,7 @@ Basic example:
 --------------
 >>> import polib
 >>> # load an existing po file
->>> po = polib.pofile('tests/test.po')
+>>> po = polib.pofile('tests/test_utf8.po')
 >>> for entry in po:
 ...     # do something with entry...
 ...     pass
@@ -63,7 +63,8 @@ except ImportError, exc:
         ' modules "struct" and "textwrap" (details: %s)' % exc)
 ### }}}
 
-__all__ = ['pofile', 'POFile', 'POEntry', 'mofile', 'MOFile', 'MOEntry']
+__all__ = ['pofile', 'POFile', 'POEntry', 'mofile', 'MOFile', 'MOEntry',
+           'detect_encoding']
 
 ### shortcuts for performance improvement {{{
 # yes, yes, this is quite ugly but *very* efficient
@@ -94,7 +95,7 @@ def pofile(fpath, wrapwidth=78):
     Example:
     --------
     >>> import polib
-    >>> po = polib.pofile('tests/test.po')
+    >>> po = polib.pofile('tests/test_utf8.po')
     >>> po #doctest: +ELLIPSIS
     <POFile instance at ...>
     """
@@ -126,7 +127,7 @@ def mofile(fpath, wrapwidth=78):
     Example:
     --------
     >>> import polib
-    >>> mo = polib.mofile('tests/test.mo')
+    >>> mo = polib.mofile('tests/test_utf8.mo')
     >>> mo #doctest: +ELLIPSIS
     <MOFile instance at ...>
     """
@@ -140,6 +141,40 @@ def mofile(fpath, wrapwidth=78):
     instance.wrapwidth = wrapwidth
     return instance
     ### }}}
+
+
+def detect_encoding(fpath):
+    """
+    Try to detect the encoding used by the file fpath. The function will
+    return None if it's unable to detect it.
+
+    Keyword argument:
+    -----------------
+    fpath -- full or relative path to the mo file to parse.
+
+    Examples:
+    ---------
+    >>> import polib
+    >>> print polib.detect_encoding('tests/test_utf8.po')
+    UTF-8
+    >>> print polib.detect_encoding('tests/test_iso-8859-15.po')
+    ISO_8859-15
+    >>> print polib.detect_encoding('tests/test_noencoding.po')
+    None
+    """
+    ### detect_encoding {{{
+    import re
+    e = None
+    rx = re.compile(r'"Content-Type:.+? charset=(.+)\\n"')
+    f = open(fpath)
+    for l in f:
+        match = rx.match(l)
+        if match:
+            e = match.group(1).strip()
+            break
+    f.close()
+    return e
+    # }}}
 
 
 class _BaseFile(list):
@@ -378,32 +413,67 @@ class POFile(_BaseFile):
         """
         Convenience method that return the percentage of translated
         messages.
+
+        Example:
+        --------
+        >>> import polib
+        >>> po = polib.pofile('tests/test_pofile_helpers.po')
+        >>> po.percent_translated()
+        70
         """
-        total = len(self)
+        total = len([e for e in self if not e.obsolete])
         translated = len(self.translated_entries())
         return int((100.00 / float(total)) * translated)
 
     def translated_entries(self):
         """
         Convenience method that return a list of translated entries.
+
+        Example:
+        --------
+        >>> import polib
+        >>> po = polib.pofile('tests/test_pofile_helpers.po')
+        >>> len(po.translated_entries())
+        7
         """
         return [e for e in self if e.translated() and not e.obsolete]
 
     def untranslated_entries(self):
         """
         Convenience method that return a list of untranslated entries.
+
+        Example:
+        --------
+        >>> import polib
+        >>> po = polib.pofile('tests/test_pofile_helpers.po')
+        >>> len(po.untranslated_entries())
+        3
         """
         return [e for e in self if not e.translated() and not e.obsolete]
 
     def fuzzy_entries(self):
         """
         Convenience method that return the list of 'fuzzy' entries.
+
+        Example:
+        --------
+        >>> import polib
+        >>> po = polib.pofile('tests/test_pofile_helpers.po')
+        >>> len(po.untranslated_entries())
+        3
         """
         return [e for e in self if 'fuzzy' in e.flags]
 
     def obsolete_entries(self):
         """
         Convenience method that return the list of obsolete entries.
+
+        Example:
+        --------
+        >>> import polib
+        >>> po = polib.pofile('tests/test_pofile_helpers.po')
+        >>> len(po.obsolete_entries())
+        4
         """
         return [e for e in self if e.obsolete]
     ### }}}
@@ -662,7 +732,7 @@ class POEntry(_BaseEntry):
             for filepath, lineno in self.occurences:
                 _listappend(filelist, '%s:%s' % (filepath, lineno))
             filestr = _strjoin(' ', filelist)
-            if wrapwidth > 0:
+            if wrapwidth > 0 and len(filestr)+3 > wrapwidth:
                 # XXX textwrap split words that contain hyphen, this is not 
                 # what we want for filenames, so the dirty hack is to 
                 # temporally replace hyphens with a char that a file cannot 
@@ -787,71 +857,71 @@ class _POFileParser:
         Run the state machine, parse the file line by line and call process()
         with the current matched symbol.
         """
-        lines, i, lastlen = self.instance.fhandle.readlines(), 0, 0
-        for line in lines:
+        i, lastlen = 1, 0
+        for line in self.instance.fhandle:
             line = _strstrip(line)
             if line == '':
                 i = i+1
                 continue
-            if _strstartsw(line, '#~ '):
+            if line[:3] == '#~ ':
                 line = line[3:]
                 self.entry_obsolete = 1
             else:
                 self.entry_obsolete = 0
             self.current_token = line
-            if _strstartsw(line, 'msgid_plural "'):
-                # we are on a msgid plural
-                self.process('MP', i+1)
-            elif _strstartsw(line, 'msgid "'):
-                # we are on a msgid
-                self.process('MI', i+1)
-            elif _strstartsw(line, 'msgstr['):
-                # we are on a msgstr plural
-                self.process('MX', i+1)
-            elif _strstartsw(line, 'msgstr "'):
-                # we are on a msgstr
-                self.process('MS', i+1)
-            elif _strstartsw(line, '#:'):
+            if line[:2] == '#:':
                 # we are on a occurences line
-                self.process('OC', i+1)
-            elif _strstartsw(line, '"'):
+                self.process('OC', i)
+            elif line[:7] == 'msgid "':
+                # we are on a msgid
+                self.process('MI', i)
+            elif line[:8] == 'msgstr "':
+                # we are on a msgstr
+                self.process('MS', i)
+            elif line[0] == '"':
                 # we are on a continuation line or some metadata
-                self.process('MC', i+1)
-            elif _strstartsw(line, '#, '):
+                self.process('MC', i)
+            elif line[:14] == 'msgid_plural "':
+                # we are on a msgid plural
+                self.process('MP', i)
+            elif line[:7] == 'msgstr[':
+                # we are on a msgstr plural
+                self.process('MX', i)
+            elif line[:3] == '#, ':
                 # we are on a flags line
-                self.process('FL', i+1)
-            elif _strstartsw(line, '# ') or line == '#':
+                self.process('FL', i)
+            elif line[:2] == '# ' or line == '#':
                 if line == '#': line = line + ' '
                 # we are on a translator comment line
-                self.process('TC', i+1)
-            elif _strstartsw(line, '#.'):
+                self.process('TC', i)
+            elif line[:2] == '#.':
                 # we are on a generated comment line
-                self.process('GC', i+1)
+                self.process('GC', i)
             i = i+1
 
-        if lines and self.current_entry:
+        if self.current_entry:
             # since entries are added when another entry is found, we must add
             # the last entry here (only if there are lines)
             _listappend(self.instance, self.current_entry)
-            # before returning the instance, check if there's metadata and if 
-            # so extract it in a dict
-            firstentry = self.instance[0]
-            if firstentry.msgid == '': # metadata found
-                # remove the entry
-                firstentry = self.instance.pop(0)
-                self.instance.metadata_is_fuzzy = firstentry.flags
-                multiline_metadata = 0
-                for msg in _strsplit(firstentry.msgstr, '\n'):
-                    if msg != '':
-                        if multiline_metadata:
-                            self.instance.metadata[key] += '\n' + msg
-                        else:
-                            try:
-                                key, val = _strsplit(msg, ':', 1)
-                                self.instance.metadata[key] = val
-                            except:
-                                pass
-                        multiline_metadata = not _strendsw(msg, '\\n')
+        # before returning the instance, check if there's metadata and if 
+        # so extract it in a dict
+        firstentry = self.instance[0]
+        if firstentry.msgid == '': # metadata found
+            # remove the entry
+            firstentry = self.instance.pop(0)
+            self.instance.metadata_is_fuzzy = firstentry.flags
+            multiline_metadata = 0
+            for msg in _strsplit(firstentry.msgstr, '\n'):
+                if msg != '':
+                    if multiline_metadata:
+                        self.instance.metadata[key] += '\n' + msg
+                    else:
+                        try:
+                            key, val = _strsplit(msg, ':', 1)
+                            self.instance.metadata[key] = val
+                        except:
+                            pass
+                    multiline_metadata = not _strendsw(msg, '\\n')
         return self.instance
 
     def add(self, symbol, states, next_state):
@@ -878,23 +948,19 @@ class _POFileParser:
         """
         try:
             (action, state) = self.transitions[(symbol, self.current_state)]
-        except LookupError:
-            raise IOError('Syntax error in po file on line %s' % linenum)
-        if action():
-            try:
+            if action():
                 self.current_state = state
-            except Exception, exc:
-                raise IOError('Syntax error in po file on line %s: %s' % \
-                    (linenum, exc))
+        except Exception, e:
+            raise IOError('Syntax error in po file (line %s): %s' % \
+                (linenum, exc))
 
     # state handlers
 
     def handle_he(self):
         """Handle a header comment."""
-        token = self.current_token[2:]
         if self.instance.header != '':
-            token = '\n' + token
-        self.instance.header += token
+            self.instance.header += '\n'
+        self.instance.header += self.current_token[2:]
         return 1
 
     def handle_tc(self):
@@ -902,102 +968,82 @@ class _POFileParser:
         if self.current_state in ['MC', 'MS', 'MX']:
             _listappend(self.instance, self.current_entry)
             self.current_entry = POEntry()
-        token = self.current_token[2:]
         if self.current_entry.tcomment != '':
-            token = '\n' + token
-        self.current_entry.tcomment += token
-        return 1
+            self.current_entry.tcomment += '\n'
+        self.current_entry.tcomment += self.current_token[2:]
+        return True
 
     def handle_gc(self):
         """Handle a generated comment."""
         if self.current_state in ['MC', 'MS', 'MX']:
             _listappend(self.instance, self.current_entry)
             self.current_entry = POEntry()
-        token = self.current_token[3:]
         if self.current_entry.comment != '':
-            token = '\n' + token
-        self.current_entry.comment += token
-        return 1
+            self.current_entry.comment += '\n'
+        self.current_entry.comment += self.current_token[3:]
+        return True
 
     def handle_oc(self):
         """Handle a file:num occurence."""
         if self.current_state in ['MC', 'MS', 'MX']:
             _listappend(self.instance, self.current_entry)
             self.current_entry = POEntry()
-        try:
-            occurences = _strsplit(self.current_token[3:])
-            for occurence in occurences:
-                if occurence != '':
-                    fil, line = _strsplit(occurence, ':')
-                    _listappend(self.current_entry.occurences, (fil, line))
-        except:
-            pass
-        return 1
+        occurences = _strsplit(self.current_token[3:])
+        for occurence in occurences:
+            if occurence != '':
+                fil, line = _strsplit(occurence, ':')
+                _listappend(self.current_entry.occurences, (fil, line))
+        return True
 
     def handle_fl(self):
         """Handle a flags line."""
         if self.current_state in ['MC', 'MS', 'MX']:
             _listappend(self.instance, self.current_entry)
             self.current_entry = POEntry()
-        try:
-            self.current_entry.flags += _strsplit(self.current_token[3:], ', ')
-        except:
-            pass
-        return 1
+        self.current_entry.flags += _strsplit(self.current_token[3:], ', ')
+        return True
 
     def handle_mi(self):
         """Handle a msgid."""
         if self.current_state in ['MC', 'MS', 'MX']:
             _listappend(self.instance, self.current_entry)
             self.current_entry = POEntry()
-        try:
-            self.current_entry.obsolete = self.entry_obsolete
-            self.current_entry.msgid = self.current_token[7:-1]
-        except:
-            pass
-        return 1
+        self.current_entry.obsolete = self.entry_obsolete
+        self.current_entry.msgid = self.current_token[7:-1]
+        return True
 
     def handle_mp(self):
         """Handle a msgid plural."""
-        try:
-            self.current_entry.has_plural = 1
-            self.current_entry.msgid_plural = self.current_token[14:-1]
-        except:
-            pass
-        return 1
+        self.current_entry.has_plural = 1
+        self.current_entry.msgid_plural = self.current_token[14:-1]
+        return True
 
     def handle_ms(self):
         """Handle a msgstr."""
         self.current_entry.msgstr = self.current_token[8:-1]
-        return 1
+        return True
 
     def handle_mx(self):
         """Handle a msgstr plural."""
-        try:
-            index, value = self.current_token[7], self.current_token[11:-1]
-            self.current_entry.msgstr_plural[index] = value
-            self.msgstr_index = index
-        except:
-            pass
-        return 1
+        index, value = self.current_token[7], self.current_token[11:-1]
+        self.current_entry.msgstr_plural[index] = value
+        self.msgstr_index = index
+        return True
 
     def handle_mc(self):
         """Handle a msgid or msgstr continuation line."""
-        try:
-            if self.current_state == 'MI':
-                self.current_entry.msgid += '\n' + self.current_token[1:-1]
-            elif self.current_state == 'MP':
-                self.current_entry.msgid_plural += '\n' + \
-                        self.current_token[1:-1]
-            elif self.current_state == 'MS':
-                self.current_entry.msgstr += '\n' + self.current_token[1:-1]
-            elif self.current_state == 'MX':
-                msgstr = self.current_entry.msgstr_plural[self.msgstr_index]
-                msgstr += '\n' + self.current_token[1:-1]
-                self.current_entry.msgstr_plural[self.msgstr_index] = msgstr
-        except:
-            pass
-        return 0
+        if self.current_state == 'MI':
+            self.current_entry.msgid += '\n' + self.current_token[1:-1]
+        elif self.current_state == 'MP':
+            self.current_entry.msgid_plural += '\n' + self.current_token[1:-1]
+        elif self.current_state == 'MS':
+            self.current_entry.msgstr += '\n' + self.current_token[1:-1]
+        elif self.current_state == 'MX':
+            msgstr = self.current_entry.msgstr_plural[self.msgstr_index] +\
+                     '\n' + self.current_token[1:-1]
+            self.current_entry.msgstr_plural[self.msgstr_index] = msgstr
+        # don't change the current state
+        return False
     # }}}
 
 
@@ -1083,5 +1129,13 @@ class _MOFileParser:
 
 if __name__ == '__main__':
     import doctest
-    doctest.testmod()
+    import sys
+    if len(sys.argv) > 2 and sys.argv[1] == '-p':
+        def test(f):
+            p = pofile(f)
+            s = str(pofile)
+        import profile
+        profile.run('test("'+sys.argv[2]+'")')
+    else:
+        doctest.testmod()
 
