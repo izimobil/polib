@@ -8,10 +8,10 @@ polib
 :License: MIT License
 :Date: 16 oct. 2007
 
-A library to manipulate gettext catalogs files (aka .po and .mo files)
+A library to manipulate gettext files (po and mo files).
 
-polib allows you to manipulate, create, modify gettext catalogs (.pot, .po and
-.mo files).  You can load existing files, iterate through it's entries, add,
+polib allows you to manipulate, create, modify gettext files (pot, po and mo
+files).  You can load existing files, iterate through it's entries, add,
 modify entries, comments or metadata, etc... or create new po files from
 scratch.
 
@@ -86,4 +86,14 @@ Contributors
 ~~~~~~~~~~~~
 
 * Yuri Baburov <burchik@gmail.com>
+
+
+References
+----------
+
+* Gettext manual: http://www.gnu.org/software/gettext/manual/
+* PO file format:
+  http://www.gnu.org/software/gettext/manual/html_node/gettext_9.html
+* MO file format:
+  http://www.gnu.org/software/gettext/manual/html_node/gettext_136.html
 
