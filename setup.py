@@ -1,31 +1,35 @@
 #!/usr/bin/env python
-# -*- coding: latin-1 -*-
+# -*- coding: utf-8 -*-
 #
 # License: MIT (see LICENSE file provided)
+# vim600: fdm=marker tabstop=4 shiftwidth=4 expandtab ai
 
 """
 polib setup script.
 """
 
 __author__   = 'David JEAN LOUIS <izimobil@gmail.com>'
-__version__  = '0.2.0'
+__version__  = '0.3.0'
 
 from distutils.core import setup
 
-maintainer = 'David JL'
-maintainer_email = 'izimobil@gmail.com'
-desc = 'A library to manipulate gettext catalogs files (aka .po and .mo files).'
-long_desc = """polib allows you to manipulate, create, modify gettext \
-catalogs (.pot, .po and .mo files).  You can load existing files, iterate \
-through it's entries, add, modify entries, comments or metadata, etc... or \
-create new po files from scratch."""
+author_data = __author__.split(' ')
+readme_file = open('README', 'r')
+
+maintainer = ' '.join(author_data[0:-1])
+maintainer_email = author_data[-1]
+desc = 'A library to manipulate gettext files (po and mo files).'
+long_desc = '''polib provides a simple and pythonic API to manipulate, create,
+modify gettext files (pot, po and mo files).
+You can load existing files, iterate through it's entries, add, modify entries,
+comments or metadata, etc... or create new files from scratch.'''
 
 if __name__ == '__main__':
     setup(
         name='polib',
         description=desc,
         long_description=long_desc,
-        version='0.2.0',
+        version=__version__,
         author=maintainer,
         author_email=maintainer_email,
         maintainer=maintainer,
@@ -49,4 +53,4 @@ if __name__ == '__main__':
         ],
         py_modules=['polib']
     )
-# vim600: fdm=marker tabstop=4 shiftwidth=4 expandtab ai
+
