@@ -58,6 +58,7 @@ __version__  = '0.2.0'
 try:
     import struct
     import textwrap
+    import warnings
 except ImportError, exc:
     raise ImportError('polib requires python 2.3 or later with the standard' \
         ' modules "struct" and "textwrap" (details: %s)' % exc)
@@ -74,14 +75,13 @@ _listpop    = list.pop
 _strjoin    = str.join
 _strsplit   = str.split
 _strstrip   = str.strip
-_strstartsw = str.startswith
-_strendsw   = str.endswith
 _strreplace = str.replace
 _textwrap   = textwrap.wrap
 ### }}}
 
+encoding = 'utf-8'
 
-def pofile(fpath, wrapwidth=78):
+def pofile(fpath, wrapwidth=78, autodetect_encoding=True):
     """
     Convenience function that parse the po/pot file <fpath> and return
     a POFile instance.
@@ -100,6 +100,9 @@ def pofile(fpath, wrapwidth=78):
     <POFile instance at ...>
     """
     ### pofile {{{
+    if autodetect_encoding == True:
+        global encoding
+        encoding = detect_encoding(fpath)
     try:
         fhandle = open(fpath, 'r+')
     except IOError, err:
@@ -154,23 +157,23 @@ def detect_encoding(fpath):
 
     Examples:
     ---------
-    >>> import polib
-    >>> print polib.detect_encoding('tests/test_utf8.po')
+    >>> print detect_encoding('tests/test_noencoding.po')
+    utf-8
+    >>> print detect_encoding('tests/test_utf8.po')
     UTF-8
-    >>> print polib.detect_encoding('tests/test_iso-8859-15.po')
+    >>> print detect_encoding('tests/test_iso-8859-15.po')
     ISO_8859-15
-    >>> print polib.detect_encoding('tests/test_noencoding.po')
-    None
     """
     ### detect_encoding {{{
     import re
-    e = None
+    global encoding
+    e = encoding
     rx = re.compile(r'"Content-Type:.+? charset=(.+)\\n"')
     f = open(fpath)
     for l in f:
         match = rx.match(l)
         if match:
-            e = match.group(1).strip()
+            e = _strstrip(match.group(1))
             break
     f.close()
     return e
@@ -220,7 +223,7 @@ class _BaseFile(list):
         _listappend(ret, '')
         for entry in self:
             _listappend(ret, entry.__str__(self.wrapwidth))
-        return '\n'.join(ret)
+        return _strjoin('\n', ret)
 
     def __repr__(self):
         """Return the official string representation of the object."""
@@ -357,10 +360,16 @@ class POFile(_BaseFile):
     An example:
     -----------
     >>> po = POFile()
-    >>> entry1 = POEntry("Some english text", "Un texte en anglais")
+    >>> entry1 = POEntry(
+    ...     msgid="Some english text",
+    ...     msgstr="Un texte en anglais"
+    ... )
     >>> entry1.occurences = [('testfile', 12),('another_file', 1)]
     >>> entry1.comment = "Some useful comment"
-    >>> entry2 = POEntry("I need my dirty cheese", "Je veux mon sale fromage")
+    >>> entry2 = POEntry(
+    ...     msgid="I need my dirty cheese",
+    ...     msgstr="Je veux mon sale fromage"
+    ... )
     >>> entry2.occurences = [('testfile', 15),('another_file', 5)]
     >>> entry2.comment = "Another useful comment"
     >>> po.append(entry1)
@@ -396,7 +405,7 @@ class POFile(_BaseFile):
         """Return the string representation of the po file"""
         ret, headers = '', _strsplit(self.header, '\n')
         for header in headers:
-            if _strstartsw(header, ',') or _strstartsw(header, ':'):
+            if header[:1] in [',', ':']:
                 ret += '#%s\n' % header
             else:
                 ret += '# %s\n' % header
@@ -527,8 +536,14 @@ class MOFile(_BaseFile):
     An example:
     -----------
     >>> mo = MOFile()
-    >>> entry1 = POEntry("Some english text", "Un texte en anglais")
-    >>> entry2 = POEntry("I need my dirty cheese", "Je veux mon sale fromage")
+    >>> entry1 = POEntry(
+    ...     msgid="Some english text",
+    ...     msgstr="Un texte en anglais"
+    ... )
+    >>> entry2 = POEntry(
+    ...     msgid="I need my dirty cheese",
+    ...     msgstr="Je veux mon sale fromage"
+    ... )
     >>> mo.append(entry1)
     >>> mo.append(entry2)
     >>> print mo
@@ -570,22 +585,36 @@ class _BaseEntry:
     This class must *not* be instanciated directly.
     """
     ### class _BaseEntry {{{
-    def __init__(self, msgid='', msgstr=''):
+
+    def __init__(self, *args, **kwargs):
         """Base Entry constructor."""
-        self.msgid = msgid
-        self.msgstr = msgstr
-        self.msgid_plural = ''
-        self.msgstr_plural = {}
-        self.obsolete = 0
-        self.has_plural = 0
+        # compat with older versions of polib
+        try:
+            self.msgid = args[0]
+            warnings.warn('passing msgid as non keyword argument is ' \
+                'deprecated and will raise an error in version 0.4, pass ' \
+                'it as a keyword argument instead.', DeprecationWarning, 2)
+        except:
+            self.msgid = _dictget(kwargs, 'msgid', '')
+        try:
+            self.msgstr = args[1]
+            warnings.warn('passing msgstr as non keyword argument is ' \
+                'deprecated and will raise an error in version 0.4, pass ' \
+                'it as a keyword argument instead.', DeprecationWarning, 2)
+        except:
+            self.msgstr = _dictget(kwargs, 'msgstr', '')
+        self.msgid_plural = _dictget(kwargs, 'msgid_plural', '')
+        self.msgstr_plural = _dictget(kwargs, 'msgstr_plural', {})
+        self.obsolete = _dictget(kwargs, 'obsolete', False)
 
     def __repr__(self):
         """Return the official string representation of the object."""
         return '<%s instance at %d>' % (self.__class__.__name__, id(self))
 
     def str_field(self, fieldname, delflag, plural_index, field):
-        lines = _strsplit(field, '\n')
-        ret = ['%s%s%s "%s"' % (delflag, fieldname, plural_index, lines.pop(0))]
+        lines = _strsplit(self._decode(field), '\n')
+        ret = ['%s%s%s "%s"' % (delflag, fieldname, plural_index,\
+               _listpop(lines, 0))]
         if lines:
             for mstr in lines:
                 _listappend(ret, '%s"%s"' % (delflag, mstr))
@@ -618,8 +647,14 @@ class _BaseEntry:
             if self.msgstr_plural:
                 plural_index = '[%s]' % index
             ret += self.str_field("msgstr", delflag, plural_index, msgstr)
-        ret.append('')
-        return "\n".join(ret)
+        _listappend(ret, '')
+        return _strjoin('\n', ret)
+
+    def _decode(self, st):
+        if isinstance(st, unicode):
+            return st.encode(encoding)
+        return st
+
     ### }}}
 
 
@@ -668,7 +703,6 @@ class POEntry(_BaseEntry):
     msgid "Welcome"
     msgstr "Bienvenue"
     <BLANKLINE>
-
     >>> entry = POEntry()
     >>> entry.occurences = [('src/spam.c', 32), ('src/eggs.c', 45)]
     >>> entry.tcomment = 'A plural translation'
@@ -689,13 +723,13 @@ class POEntry(_BaseEntry):
     """
     ### class POEntry {{{
 
-    def __init__(self, msgid='', msgstr=''):
+    def __init__(self, *args, **kwargs):
         """POEntry constructor."""
-        _BaseEntry.__init__(self, msgid, msgstr)
-        self.occurences = []
-        self.comment    = ''
-        self.tcomment   = ''
-        self.flags      = []
+        _BaseEntry.__init__(self, *args, **kwargs)
+        self.comment = _dictget(kwargs, 'comment', '')
+        self.tcomment = _dictget(kwargs, 'tcomment', '')
+        self.occurences = _dictget(kwargs, 'occurences', [])
+        self.flags = _dictget(kwargs, 'flags', [])
 
     def __str__(self, wrapwidth=78):
         """
@@ -704,7 +738,7 @@ class POEntry(_BaseEntry):
         ret = []
         # comment first, if any (with text wrapping as xgettext does)
         if self.comment != '':
-            comments = _strsplit(self.comment, '\n')
+            comments = _strsplit(self._decode(self.comment), '\n')
             for comment in comments:
                 if wrapwidth > 0 and len(comment) > wrapwidth-3:
                     lines = _textwrap(comment, wrapwidth,
@@ -716,7 +750,7 @@ class POEntry(_BaseEntry):
                     _listappend(ret, '#. %s' % comment)
         # translator comment, if any (with text wrapping as xgettext does)
         if self.tcomment != '':
-            tcomments = _strsplit(self.tcomment, '\n')
+            tcomments = _strsplit(self._decode(self.tcomment), '\n')
             for tcomment in tcomments:
                 if wrapwidth > 0 and len(tcomment) > wrapwidth-2:
                     lines = _textwrap(tcomment, wrapwidth,
@@ -729,15 +763,15 @@ class POEntry(_BaseEntry):
         # occurences (with text wrapping as xgettext does)
         if self.occurences:
             filelist = []
-            for filepath, lineno in self.occurences:
-                _listappend(filelist, '%s:%s' % (filepath, lineno))
+            for fpath, lineno in self.occurences:
+                _listappend(filelist, '%s:%s' % (self._decode(fpath), lineno))
             filestr = _strjoin(' ', filelist)
             if wrapwidth > 0 and len(filestr)+3 > wrapwidth:
                 # XXX textwrap split words that contain hyphen, this is not 
                 # what we want for filenames, so the dirty hack is to 
                 # temporally replace hyphens with a char that a file cannot 
                 # contain, like "*"
-                lines = _strreplace(filepath, '-', '*')
+                lines = _strreplace(filestr, '-', '*')
                 lines = _textwrap(filestr, wrapwidth,
                                   initial_indent='#: ',
                                   subsequent_indent='#: ',
@@ -754,7 +788,7 @@ class POEntry(_BaseEntry):
                 _listappend(flags, flag)
             _listappend(ret, '#, %s' % _strjoin(', ', flags))
         _listappend(ret, _BaseEntry.__str__(self))
-        return '\n'.join(ret)
+        return _strjoin('\n', ret)
 
     def translated(self):
         """Return True if the entry has been translated or False"""
@@ -794,9 +828,6 @@ class MOEntry(_BaseEntry):
     <BLANKLINE>
     """
     ### class MOEntry {{{
-    def __init__(self, msgid='', msgstr=''):
-        """MOEntry constructor."""
-        _BaseEntry.__init__(self, msgid, msgstr)
 
     def __str__(self, wrapwidth=78):
         """
@@ -878,7 +909,7 @@ class _POFileParser:
             elif line[:8] == 'msgstr "':
                 # we are on a msgstr
                 self.process('MS', i)
-            elif line[0] == '"':
+            elif line[:1] == '"':
                 # we are on a continuation line or some metadata
                 self.process('MC', i)
             elif line[:14] == 'msgid_plural "':
@@ -908,7 +939,7 @@ class _POFileParser:
         firstentry = self.instance[0]
         if firstentry.msgid == '': # metadata found
             # remove the entry
-            firstentry = self.instance.pop(0)
+            firstentry = _listpop(self.instance, 0)
             self.instance.metadata_is_fuzzy = firstentry.flags
             multiline_metadata = 0
             for msg in _strsplit(firstentry.msgstr, '\n'):
@@ -921,7 +952,7 @@ class _POFileParser:
                             self.instance.metadata[key] = val
                         except:
                             pass
-                    multiline_metadata = not _strendsw(msg, '\\n')
+                    multiline_metadata = not msg.endswith('\\n')
         return self.instance
 
     def add(self, symbol, states, next_state):
@@ -1014,7 +1045,6 @@ class _POFileParser:
 
     def handle_mp(self):
         """Handle a msgid plural."""
-        self.current_entry.has_plural = 1
         self.current_entry.msgid_plural = self.current_token[14:-1]
         return True
 
@@ -1109,7 +1139,7 @@ class _MOFileParser:
                             metadata[tokens[0]] = ''
                 self.instance.metadata = metadata
                 continue
-            entry = MOEntry(msgid, msgstr)
+            entry = MOEntry(msgid=msgid, msgstr=msgstr)
             _listappend(self.instance, entry)
         return self.instance
 
@@ -1133,7 +1163,7 @@ if __name__ == '__main__':
     if len(sys.argv) > 2 and sys.argv[1] == '-p':
         def test(f):
             p = pofile(f)
-            s = str(pofile)
+            s = str(p)
         import profile
         profile.run('test("'+sys.argv[2]+'")')
     else:
