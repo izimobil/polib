@@ -6,16 +6,17 @@
 
 # Description {{{
 """
-`polib` allows you to manipulate, create, modify gettext files (pot, po and
-mo files).  You can load existing files, iterate through it's entries, add,
-modify entries, comments or metadata, etc... or create new po files from
-scratch.
+**polib** allows you to manipulate, create, modify gettext files (pot, po
+and mo files).  You can load existing files, iterate through it's entries,
+add, modify entries, comments or metadata, etc... or create new po files
+from scratch.
 
-`polib` provides a simple and pythonic API, exporting only three convenience
-functions 'pofile', 'mofile' and 'detect_encoding', and the 4 core classes:
-POFile, MOFile, POEntry and MOEntry for creating new files/entries.
+**polib** provides a simple and pythonic API, exporting only three
+convenience functions (*pofile*, *mofile* and *detect_encoding*), and the
+four core classes, *POFile*, *MOFile*, *POEntry* and *MOEntry* for creating
+new files/entries.
 
-`Basic example`::
+**Basic example**:
 
 >>> import polib
 >>> # load an existing po file
@@ -67,17 +68,17 @@ encoding = 'utf-8'
 
 def pofile(fpath, wrapwidth=78, autodetect_encoding=True):
     """
-    Convenience function that parse the po/pot file `fpath` and return
+    Convenience function that parse the po/pot file *fpath* and return
     a POFile instance.
 
-    `Keyword arguments`:
-    - `fpath`: string, full or relative path to the po/pot file to parse
-    - `wrapwidth`: integer, the wrap width, only useful when -w option was
-      passed to xgettext, default to 78 (optional)
-    - `autodetect_encoding`: boolean, if set to False the function will
-       not try to detect the po file encoding
+    **Keyword arguments**:
+      - *fpath*: string, full or relative path to the po/pot file to parse
+      - *wrapwidth*: integer, the wrap width, only useful when -w option was
+        passed to xgettext, default to 78 (optional)
+      - *autodetect_encoding*: boolean, if set to False the function will
+        not try to detect the po file encoding
 
-    `Example`::
+    **Example**:
 
     >>> import polib
     >>> po = polib.pofile('tests/test_utf8.po')
@@ -97,18 +98,18 @@ def pofile(fpath, wrapwidth=78, autodetect_encoding=True):
 
 def mofile(fpath, wrapwidth=78, autodetect_encoding=True):
     """
-    Convenience function that parse the mo file <fpath> and return
+    Convenience function that parse the mo file *fpath* and return
     a MOFile instance.
 
-    `Keyword arguments`:
-    - `fpath`: string, full or relative path to the mo file to parse
-    - `wrapwidth`: integer, the wrap width, only useful when -w option was
-      passed to xgettext to generate the po file that was used to format
-      the mo file, default to 78 (optional)
-    - `autodetect_encoding`: boolean, if set to False the function will
-       not try to detect the po file encoding
+    **Keyword arguments**:
+      - *fpath*: string, full or relative path to the mo file to parse
+      - *wrapwidth*: integer, the wrap width, only useful when -w option was
+        passed to xgettext to generate the po file that was used to format
+        the mo file, default to 78 (optional)
+      - *autodetect_encoding*: boolean, if set to False the function will
+        not try to detect the po file encoding
 
-    `Example`::
+    **Example**:
 
     >>> import polib
     >>> mo = polib.mofile('tests/test_utf8.mo')
@@ -128,13 +129,13 @@ def mofile(fpath, wrapwidth=78, autodetect_encoding=True):
 
 def detect_encoding(fpath):
     """
-    Try to detect the encoding used by the file fpath. The function will
-    return polib default `encoding` if it's unable to detect it.
+    Try to detect the encoding used by the file *fpath*. The function will
+    return polib default *encoding* if it's unable to detect it.
 
-    `Keyword argument`:
-    - `fpath`: string, full or relative path to the mo file to parse.
+    **Keyword argument**:
+      - *fpath*: string, full or relative path to the mo file to parse.
 
-    `Examples`::
+    **Examples**:
 
     >>> print detect_encoding('tests/test_noencoding.po')
     utf-8
@@ -166,7 +167,7 @@ def detect_encoding(fpath):
 class _BaseFile(list):
     """
     Common parent class for POFile and MOFile classes.
-    This class must `not` be instanciated directly.
+    This class must **not** be instanciated directly.
     """
     # class _BaseFile {{{
 
@@ -175,11 +176,11 @@ class _BaseFile(list):
         """
         Constructor.
 
-        `Keyword arguments`:
-        - `fpath`: string, path to po or mo file
-        - `wrapwidth`: integer, the wrap width, only useful when -w option
-          was passed to xgettext to generate the po file that was used to
-          format the mo file, default to 78 (optional).
+        **Keyword arguments**:
+          - *fpath*: string, path to po or mo file
+          - *wrapwidth*: integer, the wrap width, only useful when -w option
+            was passed to xgettext to generate the po file that was used to
+            format the mo file, default to 78 (optional).
         """
         list.__init__(self)
         # the opened file handle
@@ -222,14 +223,14 @@ class _BaseFile(list):
 
     def save(self, fpath=None, repr_method='__str__'):
         """
-        Save the po file to file `fpath` if no file handle exists for
+        Save the po file to file *fpath* if no file handle exists for
         the object. If there's already an open file and no fpath is
         provided, then the existing file is rewritten with the modified
         data.
 
-        `Keyword arguments`:
-        - `fpath`: string, full or relative path to the file.
-        - `repr_method`: string, the method to use for output.
+        **Keyword arguments**:
+          - *fpath*: string, full or relative path to the file.
+          - *repr_method*: string, the method to use for output.
         """
         if self.fpath is None and fpath is None:
             raise IOError('You must provide a file path to save() method')
@@ -347,7 +348,7 @@ class POFile(_BaseFile):
     Po (or Pot) file reader/writer.
     POFile objects inherit the list objects methods.
 
-    `Example`::
+    **Example**:
 
     >>> po = POFile()
     >>> entry1 = POEntry(
@@ -395,10 +396,10 @@ class POFile(_BaseFile):
 
     def save_as_mofile(self, fpath):
         """
-        Save the binary representation of the file to `fpath`.
+        Save the binary representation of the file to *fpath*.
 
-        `Keyword arguments`:
-        - `fpath`: string, full or relative path to the file.
+        **Keyword arguments**:
+          - *fpath*: string, full or relative path to the file.
         """
         _BaseFile.save(self, fpath, 'to_binary')
 
@@ -407,7 +408,7 @@ class POFile(_BaseFile):
         Convenience method that return the percentage of translated
         messages.
 
-        `Example`::
+        **Example**:
 
         >>> import polib
         >>> po = polib.pofile('tests/test_pofile_helpers.po')
@@ -422,7 +423,7 @@ class POFile(_BaseFile):
         """
         Convenience method that return a list of translated entries.
 
-        `Example`::
+        **Example**:
 
         >>> import polib
         >>> po = polib.pofile('tests/test_pofile_helpers.po')
@@ -435,7 +436,7 @@ class POFile(_BaseFile):
         """
         Convenience method that return a list of untranslated entries.
 
-        `Example`::
+        **Example**:
 
         >>> import polib
         >>> po = polib.pofile('tests/test_pofile_helpers.po')
@@ -448,7 +449,7 @@ class POFile(_BaseFile):
         """
         Convenience method that return the list of 'fuzzy' entries.
 
-        `Example`::
+        **Example**:
 
         >>> import polib
         >>> po = polib.pofile('tests/test_pofile_helpers.po')
@@ -461,7 +462,7 @@ class POFile(_BaseFile):
         """
         Convenience method that return the list of obsolete entries.
 
-        `Example`::
+        **Example**:
 
         >>> import polib
         >>> po = polib.pofile('tests/test_pofile_helpers.po')
@@ -477,7 +478,7 @@ class MOFile(_BaseFile):
     Mo file reader/writer.
     MOFile objects inherit the list objects methods.
 
-    `Example`::
+    **Example**:
 
     >>> mo = MOFile()
     >>> entry1 = POEntry(
@@ -514,19 +515,19 @@ class MOFile(_BaseFile):
 
     def save_as_pofile(self, fpath):
         """
-        Save the string representation of the file to `fpath`.
+        Save the string representation of the file to *fpath*.
 
-        `Keyword arguments`:
-        - `fpath`: string, full or relative path to the file.
+        **Keyword argument**:
+          - *fpath*: string, full or relative path to the file.
         """
         _BaseFile.save(self, fpath)
 
     def save(self, fpath):
         """
-        Save the binary representation of the file to `fpath`.
+        Save the binary representation of the file to *fpath*.
 
-        `Keyword arguments`:
-        - `fpath`: string, full or relative path to the file.
+        **Keyword argument**:
+          - *fpath*: string, full or relative path to the file.
         """
         _BaseFile.save(self, fpath, 'to_binary')
     # }}}
@@ -535,7 +536,7 @@ class MOFile(_BaseFile):
 class _BaseEntry:
     """
     Base class for POEntry or MOEntry objects.
-    This class must `not` be instanciated directly.
+    This class must *not* be instanciated directly.
     """
     # class _BaseEntry {{{
 
@@ -615,12 +616,9 @@ class POEntry(_BaseEntry):
     """
     Represents a po file entry.
 
-    `Examples`::
+    **Examples**:
 
-    >>> entry = POEntry(
-    ...     msgid='Welcome', 
-    ...     msgstr='Bienvenue',
-    ... )
+    >>> entry = POEntry(msgid='Welcome', msgstr='Bienvenue')
     >>> entry.occurences = [('welcome.py', 12), ('anotherfile.py', 34)]
     >>> print entry
     #: welcome.py:12 anotherfile.py:34
@@ -725,7 +723,7 @@ class MOEntry(_BaseEntry):
     """
     Represents a mo file entry.
 
-    `Examples`::
+    **Examples**:
 
     >>> entry = MOEntry()
     >>> entry.msgid  = 'translate me !'
@@ -755,8 +753,8 @@ class _POFileParser:
         """
         Constructor.
 
-        `Keyword argument`:
-        - `fpath`: string, path to the po file
+        **Keyword argument**:
+          - *fpath*: string, path to the po file
         """
         self.fhandle = open(fpath, 'r+')
         self.instance = POFile(fpath=fpath)
@@ -1072,9 +1070,9 @@ class _MOFileParser:
 
 if __name__ == '__main__':
     """
-    `Main function`:
-    - to `test` the module just run: python polib.py [-v]
-    - to `profile` the module: python polib.py -p <some_pofile.po>
+    **Main function**::
+      - to **test** the module just run: *python polib.py [-v]*
+      - to **profile** the module: *python polib.py -p <some_pofile.po>*
     """
     # main function {{{
     import sys
