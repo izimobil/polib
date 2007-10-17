@@ -29,12 +29,13 @@ POFile, MOFile, POEntry and MOEntry for creating new files/entries.
 >>> po.append(entry)
 >>> # to save our modified po file:
 >>> # po.save()
+>>> # or you may want to compile the po file
+>>> # po.save_as_mofile('tests/test_utf8.mo')
 """
 # }}}
 
 __author__    = 'David JEAN LOUIS <izimobil@gmail.com>'
 __version__   = '0.3.0'
-__docformat__ = 'reStructuredText'
 
 
 # dependencies {{{
@@ -73,6 +74,8 @@ def pofile(fpath, wrapwidth=78, autodetect_encoding=True):
     - `fpath`: string, full or relative path to the po/pot file to parse
     - `wrapwidth`: integer, the wrap width, only useful when -w option was
       passed to xgettext, default to 78 (optional)
+    - `autodetect_encoding`: boolean, if set to False the function will
+       not try to detect the po file encoding
 
     `Example`::
 
@@ -85,18 +88,14 @@ def pofile(fpath, wrapwidth=78, autodetect_encoding=True):
     if autodetect_encoding == True:
         global encoding
         encoding = detect_encoding(fpath)
-    try:
-        fhandle = open(fpath, 'r+')
-    except IOError, err:
-        raise IOError('Unable to open the po file "%s": %s' % (fpath, err))
-    parser = _POFileParser(fhandle)
+    parser = _POFileParser(fpath)
     instance = parser.parse()
     instance.wrapwidth = wrapwidth
     return instance
     # }}}
 
 
-def mofile(fpath, wrapwidth=78):
+def mofile(fpath, wrapwidth=78, autodetect_encoding=True):
     """
     Convenience function that parse the mo file <fpath> and return
     a MOFile instance.
@@ -105,7 +104,9 @@ def mofile(fpath, wrapwidth=78):
     - `fpath`: string, full or relative path to the mo file to parse
     - `wrapwidth`: integer, the wrap width, only useful when -w option was
       passed to xgettext to generate the po file that was used to format
-      the mo file, default to 78 (optional).
+      the mo file, default to 78 (optional)
+    - `autodetect_encoding`: boolean, if set to False the function will
+       not try to detect the po file encoding
 
     `Example`::
 
@@ -115,11 +116,10 @@ def mofile(fpath, wrapwidth=78):
     <MOFile instance at ...>
     """
     # mofile {{{
-    try:
-        fhandle = open(fpath, 'r+')
-    except IOError, err:
-        raise IOError('Unable to open the mo file "%s": %s' % (fpath, err))
-    parser = _MOFileParser(fhandle)
+    if autodetect_encoding == True:
+        global encoding
+        encoding = detect_encoding(fpath)
+    parser = _MOFileParser(fpath)
     instance = parser.parse()
     instance.wrapwidth = wrapwidth
     return instance
@@ -140,17 +140,21 @@ def detect_encoding(fpath):
     utf-8
     >>> print detect_encoding('tests/test_utf8.po')
     UTF-8
+    >>> print detect_encoding('tests/test_utf8.mo')
+    UTF-8
     >>> print detect_encoding('tests/test_iso-8859-15.po')
+    ISO_8859-15
+    >>> print detect_encoding('tests/test_iso-8859-15.mo')
     ISO_8859-15
     """
     # detect_encoding {{{
     import re
     global encoding
     e = encoding
-    rx = re.compile(r'"Content-Type:.+? charset=(.+)\\n"')
+    rx = re.compile(r'"?Content-Type:.+? charset=([\w_\-:\.]+)')
     f = open(fpath)
     for l in f:
-        match = rx.match(l)
+        match = rx.search(l)
         if match:
             e = _strstrip(match.group(1))
             break
@@ -166,21 +170,24 @@ class _BaseFile(list):
     """
     # class _BaseFile {{{
 
-    def __init__(self, fhandle=None, wrapwidth=78):
+
+    def __init__(self, fpath=None, wrapwidth=78):
         """
         Constructor.
 
         `Keyword arguments`:
-        - `fhandle`: file object, an opened po or mo file
+        - `fpath`: string, path to po or mo file
         - `wrapwidth`: integer, the wrap width, only useful when -w option
           was passed to xgettext to generate the po file that was used to
           format the mo file, default to 78 (optional).
         """
         list.__init__(self)
         # the opened file handle
-        self.fhandle = fhandle
+        self.fpath = fpath
         # the width at which lines should be wrapped
         self.wrapwidth = wrapwidth
+        # header
+        self.header = ''
         # both po and mo files have metadata
         self.metadata = {}
         self.metadata_is_fuzzy = 0
@@ -188,25 +195,30 @@ class _BaseFile(list):
     def __str__(self):
         """String representation of the file."""
         ret = []
-        if self.metadata_is_fuzzy:
-            _listappend(ret, '#, fuzzy')
-        _listappend(ret, 'msgid ""')
-        _listappend(ret, 'msgstr ""')
-        for name, value in self.ordered_metadata():
-            values = _strsplit(value, '\n')
-            for i, value in enumerate(values): # handle multiline metadata
-                if i == 0:
-                    _listappend(ret, '"%s: %s"' % (name, _strstrip(value)))
-                else:
-                    _listappend(ret, '"%s"' % _strstrip(value))
-        _listappend(ret, '')
-        for entry in self:
+        entries = [self.metadata_as_entry()] + self
+        for entry in entries:
             _listappend(ret, entry.__str__(self.wrapwidth))
         return _strjoin('\n', ret)
 
     def __repr__(self):
         """Return the official string representation of the object."""
         return '<%s instance at %d>' % (self.__class__.__name__, id(self))
+
+    def metadata_as_entry(self):
+        """Return the metadata as an entry"""
+        e = POEntry(msgid='')
+        mdata = self.ordered_metadata()
+        if mdata:
+            strs = ['']
+            for name, value in mdata:
+                values = _strsplit(value, '\n')
+                for i, value in enumerate(values): # handle multiline metadata
+                    if i == 0:
+                        _listappend(strs, '%s: %s' % (name, _strstrip(value)))
+                    else:
+                        _listappend(strs, '%s' % _strstrip(value))
+            e.msgstr = _strjoin('\n', strs)
+        return e
 
     def save(self, fpath=None, repr_method='__str__'):
         """
@@ -219,15 +231,14 @@ class _BaseFile(list):
         - `fpath`: string, full or relative path to the file.
         - `repr_method`: string, the method to use for output.
         """
-        if self.fhandle is None and fpath is None:
+        if self.fpath is None and fpath is None:
             raise IOError('You must provide a file path to save() method')
         contents = getattr(self, repr_method)()
         if fpath is None:
-            self.fhandle.seek(0)
-            self.fhandle.truncate()
-        else:
-            self.fhandle = open(fpath, 'w')
-        self.fhandle.write(contents)
+            fpath = self.fpath
+        fhandle = open(fpath, 'w')
+        fhandle.write(contents)
+        fhandle.close()
 
     def ordered_metadata(self):
         """
@@ -279,7 +290,55 @@ class _BaseFile(list):
 
     def to_binary(self):
         """Return the mofile binary representation."""
-        raise NotImplementedError('MOFile.to_binary is not yet implemented.')
+        import struct
+        import array
+        output = ''
+        offsets = []
+        ids = strs = ''
+        entries = self.translated_entries()
+        # the keys are sorted in the .mo file
+        def cmp(_self, other):
+            if _self.msgid > other.msgid:
+                return 1
+            elif _self.msgid < other.msgid:
+                return -1
+            else:
+                return 0
+        entries.sort(cmp)
+        # add metadata entry
+        mentry = self.metadata_as_entry()
+        mentry.msgstr = mentry.msgstr.replace('\\n', '').lstrip() + '\n'
+        entries = [mentry] + entries
+        entries_len = len(entries)
+        for e in entries:
+            # For each string, we need size and file offset.  Each string is NUL
+            # terminated; the NUL does not count into the size.
+            offsets.append((len(ids), len(e.msgid), len(strs), len(e.msgstr)))
+            ids  += e._decode(e.msgid)  + '\0'
+            strs += e._decode(e.msgstr) + '\0'
+        # The header is 7 32-bit unsigned integers.
+        keystart = 7*4+16*entries_len
+        # and the values start after the keys
+        valuestart = keystart + len(ids)
+        koffsets = []
+        voffsets = []
+        # The string table first has the list of keys, then the list of values.
+        # Each entry has first the size of the string, then the file offset.
+        for o1, l1, o2, l2 in offsets:
+            koffsets += [l1, o1+keystart]
+            voffsets += [l2, o2+valuestart]
+        offsets = koffsets + voffsets
+        output = struct.pack("Iiiiiii",
+                             0x950412de,        # Magic number
+                             0,                 # Version
+                             entries_len,       # # of entries
+                             7*4,               # start of key index
+                             7*4+entries_len*8, # start of value index
+                             0, 0)              # size and offset of hash table
+        output += array.array("i", offsets).tostring()
+        output += ids
+        output += strs
+        return output
     # }}}
 
 
@@ -324,15 +383,6 @@ class POFile(_BaseFile):
     '''
     # class POFile {{{
 
-    def __init__(self, fhandle=None, wrapwidth=78):
-        """
-        POFile constructor.
-        See _BaseFile.__construct.
-        """
-        # the po file header
-        self.header = ''
-        _BaseFile.__init__(self, fhandle, wrapwidth)
-
     def __str__(self):
         """Return the string representation of the po file"""
         ret, headers = '', _strsplit(self.header, '\n')
@@ -362,7 +412,7 @@ class POFile(_BaseFile):
         >>> import polib
         >>> po = polib.pofile('tests/test_pofile_helpers.po')
         >>> po.percent_translated()
-        70
+        50
         """
         total = len([e for e in self if not e.obsolete])
         translated = len(self.translated_entries())
@@ -377,7 +427,7 @@ class POFile(_BaseFile):
         >>> import polib
         >>> po = polib.pofile('tests/test_pofile_helpers.po')
         >>> len(po.translated_entries())
-        7
+        5
         """
         return [e for e in self if e.translated() and not e.obsolete]
 
@@ -390,7 +440,7 @@ class POFile(_BaseFile):
         >>> import polib
         >>> po = polib.pofile('tests/test_pofile_helpers.po')
         >>> len(po.untranslated_entries())
-        3
+        5
         """
         return [e for e in self if not e.translated() and not e.obsolete]
 
@@ -402,8 +452,8 @@ class POFile(_BaseFile):
 
         >>> import polib
         >>> po = polib.pofile('tests/test_pofile_helpers.po')
-        >>> len(po.untranslated_entries())
-        3
+        >>> len(po.fuzzy_entries())
+        2
         """
         return [e for e in self if 'fuzzy' in e.flags]
 
@@ -453,12 +503,12 @@ class MOFile(_BaseFile):
     '''
     # class MOFile {{{
 
-    def __init__(self, fhandle=None, wrapwidth=78):
+    def __init__(self, fpath=None, wrapwidth=78):
         """
         MOFile constructor.
         See _BaseFile.__construct.
         """
-        _BaseFile.__init__(self, fhandle, wrapwidth)
+        _BaseFile.__init__(self, fpath, wrapwidth)
         self.magic_number = None
         self.version = 0
 
@@ -666,7 +716,8 @@ class POEntry(_BaseEntry):
 
     def translated(self):
         """Return True if the entry has been translated or False"""
-        return self.msgstr != '' or self.msgstr_plural
+        return ((self.msgstr != '' or self.msgstr_plural) and \
+                (not self.obsolete and 'fuzzy' not in self.flags))
     # }}}
 
 
@@ -700,13 +751,15 @@ class _POFileParser:
     file format.
     """
     # class _POFileParser {{{
-    def __init__(self, fhandle):
+    def __init__(self, fpath):
         """
         Constructor.
-        Keyword argument:
-        fhandle -- a opened file object.
+
+        `Keyword argument`:
+        - `fpath`: string, path to the po file
         """
-        self.instance = POFile(fhandle=fhandle)
+        self.fhandle = open(fpath, 'r+')
+        self.instance = POFile(fpath=fpath)
         self.transitions = {}
         self.current_entry = POEntry()
         self.current_state = 'ST'
@@ -746,7 +799,7 @@ class _POFileParser:
         with the current matched symbol.
         """
         i, lastlen = 1, 0
-        for line in self.instance.fhandle:
+        for line in self.fhandle:
             line = _strstrip(line)
             if line == '':
                 i = i+1
@@ -810,6 +863,8 @@ class _POFileParser:
                         except:
                             pass
                     multiline_metadata = not msg.endswith('\\n')
+        # close opened file
+        self.fhandle.close()
         return self.instance
 
     def add(self, symbol, states, next_state):
@@ -939,11 +994,10 @@ class _MOFileParser:
     A class to parse binary mo files.
     """
     # class _MOFileParser {{{
-    def __init__(self, fhandle):
+    def __init__(self, fpath):
         """_MOFileParser constructor."""
-        self.instance = MOFile()
-        self.instance.fhandle = fhandle
-        self.fhandle = fhandle
+        self.fhandle = open(fpath, 'r+b')
+        self.instance = MOFile(fpath)
 
     def parse_magicnumber(self):
         """
@@ -998,6 +1052,8 @@ class _MOFileParser:
                 continue
             entry = MOEntry(msgid=msgid, msgstr=msgstr)
             _listappend(self.instance, entry)
+        # close opened file
+        self.fhandle.close()
         return self.instance
 
     def _readbinary(self, fmt='c'):
