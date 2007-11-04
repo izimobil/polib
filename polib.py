@@ -36,14 +36,13 @@ new files/entries.
 # }}}
 
 __author__    = 'David JEAN LOUIS <izimobil@gmail.com>'
-__version__   = '0.3.0'
+__version__   = '0.4.0'
 
 
 # dependencies {{{
 try:
     import struct
     import textwrap
-    import warnings
 except ImportError, exc:
     raise ImportError('polib requires python 2.3 or later with the standard' \
         ' modules "struct", "textwrap" and "warnings" (details: %s)' % exc)
@@ -54,7 +53,6 @@ __all__ = ['pofile', 'POFile', 'POEntry', 'mofile', 'MOFile', 'MOEntry',
 
 # shortcuts for performance improvement {{{
 # yes, yes, this is quite ugly but *very* efficient
-_dictget    = dict.get
 _listappend = list.append
 _listpop    = list.pop
 _strjoin    = str.join
@@ -237,7 +235,10 @@ class _BaseFile(list):
         contents = getattr(self, repr_method)()
         if fpath is None:
             fpath = self.fpath
-        fhandle = open(fpath, 'w')
+        mode = 'w'
+        if repr_method == 'to_binary':
+            mode += 'b'
+        fhandle = open(fpath, mode)
         fhandle.write(contents)
         fhandle.close()
 
@@ -273,21 +274,6 @@ class _BaseFile(list):
             value = metadata[data]
             _listappend(ordered_data, (data, value))
         return ordered_data
-
-    def charset(self):
-        """
-        Return the file encoding charset.
-        If the charset cannot be found in metadata, the function returns
-        None.
-        """
-        try:
-            charset = _strsplit(self.metadata['Content-Type'], 'charset=')[1]
-            charset = _strstrip(charset)
-        except LookupError:
-            charset = None
-        if charset == '':
-            charset = None
-        return charset
 
     def to_binary(self):
         """Return the mofile binary representation."""
@@ -542,24 +528,12 @@ class _BaseEntry:
 
     def __init__(self, *args, **kwargs):
         """Base Entry constructor."""
-        # compat with older versions of polib
-        try:
-            self.msgid = args[0]
-            warnings.warn('passing msgid as non keyword argument is ' \
-                'deprecated and will raise an error in version 0.4, pass ' \
-                'it as a keyword argument instead.', DeprecationWarning, 2)
-        except:
-            self.msgid = _dictget(kwargs, 'msgid', '')
-        try:
-            self.msgstr = args[1]
-            warnings.warn('passing msgstr as non keyword argument is ' \
-                'deprecated and will raise an error in version 0.4, pass ' \
-                'it as a keyword argument instead.', DeprecationWarning, 2)
-        except:
-            self.msgstr = _dictget(kwargs, 'msgstr', '')
-        self.msgid_plural = _dictget(kwargs, 'msgid_plural', '')
-        self.msgstr_plural = _dictget(kwargs, 'msgstr_plural', {})
-        self.obsolete = _dictget(kwargs, 'obsolete', False)
+        self.msgid = ''
+        self.msgstr = ''
+        self.msgid_plural = ''
+        self.msgstr_plural = {}
+        self.obsolete = False
+        self.__dict__.update(kwargs)
 
     def __repr__(self):
         """Return the official string representation of the object."""
@@ -648,10 +622,11 @@ class POEntry(_BaseEntry):
     def __init__(self, *args, **kwargs):
         """POEntry constructor."""
         _BaseEntry.__init__(self, *args, **kwargs)
-        self.comment = _dictget(kwargs, 'comment', '')
-        self.tcomment = _dictget(kwargs, 'tcomment', '')
-        self.occurences = _dictget(kwargs, 'occurences', [])
-        self.flags = _dictget(kwargs, 'flags', [])
+        self.comment = ''
+        self.tcomment = ''
+        self.occurences = []
+        self.flags = []
+        self.__dict__.update(kwargs)
 
     def __str__(self, wrapwidth=78):
         """
@@ -756,7 +731,7 @@ class _POFileParser:
         **Keyword argument**:
           - *fpath*: string, path to the po file
         """
-        self.fhandle = open(fpath, 'r+')
+        self.fhandle = open(fpath, 'r')
         self.instance = POFile(fpath=fpath)
         self.transitions = {}
         self.current_entry = POEntry()
@@ -994,7 +969,7 @@ class _MOFileParser:
     # class _MOFileParser {{{
     def __init__(self, fpath):
         """_MOFileParser constructor."""
-        self.fhandle = open(fpath, 'r+b')
+        self.fhandle = open(fpath, 'rb')
         self.instance = MOFile(fpath)
 
     def parse_magicnumber(self):
@@ -1048,6 +1023,9 @@ class _MOFileParser:
                             metadata[tokens[0]] = ''
                 self.instance.metadata = metadata
                 continue
+            # escape double quotes
+            msgid  = msgid.replace('"', '\\"')
+            msgstr = msgstr.replace('"', '\\"')
             entry = MOEntry(msgid=msgid, msgstr=msgstr)
             _listappend(self.instance, entry)
         # close opened file
@@ -1078,8 +1056,12 @@ if __name__ == '__main__':
     import sys
     if len(sys.argv) > 2 and sys.argv[1] == '-p':
         def test(f):
-            p = pofile(f)
+            if f.endswith('po'):
+                p = pofile(f)
+            else:
+                p = mofile(f)
             s = str(p)
+            print s
         import profile
         profile.run('test("'+sys.argv[2]+'")')
     else:
