@@ -53,6 +53,7 @@ __all__ = ['pofile', 'POFile', 'POEntry', 'mofile', 'MOFile', 'MOEntry',
 
 # shortcuts for performance improvement {{{
 # yes, yes, this is quite ugly but *very* efficient
+_dictget    = dict.get
 _listappend = list.append
 _listpop    = list.pop
 _strjoin    = str.join
@@ -528,12 +529,11 @@ class _BaseEntry:
 
     def __init__(self, *args, **kwargs):
         """Base Entry constructor."""
-        self.msgid = ''
-        self.msgstr = ''
-        self.msgid_plural = ''
-        self.msgstr_plural = {}
-        self.obsolete = False
-        self.__dict__.update(kwargs)
+        self.msgid = _dictget(kwargs, 'msgid', '')
+        self.msgstr = _dictget(kwargs, 'msgstr', '')
+        self.msgid_plural = _dictget(kwargs, 'msgid_plural', '')
+        self.msgstr_plural = _dictget(kwargs, 'msgstr_plural', {})
+        self.obsolete = _dictget(kwargs, 'obsolete', False)
 
     def __repr__(self):
         """Return the official string representation of the object."""
@@ -622,11 +622,10 @@ class POEntry(_BaseEntry):
     def __init__(self, *args, **kwargs):
         """POEntry constructor."""
         _BaseEntry.__init__(self, *args, **kwargs)
-        self.comment = ''
-        self.tcomment = ''
-        self.occurences = []
-        self.flags = []
-        self.__dict__.update(kwargs)
+        self.comment = _dictget(kwargs, 'comment', '')
+        self.tcomment = _dictget(kwargs, 'tcomment', '')
+        self.occurences = _dictget(kwargs, 'occurences', [])
+        self.flags = _dictget(kwargs, 'flags', [])
 
     def __str__(self, wrapwidth=78):
         """
@@ -1061,7 +1060,6 @@ if __name__ == '__main__':
             else:
                 p = mofile(f)
             s = str(p)
-            print s
         import profile
         profile.run('test("'+sys.argv[2]+'")')
     else:
