@@ -63,6 +63,7 @@ Basic usage example
 >>> # save our modified po file
 >>> po.save()
 
+
 Documentation
 -------------
 
@@ -71,6 +72,7 @@ A complete tutorial is available here:
 
 The api docs can be found here:
   http://www.izimobil.org/polib/api/
+
 
 Development
 -----------
