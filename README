@@ -63,6 +63,14 @@ Basic usage example
 >>> # save our modified po file
 >>> po.save()
 
+Documentation
+-------------
+
+A complete tutorial is available here:
+  http://code.google.com/p/polib/wiki/Tutorial
+
+The api docs can be found here:
+  http://www.izimobil.org/polib/api/
 
 Development
 -----------
@@ -86,6 +94,7 @@ Contributors
 ~~~~~~~~~~~~
 
 * Yuri Baburov <burchik@gmail.com>
+* Anders Quist
 
 
 References
