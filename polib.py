@@ -26,7 +26,7 @@ new files/entries.
 ...     pass
 >>> # add an entry
 >>> entry = polib.POEntry(msgid='Welcome', msgstr='Bienvenue')
->>> entry.occurences = [('welcome.py', '12'), ('anotherfile.py', '34')]
+>>> entry.occurrences = [('welcome.py', '12'), ('anotherfile.py', '34')]
 >>> po.append(entry)
 >>> # to save our modified po file:
 >>> # po.save()
@@ -43,6 +43,7 @@ __version__   = '0.4.0'
 try:
     import struct
     import textwrap
+    import warnings
 except ImportError, exc:
     raise ImportError('polib requires python 2.3 or later with the standard' \
         ' modules "struct", "textwrap" and "warnings" (details: %s)' % exc)
@@ -179,7 +180,8 @@ def detect_encoding(fpath):
     # detect_encoding {{{
     import re
     global encoding
-    e = encoding
+    encoding = 'utf-8'
+    e = None
     rx = re.compile(r'"?Content-Type:.+? charset=([\w_\-:\.]+)')
     f = open(fpath)
     for l in f:
@@ -188,7 +190,9 @@ def detect_encoding(fpath):
             e = _strstrip(match.group(1))
             break
     f.close()
-    return e
+    if e is not None:
+        return e
+    return encoding
     # }}}
 
 
@@ -271,6 +275,29 @@ class _BaseFile(list):
         fhandle = open(fpath, mode)
         fhandle.write(contents)
         fhandle.close()
+
+    def find(self, st, by='msgid'):
+        """
+        Find entry which msgid (or property identified by the *by*
+        attribute) matches the string *st*.
+
+        **Examples**:
+
+        >>> po = pofile('tests/test_utf8.po')
+        >>> entry = po.find('Thursday')
+        >>> entry.msgstr
+        'Jueves'
+        >>> entry = po.find('Some unexistant msgid')
+        >>> entry is None
+        True
+        >>> entry = po.find('Jueves', 'msgstr')
+        >>> entry.msgid
+        'Thursday'
+        """
+        try:
+            return [e for e in self if getattr(e, by) == st][0]
+        except IndexError:
+            return None
 
     def ordered_metadata(self):
         """
@@ -373,13 +400,13 @@ class POFile(_BaseFile):
     ...     msgid="Some english text",
     ...     msgstr="Un texte en anglais"
     ... )
-    >>> entry1.occurences = [('testfile', 12),('another_file', 1)]
+    >>> entry1.occurrences = [('testfile', 12),('another_file', 1)]
     >>> entry1.comment = "Some useful comment"
     >>> entry2 = POEntry(
     ...     msgid="I need my dirty cheese",
     ...     msgstr="Je veux mon sale fromage"
     ... )
-    >>> entry2.occurences = [('testfile', 15),('another_file', 5)]
+    >>> entry2.occurrences = [('testfile', 15),('another_file', 5)]
     >>> entry2.comment = "Another useful comment"
     >>> entry3 = POEntry(
     ...     msgid='Some entry with quotes " \\"',
@@ -599,7 +626,7 @@ class MOFile(_BaseFile):
     # }}}
 
 
-class _BaseEntry:
+class _BaseEntry(object):
     """
     Base class for POEntry or MOEntry objects.
     This class must *not* be instanciated directly.
@@ -662,7 +689,6 @@ class _BaseEntry:
         if isinstance(st, unicode):
             return st.encode(encoding)
         return st
-
     # }}}
 
 
@@ -673,14 +699,14 @@ class POEntry(_BaseEntry):
     **Examples**:
 
     >>> entry = POEntry(msgid='Welcome', msgstr='Bienvenue')
-    >>> entry.occurences = [('welcome.py', 12), ('anotherfile.py', 34)]
+    >>> entry.occurrences = [('welcome.py', 12), ('anotherfile.py', 34)]
     >>> print entry
     #: welcome.py:12 anotherfile.py:34
     msgid "Welcome"
     msgstr "Bienvenue"
     <BLANKLINE>
     >>> entry = POEntry()
-    >>> entry.occurences = [('src/spam.c', 32), ('src/eggs.c', 45)]
+    >>> entry.occurrences = [('src/spam.c', 32), ('src/eggs.c', 45)]
     >>> entry.tcomment = 'A plural translation'
     >>> entry.flags.append('c-format')
     >>> entry.msgid = 'I have spam but no egg !'
@@ -704,7 +730,10 @@ class POEntry(_BaseEntry):
         _BaseEntry.__init__(self, *args, **kwargs)
         self.comment = _dictget(kwargs, 'comment', '')
         self.tcomment = _dictget(kwargs, 'tcomment', '')
-        self.occurences = _dictget(kwargs, 'occurences', [])
+        self.occurrences = _dictget(kwargs, 'occurrences', [])
+        # XXX will be removed in next version
+        if _dictget(kwargs, 'occurences') is not None:
+            self.occurences = _dictget(kwargs, 'occurences')
         self.flags = _dictget(kwargs, 'flags', [])
 
     def __str__(self, wrapwidth=78):
@@ -736,10 +765,10 @@ class POEntry(_BaseEntry):
                     _listappend(ret, lines)
                 else:
                     _listappend(ret, '# %s' % tcomment)
-        # occurences (with text wrapping as xgettext does)
-        if self.occurences:
+        # occurrences (with text wrapping as xgettext does)
+        if self.occurrences:
             filelist = []
-            for fpath, lineno in self.occurences:
+            for fpath, lineno in self.occurrences:
                 _listappend(filelist, '%s:%s' % (self._decode(fpath), lineno))
             filestr = _strjoin(' ', filelist)
             if wrapwidth > 0 and len(filestr)+3 > wrapwidth:
@@ -770,6 +799,26 @@ class POEntry(_BaseEntry):
         """Return True if the entry has been translated or False"""
         return ((self.msgstr != '' or self.msgstr_plural) and \
                 (not self.obsolete and 'fuzzy' not in self.flags))
+
+    def __getattr__(self, name):
+        if name == 'occurences':
+            warnings.warn(
+                '"occurences" property is deprecated (it was a typo), '\
+                'please use "occurrences" instead'
+            )
+            return self.occurrences
+        return object.__getattr__(self, name)
+
+    def __setattr__(self, name, value):
+        if name == 'occurences':
+            warnings.warn(
+                '"occurences" property is deprecated (it was a typo), '\
+                'please use "occurrences" instead'
+            )
+            self.occurrences = value
+        else:
+            object.__setattr__(self, name, value)
+
     # }}}
 
 
@@ -797,7 +846,7 @@ class MOEntry(_BaseEntry):
     # }}}
 
 
-class _POFileParser:
+class _POFileParser(object):
     """
     A finite state machine to parse efficiently and correctly po
     file format.
@@ -863,7 +912,7 @@ class _POFileParser:
                 self.entry_obsolete = 0
             self.current_token = line
             if line[:2] == '#:':
-                # we are on a occurences line
+                # we are on a occurrences line
                 self.process('OC', i)
             elif line[:7] == 'msgid "':
                 # we are on a msgid
@@ -947,12 +996,10 @@ class _POFileParser:
                 self.current_state = state
         except Exception, e:
             raise IOError('Syntax error in po file (line %s): %s' % \
-                (linenum, exc))
+                (linenum, e))
 
     def _unquote_msg(self, msg):
         msg = _strreplace(msg, '\\"', '"')
-        # XXX not sure about that
-        # msg = _strreplace(msg, '\\\\', '\\')
         return msg
 
     # state handlers
@@ -989,11 +1036,11 @@ class _POFileParser:
         if self.current_state in ['MC', 'MS', 'MX']:
             _listappend(self.instance, self.current_entry)
             self.current_entry = POEntry()
-        occurences = _strsplit(self.current_token[3:])
-        for occurence in occurences:
-            if occurence != '':
-                fil, line = _strsplit(occurence, ':')
-                _listappend(self.current_entry.occurences, (fil, line))
+        occurrences = _strsplit(self.current_token[3:])
+        for occurrence in occurrences:
+            if occurrence != '':
+                fil, line = _strsplit(occurrence, ':')
+                _listappend(self.current_entry.occurrences, (fil, line))
         return True
 
     def handle_fl(self):
@@ -1051,7 +1098,7 @@ class _POFileParser:
     # }}}
 
 
-class _MOFileParser:
+class _MOFileParser(object):
     """
     A class to parse binary mo files.
     """
