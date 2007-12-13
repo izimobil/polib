@@ -4,9 +4,9 @@ polib
 
 :Author: David JEAN LOUIS <izimobil@gmail>
 :Title: polib
-:Version: 0.3.0
+:Version: 0.3.1
 :License: MIT License
-:Date: 16 oct. 2007
+:Date: 11 dec. 2007
 
 A library to manipulate gettext files (po and mo files).
 
