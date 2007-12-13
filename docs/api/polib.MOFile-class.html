@@ -67,9 +67,9 @@ object --+
 </pre>
 
 <hr />
-<p>Mo file reader/writer.
-MOFile objects inherit the list objects methods.</p>
-<p><strong>Example</strong>:</p>
+<p>Mo file reader/writer. MOFile objects inherit the list objects 
+  methods.</p>
+  **Example**:
 <pre class="py-doctest">
 <span class="py-prompt">&gt;&gt;&gt; </span>mo = MOFile()
 <span class="py-prompt">&gt;&gt;&gt; </span>entry1 = POEntry(
@@ -80,8 +80,13 @@ MOFile objects inherit the list objects methods.</p>
 <span class="py-more">... </span>    msgid=<span class="py-string">&quot;I need my dirty cheese&quot;</span>,
 <span class="py-more">... </span>    msgstr=<span class="py-string">&quot;Je veux mon sale fromage&quot;</span>
 <span class="py-more">... </span>)
+<span class="py-prompt">&gt;&gt;&gt; </span>entry3 = MOEntry(
+<span class="py-more">... </span>    msgid=<span class="py-string">'Some entry with quotes &quot; \&quot;'</span>,
+<span class="py-more">... </span>    msgstr=u<span class="py-string">'Un message unicode avec des quotes &quot; \&quot;'</span>
+<span class="py-more">... </span>)
 <span class="py-prompt">&gt;&gt;&gt; </span>mo.append(entry1)
 <span class="py-prompt">&gt;&gt;&gt; </span>mo.append(entry2)
+<span class="py-prompt">&gt;&gt;&gt; </span>mo.append(entry3)
 <span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">print</span> mo
 <span class="py-output">msgid &quot;&quot;</span>
 <span class="py-output">msgstr &quot;&quot;</span>
@@ -91,6 +96,9 @@ MOFile objects inherit the list objects methods.</p>
 <span class="py-output">&lt;BLANKLINE&gt;</span>
 <span class="py-output">msgid &quot;I need my dirty cheese&quot;</span>
 <span class="py-output">msgstr &quot;Je veux mon sale fromage&quot;</span>
+<span class="py-output">&lt;BLANKLINE&gt;</span>
+<span class="py-output">msgid &quot;Some entry with quotes \&quot; \&quot;&quot;</span>
+<span class="py-output">msgstr &quot;Un message unicode avec des quotes \&quot; \&quot;&quot;</span>
 <span class="py-output">&lt;BLANKLINE&gt;</span></pre><br /><br />
 
 <!-- ==================== INSTANCE METHODS ==================== -->
@@ -137,7 +145,7 @@ MOFile objects inherit the list objects methods.</p>
         <tr>
           <td><span class="summary-sig"><a href="polib.MOFile-class.html#save_as_pofile" class="summary-sig-name">save_as_pofile</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">fpath</span>)</span><br />
-      Save the string representation of the file to <em>fpath</em>.</td>
+      Save the string representation of the file to *fpath*.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="polib-pysrc.html#MOFile.save_as_pofile">source&nbsp;code</a></span>
             
@@ -155,9 +163,99 @@ MOFile objects inherit the list objects methods.</p>
         <tr>
           <td><span class="summary-sig"><a href="polib.MOFile-class.html#save" class="summary-sig-name">save</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">fpath</span>)</span><br />
-      Save the binary representation of the file to <em>fpath</em>.</td>
+      Save the binary representation of the file to *fpath*.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="polib-pysrc.html#MOFile.save">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="percent_translated"></a><span class="summary-sig-name">percent_translated</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Convenience method to keep the same interface with POFile 
+      instances.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="polib-pysrc.html#MOFile.percent_translated">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="translated_entries"></a><span class="summary-sig-name">translated_entries</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Convenience method to keep the same interface with POFile 
+      instances.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="polib-pysrc.html#MOFile.translated_entries">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="untranslated_entries"></a><span class="summary-sig-name">untranslated_entries</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Convenience method to keep the same interface with POFile 
+      instances.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="polib-pysrc.html#MOFile.untranslated_entries">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="fuzzy_entries"></a><span class="summary-sig-name">fuzzy_entries</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Convenience method to keep the same interface with POFile 
+      instances.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="polib-pysrc.html#MOFile.fuzzy_entries">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="obsolete_entries"></a><span class="summary-sig-name">obsolete_entries</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Convenience method to keep the same interface with POFile 
+      instances.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="polib-pysrc.html#MOFile.obsolete_entries">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -170,7 +268,7 @@ MOFile objects inherit the list objects methods.</p>
     <p class="indent-wrapped-lines"><b>Inherited from <code><a href="polib._BaseFile-class.html">_BaseFile</a></code></b>:
       <code><a href="polib._BaseFile-class.html#__repr__">__repr__</a></code>,
       <code><a href="polib._BaseFile-class.html#__str__">__str__</a></code>,
-      <code><a href="polib._BaseFile-class.html#charset">charset</a></code>,
+      <code><a href="polib._BaseFile-class.html#find">find</a></code>,
       <code><a href="polib._BaseFile-class.html#metadata_as_entry">metadata_as_entry</a></code>,
       <code><a href="polib._BaseFile-class.html#ordered_metadata">ordered_metadata</a></code>,
       <code><a href="polib._BaseFile-class.html#to_binary">to_binary</a></code>
@@ -279,8 +377,7 @@ MOFile objects inherit the list objects methods.</p>
     </td>
   </table>
   
-  MOFile constructor.
-See _BaseFile.__construct.
+  MOFile constructor. See _BaseFile.__construct.
   <dl class="fields">
     <dt>Overrides:
       <a href="polib._BaseFile-class.html#__init__">_BaseFile.__init__</a>
@@ -303,14 +400,13 @@ See _BaseFile.__construct.
     </td>
   </table>
   
-  <p>Save the string representation of the file to <em>fpath</em>.</p>
-<dl class="rst-docutils">
-<dt><strong>Keyword argument</strong>:</dt>
-<dd><ul class="rst-first rst-last rst-simple">
-<li><em>fpath</em>: string, full or relative path to the file.</li>
-</ul>
-</dd>
-</dl>
+  <p>Save the string representation of the file to *fpath*.</p>
+  **Keyword argument**:
+  <ul>
+    <li>
+      *fpath*: string, full or relative path to the file.
+    </li>
+  </ul>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -330,14 +426,13 @@ See _BaseFile.__construct.
     </td>
   </table>
   
-  <p>Save the binary representation of the file to <em>fpath</em>.</p>
-<dl class="rst-docutils">
-<dt><strong>Keyword argument</strong>:</dt>
-<dd><ul class="rst-first rst-last rst-simple">
-<li><em>fpath</em>: string, full or relative path to the file.</li>
-</ul>
-</dd>
-</dl>
+  <p>Save the binary representation of the file to *fpath*.</p>
+  **Keyword argument**:
+  <ul>
+    <li>
+      *fpath*: string, full or relative path to the file.
+    </li>
+  </ul>
   <dl class="fields">
     <dt>Overrides:
       <a href="polib._BaseFile-class.html#save">_BaseFile.save</a>
@@ -372,7 +467,7 @@ See _BaseFile.__construct.
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0beta1 on Wed Oct 17 18:34:06 2007
+    Generated by Epydoc 3.0beta1 on Tue Dec 11 12:11:51 2007
     </td>
     <td align="right" class="footer">
       <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>

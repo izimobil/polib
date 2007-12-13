@@ -71,8 +71,8 @@ object --+
 </dd></dl>
 
 <hr />
-Common parent class for POFile and MOFile classes.
-This class must <strong>not</strong> be instanciated directly.<br /><br />
+Common parent class for POFile and MOFile classes. This class must 
+  **not** be instanciated directly.<br /><br />
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -170,10 +170,30 @@ This class must <strong>not</strong> be instanciated directly.<br /><br />
           <td><span class="summary-sig"><a href="polib._BaseFile-class.html#save" class="summary-sig-name">save</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">fpath</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">repr_method</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">__str__</code><code class="variable-quote">'</code></span>)</span><br />
-      Save the po file to file <em>fpath</em> if no file handle exists for
-the object.</td>
+      Save the po file to file *fpath* if no file handle exists for the 
+      object.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="polib-pysrc.html#_BaseFile.save">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="polib._BaseFile-class.html#find" class="summary-sig-name">find</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">st</span>,
+        <span class="summary-sig-arg">by</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">msgid</code><code class="variable-quote">'</code></span>)</span><br />
+      Find entry which msgid (or property identified by the *by* 
+      attribute) matches the string *st*.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="polib-pysrc.html#_BaseFile.find">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -191,23 +211,6 @@ the object.</td>
       Convenience method that return the metadata ordered.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="polib-pysrc.html#_BaseFile.ordered_metadata">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="polib._BaseFile-class.html#charset" class="summary-sig-name">charset</a>(<span class="summary-sig-arg">self</span>)</span><br />
-      Return the file encoding charset.</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="polib-pysrc.html#_BaseFile.charset">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -339,16 +342,17 @@ the object.</td>
   </table>
   
   <p>Constructor.</p>
-<dl class="rst-docutils">
-<dt><strong>Keyword arguments</strong>:</dt>
-<dd><ul class="rst-first rst-last rst-simple">
-<li><em>fpath</em>: string, path to po or mo file</li>
-<li><em>wrapwidth</em>: integer, the wrap width, only useful when -w option
-was passed to xgettext to generate the po file that was used to
-format the mo file, default to 78 (optional).</li>
-</ul>
-</dd>
-</dl>
+  **Keyword arguments**:
+  <ul>
+    <li>
+      *fpath*: string, path to po or mo file
+    </li>
+    <li>
+      *wrapwidth*: integer, the wrap width, only useful when -w option 
+      was passed to xgettext to generate the po file that was used to 
+      format the mo file, default to 78 (optional).
+    </li>
+  </ul>
   <dl class="fields">
     <dt>Returns:</dt>
         <dd><pre class="literalblock">
@@ -423,18 +427,52 @@ new list
     </td>
   </table>
   
-  <p>Save the po file to file <em>fpath</em> if no file handle exists for
-the object. If there's already an open file and no fpath is
-provided, then the existing file is rewritten with the modified
-data.</p>
-<dl class="rst-docutils">
-<dt><strong>Keyword arguments</strong>:</dt>
-<dd><ul class="rst-first rst-last rst-simple">
-<li><em>fpath</em>: string, full or relative path to the file.</li>
-<li><em>repr_method</em>: string, the method to use for output.</li>
-</ul>
-</dd>
-</dl>
+  <p>Save the po file to file *fpath* if no file handle exists for the 
+  object. If there's already an open file and no fpath is provided, then 
+  the existing file is rewritten with the modified data.</p>
+  **Keyword arguments**:
+  <ul>
+    <li>
+      *fpath*: string, full or relative path to the file.
+    </li>
+    <li>
+      *repr_method*: string, the method to use for output.
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="find"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">find</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">st</span>,
+        <span class="sig-arg">by</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">msgid</code><code class="variable-quote">'</code></span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="polib-pysrc.html#_BaseFile.find">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  <p>Find entry which msgid (or property identified by the *by* attribute) 
+  matches the string *st*.</p>
+  **Examples**:
+<pre class="py-doctest">
+<span class="py-prompt">&gt;&gt;&gt; </span>po = pofile(<span class="py-string">'tests/test_utf8.po'</span>)
+<span class="py-prompt">&gt;&gt;&gt; </span>entry = po.find(<span class="py-string">'Thursday'</span>)
+<span class="py-prompt">&gt;&gt;&gt; </span>entry.msgstr
+<span class="py-output">'Jueves'</span>
+<span class="py-output"></span><span class="py-prompt">&gt;&gt;&gt; </span>entry = po.find(<span class="py-string">'Some unexistant msgid'</span>)
+<span class="py-prompt">&gt;&gt;&gt; </span>entry <span class="py-keyword">is</span> None
+<span class="py-output">True</span>
+<span class="py-output"></span><span class="py-prompt">&gt;&gt;&gt; </span>entry = po.find(<span class="py-string">'Jueves'</span>, <span class="py-string">'msgstr'</span>)
+<span class="py-prompt">&gt;&gt;&gt; </span>entry.msgid
+<span class="py-output">'Thursday'</span></pre>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -453,29 +491,8 @@ data.</p>
     </td>
   </table>
   
-  Convenience method that return the metadata ordered. The return
-value is list of tuples (metadata name, metadata_value).
-  <dl class="fields">
-  </dl>
-</td></tr></table>
-</div>
-<a name="charset"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">charset</span>(<span class="sig-arg">self</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="polib-pysrc.html#_BaseFile.charset">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </table>
-  
-  Return the file encoding charset.
-If the charset cannot be found in metadata, the function returns
-None.
+  Convenience method that return the metadata ordered. The return value 
+  is list of tuples (metadata name, metadata_value).
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -507,7 +524,7 @@ None.
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0beta1 on Wed Oct 17 18:34:06 2007
+    Generated by Epydoc 3.0beta1 on Tue Dec 11 12:11:51 2007
     </td>
     <td align="right" class="footer">
       <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
