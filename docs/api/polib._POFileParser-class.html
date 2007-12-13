@@ -56,8 +56,15 @@
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class _POFileParser</h1><span class="codelink"><a href="polib-pysrc.html#_POFileParser">source&nbsp;code</a></span><br /><br />
-A finite state machine to parse efficiently and correctly po
-file format.<br /><br />
+<pre class="base-tree">
+object --+
+         |
+        <strong class="uidshort">_POFileParser</strong>
+</pre>
+
+<hr />
+A finite state machine to parse efficiently and correctly po file 
+  format.<br /><br />
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -101,8 +108,8 @@ file format.<br /><br />
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="parse"></a><span class="summary-sig-name">parse</span>(<span class="summary-sig-arg">self</span>)</span><br />
-      Run the state machine, parse the file line by line and call process()
-with the current matched symbol.</td>
+      Run the state machine, parse the file line by line and call 
+      process() with the current matched symbol.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="polib-pysrc.html#_POFileParser.parse">source&nbsp;code</a></span>
             
@@ -141,8 +148,8 @@ with the current matched symbol.</td>
           <td><span class="summary-sig"><a href="polib._POFileParser-class.html#process" class="summary-sig-name">process</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">symbol</span>,
         <span class="summary-sig-arg">linenum</span>)</span><br />
-      Process the transition corresponding to the current state and the
-symbol provided.</td>
+      Process the transition corresponding to the current state and the 
+      symbol provided.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="polib-pysrc.html#_POFileParser.process">source&nbsp;code</a></span>
             
@@ -210,7 +217,7 @@ symbol provided.</td>
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="handle_oc"></a><span class="summary-sig-name">handle_oc</span>(<span class="summary-sig-arg">self</span>)</span><br />
-      Handle a <a class="rst-reference" href="file:num" target="_top">file:num</a> occurence.</td>
+      Handle a file:num occurence.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="polib-pysrc.html#_POFileParser.handle_oc">source&nbsp;code</a></span>
             
@@ -322,6 +329,46 @@ symbol provided.</td>
       
     </td>
   </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__delattr__</code>,
+      <code>__getattribute__</code>,
+      <code>__hash__</code>,
+      <code>__new__</code>,
+      <code>__reduce__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__repr__</code>,
+      <code>__setattr__</code>,
+      <code>__str__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Properties</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Properties"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
+      </p>
+    </td>
+  </tr>
 </table>
 <!-- ==================== METHOD DETAILS ==================== -->
 <a name="section-MethodDetails"></a>
@@ -358,14 +405,16 @@ symbol provided.</td>
   </table>
   
   <p>Constructor.</p>
-<dl class="rst-docutils">
-<dt><strong>Keyword argument</strong>:</dt>
-<dd><ul class="rst-first rst-last rst-simple">
-<li><em>fpath</em>: string, path to the po file</li>
-</ul>
-</dd>
-</dl>
+  **Keyword argument**:
+  <ul>
+    <li>
+      *fpath*: string, path to the po file
+    </li>
+  </ul>
   <dl class="fields">
+    <dt>Overrides:
+      object.__init__
+    </dt>
   </dl>
 </td></tr></table>
 </div>
@@ -386,11 +435,10 @@ symbol provided.</td>
     </td>
   </table>
   
-  <p>Add a transition to the state machine.
-Keywords arguments:</p>
-<p>symbol     -- string, the matched token (two chars symbol)
-states     -- list, a list of states (two chars symbols)
-next_state -- the next state the fsm will have after the action</p>
+  <p>Add a transition to the state machine. Keywords arguments:</p>
+  symbol     -- string, the matched token (two chars symbol) states     
+  -- list, a list of states (two chars symbols) next_state -- the next 
+  state the fsm will have after the action
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -411,11 +459,11 @@ next_state -- the next state the fsm will have after the action</p>
     </td>
   </table>
   
-  <p>Process the transition corresponding to the current state and the
-symbol provided.</p>
-<p>Keywords arguments:
-symbol  -- string, the matched token (two chars symbol)
-linenum -- integer, the current line number of the parsed file</p>
+  <p>Process the transition corresponding to the current state and the 
+  symbol provided.</p>
+  Keywords arguments: symbol  -- string, the matched token (two chars 
+  symbol) linenum -- integer, the current line number of the parsed 
+  file
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -447,7 +495,7 @@ linenum -- integer, the current line number of the parsed file</p>
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0beta1 on Wed Oct 17 18:34:06 2007
+    Generated by Epydoc 3.0beta1 on Tue Dec 11 12:11:51 2007
     </td>
     <td align="right" class="footer">
       <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>

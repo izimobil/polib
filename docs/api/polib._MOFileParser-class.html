@@ -56,6 +56,13 @@
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class _MOFileParser</h1><span class="codelink"><a href="polib-pysrc.html#_MOFileParser">source&nbsp;code</a></span><br /><br />
+<pre class="base-tree">
+object --+
+         |
+        <strong class="uidshort">_MOFileParser</strong>
+</pre>
+
+<hr />
 A class to parse binary mo files.<br /><br />
 
 <!-- ==================== INSTANCE METHODS ==================== -->
@@ -81,7 +88,7 @@ A class to parse binary mo files.<br /><br />
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="polib._MOFileParser-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">fpath</span>)</span><br />
       _MOFileParser constructor.</td>
           <td align="right" valign="top">
@@ -117,8 +124,8 @@ A class to parse binary mo files.<br /><br />
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="parse"></a><span class="summary-sig-name">parse</span>(<span class="summary-sig-arg">self</span>)</span><br />
-      Build the instance with the file handle provided in the
-constructor.</td>
+      Build the instance with the file handle provided in the 
+      constructor.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="polib-pysrc.html#_MOFileParser.parse">source&nbsp;code</a></span>
             
@@ -136,7 +143,8 @@ constructor.</td>
         <tr>
           <td><span class="summary-sig"><a href="polib._MOFileParser-class.html#_readbinary" class="summary-sig-name">_readbinary</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">fmt</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">c</code><code class="variable-quote">'</code></span>)</span><br />
-      Private method that unpack n bytes of data using format &lt;fmt&gt;.</td>
+      Private method that unpack n bytes of data using format 
+      &lt;fmt&gt;.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="polib-pysrc.html#_MOFileParser._readbinary">source&nbsp;code</a></span>
             
@@ -144,6 +152,46 @@ constructor.</td>
         </tr>
       </table>
       
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__delattr__</code>,
+      <code>__getattribute__</code>,
+      <code>__hash__</code>,
+      <code>__new__</code>,
+      <code>__reduce__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__repr__</code>,
+      <code>__setattr__</code>,
+      <code>__str__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Properties</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Properties"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
+      </p>
     </td>
   </tr>
 </table>
@@ -165,6 +213,30 @@ constructor.</td>
   </td>
 </tr>
 </table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">fpath</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="polib-pysrc.html#_MOFileParser.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  _MOFileParser constructor.
+  <dl class="fields">
+    <dt>Overrides:
+      object.__init__
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
 <a name="_readbinary"></a>
 <div class="private">
 <table class="details" border="1" cellpadding="3"
@@ -180,8 +252,8 @@ constructor.</td>
     </td>
   </table>
   
-  Private method that unpack n bytes of data using format &lt;fmt&gt;.
-It returns a tuple or a mixed value if the tuple length is 1.
+  Private method that unpack n bytes of data using format &lt;fmt&gt;. 
+  It returns a tuple or a mixed value if the tuple length is 1.
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -213,7 +285,7 @@ It returns a tuple or a mixed value if the tuple length is 1.
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0beta1 on Wed Oct 17 18:34:06 2007
+    Generated by Epydoc 3.0beta1 on Tue Dec 11 12:11:51 2007
     </td>
     <td align="right" class="footer">
       <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>

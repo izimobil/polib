@@ -56,6 +56,12 @@
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class _BaseEntry</h1><span class="codelink"><a href="polib-pysrc.html#_BaseEntry">source&nbsp;code</a></span><br /><br />
+<pre class="base-tree">
+object --+
+         |
+        <strong class="uidshort">_BaseEntry</strong>
+</pre>
+
 <dl><dt>Known Subclasses:</dt>
 <dd>
     <a href="polib.MOEntry-class.html">MOEntry</a>,
@@ -63,8 +69,8 @@
 </dd></dl>
 
 <hr />
-Base class for POEntry or MOEntry objects.
-This class must <em>not</em> be instanciated directly.<br /><br />
+Base class for POEntry or MOEntry objects. This class must *not* be 
+  instanciated directly.<br /><br />
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -89,7 +95,7 @@ This class must <em>not</em> be instanciated directly.<br /><br />
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="polib._BaseEntry-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">*args</span>,
         <span class="summary-sig-arg">**kwargs</span>)</span><br />
       Base Entry constructor.</td>
@@ -108,7 +114,7 @@ This class must <em>not</em> be instanciated directly.<br /><br />
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="__repr__"></a><span class="summary-sig-name">__repr__</span>(<span class="summary-sig-arg">self</span>)</span><br />
+          <td><span class="summary-sig"><a href="polib._BaseEntry-class.html#__repr__" class="summary-sig-name">__repr__</a>(<span class="summary-sig-arg">self</span>)</span><br />
       Return the official string representation of the object.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="polib-pysrc.html#_BaseEntry.__repr__">source&nbsp;code</a></span>
@@ -125,10 +131,10 @@ This class must <em>not</em> be instanciated directly.<br /><br />
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="__str__"></a><span class="summary-sig-name">__str__</span>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="polib._BaseEntry-class.html#__str__" class="summary-sig-name">__str__</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">wrapwidth</span>=<span class="summary-sig-default">78</span>)</span><br />
-      Common string representation of the POEntry and MOEntry
-objects.</td>
+      Common string representation of the POEntry and MOEntry 
+      objects.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="polib-pysrc.html#_BaseEntry.__str__">source&nbsp;code</a></span>
             
@@ -175,7 +181,136 @@ objects.</td>
       
     </td>
   </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__delattr__</code>,
+      <code>__getattribute__</code>,
+      <code>__hash__</code>,
+      <code>__new__</code>,
+      <code>__reduce__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__setattr__</code>
+      </p>
+    </td>
+  </tr>
 </table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Properties</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Properties"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*args</span>,
+        <span class="sig-arg">**kwargs</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="polib-pysrc.html#_BaseEntry.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  Base Entry constructor.
+  <dl class="fields">
+    <dt>Overrides:
+      object.__init__
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="__repr__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__repr__</span>(<span class="sig-arg">self</span>)</span>
+    <br /><em class="fname">(Representation operator)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="polib-pysrc.html#_BaseEntry.__repr__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  Return the official string representation of the object.
+  <dl class="fields">
+    <dt>Overrides:
+      object.__repr__
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="__str__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__str__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">wrapwidth</span>=<span class="sig-default">78</span>)</span>
+    <br /><em class="fname">(Informal representation operator)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="polib-pysrc.html#_BaseEntry.__str__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  Common string representation of the POEntry and MOEntry objects.
+  <dl class="fields">
+    <dt>Overrides:
+      object.__str__
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<br />
 <!-- ==================== NAVIGATION BAR ==================== -->
 <table class="navbar" border="0" width="100%" cellpadding="0"
        bgcolor="#a0c0ff" cellspacing="0">
@@ -202,7 +337,7 @@ objects.</td>
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0beta1 on Wed Oct 17 18:34:06 2007
+    Generated by Epydoc 3.0beta1 on Tue Dec 11 12:11:51 2007
     </td>
     <td align="right" class="footer">
       <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>

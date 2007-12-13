@@ -67,25 +67,31 @@ object --+
 </pre>
 
 <hr />
-<p>Po (or Pot) file reader/writer.
-POFile objects inherit the list objects methods.</p>
-<p><strong>Example</strong>:</p>
+<p>Po (or Pot) file reader/writer. POFile objects inherit the list 
+  objects methods.</p>
+  **Example**:
 <pre class="py-doctest">
 <span class="py-prompt">&gt;&gt;&gt; </span>po = POFile()
 <span class="py-prompt">&gt;&gt;&gt; </span>entry1 = POEntry(
 <span class="py-more">... </span>    msgid=<span class="py-string">&quot;Some english text&quot;</span>,
 <span class="py-more">... </span>    msgstr=<span class="py-string">&quot;Un texte en anglais&quot;</span>
 <span class="py-more">... </span>)
-<span class="py-prompt">&gt;&gt;&gt; </span>entry1.occurences = [(<span class="py-string">'testfile'</span>, 12),(<span class="py-string">'another_file'</span>, 1)]
+<span class="py-prompt">&gt;&gt;&gt; </span>entry1.occurrences = [(<span class="py-string">'testfile'</span>, 12),(<span class="py-string">'another_file'</span>, 1)]
 <span class="py-prompt">&gt;&gt;&gt; </span>entry1.comment = <span class="py-string">&quot;Some useful comment&quot;</span>
 <span class="py-prompt">&gt;&gt;&gt; </span>entry2 = POEntry(
 <span class="py-more">... </span>    msgid=<span class="py-string">&quot;I need my dirty cheese&quot;</span>,
 <span class="py-more">... </span>    msgstr=<span class="py-string">&quot;Je veux mon sale fromage&quot;</span>
 <span class="py-more">... </span>)
-<span class="py-prompt">&gt;&gt;&gt; </span>entry2.occurences = [(<span class="py-string">'testfile'</span>, 15),(<span class="py-string">'another_file'</span>, 5)]
+<span class="py-prompt">&gt;&gt;&gt; </span>entry2.occurrences = [(<span class="py-string">'testfile'</span>, 15),(<span class="py-string">'another_file'</span>, 5)]
 <span class="py-prompt">&gt;&gt;&gt; </span>entry2.comment = <span class="py-string">&quot;Another useful comment&quot;</span>
+<span class="py-prompt">&gt;&gt;&gt; </span>entry3 = POEntry(
+<span class="py-more">... </span>    msgid=<span class="py-string">'Some entry with quotes &quot; \&quot;'</span>,
+<span class="py-more">... </span>    msgstr=u<span class="py-string">'Un message unicode avec des quotes &quot; \&quot;'</span>
+<span class="py-more">... </span>)
+<span class="py-prompt">&gt;&gt;&gt; </span>entry3.comment = <span class="py-string">&quot;Test string quoting&quot;</span>
 <span class="py-prompt">&gt;&gt;&gt; </span>po.append(entry1)
 <span class="py-prompt">&gt;&gt;&gt; </span>po.append(entry2)
+<span class="py-prompt">&gt;&gt;&gt; </span>po.append(entry3)
 <span class="py-prompt">&gt;&gt;&gt; </span>po.header = <span class="py-string">&quot;Some Header&quot;</span>
 <span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">print</span> po
 <span class="py-output"># Some Header</span>
@@ -101,6 +107,10 @@ POFile objects inherit the list objects methods.</p>
 <span class="py-output">#: testfile:15 another_file:5</span>
 <span class="py-output">msgid &quot;I need my dirty cheese&quot;</span>
 <span class="py-output">msgstr &quot;Je veux mon sale fromage&quot;</span>
+<span class="py-output">&lt;BLANKLINE&gt;</span>
+<span class="py-output">#. Test string quoting</span>
+<span class="py-output">msgid &quot;Some entry with quotes \&quot; \&quot;&quot;</span>
+<span class="py-output">msgstr &quot;Un message unicode avec des quotes \&quot; \&quot;&quot;</span>
 <span class="py-output">&lt;BLANKLINE&gt;</span></pre><br /><br />
 
 <!-- ==================== INSTANCE METHODS ==================== -->
@@ -145,7 +155,7 @@ POFile objects inherit the list objects methods.</p>
         <tr>
           <td><span class="summary-sig"><a href="polib.POFile-class.html#save_as_mofile" class="summary-sig-name">save_as_mofile</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">fpath</span>)</span><br />
-      Save the binary representation of the file to <em>fpath</em>.</td>
+      Save the binary representation of the file to *fpath*.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="polib-pysrc.html#POFile.save_as_mofile">source&nbsp;code</a></span>
             
@@ -162,8 +172,8 @@ POFile objects inherit the list objects methods.</p>
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="polib.POFile-class.html#percent_translated" class="summary-sig-name">percent_translated</a>(<span class="summary-sig-arg">self</span>)</span><br />
-      Convenience method that return the percentage of translated
-messages.</td>
+      Convenience method that return the percentage of translated 
+      messages.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="polib-pysrc.html#POFile.percent_translated">source&nbsp;code</a></span>
             
@@ -246,7 +256,7 @@ messages.</td>
     <p class="indent-wrapped-lines"><b>Inherited from <code><a href="polib._BaseFile-class.html">_BaseFile</a></code></b>:
       <code><a href="polib._BaseFile-class.html#__init__">__init__</a></code>,
       <code><a href="polib._BaseFile-class.html#__repr__">__repr__</a></code>,
-      <code><a href="polib._BaseFile-class.html#charset">charset</a></code>,
+      <code><a href="polib._BaseFile-class.html#find">find</a></code>,
       <code><a href="polib._BaseFile-class.html#metadata_as_entry">metadata_as_entry</a></code>,
       <code><a href="polib._BaseFile-class.html#ordered_metadata">ordered_metadata</a></code>,
       <code><a href="polib._BaseFile-class.html#save">save</a></code>,
@@ -377,14 +387,13 @@ messages.</td>
     </td>
   </table>
   
-  <p>Save the binary representation of the file to <em>fpath</em>.</p>
-<dl class="rst-docutils">
-<dt><strong>Keyword arguments</strong>:</dt>
-<dd><ul class="rst-first rst-last rst-simple">
-<li><em>fpath</em>: string, full or relative path to the file.</li>
-</ul>
-</dd>
-</dl>
+  <p>Save the binary representation of the file to *fpath*.</p>
+  **Keyword arguments**:
+  <ul>
+    <li>
+      *fpath*: string, full or relative path to the file.
+    </li>
+  </ul>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -403,9 +412,9 @@ messages.</td>
     </td>
   </table>
   
-  <p>Convenience method that return the percentage of translated
-messages.</p>
-<p><strong>Example</strong>:</p>
+  <p>Convenience method that return the percentage of translated 
+  messages.</p>
+  **Example**:
 <pre class="py-doctest">
 <span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">import</span> polib
 <span class="py-prompt">&gt;&gt;&gt; </span>po = polib.pofile(<span class="py-string">'tests/test_pofile_helpers.po'</span>)
@@ -430,7 +439,7 @@ messages.</p>
   </table>
   
   <p>Convenience method that return a list of translated entries.</p>
-<p><strong>Example</strong>:</p>
+  **Example**:
 <pre class="py-doctest">
 <span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">import</span> polib
 <span class="py-prompt">&gt;&gt;&gt; </span>po = polib.pofile(<span class="py-string">'tests/test_pofile_helpers.po'</span>)
@@ -455,7 +464,7 @@ messages.</p>
   </table>
   
   <p>Convenience method that return a list of untranslated entries.</p>
-<p><strong>Example</strong>:</p>
+  **Example**:
 <pre class="py-doctest">
 <span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">import</span> polib
 <span class="py-prompt">&gt;&gt;&gt; </span>po = polib.pofile(<span class="py-string">'tests/test_pofile_helpers.po'</span>)
@@ -480,7 +489,7 @@ messages.</p>
   </table>
   
   <p>Convenience method that return the list of 'fuzzy' entries.</p>
-<p><strong>Example</strong>:</p>
+  **Example**:
 <pre class="py-doctest">
 <span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">import</span> polib
 <span class="py-prompt">&gt;&gt;&gt; </span>po = polib.pofile(<span class="py-string">'tests/test_pofile_helpers.po'</span>)
@@ -505,7 +514,7 @@ messages.</p>
   </table>
   
   <p>Convenience method that return the list of obsolete entries.</p>
-<p><strong>Example</strong>:</p>
+  **Example**:
 <pre class="py-doctest">
 <span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">import</span> polib
 <span class="py-prompt">&gt;&gt;&gt; </span>po = polib.pofile(<span class="py-string">'tests/test_pofile_helpers.po'</span>)
@@ -542,7 +551,7 @@ messages.</p>
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0beta1 on Wed Oct 17 18:34:06 2007
+    Generated by Epydoc 3.0beta1 on Tue Dec 11 12:11:51 2007
     </td>
     <td align="right" class="footer">
       <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
