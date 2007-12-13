@@ -36,7 +36,7 @@ new files/entries.
 # }}}
 
 __author__    = 'David JEAN LOUIS <izimobil@gmail.com>'
-__version__   = '0.4.0'
+__version__   = '0.3.1'
 
 
 # dependencies {{{
@@ -50,7 +50,7 @@ except ImportError, exc:
 # }}}
 
 __all__ = ['pofile', 'POFile', 'POEntry', 'mofile', 'MOFile', 'MOEntry',
-           'detect_encoding']
+           'detect_encoding', 'quote', 'unquote']
 
 # shortcuts for performance improvement {{{
 # yes, yes, this is quite ugly but *very* efficient
@@ -196,6 +196,44 @@ def detect_encoding(fpath):
     # }}}
 
 
+def quote(st):
+    """
+    Quote and return the given string *st*.
+
+    **Examples**:
+
+    >>> quote('\\t and \\n and \\r and " and \\\\')
+    '\\\\t and \\\\n and \\\\r and \\\\" and \\\\\\\\'
+    """
+    # quote {{{
+    st = _strreplace(st, '\\', r'\\')
+    st = _strreplace(st, '\t', r'\t')
+    st = _strreplace(st, '\r', r'\r')
+    st = _strreplace(st, '\n', r'\n')
+    st = _strreplace(st, '\"', r'\"')
+    return st
+    # }}}
+
+
+def unquote(st):
+    """
+    Unquote and return the given string *st*.
+
+    **Examples**:
+
+    >>> unquote('\\\\t and \\\\n and \\\\r and \\\\" and \\\\\\\\')
+    '\\t and \\n and \\r and " and \\\\'
+    """
+    # unquote {{{
+    st = _strreplace(st, r'\"', '"')
+    st = _strreplace(st, r'\n', '\n')
+    st = _strreplace(st, r'\r', '\r')
+    st = _strreplace(st, r'\t', '\t')
+    st = _strreplace(st, r'\\', '\\')
+    return st
+    # }}}
+
+
 class _BaseFile(list):
     """
     Common parent class for POFile and MOFile classes.
@@ -235,22 +273,20 @@ class _BaseFile(list):
 
     def __repr__(self):
         """Return the official string representation of the object."""
-        return '<%s instance at %d>' % (self.__class__.__name__, id(self))
+        return '<%s instance at %x>' % (self.__class__.__name__, id(self))
 
     def metadata_as_entry(self):
         """Return the metadata as an entry"""
         e = POEntry(msgid='')
         mdata = self.ordered_metadata()
         if mdata:
-            strs = ['']
+            strs = []
             for name, value in mdata:
-                values = _strsplit(value, '\n')
-                for i, value in enumerate(values): # handle multiline metadata
-                    if i == 0:
-                        _listappend(strs, '%s: %s' % (name, _strstrip(value)))
-                    else:
-                        _listappend(strs, '%s' % _strstrip(value))
-            e.msgstr = _strjoin('\n', strs)
+                # Strip whitespace off each line in a multi-line entry
+                value = _strjoin('\n', [_strstrip(v)
+                                        for v in _strsplit(value, '\n')])
+                _listappend(strs, '%s: %s' % (name, value))
+            e.msgstr = _strjoin('\n', strs) + '\n'
         return e
 
     def save(self, fpath=None, repr_method='__str__'):
@@ -410,7 +446,7 @@ class POFile(_BaseFile):
     >>> entry2.comment = "Another useful comment"
     >>> entry3 = POEntry(
     ...     msgid='Some entry with quotes " \\"',
-    ...     msgstr='Une entrée avec des quotes " \\"'
+    ...     msgstr=u'Un message unicode avec des quotes " \\"'
     ... )
     >>> entry3.comment = "Test string quoting"
     >>> po.append(entry1)
@@ -434,7 +470,7 @@ class POFile(_BaseFile):
     <BLANKLINE>
     #. Test string quoting
     msgid "Some entry with quotes \\" \\""
-    msgstr "Une entrée avec des quotes \\" \\""
+    msgstr "Un message unicode avec des quotes \\" \\""
     <BLANKLINE>
     '''
     # class POFile {{{
@@ -546,7 +582,7 @@ class MOFile(_BaseFile):
     ... )
     >>> entry3 = MOEntry(
     ...     msgid='Some entry with quotes " \\"',
-    ...     msgstr='Une entrée avec des quotes " \\"'
+    ...     msgstr=u'Un message unicode avec des quotes " \\"'
     ... )
     >>> mo.append(entry1)
     >>> mo.append(entry2)
@@ -562,7 +598,7 @@ class MOFile(_BaseFile):
     msgstr "Je veux mon sale fromage"
     <BLANKLINE>
     msgid "Some entry with quotes \\" \\""
-    msgstr "Une entrée avec des quotes \\" \\""
+    msgstr "Un message unicode avec des quotes \\" \\""
     <BLANKLINE>
     '''
     # class MOFile {{{
@@ -643,7 +679,7 @@ class _BaseEntry(object):
 
     def __repr__(self):
         """Return the official string representation of the object."""
-        return '<%s instance at %d>' % (self.__class__.__name__, id(self))
+        return '<%s instance at %x>' % (self.__class__.__name__, id(self))
 
     def __str__(self, wrapwidth=78):
         """
@@ -661,28 +697,33 @@ class _BaseEntry(object):
         if self.msgid_plural:
             ret += self._str_field("msgid_plural", delflag, "", self.msgid_plural)
         if self.msgstr_plural:
+            # write the msgstr_plural if any
             msgstrs = self.msgstr_plural
-        else:
-            msgstrs = {0:self.msgstr}
-        keys = msgstrs.keys()
-        keys.sort()
-        for index in keys:
-            msgstr = msgstrs[index]
-            plural_index = ''
-            if self.msgstr_plural:
+            keys = msgstrs.keys()
+            keys.sort()
+            for index in keys:
+                msgstr = msgstrs[index]
                 plural_index = '[%s]' % index
-            ret += self._str_field("msgstr", delflag, plural_index, msgstr)
+                ret += self._str_field("msgstr", delflag, plural_index, msgstr)
+        else:
+            # otherwise write the msgstr
+            ret += self._str_field("msgstr", delflag, "", self.msgstr)
         _listappend(ret, '')
         return _strjoin('\n', ret)
 
     def _str_field(self, fieldname, delflag, plural_index, field):
-        field = _strreplace(field, '"', '\\"')
-        lines = _strsplit(self._decode(field), '\n')
-        ret = ['%s%s%s "%s"' % (delflag, fieldname, plural_index,\
-               _listpop(lines, 0))]
-        if lines:
-            for mstr in lines:
-                _listappend(ret, '%s"%s"' % (delflag, mstr))
+        field = self._decode(field)
+        lines = field.splitlines(True) # keep line breaks in strings
+        # potentially, we could do line-wrapping here, but textwrap.wrap
+        # treats whitespace too carelessly for us to use it.
+        if len(lines) > 1:
+            lines = ['']+lines # start with initial empty line
+        else:
+            lines = [field] # needed for the empty string case
+        ret = ['%s%s%s "%s"' % (delflag, fieldname, plural_index,
+                                quote(_listpop(lines, 0)))]
+        for mstr in lines:
+            _listappend(ret, '%s"%s"' % (delflag, quote(mstr)))
         return ret
 
     def _decode(self, st):
@@ -952,18 +993,14 @@ class _POFileParser(object):
             # remove the entry
             firstentry = _listpop(self.instance, 0)
             self.instance.metadata_is_fuzzy = firstentry.flags
-            multiline_metadata = 0
-            for msg in _strsplit(firstentry.msgstr, '\n'):
-                if msg != '':
-                    if multiline_metadata:
-                        self.instance.metadata[key] += '\n' + msg
-                    else:
-                        try:
-                            key, val = _strsplit(msg, ':', 1)
-                            self.instance.metadata[key] = val
-                        except:
-                            pass
-                    multiline_metadata = not msg.endswith('\\n')
+            key = None
+            for msg in firstentry.msgstr.splitlines():
+                try:
+                    key, val = _strsplit(msg, ':', 1)
+                    self.instance.metadata[key] = _strstrip(val)
+                except:
+                    if key is not None:
+                        self.instance.metadata[key] += '\n'+_strstrip(msg)
         # close opened file
         self.fhandle.close()
         return self.instance
@@ -997,10 +1034,6 @@ class _POFileParser(object):
         except Exception, e:
             raise IOError('Syntax error in po file (line %s): %s' % \
                 (linenum, e))
-
-    def _unquote_msg(self, msg):
-        msg = _strreplace(msg, '\\"', '"')
-        return msg
 
     # state handlers
 
@@ -1057,41 +1090,38 @@ class _POFileParser(object):
             _listappend(self.instance, self.current_entry)
             self.current_entry = POEntry()
         self.current_entry.obsolete = self.entry_obsolete
-        self.current_entry.msgid = self._unquote_msg(self.current_token[7:-1])
+        self.current_entry.msgid = unquote(self.current_token[7:-1])
         return True
 
     def handle_mp(self):
         """Handle a msgid plural."""
-        self.current_entry.msgid_plural = \
-            self._unquote_msg(self.current_token[14:-1])
+        self.current_entry.msgid_plural = unquote(self.current_token[14:-1])
         return True
 
     def handle_ms(self):
         """Handle a msgstr."""
-        self.current_entry.msgstr = self._unquote_msg(self.current_token[8:-1])
+        self.current_entry.msgstr = unquote(self.current_token[8:-1])
         return True
 
     def handle_mx(self):
         """Handle a msgstr plural."""
         index, value = self.current_token[7], self.current_token[11:-1]
-        self.current_entry.msgstr_plural[index] = self._unquote_msg(value)
+        self.current_entry.msgstr_plural[index] = unquote(value)
         self.msgstr_index = index
         return True
 
     def handle_mc(self):
         """Handle a msgid or msgstr continuation line."""
         if self.current_state == 'MI':
-            self.current_entry.msgid += '\n' + \
-                self._unquote_msg(self.current_token[1:-1])
+            self.current_entry.msgid += unquote(self.current_token[1:-1])
         elif self.current_state == 'MP':
-            self.current_entry.msgid_plural += '\n' + \
-                self._unquote_msg(self.current_token[1:-1])
+            self.current_entry.msgid_plural += \
+                unquote(self.current_token[1:-1])
         elif self.current_state == 'MS':
-            self.current_entry.msgstr += '\n' + \
-                self._unquote_msg(self.current_token[1:-1])
+            self.current_entry.msgstr += unquote(self.current_token[1:-1])
         elif self.current_state == 'MX':
             msgstr = self.current_entry.msgstr_plural[self.msgstr_index] +\
-                '\n' + self._unquote_msg(self.current_token[1:-1])
+                unquote(self.current_token[1:-1])
             self.current_entry.msgstr_plural[self.msgstr_index] = msgstr
         # don't change the current state
         return False
