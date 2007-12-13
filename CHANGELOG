@@ -1,0 +1,22 @@
+Version 0.3.1 (2007/12/13)
+--------------------------
+    * fixed bug #0002: typo: "occurences" instead of "occurrences",
+    * fixed bug #0003: mismatch in exception instance names,
+    * removed deprecation warnings,
+    * removed unused charset() method in POFile/MOFile objects,
+    * fixed bug in multibytes string length (added regression tests),
+    * fixed a bug in detect_encoding(),
+    * added a find() method to _BaseFile class,
+    * proper handling of quoting and unquoting,
+    * proper handling of multiline strings in metadata 
+
+Version 0.3.0 (2007/10/17)
+--------------------------
+    * speed improvements,
+    * polib can now compile mo files,
+    * unicode support,
+    * fixed bug #0001: global name 'sorted' is not defined" on python 2.3.
+
+Version 0.1.0 (2006-08-08)
+--------------------------
+    Initial release
