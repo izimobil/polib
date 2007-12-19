@@ -64,6 +64,24 @@ msgstr "Introduzca una fecha/hora válida en formato AAAA-MM-DD HH:MM."
 msgid "This value must be a decimal number."
 msgstr "Este valor debe ser un entero."
 
+#: db/models/fields/related.py:710
+#, python-format
+msgid "Please enter valid %(self)s IDs. The value %(value)r is invalid."
+msgid_plural ""
+"Please enter valid %(self)s IDs. The values %(value)r are invalid."
+msgstr[0] ""
+"Por favor, introduzca IDs de %(self)s válidos. El valor %(value)r no es "
+"válido."
+msgstr[1] ""
+"Por favor, introduzca IDs de %(self)s válidos. Los valores %(value)r no son "
+"válidos."
+
+#: utils/timesince.py:12
+msgid "year"
+msgid_plural "years"
+msgstr[0] "año"
+msgstr[1] ""
+
 #~ msgid "label"
 #~ msgstr "etiqueta"
 
