@@ -64,9 +64,9 @@ _strreplace = str.replace
 _textwrap   = textwrap.wrap
 # }}}
 
-encoding = 'utf-8'
+default_encoding = 'utf-8'
 
-def pofile(fpath, wrapwidth=78, autodetect_encoding=True):
+def pofile(fpath, **kwargs):
     """
     Convenience function that parse the po/pot file *fpath* and return
     a POFile instance.
@@ -74,9 +74,11 @@ def pofile(fpath, wrapwidth=78, autodetect_encoding=True):
     **Keyword arguments**:
       - *fpath*: string, full or relative path to the po/pot file to parse
       - *wrapwidth*: integer, the wrap width, only useful when -w option was
-        passed to xgettext, default to 78 (optional)
+        passed to xgettext (optional, default to 78)
       - *autodetect_encoding*: boolean, if set to False the function will
-        not try to detect the po file encoding
+        not try to detect the po file encoding (optional, default to True)
+      - *encoding*: string, an encoding, only relevant if autodetect_encoding
+        is set to False
 
     **Example**:
 
@@ -102,17 +104,19 @@ def pofile(fpath, wrapwidth=78, autodetect_encoding=True):
     ...         os.unlink(tmpf)
     """
     # pofile {{{
-    if autodetect_encoding == True:
-        global encoding
-        encoding = detect_encoding(fpath)
+    if _dictget(kwargs, 'autodetect_encoding', True) == True:
+        enc = detect_encoding(fpath)
+    else:
+        enc = _dictget(kwargs, 'encoding', default_encoding)
     parser = _POFileParser(fpath)
     instance = parser.parse()
-    instance.wrapwidth = wrapwidth
+    instance.wrapwidth = _dictget(kwargs, 'wrapwidth', 78)
+    instance.encoding  = enc
     return instance
     # }}}
 
 
-def mofile(fpath, wrapwidth=78, autodetect_encoding=True):
+def mofile(fpath, **kwargs):
     """
     Convenience function that parse the mo file *fpath* and return
     a MOFile instance.
@@ -121,9 +125,11 @@ def mofile(fpath, wrapwidth=78, autodetect_encoding=True):
       - *fpath*: string, full or relative path to the mo file to parse
       - *wrapwidth*: integer, the wrap width, only useful when -w option was
         passed to xgettext to generate the po file that was used to format
-        the mo file, default to 78 (optional)
+        the mo file (optional, default to 78)
       - *autodetect_encoding*: boolean, if set to False the function will
-        not try to detect the po file encoding
+        not try to detect the po file encoding (optional, default to True)
+      - *encoding*: string, an encoding, only relevant if autodetect_encoding
+        is set to False
 
     **Example**:
 
@@ -146,12 +152,14 @@ def mofile(fpath, wrapwidth=78, autodetect_encoding=True):
     ...         os.unlink(tmpf)
     """
     # mofile {{{
-    if autodetect_encoding == True:
-        global encoding
-        encoding = detect_encoding(fpath)
+    if _dictget(kwargs, 'autodetect_encoding', True) == True:
+        enc = detect_encoding(fpath)
+    else:
+        enc = _dictget(kwargs, 'encoding', default_encoding)
     parser = _MOFileParser(fpath)
     instance = parser.parse()
-    instance.wrapwidth = wrapwidth
+    instance.wrapwidth = _dictget(kwargs, 'wrapwidth', 78)
+    instance.encoding = enc
     return instance
     # }}}
 
@@ -179,20 +187,15 @@ def detect_encoding(fpath):
     """
     # detect_encoding {{{
     import re
-    global encoding
-    encoding = 'utf-8'
-    e = None
     rx = re.compile(r'"?Content-Type:.+? charset=([\w_\-:\.]+)')
     f = open(fpath)
     for l in f:
         match = rx.search(l)
         if match:
-            e = _strstrip(match.group(1))
-            break
+            f.close()
+            return _strstrip(match.group(1))
     f.close()
-    if e is not None:
-        return e
-    return encoding
+    return default_encoding
     # }}}
 
 
@@ -242,7 +245,7 @@ class _BaseFile(list):
     # class _BaseFile {{{
 
 
-    def __init__(self, fpath=None, wrapwidth=78):
+    def __init__(self, fpath=None, wrapwidth=78, encoding=default_encoding):
         """
         Constructor.
 
@@ -257,6 +260,8 @@ class _BaseFile(list):
         self.fpath = fpath
         # the width at which lines should be wrapped
         self.wrapwidth = wrapwidth
+        # the file encoding
+        self.encoding = encoding
         # header
         self.header = ''
         # both po and mo files have metadata
@@ -526,7 +531,7 @@ class POFile(_BaseFile):
         >>> import polib
         >>> po = polib.pofile('tests/test_pofile_helpers.po')
         >>> len(po.translated_entries())
-        5
+        6
         """
         return [e for e in self if e.translated() and not e.obsolete]
 
@@ -539,7 +544,7 @@ class POFile(_BaseFile):
         >>> import polib
         >>> po = polib.pofile('tests/test_pofile_helpers.po')
         >>> len(po.untranslated_entries())
-        5
+        6
         """
         return [e for e in self if not e.translated() and not e.obsolete]
 
@@ -728,6 +733,7 @@ class _BaseEntry(object):
         self.msgid_plural = _dictget(kwargs, 'msgid_plural', '')
         self.msgstr_plural = _dictget(kwargs, 'msgstr_plural', {})
         self.obsolete = _dictget(kwargs, 'obsolete', False)
+        self.encoding = _dictget(kwargs, 'encoding', default_encoding)
 
     def __repr__(self):
         """Return the official string representation of the object."""
@@ -780,7 +786,7 @@ class _BaseEntry(object):
 
     def _decode(self, st):
         if isinstance(st, unicode):
-            return st.encode(encoding)
+            return st.encode(self.encoding)
         return st
     # }}}
 
@@ -824,9 +830,6 @@ class POEntry(_BaseEntry):
         self.comment = _dictget(kwargs, 'comment', '')
         self.tcomment = _dictget(kwargs, 'tcomment', '')
         self.occurrences = _dictget(kwargs, 'occurrences', [])
-        # XXX will be removed in next version
-        if _dictget(kwargs, 'occurences') is not None:
-            self.occurences = _dictget(kwargs, 'occurences')
         self.flags = _dictget(kwargs, 'flags', [])
 
     def __str__(self, wrapwidth=78):
@@ -890,29 +893,99 @@ class POEntry(_BaseEntry):
         _listappend(ret, _BaseEntry.__str__(self))
         return _strjoin('\n', ret)
 
+    def __cmp__(self, other):
+        '''
+        Called by comparison operations if rich comparison is not defined.
+
+        **Tests**:
+        >>> a  = POEntry(msgid='a', occurrences=[('b.py', 1), ('b.py', 3)])
+        >>> b  = POEntry(msgid='b', occurrences=[('b.py', 1), ('b.py', 3)])
+        >>> c1 = POEntry(msgid='c1', occurrences=[('a.py', 1), ('b.py', 1)])
+        >>> c2 = POEntry(msgid='c2', occurrences=[('a.py', 1), ('a.py', 3)])
+        >>> po = POFile()
+        >>> po.append(a)
+        >>> po.append(b)
+        >>> po.append(c1)
+        >>> po.append(c2)
+        >>> po.sort()
+        >>> print po
+        # 
+        msgid ""
+        msgstr ""
+        <BLANKLINE>
+        #: a.py:1 a.py:3
+        msgid "c2"
+        msgstr ""
+        <BLANKLINE>
+        #: a.py:1 b.py:1
+        msgid "c1"
+        msgstr ""
+        <BLANKLINE>
+        #: b.py:1 b.py:3
+        msgid "a"
+        msgstr ""
+        <BLANKLINE>
+        #: b.py:1 b.py:3
+        msgid "b"
+        msgstr ""
+        <BLANKLINE>
+        '''
+        def compare_occurrences(a, b):
+            """
+            Compare an entry occurrence with another one.
+            """
+            if a[0] != b[0]:
+                return a[0] < b[0]
+            if a[1] != b[1]:
+                return a[1] < b[1]
+            return 0
+
+        # First: Obsolete test
+        if self.obsolete != other.obsolete:
+            if self.obsolete:
+                return -1
+            else:
+                return 1
+        # Work on a copy to protect original
+        occ1 = self.occurrences[:]
+        occ2 = other.occurrences[:]
+        # Sorting using compare method
+        occ1.sort(compare_occurrences)
+        occ2.sort(compare_occurrences)
+        # Comparing sorted occurrences
+        pos = 0
+        for entry1 in occ1:
+            try:
+                entry2 = occ2[pos]
+            except IndexError:
+                return 1
+            pos = pos + 1
+            if entry1[0] != entry2[0]:
+                if entry1[0] > entry2[0]:
+                    return 1
+                else:
+                    return -1
+            if entry1[1] != entry2[1]:
+                if entry1[1] > entry2[1]:
+                    return 1
+                else:
+                    return -1
+        # Finally: Compare message ID
+        if self.msgid > other.msgid: return 1
+        else: return -1
+
     def translated(self):
         """Return True if the entry has been translated or False"""
-        return ((self.msgstr != '' or self.msgstr_plural) and \
-                (not self.obsolete and 'fuzzy' not in self.flags))
-
-    def __getattr__(self, name):
-        if name == 'occurences':
-            warnings.warn(
-                '"occurences" property is deprecated (it was a typo), '\
-                'please use "occurrences" instead'
-            )
-            return self.occurrences
-        return object.__getattr__(self, name)
-
-    def __setattr__(self, name, value):
-        if name == 'occurences':
-            warnings.warn(
-                '"occurences" property is deprecated (it was a typo), '\
-                'please use "occurrences" instead'
-            )
-            self.occurrences = value
-        else:
-            object.__setattr__(self, name, value)
+        if self.obsolete or 'fuzzy' in self.flags:
+            return False
+        if self.msgstr != '':
+            return True
+        if self.msgstr_plural:
+            for pos in self.msgstr_plural:
+                if self.msgstr_plural[pos] == '':
+                    return False
+            return True
+        return False
 
     # }}}
 
