@@ -581,10 +581,11 @@ class POFile(_BaseFile):
 
         Convenience method that merge the current pofile with the pot file
         provided. It behaves exactly as the gettext msgmerge utility:
-          * comments of this file will be preserved, but extracted comments
-            and occurrences  will  be  discarded.
-          * any  translations or comments in the file will be discarded,
-            however dot comments and file positions will  be  preserved.
+
+          - comments of this file will be preserved, but extracted comments
+            and occurrences will be discarded
+          - any translations or comments in the file will be discarded,
+            however dot comments and file positions will be preserved
 
         **Keyword argument**:
           - *refpot*: object POFile, the reference catalog.
