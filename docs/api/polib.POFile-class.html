@@ -67,9 +67,9 @@ object --+
 </pre>
 
 <hr />
-<p>Po (or Pot) file reader/writer. POFile objects inherit the list 
-  objects methods.</p>
-  **Example**:
+<p>Po (or Pot) file reader/writer.
+POFile objects inherit the list objects methods.</p>
+<p><strong>Example</strong>:</p>
 <pre class="py-doctest">
 <span class="py-prompt">&gt;&gt;&gt; </span>po = POFile()
 <span class="py-prompt">&gt;&gt;&gt; </span>entry1 = POEntry(
@@ -155,7 +155,7 @@ object --+
         <tr>
           <td><span class="summary-sig"><a href="polib.POFile-class.html#save_as_mofile" class="summary-sig-name">save_as_mofile</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">fpath</span>)</span><br />
-      Save the binary representation of the file to *fpath*.</td>
+      Save the binary representation of the file to <em>fpath</em>.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="polib-pysrc.html#POFile.save_as_mofile">source&nbsp;code</a></span>
             
@@ -172,8 +172,8 @@ object --+
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="polib.POFile-class.html#percent_translated" class="summary-sig-name">percent_translated</a>(<span class="summary-sig-arg">self</span>)</span><br />
-      Convenience method that return the percentage of translated 
-      messages.</td>
+      Convenience method that return the percentage of translated
+messages.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="polib-pysrc.html#POFile.percent_translated">source&nbsp;code</a></span>
             
@@ -244,6 +244,25 @@ object --+
       Convenience method that return the list of obsolete entries.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="polib-pysrc.html#POFile.obsolete_entries">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="polib.POFile-class.html#merge" class="summary-sig-name">merge</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">refpot</span>)</span><br />
+      XXX this could not work if encodings are different, needs thinking
+and general refactoring of how polib handles encoding...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="polib-pysrc.html#POFile.merge">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -387,13 +406,14 @@ object --+
     </td>
   </table>
   
-  <p>Save the binary representation of the file to *fpath*.</p>
-  **Keyword arguments**:
-  <ul>
-    <li>
-      *fpath*: string, full or relative path to the file.
-    </li>
-  </ul>
+  <p>Save the binary representation of the file to <em>fpath</em>.</p>
+<dl class="rst-docutils">
+<dt><strong>Keyword arguments</strong>:</dt>
+<dd><ul class="rst-first rst-last rst-simple">
+<li><em>fpath</em>: string, full or relative path to the file.</li>
+</ul>
+</dd>
+</dl>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -412,9 +432,9 @@ object --+
     </td>
   </table>
   
-  <p>Convenience method that return the percentage of translated 
-  messages.</p>
-  **Example**:
+  <p>Convenience method that return the percentage of translated
+messages.</p>
+<p><strong>Example</strong>:</p>
 <pre class="py-doctest">
 <span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">import</span> polib
 <span class="py-prompt">&gt;&gt;&gt; </span>po = polib.pofile(<span class="py-string">'tests/test_pofile_helpers.po'</span>)
@@ -439,12 +459,12 @@ object --+
   </table>
   
   <p>Convenience method that return a list of translated entries.</p>
-  **Example**:
+<p><strong>Example</strong>:</p>
 <pre class="py-doctest">
 <span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">import</span> polib
 <span class="py-prompt">&gt;&gt;&gt; </span>po = polib.pofile(<span class="py-string">'tests/test_pofile_helpers.po'</span>)
 <span class="py-prompt">&gt;&gt;&gt; </span>len(po.translated_entries())
-<span class="py-output">5</span></pre>
+<span class="py-output">6</span></pre>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -464,12 +484,12 @@ object --+
   </table>
   
   <p>Convenience method that return a list of untranslated entries.</p>
-  **Example**:
+<p><strong>Example</strong>:</p>
 <pre class="py-doctest">
 <span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">import</span> polib
 <span class="py-prompt">&gt;&gt;&gt; </span>po = polib.pofile(<span class="py-string">'tests/test_pofile_helpers.po'</span>)
 <span class="py-prompt">&gt;&gt;&gt; </span>len(po.untranslated_entries())
-<span class="py-output">5</span></pre>
+<span class="py-output">6</span></pre>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -489,7 +509,7 @@ object --+
   </table>
   
   <p>Convenience method that return the list of 'fuzzy' entries.</p>
-  **Example**:
+<p><strong>Example</strong>:</p>
 <pre class="py-doctest">
 <span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">import</span> polib
 <span class="py-prompt">&gt;&gt;&gt; </span>po = polib.pofile(<span class="py-string">'tests/test_pofile_helpers.po'</span>)
@@ -514,12 +534,59 @@ object --+
   </table>
   
   <p>Convenience method that return the list of obsolete entries.</p>
-  **Example**:
+<p><strong>Example</strong>:</p>
 <pre class="py-doctest">
 <span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">import</span> polib
 <span class="py-prompt">&gt;&gt;&gt; </span>po = polib.pofile(<span class="py-string">'tests/test_pofile_helpers.po'</span>)
 <span class="py-prompt">&gt;&gt;&gt; </span>len(po.obsolete_entries())
 <span class="py-output">4</span></pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="merge"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">merge</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">refpot</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="polib-pysrc.html#POFile.merge">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  <p>XXX this could not work if encodings are different, needs thinking
+and general refactoring of how polib handles encoding...</p>
+<p>Convenience method that merge the current pofile with the pot file
+provided. It behaves exactly as the gettext msgmerge utility:</p>
+<blockquote>
+<ul class="rst-simple">
+<li>comments of this file will be preserved, but extracted comments
+and occurrences will be discarded</li>
+<li>any translations or comments in the file will be discarded,
+however dot comments and file positions will be preserved</li>
+</ul>
+</blockquote>
+<dl class="rst-docutils">
+<dt><strong>Keyword argument</strong>:</dt>
+<dd><ul class="rst-first rst-last rst-simple">
+<li><em>refpot</em>: object POFile, the reference catalog.</li>
+</ul>
+</dd>
+</dl>
+<p><strong>Example</strong>:</p>
+<pre class="py-doctest">
+<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">import</span> polib
+<span class="py-prompt">&gt;&gt;&gt; </span>refpot = polib.pofile(<span class="py-string">'tests/test_merge.pot'</span>)
+<span class="py-prompt">&gt;&gt;&gt; </span>po = polib.pofile(<span class="py-string">'tests/test_merge_before.po'</span>)
+<span class="py-prompt">&gt;&gt;&gt; </span>po.merge(refpot)
+<span class="py-prompt">&gt;&gt;&gt; </span>expected_po = polib.pofile(<span class="py-string">'tests/test_merge_after.po'</span>)
+<span class="py-prompt">&gt;&gt;&gt; </span>str(po) == str(expected_po)
+<span class="py-output">True</span></pre>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -551,7 +618,7 @@ object --+
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0beta1 on Tue Dec 11 12:11:51 2007
+    Generated by Epydoc 3.0beta1 on Fri Dec 21 11:05:36 2007
     </td>
     <td align="right" class="footer">
       <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>

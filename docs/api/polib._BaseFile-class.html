@@ -71,8 +71,8 @@ object --+
 </dd></dl>
 
 <hr />
-Common parent class for POFile and MOFile classes. This class must 
-  **not** be instanciated directly.<br /><br />
+Common parent class for POFile and MOFile classes.
+This class must <strong>not</strong> be instanciated directly.<br /><br />
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -99,7 +99,8 @@ Common parent class for POFile and MOFile classes. This class must
         <tr>
           <td><span class="summary-sig"><a href="polib._BaseFile-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">fpath</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">wrapwidth</span>=<span class="summary-sig-default">78</span>)</span><br />
+        <span class="summary-sig-arg">wrapwidth</span>=<span class="summary-sig-default">78</span>,
+        <span class="summary-sig-arg">encoding</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">utf-8</code><code class="variable-quote">'</code></span>)</span><br />
       Constructor.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="polib-pysrc.html#_BaseFile.__init__">source&nbsp;code</a></span>
@@ -170,8 +171,8 @@ Common parent class for POFile and MOFile classes. This class must
           <td><span class="summary-sig"><a href="polib._BaseFile-class.html#save" class="summary-sig-name">save</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">fpath</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">repr_method</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">__str__</code><code class="variable-quote">'</code></span>)</span><br />
-      Save the po file to file *fpath* if no file handle exists for the 
-      object.</td>
+      Save the po file to file <em>fpath</em> if no file handle exists for
+the object.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="polib-pysrc.html#_BaseFile.save">source&nbsp;code</a></span>
             
@@ -190,8 +191,8 @@ Common parent class for POFile and MOFile classes. This class must
           <td><span class="summary-sig"><a href="polib._BaseFile-class.html#find" class="summary-sig-name">find</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">st</span>,
         <span class="summary-sig-arg">by</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">msgid</code><code class="variable-quote">'</code></span>)</span><br />
-      Find entry which msgid (or property identified by the *by* 
-      attribute) matches the string *st*.</td>
+      Find entry which msgid (or property identified by the <em>by</em>
+attribute) matches the string <em>st</em>.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="polib-pysrc.html#_BaseFile.find">source&nbsp;code</a></span>
             
@@ -333,7 +334,8 @@ Common parent class for POFile and MOFile classes. This class must
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
         <span class="sig-arg">fpath</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">wrapwidth</span>=<span class="sig-default">78</span>)</span>
+        <span class="sig-arg">wrapwidth</span>=<span class="sig-default">78</span>,
+        <span class="sig-arg">encoding</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">utf-8</code><code class="variable-quote">'</code></span>)</span>
     <br /><em class="fname">(Constructor)</em>
   </h3>
   </td><td align="right" valign="top"
@@ -342,17 +344,16 @@ Common parent class for POFile and MOFile classes. This class must
   </table>
   
   <p>Constructor.</p>
-  **Keyword arguments**:
-  <ul>
-    <li>
-      *fpath*: string, path to po or mo file
-    </li>
-    <li>
-      *wrapwidth*: integer, the wrap width, only useful when -w option 
-      was passed to xgettext to generate the po file that was used to 
-      format the mo file, default to 78 (optional).
-    </li>
-  </ul>
+<dl class="rst-docutils">
+<dt><strong>Keyword arguments</strong>:</dt>
+<dd><ul class="rst-first rst-last rst-simple">
+<li><em>fpath</em>: string, path to po or mo file</li>
+<li><em>wrapwidth</em>: integer, the wrap width, only useful when -w option
+was passed to xgettext to generate the po file that was used to
+format the mo file, default to 78 (optional).</li>
+</ul>
+</dd>
+</dl>
   <dl class="fields">
     <dt>Returns:</dt>
         <dd><pre class="literalblock">
@@ -427,18 +428,18 @@ new list
     </td>
   </table>
   
-  <p>Save the po file to file *fpath* if no file handle exists for the 
-  object. If there's already an open file and no fpath is provided, then 
-  the existing file is rewritten with the modified data.</p>
-  **Keyword arguments**:
-  <ul>
-    <li>
-      *fpath*: string, full or relative path to the file.
-    </li>
-    <li>
-      *repr_method*: string, the method to use for output.
-    </li>
-  </ul>
+  <p>Save the po file to file <em>fpath</em> if no file handle exists for
+the object. If there's already an open file and no fpath is
+provided, then the existing file is rewritten with the modified
+data.</p>
+<dl class="rst-docutils">
+<dt><strong>Keyword arguments</strong>:</dt>
+<dd><ul class="rst-first rst-last rst-simple">
+<li><em>fpath</em>: string, full or relative path to the file.</li>
+<li><em>repr_method</em>: string, the method to use for output.</li>
+</ul>
+</dd>
+</dl>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -459,9 +460,17 @@ new list
     </td>
   </table>
   
-  <p>Find entry which msgid (or property identified by the *by* attribute) 
-  matches the string *st*.</p>
-  **Examples**:
+  <p>Find entry which msgid (or property identified by the <em>by</em>
+attribute) matches the string <em>st</em>.</p>
+<dl class="rst-docutils">
+<dt><strong>Keyword arguments</strong>:</dt>
+<dd><ul class="rst-first rst-last rst-simple">
+<li><em>st</em>: string, the string to search for</li>
+<li><em>by</em>: string, the comparison attribute</li>
+</ul>
+</dd>
+</dl>
+<p><strong>Examples</strong>:</p>
 <pre class="py-doctest">
 <span class="py-prompt">&gt;&gt;&gt; </span>po = pofile(<span class="py-string">'tests/test_utf8.po'</span>)
 <span class="py-prompt">&gt;&gt;&gt; </span>entry = po.find(<span class="py-string">'Thursday'</span>)
@@ -491,8 +500,8 @@ new list
     </td>
   </table>
   
-  Convenience method that return the metadata ordered. The return value 
-  is list of tuples (metadata name, metadata_value).
+  Convenience method that return the metadata ordered. The return
+value is list of tuples (metadata name, metadata_value).
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -524,7 +533,7 @@ new list
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0beta1 on Tue Dec 11 12:11:51 2007
+    Generated by Epydoc 3.0beta1 on Fri Dec 21 11:05:36 2007
     </td>
     <td align="right" class="footer">
       <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
