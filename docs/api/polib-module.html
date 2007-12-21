@@ -55,15 +55,15 @@
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
 <h1 class="epydoc">Module polib</h1><span class="codelink"><a href="polib-pysrc.html">source&nbsp;code</a></span><br /><br />
-<p>**polib** allows you to manipulate, create, modify gettext files (pot,
-  po and mo files).  You can load existing files, iterate through it's 
-  entries, add, modify entries, comments or metadata, etc... or create new 
-  po files from scratch.</p>
-  <p>**polib** provides a simple and pythonic API, exporting only three 
-  convenience functions (*pofile*, *mofile* and *detect_encoding*), and the
-  four core classes, *POFile*, *MOFile*, *POEntry* and *MOEntry* for 
-  creating new files/entries.</p>
-  **Basic example**:
+<p><strong>polib</strong> allows you to manipulate, create, modify gettext files (pot, po
+and mo files).  You can load existing files, iterate through it's entries,
+add, modify entries, comments or metadata, etc... or create new po files
+from scratch.</p>
+<p><strong>polib</strong> provides a simple and pythonic API, exporting only three
+convenience functions (<em>pofile</em>, <em>mofile</em> and <em>detect_encoding</em>), and the
+four core classes, <em>POFile</em>, <em>MOFile</em>, <em>POEntry</em> and <em>MOEntry</em> for creating
+new files/entries.</p>
+<p><strong>Basic example</strong>:</p>
 <pre class="py-doctest">
 <span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">import</span> polib
 <span class="py-prompt">&gt;&gt;&gt; </span><span class="py-comment"># load an existing po file</span>
@@ -157,8 +157,8 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="polib._POFileParser-class.html" class="summary-name">_POFileParser</a><br />
-      A finite state machine to parse efficiently and correctly po 
-        file format.
+      A finite state machine to parse efficiently and correctly po
+file format.
     </td>
   </tr>
 <tr class="private">
@@ -250,8 +250,8 @@
         <tr>
           <td><span class="summary-sig"><a href="polib-module.html#_strjoin" class="summary-sig-name">_strjoin</a>(<span class="summary-sig-arg">S</span>,
         <span class="summary-sig-arg">sequence</span>)</span><br />
-      Return a string which is the concatenation of the strings in the 
-      sequence.</td>
+      Return a string which is the concatenation of the strings in the
+sequence.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="polib-pysrc.html">source&nbsp;code</a></span>
             
@@ -270,8 +270,8 @@
           <td><span class="summary-sig"><a href="polib-module.html#_strsplit" class="summary-sig-name">_strsplit</a>(<span class="summary-sig-arg">S</span>,
         <span class="summary-sig-arg">sep</span>=<span class="summary-sig-default">... </span>,
         <span class="summary-sig-arg">maxsplit</span>=<span class="summary-sig-default">...</span>)</span><br />
-      Return a list of the words in the string S, using sep as the 
-      delimiter string.</td>
+      Return a list of the words in the string S, using sep as the
+delimiter string.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="polib-pysrc.html">source&nbsp;code</a></span>
             
@@ -289,8 +289,8 @@
         <tr>
           <td><span class="summary-sig"><a href="polib-module.html#_strstrip" class="summary-sig-name">_strstrip</a>(<span class="summary-sig-arg">S</span>,
         <span class="summary-sig-arg">chars</span>=<span class="summary-sig-default">...</span>)</span><br />
-      Return a copy of the string S with leading and trailing whitespace
-      removed.</td>
+      Return a copy of the string S with leading and trailing
+whitespace removed.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="polib-pysrc.html">source&nbsp;code</a></span>
             
@@ -324,10 +324,9 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="polib-module.html#pofile" class="summary-sig-name">pofile</a>(<span class="summary-sig-arg">fpath</span>,
-        <span class="summary-sig-arg">wrapwidth</span>=<span class="summary-sig-default">78</span>,
-        <span class="summary-sig-arg">autodetect_encoding</span>=<span class="summary-sig-default">True</span>)</span><br />
-      Convenience function that parse the po/pot file *fpath* and return
-      a POFile instance.</td>
+        <span class="summary-sig-arg">**kwargs</span>)</span><br />
+      Convenience function that parse the po/pot file <em>fpath</em> and return
+a POFile instance.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="polib-pysrc.html#pofile">source&nbsp;code</a></span>
             
@@ -344,10 +343,9 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="polib-module.html#mofile" class="summary-sig-name">mofile</a>(<span class="summary-sig-arg">fpath</span>,
-        <span class="summary-sig-arg">wrapwidth</span>=<span class="summary-sig-default">78</span>,
-        <span class="summary-sig-arg">autodetect_encoding</span>=<span class="summary-sig-default">True</span>)</span><br />
-      Convenience function that parse the mo file *fpath* and return a 
-      MOFile instance.</td>
+        <span class="summary-sig-arg">**kwargs</span>)</span><br />
+      Convenience function that parse the mo file <em>fpath</em> and return
+a MOFile instance.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="polib-pysrc.html#mofile">source&nbsp;code</a></span>
             
@@ -364,7 +362,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="polib-module.html#detect_encoding" class="summary-sig-name">detect_encoding</a>(<span class="summary-sig-arg">fpath</span>)</span><br />
-      Try to detect the encoding used by the file *fpath*.</td>
+      Try to detect the encoding used by the file <em>fpath</em>.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="polib-pysrc.html#detect_encoding">source&nbsp;code</a></span>
             
@@ -381,7 +379,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="polib-module.html#quote" class="summary-sig-name">quote</a>(<span class="summary-sig-arg">st</span>)</span><br />
-      Quote and return the given string *st*.</td>
+      Quote and return the given string <em>st</em>.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="polib-pysrc.html#quote">source&nbsp;code</a></span>
             
@@ -398,7 +396,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="polib-module.html#unquote" class="summary-sig-name">unquote</a>(<span class="summary-sig-arg">st</span>)</span><br />
-      Unquote and return the given string *st*.</td>
+      Unquote and return the given string <em>st</em>.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="polib-pysrc.html#unquote">source&nbsp;code</a></span>
             
@@ -430,7 +428,7 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="encoding"></a><span class="summary-name">encoding</span> = <code title="'utf-8'"><code class="variable-quote">'</code><code class="variable-string">utf-8</code><code class="variable-quote">'</code></code>
+        <a name="default_encoding"></a><span class="summary-name">default_encoding</span> = <code title="'utf-8'"><code class="variable-quote">'</code><code class="variable-string">utf-8</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 </table>
@@ -518,8 +516,8 @@ item
     </td>
   </table>
   
-  Return a string which is the concatenation of the strings in the 
-  sequence.  The separator between elements is S.
+  Return a string which is the concatenation of the strings in the
+sequence.  The separator between elements is S.
   <dl class="fields">
     <dt>Returns:</dt>
         <dd><pre class="literalblock">
@@ -545,9 +543,10 @@ string
     </td>
   </table>
   
-  Return a list of the words in the string S, using sep as the delimiter
-  string.  If maxsplit is given, at most maxsplit splits are done. If sep 
-  is not specified or is None, any whitespace string is a separator.
+  Return a list of the words in the string S, using sep as the
+delimiter string.  If maxsplit is given, at most maxsplit
+splits are done. If sep is not specified or is None, any
+whitespace string is a separator.
   <dl class="fields">
     <dt>Returns:</dt>
         <dd><pre class="literalblock">
@@ -572,10 +571,10 @@ list of strings
     </td>
   </table>
   
-  Return a copy of the string S with leading and trailing whitespace 
-  removed. If chars is given and not None, remove characters in chars 
-  instead. If chars is unicode, S will be converted to unicode before 
-  stripping
+  Return a copy of the string S with leading and trailing
+whitespace removed.
+If chars is given and not None, remove characters in chars instead.
+If chars is unicode, S will be converted to unicode before stripping
   <dl class="fields">
     <dt>Returns:</dt>
         <dd><pre class="literalblock">
@@ -600,9 +599,9 @@ string or unicode
   </table>
   
   <p>S.replace (old, new[, count]) -&gt; string</p>
-  Return a copy of string S with all occurrences of substring old 
-  replaced by new.  If the optional argument count is given, only the first
-  count occurrences are replaced.
+<p>Return a copy of string S with all occurrences of substring
+old replaced by new.  If the optional argument count is
+given, only the first count occurrences are replaced.</p>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -615,32 +614,29 @@ string or unicode
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">pofile</span>(<span class="sig-arg">fpath</span>,
-        <span class="sig-arg">wrapwidth</span>=<span class="sig-default">78</span>,
-        <span class="sig-arg">autodetect_encoding</span>=<span class="sig-default">True</span>)</span>
+        <span class="sig-arg">**kwargs</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="polib-pysrc.html#pofile">source&nbsp;code</a></span>&nbsp;
     </td>
   </table>
   
-  <p>Convenience function that parse the po/pot file *fpath* and return a 
-  POFile instance.</p>
-  **Keyword arguments**:
-  <ul>
-    <li>
-      *fpath*: string, full or relative path to the po/pot file to 
-      parse
-    </li>
-    <li>
-      *wrapwidth*: integer, the wrap width, only useful when -w option 
-      was passed to xgettext, default to 78 (optional)
-    </li>
-    <li>
-      *autodetect_encoding*: boolean, if set to False the function will 
-      not try to detect the po file encoding
-    </li>
-  </ul>
-  **Example**:
+  <p>Convenience function that parse the po/pot file <em>fpath</em> and return
+a POFile instance.</p>
+<dl class="rst-docutils">
+<dt><strong>Keyword arguments</strong>:</dt>
+<dd><ul class="rst-first rst-last rst-simple">
+<li><em>fpath</em>: string, full or relative path to the po/pot file to parse</li>
+<li><em>wrapwidth</em>: integer, the wrap width, only useful when -w option was
+passed to xgettext (optional, default to 78)</li>
+<li><em>autodetect_encoding</em>: boolean, if set to False the function will
+not try to detect the po file encoding (optional, default to True)</li>
+<li><em>encoding</em>: string, an encoding, only relevant if autodetect_encoding
+is set to False</li>
+</ul>
+</dd>
+</dl>
+<p><strong>Example</strong>:</p>
 <pre class="py-doctest">
 <span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">import</span> polib
 <span class="py-prompt">&gt;&gt;&gt; </span>po = polib.pofile(<span class="py-string">'tests/test_utf8.po'</span>)
@@ -674,32 +670,30 @@ string or unicode
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">mofile</span>(<span class="sig-arg">fpath</span>,
-        <span class="sig-arg">wrapwidth</span>=<span class="sig-default">78</span>,
-        <span class="sig-arg">autodetect_encoding</span>=<span class="sig-default">True</span>)</span>
+        <span class="sig-arg">**kwargs</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="polib-pysrc.html#mofile">source&nbsp;code</a></span>&nbsp;
     </td>
   </table>
   
-  <p>Convenience function that parse the mo file *fpath* and return a 
-  MOFile instance.</p>
-  **Keyword arguments**:
-  <ul>
-    <li>
-      *fpath*: string, full or relative path to the mo file to parse
-    </li>
-    <li>
-      *wrapwidth*: integer, the wrap width, only useful when -w option 
-      was passed to xgettext to generate the po file that was used to 
-      format the mo file, default to 78 (optional)
-    </li>
-    <li>
-      *autodetect_encoding*: boolean, if set to False the function will 
-      not try to detect the po file encoding
-    </li>
-  </ul>
-  **Example**:
+  <p>Convenience function that parse the mo file <em>fpath</em> and return
+a MOFile instance.</p>
+<dl class="rst-docutils">
+<dt><strong>Keyword arguments</strong>:</dt>
+<dd><ul class="rst-first rst-last rst-simple">
+<li><em>fpath</em>: string, full or relative path to the mo file to parse</li>
+<li><em>wrapwidth</em>: integer, the wrap width, only useful when -w option was
+passed to xgettext to generate the po file that was used to format
+the mo file (optional, default to 78)</li>
+<li><em>autodetect_encoding</em>: boolean, if set to False the function will
+not try to detect the po file encoding (optional, default to True)</li>
+<li><em>encoding</em>: string, an encoding, only relevant if autodetect_encoding
+is set to False</li>
+</ul>
+</dd>
+</dl>
+<p><strong>Example</strong>:</p>
 <pre class="py-doctest">
 <span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">import</span> polib
 <span class="py-prompt">&gt;&gt;&gt; </span>mo = polib.mofile(<span class="py-string">'tests/test_utf8.mo'</span>)
@@ -736,16 +730,16 @@ string or unicode
     </td>
   </table>
   
-  <p>Try to detect the encoding used by the file *fpath*. The function will
-  return polib default *encoding* if it's unable to detect it.</p>
-  **Keyword argument**:
-  <ul>
-    <li>
-      *fpath*: string, full or relative path to the mo file to 
-      parse.
-    </li>
-  </ul>
-  **Examples**:
+  <p>Try to detect the encoding used by the file <em>fpath</em>. The function will
+return polib default <em>encoding</em> if it's unable to detect it.</p>
+<dl class="rst-docutils">
+<dt><strong>Keyword argument</strong>:</dt>
+<dd><ul class="rst-first rst-last rst-simple">
+<li><em>fpath</em>: string, full or relative path to the mo file to parse.</li>
+</ul>
+</dd>
+</dl>
+<p><strong>Examples</strong>:</p>
 <pre class="py-doctest">
 <span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">print</span> detect_encoding(<span class="py-string">'tests/test_noencoding.po'</span>)
 <span class="py-output">utf-8</span>
@@ -775,8 +769,8 @@ string or unicode
     </td>
   </table>
   
-  <p>Quote and return the given string *st*.</p>
-  **Examples**:
+  <p>Quote and return the given string <em>st</em>.</p>
+<p><strong>Examples</strong>:</p>
 <pre class="py-doctest">
 <span class="py-prompt">&gt;&gt;&gt; </span>quote('\t <span class="py-keyword">and</span> \n <span class="py-keyword">and</span> \r <span class="py-keyword">and</span> &quot; <span class="py-keyword">and</span> \\')
 <span class="py-output">'\\t and \\n and \\r and \\&quot; and \\\\'</span></pre>
@@ -798,8 +792,8 @@ string or unicode
     </td>
   </table>
   
-  <p>Unquote and return the given string *st*.</p>
-  **Examples**:
+  <p>Unquote and return the given string <em>st</em>.</p>
+<p><strong>Examples</strong>:</p>
 <pre class="py-doctest">
 <span class="py-prompt">&gt;&gt;&gt; </span>unquote('\\t <span class="py-keyword">and</span> \\n <span class="py-keyword">and</span> \\r <span class="py-keyword">and</span> \\&quot; <span class="py-keyword">and</span> \\\\')
 <span class="py-output">'\t and \n and \r and &quot; and \\'</span></pre>
@@ -834,7 +828,7 @@ string or unicode
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0beta1 on Tue Dec 11 12:11:51 2007
+    Generated by Epydoc 3.0beta1 on Fri Dec 21 11:05:36 2007
     </td>
     <td align="right" class="footer">
       <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>

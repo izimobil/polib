@@ -1,7 +1,7 @@
 polib	polib-module.html
 polib.unquote	polib-module.html#unquote
 polib._strsplit	polib-module.html#_strsplit
-polib.encoding	polib-module.html#encoding
+polib.default_encoding	polib-module.html#default_encoding
 polib._listpop	polib-module.html#_listpop
 polib._listappend	polib-module.html#_listappend
 polib._dictget	polib-module.html#_dictget
@@ -34,9 +34,8 @@ polib.MOFile.percent_translated	polib.MOFile-class.html#percent_translated
 polib._BaseFile.__repr__	polib._BaseFile-class.html#__repr__
 polib.MOFile.__init__	polib.MOFile-class.html#__init__
 polib.POEntry	polib.POEntry-class.html
-polib.POEntry.__setattr__	polib.POEntry-class.html#__setattr__
 polib.POEntry.__str__	polib.POEntry-class.html#__str__
-polib.POEntry.__getattr__	polib.POEntry-class.html#__getattr__
+polib.POEntry.__cmp__	polib.POEntry-class.html#__cmp__
 polib._BaseEntry.__repr__	polib._BaseEntry-class.html#__repr__
 polib._BaseEntry._str_field	polib._BaseEntry-class.html#_str_field
 polib.POEntry.translated	polib.POEntry-class.html#translated
@@ -46,8 +45,8 @@ polib.POFile	polib.POFile-class.html
 polib.POFile.translated_entries	polib.POFile-class.html#translated_entries
 polib.POFile.__str__	polib.POFile-class.html#__str__
 polib._BaseFile.ordered_metadata	polib._BaseFile-class.html#ordered_metadata
-polib._BaseFile.to_binary	polib._BaseFile-class.html#to_binary
 polib._BaseFile.metadata_as_entry	polib._BaseFile-class.html#metadata_as_entry
+polib._BaseFile.to_binary	polib._BaseFile-class.html#to_binary
 polib._BaseFile.find	polib._BaseFile-class.html#find
 polib.POFile.fuzzy_entries	polib.POFile-class.html#fuzzy_entries
 polib.POFile.obsolete_entries	polib.POFile-class.html#obsolete_entries
@@ -55,6 +54,7 @@ polib.POFile.untranslated_entries	polib.POFile-class.html#untranslated_entries
 polib._BaseFile.save	polib._BaseFile-class.html#save
 polib.POFile.percent_translated	polib.POFile-class.html#percent_translated
 polib.POFile.save_as_mofile	polib.POFile-class.html#save_as_mofile
+polib.POFile.merge	polib.POFile-class.html#merge
 polib._BaseFile.__repr__	polib._BaseFile-class.html#__repr__
 polib._BaseFile.__init__	polib._BaseFile-class.html#__init__
 polib._BaseEntry	polib._BaseEntry-class.html
