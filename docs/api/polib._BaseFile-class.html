@@ -55,7 +55,7 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class _BaseFile</h1><span class="codelink"><a href="polib-pysrc.html#_BaseFile">source&nbsp;code</a></span><br /><br />
+<h1 class="epydoc">Class _BaseFile</h1><p class="nomargin-top"><span class="codelink"><a href="polib-pysrc.html#_BaseFile">source&nbsp;code</a></span></p>
 <pre class="base-tree">
 object --+    
          |    
@@ -66,13 +66,13 @@ object --+
 
 <dl><dt>Known Subclasses:</dt>
 <dd>
-    <a href="polib.MOFile-class.html">MOFile</a>,
-    <a href="polib.POFile-class.html">POFile</a>
+      <ul class="subclass-list">
+<li><a href="polib.MOFile-class.html">MOFile</a></li><li>, <a href="polib.POFile-class.html">POFile</a></li>  </ul>
 </dd></dl>
 
 <hr />
-Common parent class for POFile and MOFile classes.
-This class must <strong>not</strong> be instanciated directly.<br /><br />
+<p>Common parent class for POFile and MOFile classes. This class must 
+  **not** be instanciated directly.</p>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -93,7 +93,7 @@ This class must <strong>not</strong> be instanciated directly.<br /><br />
 </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
+      <span class="summary-type">new list</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -171,8 +171,8 @@ This class must <strong>not</strong> be instanciated directly.<br /><br />
           <td><span class="summary-sig"><a href="polib._BaseFile-class.html#save" class="summary-sig-name">save</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">fpath</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">repr_method</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">__str__</code><code class="variable-quote">'</code></span>)</span><br />
-      Save the po file to file <em>fpath</em> if no file handle exists for
-the object.</td>
+      Save the po file to file *fpath* if no file handle exists for the 
+      object.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="polib-pysrc.html#_BaseFile.save">source&nbsp;code</a></span>
             
@@ -191,8 +191,8 @@ the object.</td>
           <td><span class="summary-sig"><a href="polib._BaseFile-class.html#find" class="summary-sig-name">find</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">st</span>,
         <span class="summary-sig-arg">by</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">msgid</code><code class="variable-quote">'</code></span>)</span><br />
-      Find entry which msgid (or property identified by the <em>by</em>
-attribute) matches the string <em>st</em>.</td>
+      Find entry which msgid (or property identified by the *by* attribute)
+      matches the string *st*.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="polib-pysrc.html#_BaseFile.find">source&nbsp;code</a></span>
             
@@ -341,27 +341,24 @@ attribute) matches the string <em>st</em>.</td>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="polib-pysrc.html#_BaseFile.__init__">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
   <p>Constructor.</p>
-<dl class="rst-docutils">
-<dt><strong>Keyword arguments</strong>:</dt>
-<dd><ul class="rst-first rst-last rst-simple">
-<li><em>fpath</em>: string, path to po or mo file</li>
-<li><em>wrapwidth</em>: integer, the wrap width, only useful when -w option
-was passed to xgettext to generate the po file that was used to
-format the mo file, default to 78 (optional).</li>
-</ul>
-</dd>
-</dl>
+  <p>**Keyword arguments**:</p>
+  <ul>
+    <li>
+      *fpath*: string, path to po or mo file
+    </li>
+    <li>
+      *wrapwidth*: integer, the wrap width, only useful when -w option was 
+      passed to xgettext to generate the po file that was used to format 
+      the mo file, default to 78 (optional).
+    </li>
+  </ul>
   <dl class="fields">
-    <dt>Returns:</dt>
-        <dd><pre class="literalblock">
-new list
-
-</pre></dd>
+    <dt>Returns: new list</dt>
     <dt>Overrides:
-      list.__init__
+        object.__init__
     </dt>
   </dl>
 </td></tr></table>
@@ -379,12 +376,12 @@ new list
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="polib-pysrc.html#_BaseFile.__str__">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
-  String representation of the file.
+  <p>String representation of the file.</p>
   <dl class="fields">
     <dt>Overrides:
-      object.__str__
+        object.__str__
     </dt>
   </dl>
 </td></tr></table>
@@ -402,12 +399,12 @@ new list
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="polib-pysrc.html#_BaseFile.__repr__">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
-  Return the official string representation of the object.
+  <p>Return the official string representation of the object.</p>
   <dl class="fields">
     <dt>Overrides:
-      list.__repr__
+        object.__repr__
     </dt>
   </dl>
 </td></tr></table>
@@ -426,20 +423,20 @@ new list
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="polib-pysrc.html#_BaseFile.save">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
-  <p>Save the po file to file <em>fpath</em> if no file handle exists for
-the object. If there's already an open file and no fpath is
-provided, then the existing file is rewritten with the modified
-data.</p>
-<dl class="rst-docutils">
-<dt><strong>Keyword arguments</strong>:</dt>
-<dd><ul class="rst-first rst-last rst-simple">
-<li><em>fpath</em>: string, full or relative path to the file.</li>
-<li><em>repr_method</em>: string, the method to use for output.</li>
-</ul>
-</dd>
-</dl>
+  <p>Save the po file to file *fpath* if no file handle exists for the 
+  object. If there's already an open file and no fpath is provided, then 
+  the existing file is rewritten with the modified data.</p>
+  <p>**Keyword arguments**:</p>
+  <ul>
+    <li>
+      *fpath*: string, full or relative path to the file.
+    </li>
+    <li>
+      *repr_method*: string, the method to use for output.
+    </li>
+  </ul>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -458,19 +455,20 @@ data.</p>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="polib-pysrc.html#_BaseFile.find">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
-  <p>Find entry which msgid (or property identified by the <em>by</em>
-attribute) matches the string <em>st</em>.</p>
-<dl class="rst-docutils">
-<dt><strong>Keyword arguments</strong>:</dt>
-<dd><ul class="rst-first rst-last rst-simple">
-<li><em>st</em>: string, the string to search for</li>
-<li><em>by</em>: string, the comparison attribute</li>
-</ul>
-</dd>
-</dl>
-<p><strong>Examples</strong>:</p>
+  <p>Find entry which msgid (or property identified by the *by* attribute) 
+  matches the string *st*.</p>
+  <p>**Keyword arguments**:</p>
+  <ul>
+    <li>
+      *st*: string, the string to search for
+    </li>
+    <li>
+      *by*: string, the comparison attribute
+    </li>
+  </ul>
+  <p>**Examples**:</p>
 <pre class="py-doctest">
 <span class="py-prompt">&gt;&gt;&gt; </span>po = pofile(<span class="py-string">'tests/test_utf8.po'</span>)
 <span class="py-prompt">&gt;&gt;&gt; </span>entry = po.find(<span class="py-string">'Thursday'</span>)
@@ -498,10 +496,10 @@ attribute) matches the string <em>st</em>.</p>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="polib-pysrc.html#_BaseFile.ordered_metadata">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
-  Convenience method that return the metadata ordered. The return
-value is list of tuples (metadata name, metadata_value).
+  <p>Convenience method that return the metadata ordered. The return value 
+  is list of tuples (metadata name, metadata_value).</p>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -533,10 +531,11 @@ value is list of tuples (metadata name, metadata_value).
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0beta1 on Fri Dec 21 11:05:36 2007
+    Generated by Epydoc 3.0.1 on Wed Nov 26 19:13:55 2008
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -547,9 +546,8 @@ value is list of tuples (metadata name, metadata_value).
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>

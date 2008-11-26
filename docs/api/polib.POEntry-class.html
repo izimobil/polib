@@ -55,22 +55,22 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class POEntry</h1><span class="codelink"><a href="polib-pysrc.html#POEntry">source&nbsp;code</a></span><br /><br />
+<h1 class="epydoc">Class POEntry</h1><p class="nomargin-top"><span class="codelink"><a href="polib-pysrc.html#POEntry">source&nbsp;code</a></span></p>
 <pre class="base-tree">
 object --+    
          |    
-<a href="polib._BaseEntry-class.html">_BaseEntry</a> --+
+<a href="polib._BaseEntry-class.html" onclick="show_private();">_BaseEntry</a> --+
              |
             <strong class="uidshort">POEntry</strong>
 </pre>
 
 <hr />
 <p>Represents a po file entry.</p>
-<p><strong>Examples</strong>:</p>
+  <p>**Examples**:</p>
 <pre class="py-doctest">
 <span class="py-prompt">&gt;&gt;&gt; </span>entry = POEntry(msgid=<span class="py-string">'Welcome'</span>, msgstr=<span class="py-string">'Bienvenue'</span>)
 <span class="py-prompt">&gt;&gt;&gt; </span>entry.occurrences = [(<span class="py-string">'welcome.py'</span>, 12), (<span class="py-string">'anotherfile.py'</span>, 34)]
-<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">print</span> entry
+<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">print</span>(entry)
 <span class="py-output">#: welcome.py:12 anotherfile.py:34</span>
 <span class="py-output">msgid &quot;Welcome&quot;</span>
 <span class="py-output">msgstr &quot;Bienvenue&quot;</span>
@@ -83,7 +83,7 @@ object --+
 <span class="py-prompt">&gt;&gt;&gt; </span>entry.msgid_plural = <span class="py-string">'I have spam and %d eggs !'</span>
 <span class="py-prompt">&gt;&gt;&gt; </span>entry.msgstr_plural[0] = <span class="py-string">&quot;J'ai du jambon mais aucun oeuf !&quot;</span>
 <span class="py-prompt">&gt;&gt;&gt; </span>entry.msgstr_plural[1] = <span class="py-string">&quot;J'ai du jambon et %d oeufs !&quot;</span>
-<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">print</span> entry
+<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">print</span>(entry)
 <span class="py-output"># A plural translation</span>
 <span class="py-output">#: src/spam.c:32 src/eggs.c:45</span>
 <span class="py-output">#, c-format</span>
@@ -91,7 +91,7 @@ object --+
 <span class="py-output">msgid_plural &quot;I have spam and %d eggs !&quot;</span>
 <span class="py-output">msgstr[0] &quot;J'ai du jambon mais aucun oeuf !&quot;</span>
 <span class="py-output">msgstr[1] &quot;J'ai du jambon et %d oeufs !&quot;</span>
-<span class="py-output">&lt;BLANKLINE&gt;</span></pre><br /><br />
+<span class="py-output">&lt;BLANKLINE&gt;</span></pre>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -184,12 +184,12 @@ object --+
   </tr>
   <tr>
     <td colspan="2" class="summary">
-    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="polib._BaseEntry-class.html">_BaseEntry</a></code></b>:
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="polib._BaseEntry-class.html" onclick="show_private();">_BaseEntry</a></code></b>:
       <code><a href="polib._BaseEntry-class.html#__repr__">__repr__</a></code>
       </p>
-    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="polib._BaseEntry-class.html">_BaseEntry</a></code></b> (private):
-      <code><a href="polib._BaseEntry-class.html#_decode">_decode</a></code>,
-      <code><a href="polib._BaseEntry-class.html#_str_field">_str_field</a></code>
+    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="polib._BaseEntry-class.html" onclick="show_private();">_BaseEntry</a></code></b> (private):
+      <code><a href="polib._BaseEntry-class.html#_decode" onclick="show_private();">_decode</a></code>,
+      <code><a href="polib._BaseEntry-class.html#_str_field" onclick="show_private();">_str_field</a></code>
       </p></div>
     <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
       <code>__delattr__</code>,
@@ -261,12 +261,12 @@ object --+
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="polib-pysrc.html#POEntry.__init__">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
-  POEntry constructor.
+  <p>POEntry constructor.</p>
   <dl class="fields">
     <dt>Overrides:
-      <a href="polib._BaseEntry-class.html#__init__">_BaseEntry.__init__</a>
+        object.__init__
     </dt>
   </dl>
 </td></tr></table>
@@ -285,12 +285,12 @@ object --+
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="polib-pysrc.html#POEntry.__str__">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
-  Return the string representation of the entry.
+  <p>Return the string representation of the entry.</p>
   <dl class="fields">
     <dt>Overrides:
-      <a href="polib._BaseEntry-class.html#__str__">_BaseEntry.__str__</a>
+        object.__str__
     </dt>
   </dl>
 </td></tr></table>
@@ -309,41 +309,22 @@ object --+
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="polib-pysrc.html#POEntry.__cmp__">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
   <p>Called by comparison operations if rich comparison is not defined.</p>
-<p><strong>Tests</strong>:
-&gt;&gt;&gt; a  = POEntry(msgid='a', occurrences=[('b.py', 1), ('b.py', 3)])
-&gt;&gt;&gt; b  = POEntry(msgid='b', occurrences=[('b.py', 1), ('b.py', 3)])
-&gt;&gt;&gt; c1 = POEntry(msgid='c1', occurrences=[('a.py', 1), ('b.py', 1)])
-&gt;&gt;&gt; c2 = POEntry(msgid='c2', occurrences=[('a.py', 1), ('a.py', 3)])
-&gt;&gt;&gt; po = POFile()
-&gt;&gt;&gt; po.append(a)
-&gt;&gt;&gt; po.append(b)
-&gt;&gt;&gt; po.append(c1)
-&gt;&gt;&gt; po.append(c2)
-&gt;&gt;&gt; po.sort()
-&gt;&gt;&gt; print po
-#
-msgid &quot;&quot;
-msgstr &quot;&quot;
-&lt;BLANKLINE&gt;
-#: a.py:1 a.py:3
-msgid &quot;c2&quot;
-msgstr &quot;&quot;
-&lt;BLANKLINE&gt;
-#: a.py:1 b.py:1
-msgid &quot;c1&quot;
-msgstr &quot;&quot;
-&lt;BLANKLINE&gt;
-#: b.py:1 b.py:3
-msgid &quot;a&quot;
-msgstr &quot;&quot;
-&lt;BLANKLINE&gt;
-#: b.py:1 b.py:3
-msgid &quot;b&quot;
-msgstr &quot;&quot;
-&lt;BLANKLINE&gt;</p>
+  <p>**Tests**: &gt;&gt;&gt; a  = POEntry(msgid='a', occurrences=[('b.py', 
+  1), ('b.py', 3)]) &gt;&gt;&gt; b  = POEntry(msgid='b', 
+  occurrences=[('b.py', 1), ('b.py', 3)]) &gt;&gt;&gt; c1 = 
+  POEntry(msgid='c1', occurrences=[('a.py', 1), ('b.py', 1)]) &gt;&gt;&gt; 
+  c2 = POEntry(msgid='c2', occurrences=[('a.py', 1), ('a.py', 3)]) 
+  &gt;&gt;&gt; po = POFile() &gt;&gt;&gt; po.append(a) &gt;&gt;&gt; 
+  po.append(b) &gt;&gt;&gt; po.append(c1) &gt;&gt;&gt; po.append(c2) 
+  &gt;&gt;&gt; po.sort() &gt;&gt;&gt; print(po) # msgid &quot;&quot; msgstr
+  &quot;&quot; &lt;BLANKLINE&gt; #: a.py:1 a.py:3 msgid &quot;c2&quot; 
+  msgstr &quot;&quot; &lt;BLANKLINE&gt; #: a.py:1 b.py:1 msgid 
+  &quot;c1&quot; msgstr &quot;&quot; &lt;BLANKLINE&gt; #: b.py:1 b.py:3 
+  msgid &quot;a&quot; msgstr &quot;&quot; &lt;BLANKLINE&gt; #: b.py:1 
+  b.py:3 msgid &quot;b&quot; msgstr &quot;&quot; &lt;BLANKLINE&gt;</p>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -375,10 +356,11 @@ msgstr &quot;&quot;
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0beta1 on Fri Dec 21 11:05:36 2007
+    Generated by Epydoc 3.0.1 on Wed Nov 26 19:13:55 2008
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -389,9 +371,8 @@ msgstr &quot;&quot;
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>

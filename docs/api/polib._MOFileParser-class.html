@@ -55,7 +55,7 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class _MOFileParser</h1><span class="codelink"><a href="polib-pysrc.html#_MOFileParser">source&nbsp;code</a></span><br /><br />
+<h1 class="epydoc">Class _MOFileParser</h1><p class="nomargin-top"><span class="codelink"><a href="polib-pysrc.html#_MOFileParser">source&nbsp;code</a></span></p>
 <pre class="base-tree">
 object --+
          |
@@ -63,7 +63,7 @@ object --+
 </pre>
 
 <hr />
-A class to parse binary mo files.<br /><br />
+<p>A class to parse binary mo files.</p>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -124,8 +124,7 @@ A class to parse binary mo files.<br /><br />
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="parse"></a><span class="summary-sig-name">parse</span>(<span class="summary-sig-arg">self</span>)</span><br />
-      Build the instance with the file handle provided in the
-constructor.</td>
+      Build the instance with the file handle provided in the constructor.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="polib-pysrc.html#_MOFileParser.parse">source&nbsp;code</a></span>
             
@@ -141,8 +140,9 @@ constructor.</td>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="polib._MOFileParser-class.html#_readbinary" class="summary-sig-name">_readbinary</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">fmt</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">c</code><code class="variable-quote">'</code></span>)</span><br />
+          <td><span class="summary-sig"><a href="polib._MOFileParser-class.html#_readbinary" class="summary-sig-name" onclick="show_private();">_readbinary</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">fmt</span>,
+        <span class="summary-sig-arg">numbytes</span>)</span><br />
       Private method that unpack n bytes of data using format &lt;fmt&gt;.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="polib-pysrc.html#_MOFileParser._readbinary">source&nbsp;code</a></span>
@@ -166,6 +166,38 @@ constructor.</td>
       <code>__setattr__</code>,
       <code>__str__</code>
       </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS VARIABLES ==================== -->
+<a name="section-ClassVariables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Class Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-ClassVariables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="BIG_ENDIAN"></a><span class="summary-name">BIG_ENDIAN</span> = <code title="3725722773">3725722773</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="LITTLE_ENDIAN"></a><span class="summary-name">LITTLE_ENDIAN</span> = <code title="2500072158">2500072158</code>
     </td>
   </tr>
 </table>
@@ -226,12 +258,12 @@ constructor.</td>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="polib-pysrc.html#_MOFileParser.__init__">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
-  _MOFileParser constructor.
+  <p>_MOFileParser constructor.</p>
   <dl class="fields">
     <dt>Overrides:
-      object.__init__
+        object.__init__
     </dt>
   </dl>
 </td></tr></table>
@@ -244,15 +276,16 @@ constructor.</td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">_readbinary</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">fmt</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">c</code><code class="variable-quote">'</code></span>)</span>
+        <span class="sig-arg">fmt</span>,
+        <span class="sig-arg">numbytes</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="polib-pysrc.html#_MOFileParser._readbinary">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
-  Private method that unpack n bytes of data using format &lt;fmt&gt;.
-It returns a tuple or a mixed value if the tuple length is 1.
+  <p>Private method that unpack n bytes of data using format &lt;fmt&gt;. 
+  It returns a tuple or a mixed value if the tuple length is 1.</p>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -284,10 +317,11 @@ It returns a tuple or a mixed value if the tuple length is 1.
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0beta1 on Fri Dec 21 11:05:36 2007
+    Generated by Epydoc 3.0.1 on Wed Nov 26 19:13:55 2008
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -298,9 +332,8 @@ It returns a tuple or a mixed value if the tuple length is 1.
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>

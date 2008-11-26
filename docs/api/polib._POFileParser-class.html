@@ -55,7 +55,7 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class _POFileParser</h1><span class="codelink"><a href="polib-pysrc.html#_POFileParser">source&nbsp;code</a></span><br /><br />
+<h1 class="epydoc">Class _POFileParser</h1><p class="nomargin-top"><span class="codelink"><a href="polib-pysrc.html#_POFileParser">source&nbsp;code</a></span></p>
 <pre class="base-tree">
 object --+
          |
@@ -63,8 +63,8 @@ object --+
 </pre>
 
 <hr />
-A finite state machine to parse efficiently and correctly po
-file format.<br /><br />
+<p>A finite state machine to parse efficiently and correctly po file 
+  format.</p>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -109,7 +109,7 @@ file format.<br /><br />
         <tr>
           <td><span class="summary-sig"><a name="parse"></a><span class="summary-sig-name">parse</span>(<span class="summary-sig-arg">self</span>)</span><br />
       Run the state machine, parse the file line by line and call process()
-with the current matched symbol.</td>
+      with the current matched symbol.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="polib-pysrc.html#_POFileParser.parse">source&nbsp;code</a></span>
             
@@ -148,8 +148,8 @@ with the current matched symbol.</td>
           <td><span class="summary-sig"><a href="polib._POFileParser-class.html#process" class="summary-sig-name">process</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">symbol</span>,
         <span class="summary-sig-arg">linenum</span>)</span><br />
-      Process the transition corresponding to the current state and the
-symbol provided.</td>
+      Process the transition corresponding to the current state and the 
+      symbol provided.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="polib-pysrc.html#_POFileParser.process">source&nbsp;code</a></span>
             
@@ -217,7 +217,7 @@ symbol provided.</td>
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="handle_oc"></a><span class="summary-sig-name">handle_oc</span>(<span class="summary-sig-arg">self</span>)</span><br />
-      Handle a <a class="rst-reference" href="file:num" target="_top">file:num</a> occurence.</td>
+      Handle a file:num occurence.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="polib-pysrc.html#_POFileParser.handle_oc">source&nbsp;code</a></span>
             
@@ -402,19 +402,18 @@ symbol provided.</td>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="polib-pysrc.html#_POFileParser.__init__">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
   <p>Constructor.</p>
-<dl class="rst-docutils">
-<dt><strong>Keyword argument</strong>:</dt>
-<dd><ul class="rst-first rst-last rst-simple">
-<li><em>fpath</em>: string, path to the po file</li>
-</ul>
-</dd>
-</dl>
+  <p>**Keyword argument**:</p>
+  <ul>
+    <li>
+      *fpath*: string, path to the po file
+    </li>
+  </ul>
   <dl class="fields">
     <dt>Overrides:
-      object.__init__
+        object.__init__
     </dt>
   </dl>
 </td></tr></table>
@@ -434,13 +433,12 @@ symbol provided.</td>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="polib-pysrc.html#_POFileParser.add">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
-  <p>Add a transition to the state machine.
-Keywords arguments:</p>
-<p>symbol     -- string, the matched token (two chars symbol)
-states     -- list, a list of states (two chars symbols)
-next_state -- the next state the fsm will have after the action</p>
+  <p>Add a transition to the state machine. Keywords arguments:</p>
+  <p>symbol     -- string, the matched token (two chars symbol) states     
+  -- list, a list of states (two chars symbols) next_state -- the next 
+  state the fsm will have after the action</p>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -459,13 +457,13 @@ next_state -- the next state the fsm will have after the action</p>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="polib-pysrc.html#_POFileParser.process">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
-  <p>Process the transition corresponding to the current state and the
-symbol provided.</p>
-<p>Keywords arguments:
-symbol  -- string, the matched token (two chars symbol)
-linenum -- integer, the current line number of the parsed file</p>
+  <p>Process the transition corresponding to the current state and the 
+  symbol provided.</p>
+  <p>Keywords arguments: symbol  -- string, the matched token (two chars 
+  symbol) linenum -- integer, the current line number of the parsed 
+  file</p>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -497,10 +495,11 @@ linenum -- integer, the current line number of the parsed file</p>
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0beta1 on Fri Dec 21 11:05:36 2007
+    Generated by Epydoc 3.0.1 on Wed Nov 26 19:13:55 2008
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -511,9 +510,8 @@ linenum -- integer, the current line number of the parsed file</p>
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>

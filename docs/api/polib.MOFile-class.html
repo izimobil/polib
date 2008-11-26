@@ -55,21 +55,21 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class MOFile</h1><span class="codelink"><a href="polib-pysrc.html#MOFile">source&nbsp;code</a></span><br /><br />
+<h1 class="epydoc">Class MOFile</h1><p class="nomargin-top"><span class="codelink"><a href="polib-pysrc.html#MOFile">source&nbsp;code</a></span></p>
 <pre class="base-tree">
 object --+        
          |        
       list --+    
              |    
-     <a href="polib._BaseFile-class.html">_BaseFile</a> --+
+     <a href="polib._BaseFile-class.html" onclick="show_private();">_BaseFile</a> --+
                  |
                 <strong class="uidshort">MOFile</strong>
 </pre>
 
 <hr />
-<p>Mo file reader/writer.
-MOFile objects inherit the list objects methods.</p>
-<p><strong>Example</strong>:</p>
+<p>Mo file reader/writer. MOFile objects inherit the list objects 
+  methods.</p>
+  <p>**Example**:</p>
 <pre class="py-doctest">
 <span class="py-prompt">&gt;&gt;&gt; </span>mo = MOFile()
 <span class="py-prompt">&gt;&gt;&gt; </span>entry1 = POEntry(
@@ -82,12 +82,12 @@ MOFile objects inherit the list objects methods.</p>
 <span class="py-more">... </span>)
 <span class="py-prompt">&gt;&gt;&gt; </span>entry3 = MOEntry(
 <span class="py-more">... </span>    msgid=<span class="py-string">'Some entry with quotes &quot; \&quot;'</span>,
-<span class="py-more">... </span>    msgstr=u<span class="py-string">'Un message unicode avec des quotes &quot; \&quot;'</span>
+<span class="py-more">... </span>    msgstr=<span class="py-string">'Un message unicode avec des quotes &quot; \&quot;'</span>
 <span class="py-more">... </span>)
 <span class="py-prompt">&gt;&gt;&gt; </span>mo.append(entry1)
 <span class="py-prompt">&gt;&gt;&gt; </span>mo.append(entry2)
 <span class="py-prompt">&gt;&gt;&gt; </span>mo.append(entry3)
-<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">print</span> mo
+<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">print</span>(mo)
 <span class="py-output">msgid &quot;&quot;</span>
 <span class="py-output">msgstr &quot;&quot;</span>
 <span class="py-output">&lt;BLANKLINE&gt;</span>
@@ -99,7 +99,7 @@ MOFile objects inherit the list objects methods.</p>
 <span class="py-output">&lt;BLANKLINE&gt;</span>
 <span class="py-output">msgid &quot;Some entry with quotes \&quot; \&quot;&quot;</span>
 <span class="py-output">msgstr &quot;Un message unicode avec des quotes \&quot; \&quot;&quot;</span>
-<span class="py-output">&lt;BLANKLINE&gt;</span></pre><br /><br />
+<span class="py-output">&lt;BLANKLINE&gt;</span></pre>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -120,7 +120,7 @@ MOFile objects inherit the list objects methods.</p>
 </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
+      <span class="summary-type">new list</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -145,7 +145,7 @@ MOFile objects inherit the list objects methods.</p>
         <tr>
           <td><span class="summary-sig"><a href="polib.MOFile-class.html#save_as_pofile" class="summary-sig-name">save_as_pofile</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">fpath</span>)</span><br />
-      Save the string representation of the file to <em>fpath</em>.</td>
+      Save the string representation of the file to *fpath*.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="polib-pysrc.html#MOFile.save_as_pofile">source&nbsp;code</a></span>
             
@@ -163,7 +163,7 @@ MOFile objects inherit the list objects methods.</p>
         <tr>
           <td><span class="summary-sig"><a href="polib.MOFile-class.html#save" class="summary-sig-name">save</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">fpath</span>)</span><br />
-      Save the binary representation of the file to <em>fpath</em>.</td>
+      Save the binary representation of the file to *fpath*.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="polib-pysrc.html#MOFile.save">source&nbsp;code</a></span>
             
@@ -260,7 +260,7 @@ MOFile objects inherit the list objects methods.</p>
   </tr>
   <tr>
     <td colspan="2" class="summary">
-    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="polib._BaseFile-class.html">_BaseFile</a></code></b>:
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="polib._BaseFile-class.html" onclick="show_private();">_BaseFile</a></code></b>:
       <code><a href="polib._BaseFile-class.html#__repr__">__repr__</a></code>,
       <code><a href="polib._BaseFile-class.html#__str__">__str__</a></code>,
       <code><a href="polib._BaseFile-class.html#find">find</a></code>,
@@ -370,13 +370,13 @@ MOFile objects inherit the list objects methods.</p>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="polib-pysrc.html#MOFile.__init__">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
-  MOFile constructor.
-See _BaseFile.__construct.
+  <p>MOFile constructor. See _BaseFile.__construct.</p>
   <dl class="fields">
+    <dt>Returns: new list</dt>
     <dt>Overrides:
-      <a href="polib._BaseFile-class.html#__init__">_BaseFile.__init__</a>
+        object.__init__
     </dt>
   </dl>
 </td></tr></table>
@@ -394,16 +394,15 @@ See _BaseFile.__construct.
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="polib-pysrc.html#MOFile.save_as_pofile">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
-  <p>Save the string representation of the file to <em>fpath</em>.</p>
-<dl class="rst-docutils">
-<dt><strong>Keyword argument</strong>:</dt>
-<dd><ul class="rst-first rst-last rst-simple">
-<li><em>fpath</em>: string, full or relative path to the file.</li>
-</ul>
-</dd>
-</dl>
+  <p>Save the string representation of the file to *fpath*.</p>
+  <p>**Keyword argument**:</p>
+  <ul>
+    <li>
+      *fpath*: string, full or relative path to the file.
+    </li>
+  </ul>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -421,19 +420,18 @@ See _BaseFile.__construct.
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="polib-pysrc.html#MOFile.save">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
-  <p>Save the binary representation of the file to <em>fpath</em>.</p>
-<dl class="rst-docutils">
-<dt><strong>Keyword argument</strong>:</dt>
-<dd><ul class="rst-first rst-last rst-simple">
-<li><em>fpath</em>: string, full or relative path to the file.</li>
-</ul>
-</dd>
-</dl>
+  <p>Save the binary representation of the file to *fpath*.</p>
+  <p>**Keyword argument**:</p>
+  <ul>
+    <li>
+      *fpath*: string, full or relative path to the file.
+    </li>
+  </ul>
   <dl class="fields">
     <dt>Overrides:
-      <a href="polib._BaseFile-class.html#save">_BaseFile.save</a>
+        <a href="polib._BaseFile-class.html#save">_BaseFile.save</a>
     </dt>
   </dl>
 </td></tr></table>
@@ -465,10 +463,11 @@ See _BaseFile.__construct.
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0beta1 on Fri Dec 21 11:05:36 2007
+    Generated by Epydoc 3.0.1 on Wed Nov 26 19:13:55 2008
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -479,9 +478,8 @@ See _BaseFile.__construct.
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>
