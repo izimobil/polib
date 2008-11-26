@@ -1,3 +1,20 @@
+Version 0.4.0 (2008/11/26)
+--------------------------
+    * fixed bug #0005: percent_translated divide by 0 on empty po files,
+    * fixed bug #0004: occurences that have hiphens are wrapped when they
+      should not,
+    * changes in how encoding is handled,
+    * remove deprecation warnings for typo "occurences",
+    * added POEntry.__cmp__() method to sort entries like gettext does,
+    * fixed POEntry.transalated(),
+    * added a merge() method to POFile class, that behaves like the gettext
+      msgmerge utility,
+    * obsolete entries are now written at the end of the file and with only
+      msgid/msgstr like gettext does,
+    * fixed some bugs in mo files parsing,
+    * renamed quote/unquote functions to escape/unescape,
+    * various cosmetic changes.
+
 Version 0.3.1 (2007/12/13)
 --------------------------
     * fixed bug #0002: typo: "occurences" instead of "occurrences",

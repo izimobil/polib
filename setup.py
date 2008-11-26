@@ -9,7 +9,7 @@ polib setup script.
 """
 
 __author__   = 'David JEAN LOUIS <izimobil@gmail.com>'
-__version__  = '0.3.1'
+__version__  = '0.4.0'
 
 from distutils.core import setup
 
