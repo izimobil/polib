@@ -754,8 +754,8 @@ class _BaseEntry(object):
         if self.msgstr_plural:
             # write the msgstr_plural if any
             msgstrs = self.msgstr_plural
-            keys = msgstrs.keys()
-            list(keys).sort()
+            keys = list(msgstrs)
+            keys.sort()
             for index in keys:
                 msgstr = msgstrs[index]
                 plural_index = '[%s]' % index
