@@ -806,16 +806,21 @@ class POEntry(_BaseEntry):
     msgstr "Bienvenue"
     <BLANKLINE>
     >>> entry = POEntry()
-    >>> entry.occurrences = [('src/spam.c', 32), ('src/eggs.c', 45)]
-    >>> entry.tcomment = 'A plural translation'
+    >>> entry.occurrences = [('src/some-very-long-filename-that-should-not-be-wrapped-even-if-it-is-larger-than-the-wrap-limit.c', 32), ('src/eggs.c', 45)]
+    >>> entry.comment = 'A plural translation. This is a very very very long line please do not wrap, this is just for testing comment wrapping...'
+    >>> entry.tcomment = 'A plural translation. This is a very very very long line please do not wrap, this is just for testing comment wrapping...'
     >>> entry.flags.append('c-format')
     >>> entry.msgid = 'I have spam but no egg !'
     >>> entry.msgid_plural = 'I have spam and %d eggs !'
     >>> entry.msgstr_plural[0] = "J'ai du jambon mais aucun oeuf !"
     >>> entry.msgstr_plural[1] = "J'ai du jambon et %d oeufs !"
     >>> print(entry)
-    # A plural translation
-    #: src/spam.c:32 src/eggs.c:45
+    #. A plural translation. This is a very very very long line please do not
+    #. wrap, this is just for testing comment wrapping...
+    # A plural translation. This is a very very very long line please do not wrap,
+    # this is just for testing comment wrapping...
+    #: src/some-very-long-filename-that-should-not-be-wrapped-even-if-it-is-larger-than-the-wrap-limit.c:32
+    #: src/eggs.c:45
     #, c-format
     msgid "I have spam but no egg !"
     msgid_plural "I have spam and %d eggs !"
@@ -844,11 +849,10 @@ class POEntry(_BaseEntry):
             comments = _strsplit(self._decode(self.comment), '\n')
             for comment in comments:
                 if wrapwidth > 0 and len(comment) > wrapwidth-3:
-                    lines = _textwrap(comment, wrapwidth,
-                                      initial_indent='#. ',
-                                      subsequent_indent='#. ',
-                                      break_long_words=False)
-                    _listappend(ret, lines)
+                    ret += _textwrap(comment, wrapwidth,
+                                     initial_indent='#. ',
+                                     subsequent_indent='#. ',
+                                     break_long_words=False)
                 else:
                     _listappend(ret, '#. %s' % comment)
         # translator comment, if any (with text wrapping as xgettext does)
@@ -856,11 +860,10 @@ class POEntry(_BaseEntry):
             tcomments = _strsplit(self._decode(self.tcomment), '\n')
             for tcomment in tcomments:
                 if wrapwidth > 0 and len(tcomment) > wrapwidth-2:
-                    lines = _textwrap(tcomment, wrapwidth,
-                                      initial_indent='# ',
-                                      subsequent_indent='# ',
-                                      break_long_words=False)
-                    _listappend(ret, lines)
+                    ret += _textwrap(tcomment, wrapwidth,
+                                     initial_indent='# ',
+                                     subsequent_indent='# ',
+                                     break_long_words=False)
                 else:
                     _listappend(ret, '# %s' % tcomment)
         # occurrences (with text wrapping as xgettext does)
