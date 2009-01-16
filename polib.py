@@ -44,19 +44,6 @@ import warnings
 
 default_encoding = 'utf-8'
 
-# shortcuts for performance improvement {{{
-
-# this is quite ugly but *very* efficient
-_dictget    = dict.get
-_listappend = list.append
-_listpop    = list.pop
-_strjoin    = str.join
-_strsplit   = str.split
-_strstrip   = str.strip
-_strreplace = str.replace
-_textwrap   = textwrap.wrap
-
-# }}}
 # function pofile() {{{
 
 def pofile(fpath, **kwargs):
@@ -96,13 +83,13 @@ def pofile(fpath, **kwargs):
     ...     finally:
     ...         os.unlink(tmpf)
     """
-    if _dictget(kwargs, 'autodetect_encoding', True) == True:
+    if kwargs.get('autodetect_encoding', True) == True:
         enc = detect_encoding(fpath)
     else:
-        enc = _dictget(kwargs, 'encoding', default_encoding)
+        enc = kwargs.get('encoding', default_encoding)
     parser = _POFileParser(fpath)
     instance = parser.parse()
-    instance.wrapwidth = _dictget(kwargs, 'wrapwidth', 78)
+    instance.wrapwidth = kwargs.get('wrapwidth', 78)
     instance.encoding  = enc
     return instance
 
@@ -144,13 +131,13 @@ def mofile(fpath, **kwargs):
     ...     finally:
     ...         os.unlink(tmpf)
     """
-    if _dictget(kwargs, 'autodetect_encoding', True) == True:
+    if kwargs.get('autodetect_encoding', True) == True:
         enc = detect_encoding(fpath)
     else:
-        enc = _dictget(kwargs, 'encoding', default_encoding)
+        enc = kwargs.get('encoding', default_encoding)
     parser = _MOFileParser(fpath)
     instance = parser.parse()
-    instance.wrapwidth = _dictget(kwargs, 'wrapwidth', 78)
+    instance.wrapwidth = kwargs.get('wrapwidth', 78)
     instance.encoding = enc
     return instance
 
@@ -185,7 +172,7 @@ def detect_encoding(fpath):
         match = rx.search(l)
         if match:
             f.close()
-            return _strstrip(match.group(1))
+            return match.group(1).strip()
     f.close()
     return default_encoding
 
@@ -201,11 +188,11 @@ def escape(st):
     >>> escape('\\t and \\n and \\r and " and \\\\')
     '\\\\t and \\\\n and \\\\r and \\\\" and \\\\\\\\'
     """
-    st = _strreplace(st, '\\', r'\\')
-    st = _strreplace(st, '\t', r'\t')
-    st = _strreplace(st, '\r', r'\r')
-    st = _strreplace(st, '\n', r'\n')
-    st = _strreplace(st, '\"', r'\"')
+    st = st.replace('\\', r'\\')
+    st = st.replace('\t', r'\t')
+    st = st.replace('\r', r'\r')
+    st = st.replace('\n', r'\n')
+    st = st.replace('\"', r'\"')
     return st
 
 # }}}
@@ -220,11 +207,11 @@ def unescape(st):
     >>> unescape('\\\\t and \\\\n and \\\\r and \\\\" and \\\\\\\\')
     '\\t and \\n and \\r and " and \\\\'
     """
-    st = _strreplace(st, r'\"', '"')
-    st = _strreplace(st, r'\n', '\n')
-    st = _strreplace(st, r'\r', '\r')
-    st = _strreplace(st, r'\t', '\t')
-    st = _strreplace(st, r'\\', '\\')
+    st = st.replace(r'\"', '"')
+    st = st.replace(r'\n', '\n')
+    st = st.replace(r'\r', '\r')
+    st = st.replace(r'\t', '\t')
+    st = st.replace(r'\\', '\\')
     return st
 
 # }}}
@@ -265,10 +252,10 @@ class _BaseFile(list):
         entries = [self.metadata_as_entry()] + \
                   [e for e in self if not e.obsolete]
         for entry in entries:
-            _listappend(ret, entry.__str__(self.wrapwidth))
+            ret.append(entry.__str__(self.wrapwidth))
         for entry in self.obsolete_entries():
-            _listappend(ret, entry.__str__(self.wrapwidth))
-        return _strjoin('\n', ret)
+            ret.append(entry.__str__(self.wrapwidth))
+        return '\n'.join(ret)
 
     def __repr__(self):
         """Return the official string representation of the object."""
@@ -282,10 +269,9 @@ class _BaseFile(list):
             strs = []
             for name, value in mdata:
                 # Strip whitespace off each line in a multi-line entry
-                value = _strjoin('\n', [_strstrip(v)
-                                        for v in _strsplit(value, '\n')])
-                _listappend(strs, '%s: %s' % (name, value))
-            e.msgstr = _strjoin('\n', strs) + '\n'
+                value = '\n'.join([v.strip() for v in value.split('\n')])
+                strs.append('%s: %s' % (name, value))
+            e.msgstr = '\n'.join(strs) + '\n'
         return e
 
     def save(self, fpath=None, repr_method='__str__'):
@@ -360,7 +346,7 @@ class _BaseFile(list):
         for data in data_order:
             try:
                 value = metadata.pop(data)
-                _listappend(ordered_data, (data, value))
+                ordered_data.append((data, value))
             except KeyError:
                 pass
         # the rest of the metadata won't be ordered there are no specs for this
@@ -368,7 +354,7 @@ class _BaseFile(list):
         list(keys).sort()
         for data in keys:
             value = metadata[data]
-            _listappend(ordered_data, (data, value))
+            ordered_data.append((data, value))
         return ordered_data
 
     def to_binary(self):
@@ -390,7 +376,7 @@ class _BaseFile(list):
         entries.sort(cmp)
         # add metadata entry
         mentry = self.metadata_as_entry()
-        mentry.msgstr = _strreplace(mentry.msgstr, '\\n', '').lstrip() + '\n'
+        mentry.msgstr = mentry.msgstr.replace('\\n', '').lstrip() + '\n'
         entries = [mentry] + entries
         entries_len = len(entries)
         for e in entries:
@@ -480,7 +466,7 @@ class POFile(_BaseFile):
 
     def __str__(self):
         """Return the string representation of the po file"""
-        ret, headers = '', _strsplit(self.header, '\n')
+        ret, headers = '', self.header.split('\n')
         for header in headers:
             if header[:1] in [',', ':']:
                 ret += '#%s\n' % header
@@ -725,12 +711,12 @@ class _BaseEntry(object):
 
     def __init__(self, *args, **kwargs):
         """Base Entry constructor."""
-        self.msgid = _dictget(kwargs, 'msgid', '')
-        self.msgstr = _dictget(kwargs, 'msgstr', '')
-        self.msgid_plural = _dictget(kwargs, 'msgid_plural', '')
-        self.msgstr_plural = _dictget(kwargs, 'msgstr_plural', {})
-        self.obsolete = _dictget(kwargs, 'obsolete', False)
-        self.encoding = _dictget(kwargs, 'encoding', default_encoding)
+        self.msgid = kwargs.get('msgid', '')
+        self.msgstr = kwargs.get('msgstr', '')
+        self.msgid_plural = kwargs.get('msgid_plural', '')
+        self.msgstr_plural = kwargs.get('msgstr_plural', {})
+        self.obsolete = kwargs.get('obsolete', False)
+        self.encoding = kwargs.get('encoding', default_encoding)
 
     def __repr__(self):
         """Return the official string representation of the object."""
@@ -763,8 +749,8 @@ class _BaseEntry(object):
         else:
             # otherwise write the msgstr
             ret += self._str_field("msgstr", delflag, "", self.msgstr)
-        _listappend(ret, '')
-        return _strjoin('\n', ret)
+        ret.append('')
+        return '\n'.join(ret)
 
     def _str_field(self, fieldname, delflag, plural_index, field):
         field = self._decode(field)
@@ -776,9 +762,9 @@ class _BaseEntry(object):
         else:
             lines = [field] # needed for the empty string case
         ret = ['%s%s%s "%s"' % (delflag, fieldname, plural_index,
-                                escape(_listpop(lines, 0)))]
+                                escape(lines.pop(0)))]
         for mstr in lines:
-            _listappend(ret, '%s"%s"' % (delflag, escape(mstr)))
+            ret.append('%s"%s"' % (delflag, escape(mstr)))
         return ret
 
     def _decode(self, st):
@@ -832,10 +818,10 @@ class POEntry(_BaseEntry):
     def __init__(self, *args, **kwargs):
         """POEntry constructor."""
         _BaseEntry.__init__(self, *args, **kwargs)
-        self.comment = _dictget(kwargs, 'comment', '')
-        self.tcomment = _dictget(kwargs, 'tcomment', '')
-        self.occurrences = _dictget(kwargs, 'occurrences', [])
-        self.flags = _dictget(kwargs, 'flags', [])
+        self.comment = kwargs.get('comment', '')
+        self.tcomment = kwargs.get('tcomment', '')
+        self.occurrences = kwargs.get('occurrences', [])
+        self.flags = kwargs.get('flags', [])
 
     def __str__(self, wrapwidth=78):
         """
@@ -846,55 +832,55 @@ class POEntry(_BaseEntry):
         ret = []
         # comment first, if any (with text wrapping as xgettext does)
         if self.comment != '':
-            comments = _strsplit(self._decode(self.comment), '\n')
+            comments = self._decode(self.comment).split('\n')
             for comment in comments:
                 if wrapwidth > 0 and len(comment) > wrapwidth-3:
-                    ret += _textwrap(comment, wrapwidth,
-                                     initial_indent='#. ',
-                                     subsequent_indent='#. ',
-                                     break_long_words=False)
+                    ret += textwrap.wrap(comment, wrapwidth,
+                                         initial_indent='#. ',
+                                         subsequent_indent='#. ',
+                                         break_long_words=False)
                 else:
-                    _listappend(ret, '#. %s' % comment)
+                    ret.append('#. %s' % comment)
         # translator comment, if any (with text wrapping as xgettext does)
         if self.tcomment != '':
-            tcomments = _strsplit(self._decode(self.tcomment), '\n')
+            tcomments = self._decode(self.tcomment).split('\n')
             for tcomment in tcomments:
                 if wrapwidth > 0 and len(tcomment) > wrapwidth-2:
-                    ret += _textwrap(tcomment, wrapwidth,
-                                     initial_indent='# ',
-                                     subsequent_indent='# ',
-                                     break_long_words=False)
+                    ret += textwrap.wrap(tcomment, wrapwidth,
+                                         initial_indent='# ',
+                                         subsequent_indent='# ',
+                                         break_long_words=False)
                 else:
-                    _listappend(ret, '# %s' % tcomment)
+                    ret.append('# %s' % tcomment)
         # occurrences (with text wrapping as xgettext does)
         if self.occurrences:
             filelist = []
             for fpath, lineno in self.occurrences:
-                _listappend(filelist, '%s:%s' % (self._decode(fpath), lineno))
-            filestr = _strjoin(' ', filelist)
+                filelist.append('%s:%s' % (self._decode(fpath), lineno))
+            filestr = ' '.join(filelist)
             if wrapwidth > 0 and len(filestr)+3 > wrapwidth:
                 # XXX textwrap split words that contain hyphen, this is not 
                 # what we want for filenames, so the dirty hack is to 
                 # temporally replace hyphens with a char that a file cannot 
                 # contain, like "*"
-                lines = _textwrap(_strreplace(filestr, '-', '*'),
-                                  wrapwidth,
-                                  initial_indent='#: ',
-                                  subsequent_indent='#: ',
-                                  break_long_words=False)
+                lines = textwrap.wrap(filestr.replace('-', '*'),
+                                      wrapwidth,
+                                      initial_indent='#: ',
+                                      subsequent_indent='#: ',
+                                      break_long_words=False)
                 # end of the replace hack
                 for line in lines:
-                    _listappend(ret, _strreplace(line, '*', '-'))
+                    ret.append(line.replace('*', '-'))
             else:
-                _listappend(ret, '#: '+filestr)
+                ret.append('#: '+filestr)
         # flags
         if self.flags:
             flags = []
             for flag in self.flags:
-                _listappend(flags, flag)
-            _listappend(ret, '#, %s' % _strjoin(', ', flags))
-        _listappend(ret, _BaseEntry.__str__(self))
-        return _strjoin('\n', ret)
+                flags.append(flag)
+            ret.append('#, %s' % ', '.join(flags))
+        ret.append(_BaseEntry.__str__(self))
+        return '\n'.join(ret)
 
     def __cmp__(self, other):
         '''
@@ -1072,7 +1058,7 @@ class _POFileParser(object):
         """
         i, lastlen = 1, 0
         for line in self.fhandle:
-            line = _strstrip(line)
+            line = line.strip()
             if line == '':
                 i = i+1
                 continue
@@ -1115,22 +1101,22 @@ class _POFileParser(object):
         if self.current_entry:
             # since entries are added when another entry is found, we must add
             # the last entry here (only if there are lines)
-            _listappend(self.instance, self.current_entry)
+            self.instance.append(self.current_entry)
         # before returning the instance, check if there's metadata and if 
         # so extract it in a dict
         firstentry = self.instance[0]
         if firstentry.msgid == '': # metadata found
             # remove the entry
-            firstentry = _listpop(self.instance, 0)
+            firstentry = self.instance.pop(0)
             self.instance.metadata_is_fuzzy = firstentry.flags
             key = None
             for msg in firstentry.msgstr.splitlines():
                 try:
-                    key, val = _strsplit(msg, ':', 1)
-                    self.instance.metadata[key] = _strstrip(val)
+                    key, val = msg.split(':', 1)
+                    self.instance.metadata[key] = val.strip()
                 except:
                     if key is not None:
-                        self.instance.metadata[key] += '\n'+_strstrip(msg)
+                        self.instance.metadata[key] += '\n'+ msg.strip()
         # close opened file
         self.fhandle.close()
         return self.instance
@@ -1161,7 +1147,7 @@ class _POFileParser(object):
             (action, state) = self.transitions[(symbol, self.current_state)]
             if action():
                 self.current_state = state
-        except Exception:
+        except Exception, exc:
             raise IOError('Syntax error in po file (line %s)' % linenum)
 
     # state handlers
@@ -1176,7 +1162,7 @@ class _POFileParser(object):
     def handle_tc(self):
         """Handle a translator comment."""
         if self.current_state in ['MC', 'MS', 'MX']:
-            _listappend(self.instance, self.current_entry)
+            self.instance.append(self.current_entry)
             self.current_entry = POEntry()
         if self.current_entry.tcomment != '':
             self.current_entry.tcomment += '\n'
@@ -1186,7 +1172,7 @@ class _POFileParser(object):
     def handle_gc(self):
         """Handle a generated comment."""
         if self.current_state in ['MC', 'MS', 'MX']:
-            _listappend(self.instance, self.current_entry)
+            self.instance.append(self.current_entry)
             self.current_entry = POEntry()
         if self.current_entry.comment != '':
             self.current_entry.comment += '\n'
@@ -1196,27 +1182,27 @@ class _POFileParser(object):
     def handle_oc(self):
         """Handle a file:num occurence."""
         if self.current_state in ['MC', 'MS', 'MX']:
-            _listappend(self.instance, self.current_entry)
+            self.instance.append(self.current_entry)
             self.current_entry = POEntry()
-        occurrences = _strsplit(self.current_token[3:])
+        occurrences = self.current_token[3:].split()
         for occurrence in occurrences:
             if occurrence != '':
-                fil, line = _strsplit(occurrence, ':')
-                _listappend(self.current_entry.occurrences, (fil, line))
+                fil, line = occurrence.split(':')
+                self.current_entry.occurrences.append((fil, line))
         return True
 
     def handle_fl(self):
         """Handle a flags line."""
         if self.current_state in ['MC', 'MS', 'MX']:
-            _listappend(self.instance, self.current_entry)
+            self.instance.append(self.current_entry)
             self.current_entry = POEntry()
-        self.current_entry.flags += _strsplit(self.current_token[3:], ', ')
+        self.current_entry.flags += self.current_token[3:].split(', ')
         return True
 
     def handle_mi(self):
         """Handle a msgid."""
         if self.current_state in ['MC', 'MS', 'MX']:
-            _listappend(self.instance, self.current_entry)
+            self.instance.append(self.current_entry)
             self.current_entry = POEntry()
         self.current_entry.obsolete = self.entry_obsolete
         self.current_entry.msgid = unescape(self.current_token[7:-1])
@@ -1296,12 +1282,12 @@ class _MOFileParser(object):
         self.fhandle.seek(msgids_hash_offset)
         msgids_index = []
         for i in range(numofstrings):
-            _listappend(msgids_index, self._readbinary(ii, 8))
+            msgids_index.append(self._readbinary(ii, 8))
         # move to msgstr hash table and read length and offset of msgstrs
         self.fhandle.seek(msgstrs_hash_offset)
         msgstrs_index = []
         for i in range(numofstrings):
-            _listappend(msgstrs_index, self._readbinary(ii, 8))
+            msgstrs_index.append(self._readbinary(ii, 8))
         # build entries
         for i in range(numofstrings):
             self.fhandle.seek(msgids_index[i][1])
@@ -1309,18 +1295,18 @@ class _MOFileParser(object):
             self.fhandle.seek(msgstrs_index[i][1])
             msgstr = self.fhandle.read(msgstrs_index[i][0])
             if i == 0: # metadata
-                raw_metadata, metadata = _strsplit(msgstr, '\n'), {}
+                raw_metadata, metadata = msgstr.split('\n'), {}
                 for line in raw_metadata:
-                    tokens = _strsplit(line, ':', 1)
+                    tokens = line.split(':', 1)
                     if tokens[0] != '':
                         try:
-                            metadata[tokens[0]] = _strstrip(tokens[1])
+                            metadata[tokens[0]] = tokens[1].strip()
                         except IndexError:
                             metadata[tokens[0]] = ''
                 self.instance.metadata = metadata
                 continue
             entry = MOEntry(msgid=msgid, msgstr=msgstr)
-            _listappend(self.instance, entry)
+            self.instance.append(entry)
         # close opened file
         self.fhandle.close()
         return self.instance
