@@ -34,7 +34,7 @@ new files/entries.
 """
 
 __author__    = 'David JEAN LOUIS <izimobil@gmail.com>'
-__version__   = '0.3.1'
+__version__   = '0.4.0'
 __all__       = ['pofile', 'POFile', 'POEntry', 'mofile', 'MOFile', 'MOEntry',
                  'detect_encoding', 'escape', 'unescape']
 
@@ -63,7 +63,7 @@ def pofile(fpath, **kwargs):
     **Example**:
 
     >>> import polib
-    >>> po = polib.pofile('tests/test_utf8.po')
+    >>> po = polib.pofile('tests/test_weird_occurrences.po')
     >>> po #doctest: +ELLIPSIS
     <POFile instance at ...>
     >>> import os, tempfile
@@ -856,7 +856,10 @@ class POEntry(_BaseEntry):
         if self.occurrences:
             filelist = []
             for fpath, lineno in self.occurrences:
-                filelist.append('%s:%s' % (self._decode(fpath), lineno))
+                if lineno:
+                    filelist.append('%s:%s' % (self._decode(fpath), lineno))
+                else:
+                    filelist.append('%s' % (self._decode(fpath)))
             filestr = ' '.join(filelist)
             if wrapwidth > 0 and len(filestr)+3 > wrapwidth:
                 # XXX textwrap split words that contain hyphen, this is not 
@@ -1187,8 +1190,14 @@ class _POFileParser(object):
         occurrences = self.current_token[3:].split()
         for occurrence in occurrences:
             if occurrence != '':
-                fil, line = occurrence.split(':')
-                self.current_entry.occurrences.append((fil, line))
+                try:
+                    fil, line = occurrence.split(':')
+                    if not line.isdigit():
+                        fil  = fil + line
+                        line = ''
+                    self.current_entry.occurrences.append((fil, line))
+                except:
+                    self.current_entry.occurrences.append((occurrence, ''))
         return True
 
     def handle_fl(self):
