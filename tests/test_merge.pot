@@ -19,3 +19,15 @@ msgstr ""
 #: some/file.py:3 some/file2.py:4
 msgid "This entry is not present in pofile and will be appended"
 msgstr ""
+
+#: utils/timesince.py:12
+msgid "year"
+msgid_plural "years"
+msgstr[0] ""
+msgstr[1] ""
+
+#: utils/timesince.py:40
+msgid "month"
+msgid_plural "monthes"
+msgstr[0] ""
+msgstr[1] ""

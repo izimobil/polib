@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-17 15:35-0400\n"
+"POT-Creation-Date: 2007-12-13 10:00+0100\n"
 "PO-Revision-Date: 2007-07-14 13:00-0500\n"
 "Last-Translator: Mario Gonzalez <gonzalemario @t gmail.com>\n"
 "Language-Team: Castellano <Django-I18N@googlegroups.com>\n"
@@ -20,9 +20,21 @@ msgstr ""
 msgid "This entry is already present in pofile, but with different occurrences"
 msgstr "Some translation ..."
 
+#: utils/timesince.py:12
+msgid "year"
+msgid_plural "years"
+msgstr[0] "année"
+msgstr[1] "années"
+
 #: some/file.py:3 some/file2.py:4
 msgid "This entry is not present in pofile and will be appended"
 msgstr ""
+
+#: utils/timesince.py:40
+msgid "month"
+msgid_plural "monthes"
+msgstr[0] ""
+msgstr[1] ""
 
 #~ msgid "This entry is not present in potfile and will be obsoleted"
 #~ msgstr "Some translation"
