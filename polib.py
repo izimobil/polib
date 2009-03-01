@@ -585,17 +585,9 @@ class POFile(_BaseFile):
         for entry in refpot:
             e = self.find(entry.msgid)
             if e is None:
-                # entry is not in the po file, we must add it
-                # entry is created with msgid, occurrences and comment
-                self.append(POEntry(
-                    msgid=entry.msgid,
-                    occurrences=entry.occurrences,
-                    comment=entry.comment
-                ))
-            else:
-                # entry found, we update it...
-                e.occurrences = entry.occurrences
-                e.comment = entry.comment
+                e = POEntry()
+                self.append(e)
+            e.merge(entry)
         # ok, now we must "obsolete" entries that are not in the refpot
         # anymore
         for entry in self:
@@ -967,7 +959,9 @@ class POEntry(_BaseEntry):
         else: return -1
 
     def translated(self):
-        """Return True if the entry has been translated or False"""
+        """
+        Return True if the entry has been translated or False.
+        """
         if self.obsolete or 'fuzzy' in self.flags:
             return False
         if self.msgstr != '':
@@ -978,6 +972,23 @@ class POEntry(_BaseEntry):
                     return False
             return True
         return False
+
+    def merge(self, other):
+        """
+        Merge the current entry with the given pot entry.
+        """
+        self.msgid        = other.msgid
+        self.occurrences  = other.occurrences
+        self.comment      = other.comment
+        self.flags        = other.flags
+        self.msgid_plural = other.msgid_plural
+        if other.msgstr_plural:
+            for pos in other.msgstr_plural:
+                try:
+                    # keep existing translation at pos if any
+                    self.msgstr_plural[pos]
+                except KeyError:
+                    self.msgstr_plural[pos] = ''
 
 # }}}
 # class MOEntry {{{
