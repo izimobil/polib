@@ -1,3 +1,15 @@
+Version 0.4.1 (2009/03/04)
+--------------------------
+    * fixed issue #0006: plural msgstrs were saved unsorted,
+    * fixed issue #0008: long comment lines broke 'save()' method,
+    * removed performance shortcuts: they were in fact inefficient, I was
+      misleaded by the python profile module, kudos to Thomas for making me
+      realise that,
+    * fixed issue #0010: wrong polib version number,
+    * fixed issue #0011: occurrences parsing is now more robust and can handle
+      weird references formats (like in eToys OLPC po files),
+    * fixed issue #0012: improved merge() method.
+
 Version 0.4.0 (2008/11/26)
 --------------------------
     * fixed bug #0005: percent_translated divide by 0 on empty po files,
