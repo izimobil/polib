@@ -384,7 +384,19 @@ class _BaseFile(list):
         for e in entries:
             # For each string, we need size and file offset.  Each string is
             # NUL terminated; the NUL does not count into the size.
-            offsets.append((len(ids), len(e.msgid), len(strs), len(e.msgstr)))
+            msgid = e.msgid
+            if e.msgid_plural:
+                msgid = msgid + '\0' + e.msgid_plural
+                indexes = e.msgstr_plural.keys()
+                indexes.sort()
+                msgstr = []
+                for index in indexes:
+                    msgstr.append(e.msgstr_plural[index])
+                msgstr = '\0'.join(msgstr)
+            else:
+                msgstr = e.msgstr
+
+            offsets.append((len(ids), len(msgid), len(strs), len(msgstr)))
             ids  += e.msgid  + '\0'
             strs += e.msgstr + '\0'
         # The header is 7 32-bit unsigned integers.
