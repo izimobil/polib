@@ -41,6 +41,7 @@ __all__       = ['pofile', 'POFile', 'POEntry', 'mofile', 'MOFile', 'MOEntry',
 import codecs
 import struct
 import textwrap
+import types
 
 default_encoding = 'utf-8'
 
@@ -82,6 +83,21 @@ def pofile(fpath, **kwargs):
     ...                 new.msgid
     ...     finally:
     ...         os.unlink(tmpf)
+    >>> po_file = polib.pofile('tests/test_save_as_mofile.po')
+    >>> tmpf = tempfile.NamedTemporaryFile().name
+    >>> po_file.save_as_mofile(tmpf)
+    >>> try:
+    ...     mo_file = polib.mofile(tmpf)
+    ...     for old, new in zip(po_file, mo_file):
+    ...         if po_file._encode(old.msgid) != mo_file._encode(new.msgid):
+    ...             'OLD: ', po_file._encode(old.msgid)
+    ...             'NEW: ', mo_file._encode(new.msgid)
+    ...         if po_file._encode(old.msgstr) != mo_file._encode(new.msgstr):
+    ...             'OLD: ', po_file._encode(old.msgstr)
+    ...             'NEW: ', mo_file._encode(new.msgstr)
+    ...             print new.msgstr
+    ... finally:
+    ...     os.unlink(tmpf)
     """
     if kwargs.get('autodetect_encoding', True) == True:
         enc = detect_encoding(fpath)
@@ -361,9 +377,9 @@ class _BaseFile(list):
 
     def to_binary(self):
         """Return the mofile binary representation."""
-        import struct
         import array
-        output = ''
+        import struct
+        import types
         offsets = []
         ids = strs = ''
         entries = self.translated_entries()
@@ -378,27 +394,27 @@ class _BaseFile(list):
         entries.sort(cmp)
         # add metadata entry
         mentry = self.metadata_as_entry()
-        mentry.msgstr = mentry.msgstr.replace('\\n', '').lstrip() + '\n'
+        mentry.msgstr = mentry.msgstr.replace('\\n', '').lstrip()
         entries = [mentry] + entries
         entries_len = len(entries)
         for e in entries:
             # For each string, we need size and file offset.  Each string is
             # NUL terminated; the NUL does not count into the size.
-            msgid = e.msgid
+            msgid = self._encode(e.msgid)
             if e.msgid_plural:
-                msgid = msgid + '\0' + e.msgid_plural
+                msgid = msgid + '\0' + self._encode(e.msgid_plural)
                 indexes = e.msgstr_plural.keys()
                 indexes.sort()
                 msgstr = []
                 for index in indexes:
-                    msgstr.append(e.msgstr_plural[index])
+                    msgstr.append(self._encode(e.msgstr_plural[index]))
                 msgstr = '\0'.join(msgstr)
             else:
-                msgstr = e.msgstr
+                msgstr = self._encode(e.msgstr)
 
             offsets.append((len(ids), len(msgid), len(strs), len(msgstr)))
-            ids  += e.msgid  + '\0'
-            strs += e.msgstr + '\0'
+            ids  += self._encode(e.msgid)  + '\0'
+            strs += self._encode(e.msgstr) + '\0'
         # The header is 7 32-bit unsigned integers.
         keystart = 7*4+16*entries_len
         # and the values start after the keys
@@ -411,7 +427,7 @@ class _BaseFile(list):
             koffsets += [l1, o1+keystart]
             voffsets += [l2, o2+valuestart]
         offsets = koffsets + voffsets
-        output = struct.pack("IIIIIII",
+        output  = struct.pack("IIIIIII",
                              0x950412de,        # Magic number
                              0,                 # Version
                              entries_len,       # # of entries
@@ -422,6 +438,15 @@ class _BaseFile(list):
         output += ids
         output += strs
         return output
+
+    def _encode(self, mixed):
+        """
+        Encode the given argument with the file encoding if the type is unicode
+        and return the encoded string.
+        """
+        if type(mixed) == types.UnicodeType:
+            return mixed.encode(self.encoding)
+        return mixed
 
 # }}}
 # class POFile {{{
