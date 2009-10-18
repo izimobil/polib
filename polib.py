@@ -747,6 +747,7 @@ class _BaseEntry(object):
         self.msgstr_plural = kwargs.get('msgstr_plural', {})
         self.obsolete = kwargs.get('obsolete', False)
         self.encoding = kwargs.get('encoding', default_encoding)
+        self.msgctxt = kwargs.get('msgctxt', None)
 
     def __repr__(self):
         """Return the official string representation of the object."""
@@ -761,8 +762,11 @@ class _BaseEntry(object):
             delflag = '#~ '
         else:
             delflag = ''
-        # write the msgid
         ret = []
+        # write the msgctxt if any
+        if self.msgctxt is not None:
+            ret += self._str_field("msgctxt", delflag, "", self.msgctxt)
+        # write the msgid
         ret += self._str_field("msgid", delflag, "", self.msgid)
         # write the msgid_plural if any
         if self.msgid_plural:
@@ -902,6 +906,7 @@ class POEntry(_BaseEntry):
                 flags.append(flag)
             ret.append('#, %s' % ', '.join(flags))
         ret.append(_BaseEntry.__str__(self))
+
         return '\n'.join(ret)
 
     def __cmp__(self, other):
@@ -1078,23 +1083,26 @@ class _POFileParser(object):
         #     * GC: a generated comment
         #     * OC: a file/line occurence
         #     * FL: a flags line
+        #     * CT: a message context
         #     * MI: a msgid
         #     * MP: a msgid plural
         #     * MS: a msgstr
         #     * MX: a msgstr plural
         #     * MC: a msgid or msgstr continuation line
-        all_ = ['ST', 'HE', 'GC', 'OC', 'FL', 'TC', 'MS', 'MP', 'MX', 'MI']
+        all = ['ST', 'HE', 'GC', 'OC', 'FL', 'CT', 'TC', 'MS', 'MP', 'MX', 'MI']
 
         self.add('TC', ['ST', 'HE'],                                     'HE')
         self.add('TC', ['GC', 'OC', 'FL', 'TC', 'MS', 'MP', 'MX', 'MI'], 'TC')
-        self.add('GC', all_,                                             'GC')
-        self.add('OC', all_,                                             'OC')
-        self.add('FL', all_,                                             'FL')
-        self.add('MI', ['ST', 'HE', 'GC', 'OC', 'FL', 'TC', 'MS', 'MX'], 'MI')
+        self.add('GC', all,                                              'GC')
+        self.add('OC', all,                                              'OC')
+        self.add('FL', all,                                              'FL')
+        self.add('CT', ['ST', 'HE', 'GC', 'OC', 'FL', 'TC', 'MS', 'MX'], 'CT')
+        self.add('MI', ['ST', 'HE', 'GC', 'OC', 'FL', 'CT', 'TC', 'MS', 'MX'],
+                                                                         'MI')
         self.add('MP', ['TC', 'GC', 'MI'],                               'MP')
         self.add('MS', ['MI', 'MP', 'TC'],                               'MS')
         self.add('MX', ['MI', 'MX', 'MP', 'TC'],                         'MX')
-        self.add('MC', ['MI', 'MP', 'MS', 'MX'],                         'MC')
+        self.add('MC', ['CT', 'MI', 'MP', 'MS', 'MX'],                   'MC')
 
     def parse(self):
         """
@@ -1116,6 +1124,9 @@ class _POFileParser(object):
             if line[:2] == '#:':
                 # we are on a occurrences line
                 self.process('OC', i)
+            elif line[:9] == 'msgctxt "':
+                # we are on a msgctxt
+                self.process('CT', i)
             elif line[:7] == 'msgid "':
                 # we are on a msgid
                 self.process('MI', i)
@@ -1193,6 +1204,7 @@ class _POFileParser(object):
             if action():
                 self.current_state = state
         except Exception, exc:
+            raise
             raise IOError('Syntax error in po file (line %s)' % linenum)
 
     # state handlers
@@ -1250,6 +1262,14 @@ class _POFileParser(object):
         self.current_entry.flags += self.current_token[3:].split(', ')
         return True
 
+    def handle_ct(self):
+        """Handle a msgctxt."""
+        if self.current_state in ['MC', 'MS', 'MX']:
+            self.instance.append(self.current_entry)
+            self.current_entry = POEntry()
+        self.current_entry.msgctxt = unescape(self.current_token[9:-1])
+        return True
+
     def handle_mi(self):
         """Handle a msgid."""
         if self.current_state in ['MC', 'MS', 'MX']:
@@ -1278,7 +1298,9 @@ class _POFileParser(object):
 
     def handle_mc(self):
         """Handle a msgid or msgstr continuation line."""
-        if self.current_state == 'MI':
+        if self.current_state == 'CT':
+            self.current_entry.msgctxt += unescape(self.current_token[1:-1])
+        elif self.current_state == 'MI':
             self.current_entry.msgid += unescape(self.current_token[1:-1])
         elif self.current_state == 'MP':
             self.current_entry.msgid_plural += \
