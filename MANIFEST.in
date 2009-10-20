@@ -1,3 +1,2 @@
 include LICENSE *.py
-recursive-include docs *.html
 recursive-include tests *.po *.pot *.mo
