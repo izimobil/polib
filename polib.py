@@ -381,7 +381,6 @@ class _BaseFile(list):
         import struct
         import types
         offsets = []
-        ids = strs = ''
         entries = self.translated_entries()
         # the keys are sorted in the .mo file
         def cmp(_self, other):
@@ -391,30 +390,30 @@ class _BaseFile(list):
                 return -1
             else:
                 return 0
-        entries.sort(cmp)
         # add metadata entry
+        entries.sort(cmp)
         mentry = self.metadata_as_entry()
         mentry.msgstr = mentry.msgstr.replace('\\n', '').lstrip()
         entries = [mentry] + entries
         entries_len = len(entries)
+        ids, strs = '', ''
         for e in entries:
             # For each string, we need size and file offset.  Each string is
             # NUL terminated; the NUL does not count into the size.
-            msgid = self._encode(e.msgid)
             if e.msgid_plural:
-                msgid = msgid + '\0' + self._encode(e.msgid_plural)
                 indexes = e.msgstr_plural.keys()
                 indexes.sort()
                 msgstr = []
                 for index in indexes:
-                    msgstr.append(self._encode(e.msgstr_plural[index]))
-                msgstr = '\0'.join(msgstr)
+                    msgstr.append(e.msgstr_plural[index])
+                msgid = self._encode(e.msgid + '\0' + e.msgid_plural)
+                msgstr = self._encode('\0'.join(msgstr))
             else:
+                msgid = self._encode(e.msgid)
                 msgstr = self._encode(e.msgstr)
-
             offsets.append((len(ids), len(msgid), len(strs), len(msgstr)))
-            ids  += self._encode(e.msgid)  + '\0'
-            strs += self._encode(e.msgstr) + '\0'
+            ids  += msgid  + '\0'
+            strs += msgstr + '\0'
         # The header is 7 32-bit unsigned integers.
         keystart = 7*4+16*entries_len
         # and the values start after the keys
