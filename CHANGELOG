@@ -1,3 +1,11 @@
+Version 0.4.3 (2009/10/21)
+--------------------------
+    * fixed issue #0017: UnicodeDecodeError while writing a mo-file,
+    * implemented support for msgctxt, fixes issue #0018,
+    * fixed bug when compiling plural msgids/strs,
+    * API docs are no longer included, hopefully next release will ship with
+      sphinx documentation.
+
 Version 0.4.2 (2009/06/05)
 --------------------------
     * fixed issue #0007: use the codecs module to open files,
