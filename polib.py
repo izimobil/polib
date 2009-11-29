@@ -220,12 +220,11 @@ def escape(st):
     >>> escape('\\t and \\n and \\r and " and \\\\')
     '\\\\t and \\\\n and \\\\r and \\\\" and \\\\\\\\'
     """
-    st = st.replace('\\', r'\\')
-    st = st.replace('\t', r'\t')
-    st = st.replace('\r', r'\r')
-    st = st.replace('\n', r'\n')
-    st = st.replace('\"', r'\"')
-    return st
+    return st.replace('\\', r'\\')\
+             .replace('\t', r'\t')\
+             .replace('\r', r'\r')\
+             .replace('\n', r'\n')\
+             .replace('\"', r'\"')
 
 # }}}
 # function unescape() {{{
@@ -238,13 +237,22 @@ def unescape(st):
 
     >>> unescape('\\\\t and \\\\n and \\\\r and \\\\" and \\\\\\\\')
     '\\t and \\n and \\r and " and \\\\'
+    >>> unescape(r'\\n')
+    '\\n'
+    >>> unescape(r'\\\\n')
+    '\\\\n'
     """
-    st = st.replace(r'\"', '"')
-    st = st.replace(r'\n', '\n')
-    st = st.replace(r'\r', '\r')
-    st = st.replace(r'\t', '\t')
-    st = st.replace(r'\\', '\\')
-    return st
+    raw_strings = [
+        (r'\\n', r'\n', '\n'),
+        (r'\\r', r'\r', '\r'),
+        (r'\\t', r'\t', '\t'),
+    ]
+    for a, b, c in raw_strings:
+        if a in st:
+            st = st.replace(a, b)
+        else:
+            st = st.replace(b, c)
+    return st.replace(r'\"', '"').replace(r'\\', '\\')
 
 # }}}
 # class _BaseFile {{{
