@@ -423,6 +423,8 @@ class _BaseFile(list):
             fhandle = open(fpath, 'wb')
         else:
             fhandle = codecs.open(fpath, 'w', self.encoding)
+            if type(contents) != types.UnicodeType:
+                contents = contents.decode(self.encoding)
         fhandle.write(contents)
         fhandle.close()
 
@@ -1515,7 +1517,17 @@ class _MOFileParser(object):
                             metadata[tokens[0]] = ''
                 self.instance.metadata = metadata
                 continue
-            entry = MOEntry(msgid=msgid, msgstr=msgstr)
+            # test if we have a plural entry
+            msgid_tokens = msgid.split('\0')
+            if len(msgid_tokens) > 1:
+                entry = MOEntry(
+                    msgid=msgid_tokens[0],
+                    msgid_plural=msgid_tokens[1],
+                    msgstr_plural=dict((k,v) for k,v in \
+                        enumerate(msgstr.split('\0')))
+                )
+            else:
+                entry = MOEntry(msgid=msgid, msgstr=msgstr)
             self.instance.append(entry)
         # close opened file
         self.fhandle.close()
