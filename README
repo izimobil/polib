@@ -2,46 +2,59 @@
 polib
 =====
 
-:Author: David JEAN LOUIS <izimobil@gmail>
-:Title: polib
-:License: MIT License
-
-A library to manipulate gettext files (po and mo files).
+Introduction
+------------
 
 polib allows you to manipulate, create, modify gettext files (pot, po and mo
-files).  You can load existing files, iterate through it's entries, add,
-modify entries, comments or metadata, etc... or create new po files from
-scratch.
+files). You can load existing files, iterate through it's entries, add, modify
+entries, comments or metadata, etc... or create new po files from scratch.
 
-polib provides a simple and pythonic API, exporting only three convenience
-functions 'pofile', 'mofile' and 'detect_encoding', and the 4 core classes:
-POFile, MOFile, POEntry and MOEntry for creating new files/entries.
+polib is pretty stable now and is used by many `opensource projects <http://code.google.com/p/polib/wiki/ProjectsUsingPolib>`_.
 
 
 Installation
 ------------
 
-Download latest version from: http://cheeseshop.python.org/pypi/polib/
+Note: chances are that polib is already packaged for your linux/bsd system, if
+so, we recommend you use your OS package system, if not then choose a method below:
 
-On unix systems
-~~~~~~~~~~~~~~~
+Installing latest polib version with setuptools
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ::
 
-  $ tar xzfv polib-x.y.z.tar.gz
-  $ cd polib-x.y.z
-  $ python setup build
-  $ sudo python setup.py install
+$ easy_install polib
 
-If your system support the rpm format you can alternatively download the
-binary rpm (polib-x.y.z-k.rpm) and install it as usual.
+Installing latest polib version with pip
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-On windows systems
-~~~~~~~~~~~~~~~~~~
+::
 
-We recommend you download and install the binary package provided
-(polib-x.y.z.win32.exe).
+$ pip install polib
 
+Installing latest polib version from source tarball
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+`Download latest version <http://code.google.com/p/polib/downloads/list>`_
+
+::
+
+$ tar xzfv polib-x.y.z.tar.gz
+$ cd polib-x.y.z
+$ python setup build
+$ sudo python setup.py install
+
+Installing the polib development version
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Note: this is **not recommended** in a production environment.
+
+::
+
+$ hg clone https://polib.googlecode.com/hg/ polib  
+$ cd polib
+$ python setup build
+$ sudo python setup.py install
 
 Basic usage example
 -------------------
@@ -51,58 +64,39 @@ Basic usage example
 >>> import polib
 >>> # load an existing po file
 >>> po = polib.pofile('tests/test_utf8.po')
->>> for entry in po:
-...     # do something with entry...
-...     print entry.msgid, entry.msgstr
+>>> for entry in po: print entry.msgid, entry.msgstr
 >>> # add an entry
 >>> entry = polib.POEntry(msgid='Welcome', msgstr='Bienvenue')
 >>> entry.occurences = [('welcome.py', '12'), ('anotherfile.py', '34')]
 >>> po.append(entry)
 >>> # save our modified po file
 >>> po.save()
-
+>>> # compile mo file
+>>> po.save_as_mofile('tests/test_utf8.mo')
 
 Documentation
 -------------
 
-A complete tutorial is available here:
-  http://code.google.com/p/polib/wiki/Tutorial
-
-The api docs can be found here:
-  http://www.izimobil.org/polib/api/
-
+`A tutorial <http://code.google.com/p/polib/wiki/Tutorial>`_ is available and
+you can also browse the `complete api documentation <http://www.izimobil.org/polib/api/>`_.
 
 Development
 -----------
 
-Bugtracker, wiki and svn repository can be found at:
-  http://code.google.com/p/polib/
-
-New released are published at python cheeseshop:
-  http://cheeseshop.python.org/pypi/polib/
+Bugtracker, wiki and mercurial repository can be found at the `project's page
+<http://code.google.com/p/polib/>`_.
+New releases are also published at the `cheeseshop <http://cheeseshop.python.org/pypi/polib/>`_.
 
 
 Credits
 -------
 
-Original author
-~~~~~~~~~~~~~~~
-
-David JEAN LOUIS <izimobil@gmail.com>
-
-Contributors
-~~~~~~~~~~~~
-
-* Yuri Baburov <burchik@gmail.com>
-* Anders Quist
-
+**Author:** `David Jean Louis <izimobil@gmail.com>`_.
 
 References
 ----------
 
-* Gettext manual: http://www.gnu.org/software/gettext/manual/
-* PO file format:
-  http://www.gnu.org/software/gettext/manual/html_node/gettext_9.html
-* MO file format:
-  http://www.gnu.org/software/gettext/manual/html_node/gettext_136.html
+* `Gettext Manual <http://www.gnu.org/software/gettext/manual/>`_
+* `PO file format <http://www.gnu.org/software/gettext/manual/html_node/gettext_9.html>`_
+* `MO file format <http://www.gnu.org/software/gettext/manual/html_node/gettext_136.html>`_
 

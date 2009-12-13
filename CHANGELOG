@@ -1,76 +1,69 @@
+=========
+Changelog
+=========
+
 Version 0.5.0 (2009/12/13)
 --------------------------
-    * fixed issue #0017: UnicodeDecodeError while writing a mo-file,
-    * fixed issue #0018: implemented support for msgctxt,
-    * fixed bug when compiling plural msgids/strs,
-    * API docs are no longer included, hopefully next release will ship with
-      sphinx documentation,
-    * parse msg plural entries correctly when reading mo files,
-    * fixed issue #0020 and #0021: added ability to check for duplicate when
-      adding entries to po/mo files, this is optional and not enabled by
-      default because it slows down considerably the library,
-    * fixed issue #0022: unescaping code is insufficient,
-    * fixed issue #0023: encoding error when saving mo file as po file (thanks
-      to sebastien.sable for the patch !).
+ - fixed issue #0017: UnicodeDecodeError while writing a mo-file,
+ - fixed issue #0018: implemented support for msgctxt,
+ - fixed bug when compiling plural msgids/strs,
+ - API docs are no longer included, hopefully next release will ship with sphinx documentation,
+ - parse msg plural entries correctly when reading mo files,
+ - fixed issue #0020 and #0021: added ability to check for duplicate when adding entries to po/mo files, this is optional and not enabled by default because it slows down considerably the library,
+ - fixed issue #0022: unescaping code is insufficient,
+ - fixed issue #0023: encoding error when saving mo file as po file (thanks to sebastien.sable for the patch !).
 
 Version 0.4.2 (2009/06/05)
 --------------------------
-    * fixed issue #0007: use the codecs module to open files,
-    * fixed issue #0014: plural forms are not saved correctly in the mo file
-      (thanks lorenzo.gil.sanchez for the patch),
-    * fixed issue #0015: no LICENSE file included in tarball,  
-    * removed Version/Date from README,
-    * added test pot files to MANIFEST.in,
-    * performance improvment in find() method (thanks Thomas !).
+ - fixed issue #0007: use the codecs module to open files,
+ - fixed issue #0014: plural forms are not saved correctly in the mo file (thanks lorenzo.gil.sanchez for the patch),
+ - fixed issue #0015: no LICENSE file included in tarball,  
+ - removed Version/Date from README,
+ - added test pot files to MANIFEST.in,
+ - performance improvment in find() method (thanks Thomas !).
 
 Version 0.4.1 (2009/03/04)
 --------------------------
-    * fixed issue #0006: plural msgstrs were saved unsorted,
-    * fixed issue #0008: long comment lines broke 'save()' method,
-    * removed performance shortcuts: they were in fact inefficient, I was
-      misleaded by the python profile module, kudos to Thomas for making me
-      realise that,
-    * fixed issue #0010: wrong polib version number,
-    * fixed issue #0011: occurrences parsing is now more robust and can handle
-      weird references formats (like in eToys OLPC po files),
-    * fixed issue #0012: improved merge() method.
+ - fixed issue #0006: plural msgstrs were saved unsorted,
+ - fixed issue #0008: long comment lines broke 'save()' method,
+ - removed performance shortcuts: they were in fact inefficient, I was misleaded by the python profile module, kudos to Thomas for making me realise that,
+ - fixed issue #0010: wrong polib version number,
+ - fixed issue #0011: occurrences parsing is now more robust and can handle weird references formats (like in eToys OLPC po files),
+ - fixed issue #0012: improved merge() method.
 
 Version 0.4.0 (2008/11/26)
 --------------------------
-    * fixed bug #0005: percent_translated divide by 0 on empty po files,
-    * fixed bug #0004: occurences that have hiphens are wrapped when they
-      should not,
-    * changes in how encoding is handled,
-    * remove deprecation warnings for typo "occurences",
-    * added POEntry.__cmp__() method to sort entries like gettext does,
-    * fixed POEntry.transalated(),
-    * added a merge() method to POFile class, that behaves like the gettext
-      msgmerge utility,
-    * obsolete entries are now written at the end of the file and with only
-      msgid/msgstr like gettext does,
-    * fixed some bugs in mo files parsing,
-    * renamed quote/unquote functions to escape/unescape,
-    * various cosmetic changes.
+ - fixed bug #0005: percent_translated divide by 0 on empty po files,
+ - fixed bug #0004: occurences that have hiphens are wrapped when they should not,
+ - changes in how encoding is handled,
+ - remove deprecation warnings for typo "occurences",
+ - added POEntry.__cmp__() method to sort entries like gettext does,
+ - fixed POEntry.transalated(),
+ - added a merge() method to POFile class, that behaves like the gettext msgmerge utility,
+ - obsolete entries are now written at the end of the file and with only msgid/msgstr like gettext does,
+ - fixed some bugs in mo files parsing,
+ - renamed quote/unquote functions to escape/unescape,
+ - various cosmetic changes.
 
 Version 0.3.1 (2007/12/13)
 --------------------------
-    * fixed bug #0002: typo: "occurences" instead of "occurrences",
-    * fixed bug #0003: mismatch in exception instance names,
-    * removed deprecation warnings,
-    * removed unused charset() method in POFile/MOFile objects,
-    * fixed bug in multibytes string length (added regression tests),
-    * fixed a bug in detect_encoding(),
-    * added a find() method to _BaseFile class,
-    * proper handling of quoting and unquoting,
-    * proper handling of multiline strings in metadata 
+ - fixed bug #0002: typo: "occurences" instead of "occurrences",
+ - fixed bug #0003: mismatch in exception instance names,
+ - removed deprecation warnings,
+ - removed unused charset() method in POFile/MOFile objects,
+ - fixed bug in multibytes string length (added regression tests),
+ - fixed a bug in detect_encoding(),
+ - added a find() method to _BaseFile class,
+ - proper handling of quoting and unquoting,
+ - proper handling of multiline strings in metadata 
 
 Version 0.3.0 (2007/10/17)
 --------------------------
-    * speed improvements,
-    * polib can now compile mo files,
-    * unicode support,
-    * fixed bug #0001: global name 'sorted' is not defined" on python 2.3.
+ - speed improvements,
+ - polib can now compile mo files,
+ - unicode support,
+ - fixed bug #0001: global name 'sorted' is not defined" on python 2.3.
 
 Version 0.1.0 (2006-08-08)
 --------------------------
-    Initial release
+Initial release
