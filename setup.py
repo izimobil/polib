@@ -8,23 +8,29 @@
 polib setup script.
 """
 
-__author__   = 'David JEAN LOUIS <izimobil@gmail.com>'
+__author__   = 'David Jean Louis <izimobil@gmail.com>'
 __version__  = '0.5.0'
 
 from distutils.core import setup
 
 author_data = __author__.split(' ')
-readme_file = open('README', 'r')
-
 maintainer = ' '.join(author_data[0:-1])
 maintainer_email = author_data[-1]
 desc = 'A library to manipulate gettext files (po and mo files).'
-long_desc = '''polib provides a simple and pythonic API to manipulate, create,
-modify gettext files (pot, po and mo files).
-You can load existing files, iterate through it's entries, add, modify entries,
-comments or metadata, etc... or create new files from scratch.'''
+long_desc = '''
+.. contents:: Table of Contents
+
+%s
+
+%s
+
+========
+METADATA
+========
+''' % (open('README').read(), open('CHANGELOG').read())
 
 if __name__ == '__main__':
+    print long_desc
     setup(
         name='polib',
         description=desc,
@@ -35,6 +41,7 @@ if __name__ == '__main__':
         maintainer=maintainer,
         maintainer_email=maintainer_email,
         url='http://code.google.com/p/polib/',
+        download_url='http://polib.googlecode.com/files/polib-%s.tar.gz' % __version__,
         license='MIT',
         platforms=['posix'],
         classifiers = [
