@@ -30,7 +30,6 @@ METADATA
 ''' % (open('README').read(), open('CHANGELOG').read())
 
 if __name__ == '__main__':
-    print long_desc
     setup(
         name='polib',
         description=desc,
