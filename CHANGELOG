@@ -1,10 +1,17 @@
-Version 0.4.3 (2009/10/21)
+Version 0.5.0 (2009/12/13)
 --------------------------
     * fixed issue #0017: UnicodeDecodeError while writing a mo-file,
-    * implemented support for msgctxt, fixes issue #0018,
+    * fixed issue #0018: implemented support for msgctxt,
     * fixed bug when compiling plural msgids/strs,
     * API docs are no longer included, hopefully next release will ship with
-      sphinx documentation.
+      sphinx documentation,
+    * parse msg plural entries correctly when reading mo files,
+    * fixed issue #0020 and #0021: added ability to check for duplicate when
+      adding entries to po/mo files, this is optional and not enabled by
+      default because it slows down considerably the library,
+    * fixed issue #0022: unescaping code is insufficient,
+    * fixed issue #0023: encoding error when saving mo file as po file (thanks
+      to sebastien.sable for the patch !).
 
 Version 0.4.2 (2009/06/05)
 --------------------------
