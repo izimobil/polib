@@ -39,8 +39,8 @@ if __name__ == '__main__':
         author_email=maintainer_email,
         maintainer=maintainer,
         maintainer_email=maintainer_email,
-        url='http://code.google.com/p/polib/',
-        download_url='http://polib.googlecode.com/files/polib-%s.tar.gz' % __version__,
+        url='http://bitbucket.org/izi/polib/',
+        download_url='http://bitbucket.org/izi/polib/downloads/polib-%s.tar.gz' % __version__,
         license='MIT',
         platforms=['posix'],
         classifiers = [
