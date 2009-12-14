@@ -2,6 +2,10 @@
 Changelog
 =========
 
+Version 0.5.1 (2009/12/14)
+--------------------------
+ - fixed issue #0025: setup.py requires CHANGELOG but it's not present in polib-0.5.0-tar.gz
+
 Version 0.5.0 (2009/12/13)
 --------------------------
  - fixed issue #0017: UnicodeDecodeError while writing a mo-file,
