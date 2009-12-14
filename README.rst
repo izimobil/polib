@@ -9,7 +9,7 @@ polib allows you to manipulate, create, modify gettext files (pot, po and mo
 files). You can load existing files, iterate through it's entries, add, modify
 entries, comments or metadata, etc... or create new po files from scratch.
 
-polib is pretty stable now and is used by many `opensource projects <http://code.google.com/p/polib/wiki/ProjectsUsingPolib>`_.
+polib is pretty stable now and is used by many `opensource projects <http://bitbucket.org/izi/polib/wiki/ProjectsUsingPolib>`_.
 
 
 Installation
@@ -35,7 +35,7 @@ $ pip install polib
 Installing latest polib version from source tarball
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-`Download latest version <http://code.google.com/p/polib/downloads/list>`_
+`Download latest version <http://bitbucket.org/izi/polib/downloads/>`_
 
 ::
 
@@ -51,7 +51,7 @@ Note: this is **not recommended** in a production environment.
 
 ::
 
-$ hg clone https://polib.googlecode.com/hg/ polib  
+$ hg clone http://bitbucket.org/izi/polib/
 $ cd polib
 $ python setup build
 $ sudo python setup.py install
@@ -77,14 +77,13 @@ Basic usage example
 Documentation
 -------------
 
-`A tutorial <http://code.google.com/p/polib/wiki/Tutorial>`_ is available and
+`A tutorial <http://bitbucket.org/izi/polib/wiki/Tutorial>`_ is available and
 you can also browse the `complete api documentation <http://www.izimobil.org/polib/api/>`_.
 
 Development
 -----------
 
-Bugtracker, wiki and mercurial repository can be found at the `project's page
-<http://code.google.com/p/polib/>`_.
+Bugtracker, wiki and mercurial repository can be found at the `project's page <http://bitbucket.org/izi/polib/>`_.
 New releases are also published at the `cheeseshop <http://cheeseshop.python.org/pypi/polib/>`_.
 
 
