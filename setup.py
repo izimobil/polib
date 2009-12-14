@@ -27,7 +27,7 @@ long_desc = '''
 ========
 METADATA
 ========
-''' % (open('README').read(), open('CHANGELOG').read())
+''' % (open('README.rst').read(), open('CHANGELOG').read())
 
 if __name__ == '__main__':
     setup(
