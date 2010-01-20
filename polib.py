@@ -38,6 +38,7 @@ __version__   = '0.5.2'
 __all__       = ['pofile', 'POFile', 'POEntry', 'mofile', 'MOFile', 'MOEntry',
                  'detect_encoding', 'escape', 'unescape', 'detect_encoding',]
 
+import os
 import codecs
 import struct
 import textwrap
@@ -175,16 +176,14 @@ def mofile(fpath, **kwargs):
 # }}}
 # function detect_encoding() {{{
 
-def detect_encoding(pofile, binary_mode=False, is_content=False):
+def detect_encoding(pofile, binary_mode=False):
     """
     Try to detect the encoding used by the *pofile*. The parameter *pofile*
-    might be a PO file path or its content. In case of using the content, the
-    *is_content* parameter should be set to True. The function will return 
+    might be a PO file path or its content. The function will return 
     polib default *encoding* if it's unable to detect it.
 
     **Keyword argument**:
       - *pofile*: string, full or relative path to the po/mo file or its content.
-      - *is_contents*: boolean, True if *pofile* has a file content.
       - *binary_mode*: boolean, True if *pofile* has a mo file path.
 
     **Examples**:
@@ -193,7 +192,7 @@ def detect_encoding(pofile, binary_mode=False, is_content=False):
     utf-8
     >>> print(detect_encoding('tests/test_utf8.po'))
     UTF-8
-    >>> print(detect_encoding(open('tests/test_utf8.po','r').read(), is_content=True))
+    >>> print(detect_encoding(open('tests/test_utf8.po','r').read()))
     UTF-8
     >>> print(detect_encoding('tests/test_utf8.mo', True))
     UTF-8
@@ -205,7 +204,7 @@ def detect_encoding(pofile, binary_mode=False, is_content=False):
     import re
     rx = re.compile(r'"?Content-Type:.+? charset=([\w_\-:\.]+)')
 
-    if is_content:
+    if not os.path.exists(pofile):
             match = rx.search(pofile)
             if match:
                 return match.group(1).strip()
