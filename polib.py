@@ -84,6 +84,9 @@ def pofile(fpath, **kwargs):
     ...             if old.msgstr != new.msgstr:
     ...                 old.msgid
     ...                 new.msgid
+    ...             if old.flags != new.flags:
+    ...                 old.flags
+    ...                 new.flags
     ...     finally:
     ...         os.unlink(tmpf)
     >>> po_file = polib.pofile('tests/test_save_as_mofile.po')
@@ -391,7 +394,14 @@ class _BaseFile(list):
         return '<%s instance at %x>' % (self.__class__.__name__, id(self))
 
     def metadata_as_entry(self):
-        """Return the metadata as an entry"""
+        """
+        Return the metadata as an entry:
+
+        >>> import polib
+        >>> po = polib.pofile('tests/test_fuzzy_header.po')
+        >>> unicode(po) == unicode(open('tests/test_fuzzy_header.po').read())
+        True
+        """
         e = POEntry(msgid='')
         mdata = self.ordered_metadata()
         if mdata:
@@ -401,6 +411,8 @@ class _BaseFile(list):
                 value = '\n'.join([v.strip() for v in value.split('\n')])
                 strs.append('%s: %s' % (name, value))
             e.msgstr = '\n'.join(strs) + '\n'
+        if self.metadata_is_fuzzy:
+            e.flags.append('fuzzy')
         return e
 
     def save(self, fpath=None, repr_method='__str__'):
@@ -666,7 +678,7 @@ class POFile(_BaseFile):
         >>> len(po.translated_entries())
         6
         """
-        return [e for e in self if e.translated() and not e.obsolete]
+        return [e for e in self if e.translated()]
 
     def untranslated_entries(self):
         """
@@ -677,9 +689,10 @@ class POFile(_BaseFile):
         >>> import polib
         >>> po = polib.pofile('tests/test_pofile_helpers.po')
         >>> len(po.untranslated_entries())
-        6
+        4
         """
-        return [e for e in self if not e.translated() and not e.obsolete]
+        return [e for e in self if not e.translated() and not e.obsolete \
+                and not 'fuzzy' in e.flags]
 
     def fuzzy_entries(self):
         """
