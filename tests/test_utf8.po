@@ -15,6 +15,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
+# Added for previous msgid/msgid_plural/msgctxt testing
+#| msgctxt "@previous_context"
+#| msgid "previous untranslated entry"
+#| msgid_plural "previous untranslated entry plural"
+msgctxt "@context"
+msgid "Some msgid"
+msgstr "Some msgstr"
+
 #: db/models/manipulators.py:309
 #, python-format
 msgid "%(object)s with this %(type)s already exists for the given %(field)s."

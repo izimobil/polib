@@ -110,9 +110,13 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO_8859-15\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-# AB - Il faut respecter l'esprit plus que la lettre.
-msgid "E82: Cannot allocate any buffer, exiting..."
-msgstr "E82: Aucun tampon ne peut être alloué, Vim doit s'arrêter"
+# Added for previous msgid/msgid_plural/msgctxt testing
+#| msgctxt "@previous_context"
+#| msgid "previous untranslated entry"
+#| msgid_plural "previous untranslated entry plural"
+msgctxt "@context"
+msgid "Some msgid"
+msgstr "Some msgstr"
 
 # AB - La situation est probablement plus grave que la version anglaise ne le
 #      laisse entendre (voir l'aide en ligne). La version française est plus

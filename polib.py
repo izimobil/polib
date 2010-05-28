@@ -71,6 +71,10 @@ def pofile(fpath, **kwargs):
     >>> po #doctest: +ELLIPSIS
     <POFile instance at ...>
     >>> import os, tempfile
+    >>> all_attrs = ('msgctxt', 'msgid', 'msgstr', 'msgid_plural', 
+    ...              'msgstr_plural', 'obsolete', 'comment', 'tcomment', 
+    ...              'occurrences', 'flags', 'previous_msgctxt', 
+    ...              'previous_msgid', 'previous_msgid_plural')
     >>> for fname in ['test_iso-8859-15.po', 'test_utf8.po']:
     ...     orig_po = polib.pofile('tests/'+fname)
     ...     tmpf = tempfile.NamedTemporaryFile().name
@@ -78,15 +82,10 @@ def pofile(fpath, **kwargs):
     ...     try:
     ...         new_po = polib.pofile(tmpf)
     ...         for old, new in zip(orig_po, new_po):
-    ...             if old.msgid != new.msgid:
-    ...                 old.msgid
-    ...                 new.msgid
-    ...             if old.msgstr != new.msgstr:
-    ...                 old.msgid
-    ...                 new.msgid
-    ...             if old.flags != new.flags:
-    ...                 old.flags
-    ...                 new.flags
+    ...             for attr in all_attrs:
+    ...                 if getattr(old, attr) != getattr(new, attr):
+    ...                     getattr(old, attr)
+    ...                     getattr(new, attr)
     ...     finally:
     ...         os.unlink(tmpf)
     >>> po_file = polib.pofile('tests/test_save_as_mofile.po')
@@ -948,6 +947,10 @@ class POEntry(_BaseEntry):
     >>> entry.comment = 'A plural translation. This is a very very very long line please do not wrap, this is just for testing comment wrapping...'
     >>> entry.tcomment = 'A plural translation. This is a very very very long line please do not wrap, this is just for testing comment wrapping...'
     >>> entry.flags.append('c-format')
+    >>> entry.previous_msgctxt = '@somecontext'
+    >>> entry.previous_msgid = 'I had eggs but no spam !'
+    >>> entry.previous_msgid_plural = 'I had eggs and %d spam !'
+    >>> entry.msgctxt = '@somenewcontext'
     >>> entry.msgid = 'I have spam but no egg !'
     >>> entry.msgid_plural = 'I have spam and %d eggs !'
     >>> entry.msgstr_plural[0] = "J'ai du jambon mais aucun oeuf !"
@@ -960,6 +963,10 @@ class POEntry(_BaseEntry):
     #: src/some-very-long-filename-that-should-not-be-wrapped-even-if-it-is-larger-than-the-wrap-limit.c:32
     #: src/eggs.c:45
     #, c-format
+    #| msgctxt "@somecontext"
+    #| msgid "I had eggs but no spam !"
+    #| msgid_plural "I had eggs and %d spam !"
+    msgctxt "@somenewcontext"
     msgid "I have spam but no egg !"
     msgid_plural "I have spam and %d eggs !"
     msgstr[0] "J'ai du jambon mais aucun oeuf !"
@@ -974,6 +981,9 @@ class POEntry(_BaseEntry):
         self.tcomment = kwargs.get('tcomment', '')
         self.occurrences = kwargs.get('occurrences', [])
         self.flags = kwargs.get('flags', [])
+        self.previous_msgctxt = kwargs.get('previous_msgctxt', None)
+        self.previous_msgid = kwargs.get('previous_msgid', None)
+        self.previous_msgid_plural = kwargs.get('previous_msgid_plural', None)
 
     def __str__(self, wrapwidth=78):
         """
@@ -1032,8 +1042,17 @@ class POEntry(_BaseEntry):
             for flag in self.flags:
                 flags.append(flag)
             ret.append('#, %s' % ', '.join(flags))
-        ret.append(_BaseEntry.__str__(self))
 
+        # previous context and previous msgid/msgid_plural
+        if self.previous_msgctxt:
+            ret += self._str_field("msgctxt", "#| ", "", self.previous_msgctxt)
+        if self.previous_msgid:
+            ret += self._str_field("msgid", "#| ", "", self.previous_msgid)
+        if self.previous_msgid_plural:
+            ret += self._str_field("msgid_plural", "#| ", "", 
+                                   self.previous_msgid_plural)
+
+        ret.append(_BaseEntry.__str__(self))
         return '\n'.join(ret)
 
     def __cmp__(self, other):
@@ -1221,22 +1240,29 @@ class _POFileParser(object):
         #     * OC: a file/line occurence
         #     * FL: a flags line
         #     * CT: a message context
+        #     * PC: a previous msgctxt
+        #     * PM: a previous msgid or msgid_plural
         #     * MI: a msgid
         #     * MP: a msgid plural
         #     * MS: a msgstr
         #     * MX: a msgstr plural
         #     * MC: a msgid or msgstr continuation line
-        all = ['ST', 'HE', 'GC', 'OC', 'FL', 'CT', 'TC', 'MS', 'MP', 'MX', 'MI']
+        all = ['ST', 'HE', 'GC', 'OC', 'FL', 'CT', 'PC', 'PM', 'TC', 'MS',
+               'MP', 'MX', 'MI']
 
         self.add('TC', ['ST', 'HE'],                                     'HE')
-        self.add('TC', ['GC', 'OC', 'FL', 'TC', 'MS', 'MP', 'MX', 'MI'], 'TC')
+        self.add('TC', ['GC', 'OC', 'FL', 'TC', 'PC', 'PM', 'MS', 'MP', 
+                        'MX', 'MI'],                                     'TC')
         self.add('GC', all,                                              'GC')
         self.add('OC', all,                                              'OC')
         self.add('FL', all,                                              'FL')
-        self.add('CT', ['ST', 'HE', 'GC', 'OC', 'FL', 'TC', 'MS', 'MX'], 'CT')
-        self.add('MI', ['ST', 'HE', 'GC', 'OC', 'FL', 'CT', 'TC', 'MS', 'MX'],
-                                                                         'MI')
-        self.add('MP', ['TC', 'GC', 'MI'],                               'MP')
+        self.add('PC', all,                                              'PC')
+        self.add('PM', all,                                              'PM')
+        self.add('CT', ['ST', 'HE', 'GC', 'OC', 'FL', 'TC', 'PC', 'PM',
+                        'MS', 'MX'],                                     'CT')
+        self.add('MI', ['ST', 'HE', 'GC', 'OC', 'FL', 'CT', 'TC', 'PC', 
+                 'PM', 'MS', 'MX'],                                      'MI')
+        self.add('MP', ['TC', 'GC', 'PC', 'PM', 'MI'],                   'MP')
         self.add('MS', ['MI', 'MP', 'TC'],                               'MS')
         self.add('MX', ['MI', 'MX', 'MP', 'TC'],                         'MX')
         self.add('MC', ['CT', 'MI', 'MP', 'MS', 'MX'],                   'MC')
@@ -1289,6 +1315,12 @@ class _POFileParser(object):
             elif line[:2] == '#.':
                 # we are on a generated comment line
                 self.process('GC', i)
+            elif line[:2] == '#|':
+                # we are on a previous message id or context
+                if line[3:8] == 'msgid':
+                    self.process('PM', i)
+                elif line[3:10] == 'msgctxt':
+                    self.process('PC', i)
             i = i+1
 
         if self.current_entry:
@@ -1397,6 +1429,28 @@ class _POFileParser(object):
             self.instance.append(self.current_entry)
             self.current_entry = POEntry()
         self.current_entry.flags += self.current_token[3:].split(', ')
+        return True
+
+    def handle_pm(self):
+        """Handle a previous msgid line."""
+        if self.current_state in ['MC', 'MS', 'MX']:
+            self.instance.append(self.current_entry)
+            self.current_entry = POEntry()
+        if self.current_token[9:16] == '_plural':
+            self.current_entry.previous_msgid_plural = \
+                unescape(self.current_token[17:-1])
+        else:
+            self.current_entry.previous_msgid = \
+                unescape(self.current_token[10:-1])
+        return True
+
+    def handle_pc(self):
+        """Handle a previous msgctxt line."""
+        if self.current_state in ['MC', 'MS', 'MX']:
+            self.instance.append(self.current_entry)
+            self.current_entry = POEntry()
+        self.current_entry.previous_msgctxt = \
+            unescape(self.current_token[12:-1])
         return True
 
     def handle_ct(self):
