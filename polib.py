@@ -34,7 +34,7 @@ new files/entries.
 """
 
 __author__    = 'David JEAN LOUIS <izimobil@gmail.com>'
-__version__   = '0.5.1'
+__version__   = '0.5.2'
 __all__       = ['pofile', 'POFile', 'POEntry', 'mofile', 'MOFile', 'MOEntry',
                  'detect_encoding', 'escape', 'unescape', 'detect_encoding',]
 
