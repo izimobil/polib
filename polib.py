@@ -405,11 +405,13 @@ class _BaseFile(list):
         mdata = self.ordered_metadata()
         if mdata:
             strs = []
+            e._multiline_str['msgstr'] = ''
             for name, value in mdata:
                 # Strip whitespace off each line in a multi-line entry
-                value = '\n'.join([v.strip() for v in value.split('\n')])
                 strs.append('%s: %s' % (name, value))
             e.msgstr = '\n'.join(strs) + '\n'
+            e._multiline_str['msgstr'] = '__POLIB__NL__'.join(
+                    [s + '\n' for s in strs])
         if self.metadata_is_fuzzy:
             e.flags.append('fuzzy')
         return e
@@ -874,6 +876,7 @@ class _BaseEntry(object):
         self.obsolete = kwargs.get('obsolete', False)
         self.encoding = kwargs.get('encoding', default_encoding)
         self.msgctxt = kwargs.get('msgctxt', None)
+        self._multiline_str = {}
 
     def __repr__(self):
         """Return the official string representation of the object."""
@@ -913,13 +916,19 @@ class _BaseEntry(object):
         return '\n'.join(ret)
 
     def _str_field(self, fieldname, delflag, plural_index, field):
-        lines = field.splitlines(True) # keep line breaks in strings
-        # potentially, we could do line-wrapping here, but textwrap.wrap
-        # treats whitespace too carelessly for us to use it.
-        if len(lines) > 1:
-            lines = ['']+lines # start with initial empty line
+        if (fieldname + plural_index) in self._multiline_str:
+            field = self._multiline_str[fieldname + plural_index]
+            lines = [''] + field.split('__POLIB__NL__')
         else:
-            lines = [field] # needed for the empty string case
+            lines = field.splitlines(True)
+            if len(lines) > 1:
+                lines = ['']+lines # start with initial empty line
+            else:
+                lines = [field] # needed for the empty string case
+        if fieldname.startswith('previous_'):
+            # quick and dirty trick to get the real field name
+            fieldname = fieldname[9:]
+
         ret = ['%s%s%s "%s"' % (delflag, fieldname, plural_index,
                                 escape(lines.pop(0)))]
         for mstr in lines:
@@ -1045,11 +1054,13 @@ class POEntry(_BaseEntry):
 
         # previous context and previous msgid/msgid_plural
         if self.previous_msgctxt:
-            ret += self._str_field("msgctxt", "#| ", "", self.previous_msgctxt)
+            ret += self._str_field("previous_msgctxt", "#| ", "",
+                                   self.previous_msgctxt)
         if self.previous_msgid:
-            ret += self._str_field("msgid", "#| ", "", self.previous_msgid)
+            ret += self._str_field("previous_msgid", "#| ", "", 
+                                   self.previous_msgid)
         if self.previous_msgid_plural:
-            ret += self._str_field("msgid_plural", "#| ", "", 
+            ret += self._str_field("previous_msgid_plural", "#| ", "", 
                                    self.previous_msgid_plural)
 
         ret.append(_BaseEntry.__str__(self))
@@ -1241,31 +1252,33 @@ class _POFileParser(object):
         #     * FL: a flags line
         #     * CT: a message context
         #     * PC: a previous msgctxt
-        #     * PM: a previous msgid or msgid_plural
+        #     * PM: a previous msgid
+        #     * PP: a previous msgid_plural
         #     * MI: a msgid
         #     * MP: a msgid plural
         #     * MS: a msgstr
         #     * MX: a msgstr plural
         #     * MC: a msgid or msgstr continuation line
-        all = ['ST', 'HE', 'GC', 'OC', 'FL', 'CT', 'PC', 'PM', 'TC', 'MS',
-               'MP', 'MX', 'MI']
+        all = ['ST', 'HE', 'GC', 'OC', 'FL', 'CT', 'PC', 'PM', 'PP', 'TC',
+               'MS', 'MP', 'MX', 'MI']
 
         self.add('TC', ['ST', 'HE'],                                     'HE')
-        self.add('TC', ['GC', 'OC', 'FL', 'TC', 'PC', 'PM', 'MS', 'MP', 
-                        'MX', 'MI'],                                     'TC')
+        self.add('TC', ['GC', 'OC', 'FL', 'TC', 'PC', 'PM', 'PP', 'MS',
+                        'MP', 'MX', 'MI'],                               'TC')
         self.add('GC', all,                                              'GC')
         self.add('OC', all,                                              'OC')
         self.add('FL', all,                                              'FL')
         self.add('PC', all,                                              'PC')
         self.add('PM', all,                                              'PM')
+        self.add('PP', all,                                              'PP')
         self.add('CT', ['ST', 'HE', 'GC', 'OC', 'FL', 'TC', 'PC', 'PM',
-                        'MS', 'MX'],                                     'CT')
+                        'PP', 'MS', 'MX'],                               'CT')
         self.add('MI', ['ST', 'HE', 'GC', 'OC', 'FL', 'CT', 'TC', 'PC', 
-                 'PM', 'MS', 'MX'],                                      'MI')
-        self.add('MP', ['TC', 'GC', 'PC', 'PM', 'MI'],                   'MP')
+                 'PM', 'PP', 'MS', 'MX'],                                'MI')
+        self.add('MP', ['TC', 'GC', 'PC', 'PM', 'PP', 'MI'],             'MP')
         self.add('MS', ['MI', 'MP', 'TC'],                               'MS')
         self.add('MX', ['MI', 'MX', 'MP', 'TC'],                         'MX')
-        self.add('MC', ['CT', 'MI', 'MP', 'MS', 'MX'],                   'MC')
+        self.add('MC', ['CT', 'MI', 'MP', 'MS', 'MX', 'PM', 'PP', 'PC'], 'MC')
 
     def parse(self):
         """
@@ -1296,7 +1309,7 @@ class _POFileParser(object):
             elif line[:8] == 'msgstr "':
                 # we are on a msgstr
                 self.process('MS', i)
-            elif line[:1] == '"':
+            elif line[:1] == '"' or line[:4] == '#| "':
                 # we are on a continuation line or some metadata
                 self.process('MC', i)
             elif line[:14] == 'msgid_plural "':
@@ -1315,12 +1328,15 @@ class _POFileParser(object):
             elif line[:2] == '#.':
                 # we are on a generated comment line
                 self.process('GC', i)
-            elif line[:2] == '#|':
-                # we are on a previous message id or context
-                if line[3:8] == 'msgid':
-                    self.process('PM', i)
-                elif line[3:10] == 'msgctxt':
-                    self.process('PC', i)
+            elif line[:15] == '#| msgid_plural':
+                # we are on a previous msgid_plural
+                self.process('PP', i)
+            elif line[:8] == '#| msgid':
+                self.process('PM', i)
+                # we are on a previous msgid
+            elif line[:10] == '#| msgctxt':
+                # we are on a previous msgctxt
+                self.process('PC', i)
             i = i+1
 
         if self.current_entry:
@@ -1373,7 +1389,6 @@ class _POFileParser(object):
             if action():
                 self.current_state = state
         except Exception, exc:
-            raise
             raise IOError('Syntax error in po file (line %s)' % linenum)
 
     # state handlers
@@ -1431,17 +1446,22 @@ class _POFileParser(object):
         self.current_entry.flags += self.current_token[3:].split(', ')
         return True
 
+    def handle_pp(self):
+        """Handle a previous msgid_plural line."""
+        if self.current_state in ['MC', 'MS', 'MX']:
+            self.instance.append(self.current_entry)
+            self.current_entry = POEntry()
+        self.current_entry.previous_msgid_plural = \
+            unescape(self.current_token[17:-1])
+        return True
+
     def handle_pm(self):
         """Handle a previous msgid line."""
         if self.current_state in ['MC', 'MS', 'MX']:
             self.instance.append(self.current_entry)
             self.current_entry = POEntry()
-        if self.current_token[9:16] == '_plural':
-            self.current_entry.previous_msgid_plural = \
-                unescape(self.current_token[17:-1])
-        else:
-            self.current_entry.previous_msgid = \
-                unescape(self.current_token[10:-1])
+        self.current_entry.previous_msgid = \
+            unescape(self.current_token[10:-1])
         return True
 
     def handle_pc(self):
@@ -1489,19 +1509,38 @@ class _POFileParser(object):
 
     def handle_mc(self):
         """Handle a msgid or msgstr continuation line."""
+        token = unescape(self.current_token[1:-1])
         if self.current_state == 'CT':
-            self.current_entry.msgctxt += unescape(self.current_token[1:-1])
+            typ = 'msgctxt'
+            self.current_entry.msgctxt += token
         elif self.current_state == 'MI':
-            self.current_entry.msgid += unescape(self.current_token[1:-1])
+            typ = 'msgid'
+            self.current_entry.msgid += token
         elif self.current_state == 'MP':
-            self.current_entry.msgid_plural += \
-                unescape(self.current_token[1:-1])
+            typ = 'msgid_plural'
+            self.current_entry.msgid_plural += token
         elif self.current_state == 'MS':
-            self.current_entry.msgstr += unescape(self.current_token[1:-1])
+            typ = 'msgstr'
+            self.current_entry.msgstr += token
         elif self.current_state == 'MX':
-            msgstr = self.current_entry.msgstr_plural[self.msgstr_index] +\
-                unescape(self.current_token[1:-1])
-            self.current_entry.msgstr_plural[self.msgstr_index] = msgstr
+            typ = 'msgstr[%s]' % self.msgstr_index
+            self.current_entry.msgstr_plural[self.msgstr_index] += token
+        elif self.current_state == 'PP':
+            typ = 'previous_msgid_plural'
+            token = token[3:]
+            self.current_entry.previous_msgid_plural += token
+        elif self.current_state == 'PM':
+            typ = 'previous_msgid'
+            token = token[3:]
+            self.current_entry.previous_msgid += token
+        elif self.current_state == 'PC':
+            typ = 'previous_msgctxt'
+            token = token[3:]
+            self.current_entry.previous_msgctxt += token
+        if typ not in self.current_entry._multiline_str:
+            self.current_entry._multiline_str[typ] = token
+        else:
+            self.current_entry._multiline_str[typ] += "__POLIB__NL__" + token
         # don't change the current state
         return False
 
