@@ -2,6 +2,13 @@
 Changelog
 =========
 
+Version 0.5.2 (2010/06/09)
+--------------------------
+ - fixed issue #1: untranslated_entries() also show fuzzy message,
+ - write back the fuzzy header if present in the pofile,
+ - added support for previous msgctxt, previous msgid and previous msgid_plural comments (fixes issue #5),
+ - better handling of lines wrapping.
+
 Version 0.5.1 (2009/12/14)
 --------------------------
  - fixed issue #0025: setup.py requires CHANGELOG but it's not present in polib-0.5.0-tar.gz
