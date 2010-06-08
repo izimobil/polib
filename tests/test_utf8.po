@@ -23,6 +23,19 @@ msgctxt "@context"
 msgid "Some msgid"
 msgstr "Some msgstr"
 
+# Added for previous msgid/msgid_plural/msgctxt testing
+#| msgctxt "@previous_context"
+#| msgid ""
+#| "previous untranslated entry, this is a long string "
+#| "written on multiple "
+#| "lines"
+#| msgid_plural ""
+#| "previous untranslated entry plural, this is also a "
+#| "long string written on multiple lines"
+msgctxt "@context"
+msgid "Some msgid2"
+msgstr "Some msgstr2"
+
 #: db/models/manipulators.py:309
 #, python-format
 msgid "%(object)s with this %(type)s already exists for the given %(field)s."
