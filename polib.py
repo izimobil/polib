@@ -298,18 +298,28 @@ class _BaseFile(list):
         self.metadata = {}
         self.metadata_is_fuzzy = 0
 
-    def __str__(self):
+    def __unicode__(self):
         """
-        String representation of the file.
+        Unicode representation of the file.
         """
         ret = []
         entries = [self.metadata_as_entry()] + \
                   [e for e in self if not e.obsolete]
         for entry in entries:
-            ret.append(entry.__str__(self.wrapwidth))
+            ret.append(entry.__unicode__(self.wrapwidth))
         for entry in self.obsolete_entries():
-            ret.append(entry.__str__(self.wrapwidth))
-        return '\n'.join(ret)
+            ret.append(entry.__unicode__(self.wrapwidth))
+        ret = '\n'.join(ret)
+
+        if type(ret) != types.UnicodeType:
+            return unicode(ret, self.encoding)
+        return ret
+
+    def __str__(self):
+        """
+        String representation of the file.
+        """
+        return unicode(self).encode(self.encoding)
 
     def __contains__(self, entry):
         """
@@ -598,7 +608,7 @@ class POFile(_BaseFile):
     >>> entry1.comment = "Some useful comment"
     >>> entry2 = POEntry(
     ...     msgid="Peace in some languages",
-    ...     msgstr="Pace سلام שלום Hasîtî 和平"
+    ...     msgstr="Pace سلام שלום Hasîtî 和平",
     ... )
     >>> entry2.occurrences = [('testfile', 15),('another_file', 5)]
     >>> entry2.comment = "Another useful comment"
@@ -632,7 +642,7 @@ class POFile(_BaseFile):
     <BLANKLINE>
     '''
 
-    def __str__(self):
+    def __unicode__(self):
         """Return the string representation of the po file"""
         ret, headers = '', self.header.split('\n')
         for header in headers:
@@ -640,7 +650,11 @@ class POFile(_BaseFile):
                 ret += '#%s\n' % header
             else:
                 ret += '# %s\n' % header
-        return ret + _BaseFile.__str__(self)
+
+        if type(ret) != types.UnicodeType:
+            ret = unicode(ret, self.encoding)
+
+        return ret + _BaseFile.__unicode__(self)
 
     def save_as_mofile(self, fpath):
         """
@@ -886,10 +900,9 @@ class _BaseEntry(object):
         """Return the official string representation of the object."""
         return '<%s instance at %x>' % (self.__class__.__name__, id(self))
 
-    def __str__(self, wrapwidth=78):
+    def __unicode__(self, wrapwidth=78):
         """
-        Common string representation of the POEntry and MOEntry
-        objects.
+        Unicode representation of the entry.
         """
         if self.obsolete:
             delflag = '#~ '
@@ -917,7 +930,17 @@ class _BaseEntry(object):
             # otherwise write the msgstr
             ret += self._str_field("msgstr", delflag, "", self.msgstr)
         ret.append('')
-        return '\n'.join(ret)
+        ret = '\n'.join(ret)
+
+        if type(ret) != types.UnicodeType:
+            return unicode(ret, self.encoding)
+        return ret
+
+    def __str__(self):
+        """
+        String representation of the entry.
+        """
+        return unicode(self).encode(self.encoding)
 
     def _str_field(self, fieldname, delflag, plural_index, field):
         if (fieldname + plural_index) in self._multiline_str:
@@ -998,12 +1021,12 @@ class POEntry(_BaseEntry):
         self.previous_msgid = kwargs.get('previous_msgid', None)
         self.previous_msgid_plural = kwargs.get('previous_msgid_plural', None)
 
-    def __str__(self, wrapwidth=78):
+    def __unicode__(self, wrapwidth=78):
         """
         Return the string representation of the entry.
         """
         if self.obsolete:
-            return _BaseEntry.__str__(self)
+            return _BaseEntry.__unicode__(self)
         ret = []
         # comment first, if any (with text wrapping as xgettext does)
         if self.comment != '':
@@ -1067,8 +1090,12 @@ class POEntry(_BaseEntry):
             ret += self._str_field("previous_msgid_plural", "#| ", "", 
                                    self.previous_msgid_plural)
 
-        ret.append(_BaseEntry.__str__(self))
-        return '\n'.join(ret)
+        ret.append(_BaseEntry.__unicode__(self))
+        ret = '\n'.join(ret)
+
+        if type(ret) != types.UnicodeType:
+            return unicode(ret, self.encoding)
+        return ret
 
     def __cmp__(self, other):
         '''
@@ -1200,12 +1227,7 @@ class MOEntry(_BaseEntry):
     msgstr "traduisez moi !"
     <BLANKLINE>
     """
-
-    def __str__(self, wrapwidth=78):
-        """
-        Return the string representation of the entry.
-        """
-        return _BaseEntry.__str__(self, wrapwidth)
+    pass
 
 # }}}
 # class _POFileParser {{{
