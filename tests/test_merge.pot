@@ -31,3 +31,9 @@ msgid "month"
 msgid_plural "monthes"
 msgstr[0] ""
 msgstr[1] ""
+
+#: foo/bar.py:30
+msgid ""
+"This entry should be removed after the merge and added again as non "
+"obsolete entry"
+msgstr "Some translation"

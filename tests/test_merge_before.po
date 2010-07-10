@@ -28,3 +28,8 @@ msgid "year"
 msgid_plural "years"
 msgstr[0] "année"
 msgstr[1] "années"
+
+#~ msgid ""
+#~ "This entry should be removed after the merge and added again as non "
+#~ "obsolete entry"
+#~ msgstr "Some translation"
