@@ -455,7 +455,7 @@ class _BaseFile(list):
         fhandle.write(contents)
         fhandle.close()
 
-    def find(self, st, by='msgid'):
+    def find(self, st, by='msgid', include_obsolete_entries=False):
         """
         Find entry which msgid (or property identified by the *by*
         attribute) matches the string *st*.
@@ -463,6 +463,8 @@ class _BaseFile(list):
         **Keyword arguments**:
           - *st*: string, the string to search for
           - *by*: string, the comparison attribute
+          - *include_obsolete_entries*: boolean, whether to also search in 
+            entries that are obsolete.
 
         **Examples**:
 
@@ -480,6 +482,10 @@ class _BaseFile(list):
         for e in self:
             if getattr(e, by) == st:
                 return e
+        if include_obsolete_entries:
+            for e in self.obsolete_entries():
+                if getattr(e, by) == st:
+                    return e
         return None
 
     def ordered_metadata(self):
@@ -766,7 +772,7 @@ class POFile(_BaseFile):
         True
         """
         for entry in refpot:
-            e = self.find(entry.msgid)
+            e = self.find(entry.msgid, include_obsolete_entries=True)
             if e is None:
                 e = POEntry()
                 self.append(e)
@@ -1197,11 +1203,16 @@ class POEntry(_BaseEntry):
         """
         Merge the current entry with the given pot entry.
         """
-        self.msgid        = other.msgid
-        self.occurrences  = other.occurrences
-        self.comment      = other.comment
-        self.flags        = other.flags
+        self.msgid = other.msgid
+        self.msgctxt = other.msgctxt
+        self.occurrences = other.occurrences
+        self.comment = other.comment
+        self.flags = other.flags
         self.msgid_plural = other.msgid_plural
+        self.obsolete = other.obsolete
+        self.previous_msgctxt = other.previous_msgctxt
+        self.previous_msgid = other.previous_msgid
+        self.previous_msgid_plural = other.previous_msgid_plural
         if other.msgstr_plural:
             for pos in other.msgstr_plural:
                 try:

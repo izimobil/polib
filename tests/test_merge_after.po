@@ -26,6 +26,12 @@ msgid_plural "years"
 msgstr[0] "année"
 msgstr[1] "années"
 
+#: foo/bar.py:30
+msgid ""
+"This entry should be removed after the merge and added again as non "
+"obsolete entry"
+msgstr "Some translation"
+
 #: some/file.py:3 some/file2.py:4
 msgid "This entry is not present in pofile and will be appended"
 msgstr ""
