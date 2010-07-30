@@ -21,6 +21,7 @@ msgid "This entry is already present in pofile, but with different occurrences"
 msgstr "Some translation ..."
 
 #: utils/timesince.py:12
+#, fuzzy
 msgid "year"
 msgid_plural "years"
 msgstr[0] "année"

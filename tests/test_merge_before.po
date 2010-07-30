@@ -24,6 +24,7 @@ msgid "This entry is not present in potfile and will be obsoleted"
 msgstr "Some translation"
 
 #: utils/timesince.py:12
+#, fuzzy
 msgid "year"
 msgid_plural "years"
 msgstr[0] "année"
