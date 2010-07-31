@@ -1209,7 +1209,7 @@ class POEntry(_BaseEntry):
         self.occurrences = other.occurrences
         self.comment = other.comment
         fuzzy = 'fuzzy' in self.flags
-        self.flags = other.flags
+        self.flags = other.flags[:] #Clone flags
         if fuzzy:
             self.flags.append('fuzzy')
         self.msgid_plural = other.msgid_plural
