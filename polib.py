@@ -49,13 +49,14 @@ default_encoding = 'utf-8'
 
 # function pofile() {{{
 
-def pofile(fpath, **kwargs):
+def pofile(pofile, **kwargs):
     """
-    Convenience function that parse the po/pot file *fpath* and return
+    Convenience function that parse the po/pot file *pofile* and return
     a POFile instance.
 
     **Keyword arguments**:
-      - *fpath*: string, full or relative path to the po/pot file to parse
+      - *pofile*: string, full or relative path to the po/pot file or its 
+        content to parse
       - *wrapwidth*: integer, the wrap width, only useful when -w option was
         passed to xgettext (optional, default to 78)
       - *autodetect_encoding*: boolean, if set to False the function will
@@ -105,14 +106,18 @@ def pofile(fpath, **kwargs):
     ...             print new.msgstr
     ... finally:
     ...     os.unlink(tmpf)
+    >>> po = polib.pofile('tests/test_pofile_helpers.po')
+    >>> po_content = polib.pofile(open('tests/test_pofile_helpers.po','r').read())
+    >>> po[0].msgid == po_content[0].msgid
+    True
     """
     if kwargs.get('autodetect_encoding', True) == True:
-        enc = detect_encoding(fpath)
+        enc = detect_encoding(pofile)
     else:
         enc = kwargs.get('encoding', default_encoding)
     check_for_duplicates = kwargs.get('check_for_duplicates', False)
     parser = _POFileParser(
-        fpath,
+        pofile,
         encoding=enc,
         check_for_duplicates=kwargs.get('check_for_duplicates', False)
     )
@@ -285,7 +290,7 @@ class _BaseFile(list):
         Constructor.
 
         **Keyword arguments**:
-          - *fpath*: string, path to po or mo file
+          - *pofile*: string, path to po or mo file or its content
           - *wrapwidth*: integer, the wrap width, only useful when -w option
             was passed to xgettext to generate the po file that was used to
             format the mo file, default to 78 (optional),
@@ -296,7 +301,11 @@ class _BaseFile(list):
         """
         list.__init__(self)
         # the opened file handle
-        self.fpath = kwargs.get('fpath')
+        pofile = kwargs.get('pofile', None)
+        if pofile and os.path.exists(pofile):
+            self.fpath = pofile
+        else:
+            self.fpath = kwargs.get('fpath')
         # the width at which lines should be wrapped
         self.wrapwidth = kwargs.get('wrapwidth', 78)
         # the file encoding
@@ -1260,12 +1269,12 @@ class _POFileParser(object):
     file format.
     """
 
-    def __init__(self, fpath, *args, **kwargs):
+    def __init__(self, pofile, *args, **kwargs):
         """
         Constructor.
 
         **Arguments**:
-          - *fpath*: string, path to the po file
+          - *pofile*: string, path to the po file or its content
           - *encoding*: string, the encoding to use, defaults to
             "default_encoding" global variable (optional),
           - *check_for_duplicates*: whether to check for duplicate entries
@@ -1273,13 +1282,17 @@ class _POFileParser(object):
         """
         enc = kwargs.get('encoding', default_encoding)
         check_dup = kwargs.get('check_for_duplicates', False)
-        try:
-            self.fhandle = codecs.open(fpath, 'rU', enc)
-        except LookupError:
-            enc = default_encoding
-            self.fhandle = codecs.open(fpath, 'rU', enc)
+        if os.path.exists(pofile):
+            try:
+                self.fhandle = codecs.open(pofile, 'rU', enc)
+            except LookupError:
+                enc = default_encoding
+                self.fhandle = codecs.open(pofile, 'rU', enc)
+        else:
+            self.fhandle = pofile.splitlines()
+
         self.instance = POFile(
-            fpath=fpath,
+            pofile=pofile,
             encoding=enc,
             check_for_duplicates=check_dup
         )
@@ -1407,7 +1420,8 @@ class _POFileParser(object):
                     if key is not None:
                         self.instance.metadata[key] += '\n'+ msg.strip()
         # close opened file
-        self.fhandle.close()
+        if isinstance(self.fhandle, file):
+            self.fhandle.close()
         return self.instance
 
     def add(self, symbol, states, next_state):
@@ -1710,10 +1724,10 @@ if __name__ == '__main__':
     import sys
     if len(sys.argv) > 2 and sys.argv[1] == '-p':
         def test(f):
-            if f.endswith('po'):
-                p = pofile(f)
-            else:
+            if os.path.exists(f) and f.endswith('mo'):
                 p = mofile(f)
+            else:
+                p = pofile(f)
             s = unicode(p)
         import profile
         profile.run('test("'+sys.argv[2]+'")')
