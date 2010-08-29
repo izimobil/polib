@@ -2,6 +2,15 @@
 Changelog
 =========
 
+Version 0.5.3 (2010/08/29)
+--------------------------
+ - correctly unescape lines containing both \\\\n and \\n (thanks to Martin Geisler),
+ - fixed issue #6: __str__() methods are returning unicode instead of str,
+ - fixed issue #8: POFile.merge error when an entry is obsolete in a .po, that this entry reappears in the .pot and that we merge the two,
+ - added support to instanciate POFile objects using data instead of file path (thanks to Diego Búrigo Zacarão),
+ - fixed issue #9: POFile.merge drop fuzzy attributes from translations (thanks to Tim Gerundt),
+ - fixed issue #10: Finding entries with the same msgid and different context (msgctxt).
+
 Version 0.5.2 (2010/06/09)
 --------------------------
  - fixed issue #1: untranslated_entries() also show fuzzy message,
