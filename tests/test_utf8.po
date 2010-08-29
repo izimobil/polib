@@ -23,6 +23,21 @@ msgctxt "@context"
 msgid "Some msgid"
 msgstr "Some msgstr"
 
+# test context 1
+msgctxt "@context1"
+msgid "test context"
+msgstr "test context 1"
+
+# test context 2
+msgctxt "@context2"
+msgid "test context"
+msgstr "test context 2"
+
+# test context
+msgctxt "@context1"
+msgid "Some msgid"
+msgstr "Some msgstr"
+
 # Added for previous msgid/msgid_plural/msgctxt testing
 #| msgctxt "@previous_context"
 #| msgid ""
