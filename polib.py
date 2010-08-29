@@ -475,7 +475,8 @@ class _BaseFile(list):
         fhandle.write(contents)
         fhandle.close()
 
-    def find(self, st, by='msgid', include_obsolete_entries=False):
+    def find(self, st, by='msgid', include_obsolete_entries=False,
+             msgctxt=False):
         """
         Find entry which msgid (or property identified by the *by*
         attribute) matches the string *st*.
@@ -484,7 +485,9 @@ class _BaseFile(list):
           - *st*: string, the string to search for
           - *by*: string, the comparison attribute
           - *include_obsolete_entries*: boolean, whether to also search in 
-            entries that are obsolete.
+            entries that are obsolete
+          - *msgctxt*: string, allows to specify a specific message context
+            for the search.
 
         **Examples**:
 
@@ -492,6 +495,15 @@ class _BaseFile(list):
         >>> entry = po.find('Thursday')
         >>> entry.msgstr
         u'Jueves'
+        >>> entry = po.find('test context')
+        >>> entry.msgstr
+        u'test context 1'
+        >>> entry = po.find('test context', msgctxt='@context1')
+        >>> entry.msgstr
+        u'test context 1'
+        >>> entry = po.find('test context', msgctxt='@context2')
+        >>> entry.msgstr
+        u'test context 2'
         >>> entry = po.find('Some unexistant msgid')
         >>> entry is None
         True
@@ -501,6 +513,8 @@ class _BaseFile(list):
         """
         for e in self:
             if getattr(e, by) == st:
+                if msgctxt and e.msgctxt != msgctxt:
+                    continue
                 return e
         if include_obsolete_entries:
             for e in self.obsolete_entries():
