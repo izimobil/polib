@@ -9,9 +9,9 @@ polib setup script.
 """
 
 __author__   = 'David Jean Louis <izimobil@gmail.com>'
-__version__  = '0.5.2'
 
 from distutils.core import setup
+import polib
 
 author_data = __author__.split(' ')
 maintainer = ' '.join(author_data[0:-1])
@@ -34,13 +34,13 @@ if __name__ == '__main__':
         name='polib',
         description=desc,
         long_description=long_desc,
-        version=__version__,
+        version=polib.__version__,
         author=maintainer,
         author_email=maintainer_email,
         maintainer=maintainer,
         maintainer_email=maintainer_email,
         url='http://bitbucket.org/izi/polib/',
-        download_url='http://bitbucket.org/izi/polib/downloads/polib-%s.tar.gz' % __version__,
+        download_url='http://bitbucket.org/izi/polib/downloads/polib-%s.tar.gz' % polib.__version__,
         license='MIT',
         platforms=['posix'],
         classifiers = [
