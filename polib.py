@@ -106,9 +106,11 @@ def pofile(pofile, **kwargs):
     ...             print new.msgstr
     ... finally:
     ...     os.unlink(tmpf)
-    >>> po = polib.pofile('tests/test_pofile_helpers.po')
-    >>> po_content = polib.pofile(open('tests/test_pofile_helpers.po','r').read())
+    >>> po = polib.pofile('tests/test_merge.pot')
+    >>> po_content = polib.pofile(open('tests/test_merge.pot','r').read())
     >>> po[0].msgid == po_content[0].msgid
+    True
+    >>> po.encoding == po_content.encoding
     True
     """
     if kwargs.get('autodetect_encoding', True) == True:
@@ -195,6 +197,8 @@ def detect_encoding(pofile, binary_mode=False):
 
     >>> print(detect_encoding('tests/test_noencoding.po'))
     utf-8
+    >>> print(detect_encoding('tests/test_merge.pot'))
+    utf-8
     >>> print(detect_encoding('tests/test_utf8.po'))
     UTF-8
     >>> print(detect_encoding(open('tests/test_utf8.po','r').read()))
@@ -209,10 +213,20 @@ def detect_encoding(pofile, binary_mode=False):
     import re
     rx = re.compile(r'"?Content-Type:.+? charset=([\w_\-:\.]+)')
 
+    def charset_exists(charset):
+        """Check whether ``charset`` is valid or not."""
+        try:
+            codecs.lookup(charset)
+        except LookupError:
+            return False
+        return True
+
     if not os.path.exists(pofile):
             match = rx.search(pofile)
             if match:
-                return match.group(1).strip()
+                enc = match.group(1).strip()
+                if charset_exists(enc):
+                    return enc
     else:
         if binary_mode:
             mode = 'rb'
@@ -223,7 +237,9 @@ def detect_encoding(pofile, binary_mode=False):
             match = rx.search(l)
             if match:
                 f.close()
-                return match.group(1).strip()
+                enc = match.group(1).strip()
+                if charset_exists(enc):
+                    return enc
         f.close()
     return default_encoding
 
