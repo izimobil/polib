@@ -2,6 +2,10 @@
 Changelog
 =========
 
+Version 0.5.4 (2010/10/02)
+--------------------------
+ - fixed an issue with detect_encoding(), in some cases it could return an invalid charset.
+
 Version 0.5.3 (2010/08/29)
 --------------------------
  - correctly unescape lines containing both \\\\n and \\n (thanks to Martin Geisler),
