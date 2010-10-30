@@ -112,6 +112,13 @@ def pofile(pofile, **kwargs):
     True
     >>> po.encoding == po_content.encoding
     True
+    >>> po = polib.pofile('tests/test_utf8.po')
+    >>> entry = po.find("Ensure this value has at least %(min)d characters (it has %(length)d).")
+    >>> entry.msgstr = entry.msgid + '**'
+    >>> '**' in entry.msgstr
+    True
+    >>> '**' in entry.__str__()
+    True
     """
     if kwargs.get('autodetect_encoding', True) == True:
         enc = detect_encoding(pofile)
@@ -455,13 +462,10 @@ class _BaseFile(list):
         mdata = self.ordered_metadata()
         if mdata:
             strs = []
-            e._multiline_str['msgstr'] = ''
             for name, value in mdata:
                 # Strip whitespace off each line in a multi-line entry
                 strs.append('%s: %s' % (name, value))
             e.msgstr = '\n'.join(strs) + '\n'
-            e._multiline_str['msgstr'] = '__POLIB__NL__'.join(
-                    [s + '\n' for s in strs])
         if self.metadata_is_fuzzy:
             e.flags.append('fuzzy')
         return e
@@ -951,7 +955,6 @@ class _BaseEntry(object):
         self.obsolete = kwargs.get('obsolete', False)
         self.encoding = kwargs.get('encoding', default_encoding)
         self.msgctxt = kwargs.get('msgctxt', None)
-        self._multiline_str = {}
 
     def __repr__(self):
         """Return the official string representation of the object."""
@@ -1000,15 +1003,11 @@ class _BaseEntry(object):
         return unicode(self).encode(self.encoding)
 
     def _str_field(self, fieldname, delflag, plural_index, field):
-        if (fieldname + plural_index) in self._multiline_str:
-            field = self._multiline_str[fieldname + plural_index]
-            lines = [''] + field.split('__POLIB__NL__')
+        lines = field.splitlines(True)
+        if len(lines) > 1:
+            lines = ['']+lines # start with initial empty line
         else:
-            lines = field.splitlines(True)
-            if len(lines) > 1:
-                lines = ['']+lines # start with initial empty line
-            else:
-                lines = [field] # needed for the empty string case
+            lines = [field] # needed for the empty string case
         if fieldname.startswith('previous_'):
             # quick and dirty trick to get the real field name
             fieldname = fieldname[9:]
@@ -1633,10 +1632,6 @@ class _POFileParser(object):
             typ = 'previous_msgctxt'
             token = token[3:]
             self.current_entry.previous_msgctxt += token
-        if typ not in self.current_entry._multiline_str:
-            self.current_entry._multiline_str[typ] = token
-        else:
-            self.current_entry._multiline_str[typ] += "__POLIB__NL__" + token
         # don't change the current state
         return False
 
