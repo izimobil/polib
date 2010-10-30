@@ -67,7 +67,7 @@ Basic usage example
 >>> for entry in po: print entry.msgid, entry.msgstr
 >>> # add an entry
 >>> entry = polib.POEntry(msgid='Welcome', msgstr='Bienvenue')
->>> entry.occurences = [('welcome.py', '12'), ('anotherfile.py', '34')]
+>>> entry.occurrences = [('welcome.py', '12'), ('anotherfile.py', '34')]
 >>> po.append(entry)
 >>> # save our modified po file
 >>> po.save()
