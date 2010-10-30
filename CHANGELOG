@@ -2,6 +2,11 @@
 Changelog
 =========
 
+Version 0.5.5 (2010/10/30)
+--------------------------
+ - Removed multiline handling code, it was a mess and was the source of potential bugs like issue #11,
+ - Fixed typo in README and CHANGELOG, fixes issue #13.
+
 Version 0.5.4 (2010/10/02)
 --------------------------
  - fixed an issue with detect_encoding(), in some cases it could return an invalid charset.
