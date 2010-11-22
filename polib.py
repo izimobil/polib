@@ -120,7 +120,7 @@ def pofile(pofile, **kwargs):
     >>> '**' in entry.__str__()
     True
     """
-    if kwargs.get('autodetect_encoding', True) == True:
+    if kwargs.get('autodetect_encoding', True):
         enc = detect_encoding(pofile)
     else:
         enc = kwargs.get('encoding', default_encoding)
@@ -174,7 +174,7 @@ def mofile(fpath, **kwargs):
     ...     finally:
     ...         os.unlink(tmpf)
     """
-    if kwargs.get('autodetect_encoding', True) == True:
+    if kwargs.get('autodetect_encoding', True):
         enc = detect_encoding(fpath, True)
     else:
         enc = kwargs.get('encoding', default_encoding)
