@@ -38,12 +38,13 @@ __version__   = '0.5.5'
 __all__       = ['pofile', 'POFile', 'POEntry', 'mofile', 'MOFile', 'MOEntry',
                  'detect_encoding', 'escape', 'unescape', 'detect_encoding',]
 
-import os
+import array
 import codecs
+import os
+import re
 import struct
 import textwrap
 import types
-import re
 
 default_encoding = 'utf-8'
 
@@ -217,7 +218,6 @@ def detect_encoding(pofile, binary_mode=False):
     >>> print(detect_encoding('tests/test_iso-8859-15.mo', True))
     ISO_8859-15
     """
-    import re
     rx = re.compile(r'"?Content-Type:.+? charset=([\w_\-:\.]+)')
 
     def charset_exists(charset):
@@ -580,8 +580,6 @@ class _BaseFile(list):
         Return the mofile binary representation.
         """
         import array
-        import struct
-        import types
         offsets = []
         entries = self.translated_entries()
         # the keys are sorted in the .mo file
