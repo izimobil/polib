@@ -632,7 +632,7 @@ class _BaseFile(list):
                              entries_len,       # # of entries
                              7*4,               # start of key index
                              7*4+entries_len*8, # start of value index
-                             0, 0)              # size and offset of hash table
+                             0, keystart)       # size and offset of hash table
         output += array.array("I", offsets).tostring()
         output += ids
         output += strs
