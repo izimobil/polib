@@ -1,40 +1,19 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
 # License: MIT (see LICENSE file provided)
 # vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4:
 
 """
-**polib** allows you to manipulate, create, modify gettext files (pot, po
-and mo files).  You can load existing files, iterate through it's entries,
-add, modify entries, comments or metadata, etc... or create new po files
-from scratch.
+**polib** allows you to manipulate, create, modify gettext files (pot, po and
+mo files).  You can load existing files, iterate through it's entries, add,
+modify entries, comments or metadata, etc. or create new po files from scratch.
 
-**polib** provides a simple and pythonic API, exporting only three
-convenience functions (*pofile*, *mofile* and *detect_encoding*), and the
-four core classes, *POFile*, *MOFile*, *POEntry* and *MOEntry* for creating
-new files/entries.
-
-**Basic example**:
-
->>> import polib
->>> # load an existing po file
->>> po = polib.pofile('tests/test_utf8.po')
->>> for entry in po:
-...     # do something with entry...
-...     pass
->>> # add an entry
->>> entry = polib.POEntry(msgid='Welcome', msgstr='Bienvenue')
->>> entry.occurrences = [('welcome.py', '12'), ('anotherfile.py', '34')]
->>> po.append(entry)
->>> # to save our modified po file:
->>> # po.save()
->>> # or you may want to compile the po file
->>> # po.save_as_mofile('tests/test_utf8.mo')
+**polib** provides a simple and pythonic API via the :func:`~polib.pofile` and
+:func:`~polib.mofile` convenience functions.
 """
 
-__author__    = 'David JEAN LOUIS <izimobil@gmail.com>'
-__version__   = '0.5.5'
+__author__    = 'David Jean Louis <izimobil@gmail.com>'
+__version__   = '1.0.0-RC1'
 __all__       = ['pofile', 'POFile', 'POEntry', 'mofile', 'MOFile', 'MOEntry',
                  'detect_encoding', 'escape', 'unescape', 'detect_encoding',]
 
@@ -46,177 +25,119 @@ import struct
 import textwrap
 import types
 
+
+# the default encoding to use when autodetect_encoding is disabled
 default_encoding = 'utf-8'
 
+# _pofile_or_mofile {{{
+
+def _pofile_or_mofile(f, type, **kwargs):
+    """
+    Internal function used by :func:`polib.pofile` and :func:`polib.mofile` to
+    honor the DRY concept.
+    """
+    if not os.path.exists(f):
+        raise OSError("No such file or directory: '%s'" % f)
+
+    # get the file encoding
+    if kwargs.get('autodetect_encoding', True):
+        enc = detect_encoding(f, type == 'mofile')
+    else:
+        enc = kwargs.get('encoding', default_encoding)
+
+    # parse the file
+    kls = type == 'pofile' and _POFileParser or _MOFileParser
+    parser = kls(
+        f,
+        encoding=enc,
+        check_for_duplicates=kwargs.get('check_for_duplicates', False)
+    )
+    instance = parser.parse()
+    instance.wrapwidth = kwargs.get('wrapwidth', 78)
+    return instance
+
+# }}}
 # function pofile() {{{
 
 def pofile(pofile, **kwargs):
     """
-    Convenience function that parse the po/pot file *pofile* and return
-    a POFile instance.
+    Convenience function that parses the po or pot file ``pofile`` and returns
+    a :class:`~polib.POFile` instance.
 
-    **Keyword arguments**:
-      - *pofile*: string, full or relative path to the po/pot file or its 
-        content to parse
-      - *wrapwidth*: integer, the wrap width, only useful when -w option was
-        passed to xgettext (optional, default to 78)
-      - *autodetect_encoding*: boolean, if set to False the function will
-        not try to detect the po file encoding (optional, default to True)
-      - *encoding*: string, an encoding, only relevant if autodetect_encoding
-        is set to False
-      - *check_for_duplicates*: whether to check for duplicate entries when
-        adding entries to the file, default: False (optional)
+    Arguments:
 
-    **Example**:
+    ``pofile``
+        string, full or relative path to the po/pot file or its content to
+        parse.
 
-    >>> import polib
-    >>> po = polib.pofile('tests/test_weird_occurrences.po',
-    ...     check_for_duplicates=True)
-    >>> po #doctest: +ELLIPSIS
-    <POFile instance at ...>
-    >>> import os, tempfile
-    >>> all_attrs = ('msgctxt', 'msgid', 'msgstr', 'msgid_plural', 
-    ...              'msgstr_plural', 'obsolete', 'comment', 'tcomment', 
-    ...              'occurrences', 'flags', 'previous_msgctxt', 
-    ...              'previous_msgid', 'previous_msgid_plural')
-    >>> for fname in ['test_iso-8859-15.po', 'test_utf8.po']:
-    ...     orig_po = polib.pofile('tests/'+fname)
-    ...     tmpf = tempfile.NamedTemporaryFile().name
-    ...     orig_po.save(tmpf)
-    ...     try:
-    ...         new_po = polib.pofile(tmpf)
-    ...         for old, new in zip(orig_po, new_po):
-    ...             for attr in all_attrs:
-    ...                 if getattr(old, attr) != getattr(new, attr):
-    ...                     getattr(old, attr)
-    ...                     getattr(new, attr)
-    ...     finally:
-    ...         os.unlink(tmpf)
-    >>> po_file = polib.pofile('tests/test_save_as_mofile.po')
-    >>> tmpf = tempfile.NamedTemporaryFile().name
-    >>> po_file.save_as_mofile(tmpf)
-    >>> try:
-    ...     mo_file = polib.mofile(tmpf)
-    ...     for old, new in zip(po_file, mo_file):
-    ...         if po_file._encode(old.msgid) != mo_file._encode(new.msgid):
-    ...             'OLD: ', po_file._encode(old.msgid)
-    ...             'NEW: ', mo_file._encode(new.msgid)
-    ...         if po_file._encode(old.msgstr) != mo_file._encode(new.msgstr):
-    ...             'OLD: ', po_file._encode(old.msgstr)
-    ...             'NEW: ', mo_file._encode(new.msgstr)
-    ...             print new.msgstr
-    ... finally:
-    ...     os.unlink(tmpf)
-    >>> po = polib.pofile('tests/test_merge.pot')
-    >>> po_content = polib.pofile(open('tests/test_merge.pot','r').read())
-    >>> po[0].msgid == po_content[0].msgid
-    True
-    >>> po.encoding == po_content.encoding
-    True
-    >>> po = polib.pofile('tests/test_utf8.po')
-    >>> entry = po.find("Ensure this value has at least %(min)d characters (it has %(length)d).")
-    >>> entry.msgstr = entry.msgid + '**'
-    >>> '**' in entry.msgstr
-    True
-    >>> '**' in entry.__str__()
-    True
+    ``wrapwidth``
+        integer, the wrap width, only useful when the ``-w`` option was passed
+        to xgettext (optional, default: ``78``).
+
+    ``autodetect_encoding``
+        boolean, if set to ``False`` the function will not try to detect the
+        po file encoding and will use either the value of the ``encoding``
+        argument or the ``default_encoding`` (optional, default: ``True``).
+
+    ``encoding``
+        string, the encoding to use (e.g. "utf-8"), only relevant if
+        ``autodetect_encoding`` is set to ``False``.
+
+    ``check_for_duplicates``
+        whether to check for duplicate entries when adding entries to the
+        file (optional, default: ``False``).
     """
-    if kwargs.get('autodetect_encoding', True):
-        enc = detect_encoding(pofile)
-    else:
-        enc = kwargs.get('encoding', default_encoding)
-    check_for_duplicates = kwargs.get('check_for_duplicates', False)
-    parser = _POFileParser(
-        pofile,
-        encoding=enc,
-        check_for_duplicates=kwargs.get('check_for_duplicates', False)
-    )
-    instance = parser.parse()
-    instance.wrapwidth = kwargs.get('wrapwidth', 78)
-    return instance
+    return _pofile_or_mofile(pofile, 'pofile', **kwargs)
 
 # }}}
 # function mofile() {{{
 
-def mofile(fpath, **kwargs):
+def mofile(mofile, **kwargs):
     """
-    Convenience function that parse the mo file *fpath* and return
-    a MOFile instance.
+    Convenience function that parses the mo file ``mofile`` and returns a
+    :class:`~polib.MOFile` instance.
 
-    **Keyword arguments**:
-      - *fpath*: string, full or relative path to the mo file to parse
-      - *wrapwidth*: integer, the wrap width, only useful when -w option was
-        passed to xgettext to generate the po file that was used to format
-        the mo file (optional, default to 78)
-      - *autodetect_encoding*: boolean, if set to False the function will
-        not try to detect the po file encoding (optional, default to True)
-      - *encoding*: string, an encoding, only relevant if autodetect_encoding
-        is set to False
-      - *check_for_duplicates*: whether to check for duplicate entries when
-        adding entries to the file, default: False (optional)
+    Arguments:
 
-    **Example**:
+    ``mofile``
+        string, full or relative path to the mo file to parse.
 
-    >>> import polib
-    >>> mo = polib.mofile('tests/test_utf8.mo', check_for_duplicates=True)
-    >>> mo #doctest: +ELLIPSIS
-    <MOFile instance at ...>
-    >>> import os, tempfile
-    >>> for fname in ['test_iso-8859-15.mo', 'test_utf8.mo']:
-    ...     orig_mo = polib.mofile('tests/'+fname)
-    ...     tmpf = tempfile.NamedTemporaryFile().name
-    ...     orig_mo.save(tmpf)
-    ...     try:
-    ...         new_mo = polib.mofile(tmpf)
-    ...         for old, new in zip(orig_mo, new_mo):
-    ...             if old.msgid != new.msgid:
-    ...                 old.msgstr
-    ...                 new.msgstr
-    ...     finally:
-    ...         os.unlink(tmpf)
+    ``wrapwidth``
+        integer, the wrap width, only useful when the ``-w`` option was passed
+        to xgettext to generate the po file that was used to format the mo file
+        (optional, default: ``78``).
+
+    ``autodetect_encoding``
+        boolean, if set to ``False`` the function will not try to detect the
+        mo file encoding (optional, default: ``True``).
+
+    ``encoding``
+        string, the encoding to use, only relevant if ``autodetect_encoding``
+        is set to ``False``.
+
+    ``check_for_duplicates``
+        whether to check for duplicate entries when adding entries to the
+        file (optional, default: ``False``).
     """
-    if kwargs.get('autodetect_encoding', True):
-        enc = detect_encoding(fpath, True)
-    else:
-        enc = kwargs.get('encoding', default_encoding)
-    parser = _MOFileParser(
-        fpath,
-        encoding=enc,
-        check_for_duplicates=kwargs.get('check_for_duplicates', False)
-    )
-    instance = parser.parse()
-    instance.wrapwidth = kwargs.get('wrapwidth', 78)
-    return instance
+    return _pofile_or_mofile(mofile, 'mofile', **kwargs)
 
 # }}}
 # function detect_encoding() {{{
 
-def detect_encoding(pofile, binary_mode=False):
+def detect_encoding(file, binary_mode=False):
     """
-    Try to detect the encoding used by the *pofile*. The parameter *pofile*
-    might be a PO file path or its content. The function will return 
-    polib default *encoding* if it's unable to detect it.
+    Try to detect the encoding used by the ``file``. The ``file`` argument can
+    be a PO or MO file path or a string containing the contents of the file.
+    If the encoding cannot be detected, the function will return the value of
+    ``default_encoding``.
 
-    **Keyword argument**:
-      - *pofile*: string, full or relative path to the po/mo file or its content.
-      - *binary_mode*: boolean, True if *pofile* has a mo file path.
+    Arguments:
 
-    **Examples**:
+    ``file``
+        string, full or relative path to the po/mo file or its content.
 
-    >>> print(detect_encoding('tests/test_noencoding.po'))
-    utf-8
-    >>> print(detect_encoding('tests/test_merge.pot'))
-    utf-8
-    >>> print(detect_encoding('tests/test_utf8.po'))
-    UTF-8
-    >>> print(detect_encoding(open('tests/test_utf8.po','r').read()))
-    UTF-8
-    >>> print(detect_encoding('tests/test_utf8.mo', True))
-    UTF-8
-    >>> print(detect_encoding('tests/test_iso-8859-15.po'))
-    ISO_8859-15
-    >>> print(detect_encoding('tests/test_iso-8859-15.mo', True))
-    ISO_8859-15
+    ``binary_mode``
+        boolean, set this to True if ``file`` is a mo file.
     """
     rx = re.compile(r'"?Content-Type:.+? charset=([\w_\-:\.]+)')
 
@@ -228,18 +149,18 @@ def detect_encoding(pofile, binary_mode=False):
             return False
         return True
 
-    if not os.path.exists(pofile):
-            match = rx.search(pofile)
-            if match:
-                enc = match.group(1).strip()
-                if charset_exists(enc):
-                    return enc
+    if not os.path.exists(file):
+        match = rx.search(file)
+        if match:
+            enc = match.group(1).strip()
+            if charset_exists(enc):
+                return enc
     else:
         if binary_mode:
             mode = 'rb'
         else:
             mode = 'r'
-        f = open(pofile, mode)
+        f = open(file, mode)
         for l in f.readlines():
             match = rx.search(l)
             if match:
@@ -255,12 +176,8 @@ def detect_encoding(pofile, binary_mode=False):
 
 def escape(st):
     """
-    Escape special chars and return the given string *st*.
-
-    **Examples**:
-
-    >>> escape('\\t and \\n and \\r and " and \\\\')
-    '\\\\t and \\\\n and \\\\r and \\\\" and \\\\\\\\'
+    Escapes the characters ``\\\\``, ``\\t``, ``\\n``, ``\\r`` and ``"`` in
+    the given string ``st`` and returns it.
     """
     return st.replace('\\', r'\\')\
              .replace('\t', r'\t')\
@@ -273,18 +190,8 @@ def escape(st):
 
 def unescape(st):
     """
-    Unescape special chars and return the given string *st*.
-
-    **Examples**:
-
-    >>> unescape('\\\\t and \\\\n and \\\\r and \\\\" and \\\\\\\\')
-    '\\t and \\n and \\r and " and \\\\'
-    >>> unescape(r'\\n')
-    '\\n'
-    >>> unescape(r'\\\\n')
-    '\\\\n'
-    >>> unescape(r'\\\\n\\n')
-    '\\\\n\\n'
+    Unescapes the characters ``\\\\``, ``\\t``, ``\\n``, ``\\r`` and ``"`` in
+    the given string ``st`` and returns it.
     """
     def unescape_repl(m):
         m = m.group(1)
@@ -304,23 +211,28 @@ def unescape(st):
 
 class _BaseFile(list):
     """
-    Common parent class for POFile and MOFile classes.
-    This class must **not** be instanciated directly.
+    Common base class for the :class:`~polib.POFile` and :class:`~polib.MOFile`
+    classes. This class should **not** be instanciated directly.
     """
 
     def __init__(self, *args, **kwargs):
         """
-        Constructor.
+        Constructor, accepts the following keyword arguments:
 
-        **Keyword arguments**:
-          - *pofile*: string, path to po or mo file or its content
-          - *wrapwidth*: integer, the wrap width, only useful when -w option
-            was passed to xgettext to generate the po file that was used to
-            format the mo file, default to 78 (optional),
-          - *encoding*: string, the encoding to use, defaults to
-            "default_encoding" global variable (optional),
-          - *check_for_duplicates*: whether to check for duplicate entries
-            when adding entries to the file, default: False (optional).
+        ``pofile``
+            string, the path to the po or mo file, or its content as a string.
+
+        ``wrapwidth``
+            integer, the wrap width, only useful when the ``-w`` option was
+            passed to xgettext (optional, default: ``78``).
+
+        ``encoding``
+            string, the encoding to use, defaults to ``default_encoding``
+            global variable (optional).
+
+        ``check_for_duplicates``
+            whether to check for duplicate entries when adding entries to the
+            file, (optional, default: ``False``).
         """
         list.__init__(self)
         # the opened file handle
@@ -343,7 +255,7 @@ class _BaseFile(list):
 
     def __unicode__(self):
         """
-        Unicode representation of the file.
+        Returns the unicode representation of the file.
         """
         ret = []
         entries = [self.metadata_as_entry()] + \
@@ -360,57 +272,34 @@ class _BaseFile(list):
 
     def __str__(self):
         """
-        String representation of the file.
+        Returns the string representation of the file.
         """
         return unicode(self).encode(self.encoding)
 
     def __contains__(self, entry):
         """
-        Overriden method to implement the membership test (in and not in).
-        The method considers that an entry is in the file if it finds an 
-        entry that has the same msgid (case sensitive).
+        Overriden ``list`` method to implement the membership test (in and
+        not in).
+        The method considers that an entry is in the file if it finds an entry
+        that has the same msgid (the test is **case sensitive**).
 
-        **Keyword argument**:
-          - *entry*: an instance of polib._BaseEntry
+        Argument:
 
-        **Tests**:
-        >>> po = POFile()
-        >>> e1 = POEntry(msgid='foobar', msgstr='spam')
-        >>> e2 = POEntry(msgid='barfoo', msgstr='spam')
-        >>> e3 = POEntry(msgid='foobar', msgstr='eggs')
-        >>> e4 = POEntry(msgid='spameggs', msgstr='eggs')
-        >>> po.append(e1)
-        >>> po.append(e2)
-        >>> e1 in po
-        True
-        >>> e2 not in po
-        False
-        >>> e3 in po
-        True
-        >>> e4 in po
-        False
+        ``entry``
+            an instance of :class:`~polib._BaseEntry`.
         """
         return self.find(entry.msgid, by='msgid') is not None
 
     def append(self, entry):
         """
         Overriden method to check for duplicates entries, if a user tries to
-        add an entry that already exists, the method will raise a ValueError
-        exception.
+        add an entry that is already in the file, the method will raise a
+        ``ValueError`` exception.
 
-        **Keyword argument**:
-          - *entry*: an instance of polib._BaseEntry
+        Argument:
 
-        **Tests**:
-        >>> e1 = POEntry(msgid='foobar', msgstr='spam')
-        >>> e2 = POEntry(msgid='foobar', msgstr='eggs')
-        >>> po = POFile(check_for_duplicates=True)
-        >>> po.append(e1)
-        >>> try:
-        ...     po.append(e2)
-        ... except ValueError, e:
-        ...     unicode(e)
-        u'Entry "foobar" already exists'
+        ``entry``
+            an instance of :class:`~polib._BaseEntry`.
         """
         if self.check_for_duplicates and entry in self:
             raise ValueError('Entry "%s" already exists' % entry.msgid)
@@ -419,44 +308,24 @@ class _BaseFile(list):
     def insert(self, index, entry):
         """
         Overriden method to check for duplicates entries, if a user tries to
-        insert an entry that already exists, the method will raise a ValueError
-        exception.
+        add an entry that is already in the file, the method will raise a
+        ``ValueError`` exception.
 
-        **Keyword arguments**:
-          - *index*: index at which the entry should be inserted
-          - *entry*: an instance of polib._BaseEntry
+        Arguments:
 
-        **Tests**:
-        >>> import polib
-        >>> polib.check_for_duplicates = True
-        >>> e1 = POEntry(msgid='foobar', msgstr='spam')
-        >>> e2 = POEntry(msgid='barfoo', msgstr='eggs')
-        >>> e3 = POEntry(msgid='foobar', msgstr='eggs')
-        >>> po = POFile(check_for_duplicates=True)
-        >>> po.insert(0, e1)
-        >>> po.insert(1, e2)
-        >>> try:
-        ...     po.insert(0, e3)
-        ... except ValueError, e:
-        ...     unicode(e)
-        u'Entry "foobar" already exists'
+        ``index``
+            index at which the entry should be inserted.
+
+        ``entry``
+            an instance of :class:`~polib._BaseEntry`.
         """
         if self.check_for_duplicates and entry in self:
             raise ValueError('Entry "%s" already exists' % entry.msgid)
         super(_BaseFile, self).insert(index, entry)
 
-    def __repr__(self):
-        """Return the official string representation of the object."""
-        return '<%s instance at %x>' % (self.__class__.__name__, id(self))
-
     def metadata_as_entry(self):
         """
-        Return the metadata as an entry:
-
-        >>> import polib
-        >>> po = polib.pofile('tests/test_fuzzy_header.po')
-        >>> unicode(po) == unicode(open('tests/test_fuzzy_header.po').read())
-        True
+        Returns the file metadata as a :class:`~polib.POFile` instance.
         """
         e = POEntry(msgid='')
         mdata = self.ordered_metadata()
@@ -472,14 +341,17 @@ class _BaseFile(list):
 
     def save(self, fpath=None, repr_method='__str__'):
         """
-        Save the po file to file *fpath* if no file handle exists for
-        the object. If there's already an open file and no fpath is
-        provided, then the existing file is rewritten with the modified
-        data.
+        Saves the po file to ``fpath``.
+        If it is an existing file and no ``fpath`` is provided, then the
+        existing file is rewritten with the modified data.
 
-        **Keyword arguments**:
-          - *fpath*: string, full or relative path to the file.
-          - *repr_method*: string, the method to use for output.
+        Keyword arguments:
+
+        ``fpath``
+            string, full or relative path to the file.
+
+        ``repr_method``
+            string, the method to use for output.
         """
         if self.fpath is None and fpath is None:
             raise IOError('You must provide a file path to save() method')
@@ -498,38 +370,23 @@ class _BaseFile(list):
     def find(self, st, by='msgid', include_obsolete_entries=False,
              msgctxt=False):
         """
-        Find entry which msgid (or property identified by the *by*
-        attribute) matches the string *st*.
+        Find the entry which msgid (or property identified by the ``by``
+        argument) matches the string ``st``.
 
-        **Keyword arguments**:
-          - *st*: string, the string to search for
-          - *by*: string, the comparison attribute
-          - *include_obsolete_entries*: boolean, whether to also search in 
-            entries that are obsolete
-          - *msgctxt*: string, allows to specify a specific message context
-            for the search.
+        Keyword arguments:
 
-        **Examples**:
+        ``st``
+            string, the string to search for.
 
-        >>> po = pofile('tests/test_utf8.po')
-        >>> entry = po.find('Thursday')
-        >>> entry.msgstr
-        u'Jueves'
-        >>> entry = po.find('test context')
-        >>> entry.msgstr
-        u'test context 1'
-        >>> entry = po.find('test context', msgctxt='@context1')
-        >>> entry.msgstr
-        u'test context 1'
-        >>> entry = po.find('test context', msgctxt='@context2')
-        >>> entry.msgstr
-        u'test context 2'
-        >>> entry = po.find('Some unexistant msgid')
-        >>> entry is None
-        True
-        >>> entry = po.find('Jueves', 'msgstr')
-        >>> entry.msgid
-        u'Thursday'
+        ``by``
+            string, the property to use for comparison (default: ``msgid``).
+
+        ``include_obsolete_entries``
+            boolean, whether to also search in entries that are obsolete.
+
+        ``msgctxt``
+            string, allows to specify a specific message context for the
+            search.
         """
         for e in self:
             if getattr(e, by) == st:
@@ -544,8 +401,9 @@ class _BaseFile(list):
 
     def ordered_metadata(self):
         """
-        Convenience method that return the metadata ordered. The return
-        value is list of tuples (metadata name, metadata_value).
+        Convenience method that returns an ordered version of the metadata
+        dictionnary. The return value is list of tuples (metadata name,
+        metadata_value).
         """
         # copy the dict first
         metadata = self.metadata.copy()
@@ -577,9 +435,8 @@ class _BaseFile(list):
 
     def to_binary(self):
         """
-        Return the mofile binary representation.
+        Return the binary representation of the file.
         """
-        import array
         offsets = []
         entries = self.translated_entries()
         # the keys are sorted in the .mo file
@@ -640,8 +497,8 @@ class _BaseFile(list):
 
     def _encode(self, mixed):
         """
-        Encode the given argument with the file encoding if the type is unicode
-        and return the encoded string.
+        Encodes the given ``mixed`` argument with the file encoding if and
+        only if it's an unicode string and returns the encoded string.
         """
         if type(mixed) == types.UnicodeType:
             return mixed.encode(self.encoding)
@@ -651,57 +508,16 @@ class _BaseFile(list):
 # class POFile {{{
 
 class POFile(_BaseFile):
-    '''
+    """
     Po (or Pot) file reader/writer.
-    POFile objects inherit the list objects methods.
-
-    **Example**:
-
-    >>> po = POFile()
-    >>> entry1 = POEntry(
-    ...     msgid="Some english text",
-    ...     msgstr="Un texte en anglais"
-    ... )
-    >>> entry1.occurrences = [('testfile', 12),('another_file', 1)]
-    >>> entry1.comment = "Some useful comment"
-    >>> entry2 = POEntry(
-    ...     msgid="Peace in some languages",
-    ...     msgstr="Pace سلام שלום Hasîtî 和平",
-    ... )
-    >>> entry2.occurrences = [('testfile', 15),('another_file', 5)]
-    >>> entry2.comment = "Another useful comment"
-    >>> entry3 = POEntry(
-    ...     msgid='Some entry with quotes " \\"',
-    ...     msgstr='Un message unicode avec des quotes " \\"'
-    ... )
-    >>> entry3.comment = "Test string quoting"
-    >>> po.append(entry1)
-    >>> po.append(entry2)
-    >>> po.append(entry3)
-    >>> po.header = "Some Header"
-    >>> print(po)
-    # Some Header
-    msgid ""
-    msgstr ""
-    <BLANKLINE>
-    #. Some useful comment
-    #: testfile:12 another_file:1
-    msgid "Some english text"
-    msgstr "Un texte en anglais"
-    <BLANKLINE>
-    #. Another useful comment
-    #: testfile:15 another_file:5
-    msgid "Peace in some languages"
-    msgstr "Pace سلام שלום Hasîtî 和平"
-    <BLANKLINE>
-    #. Test string quoting
-    msgid "Some entry with quotes \\" \\""
-    msgstr "Un message unicode avec des quotes \\" \\""
-    <BLANKLINE>
-    '''
+    This class inherits the :class:`~polib._BaseFile` class and, by extension,
+    the python ``list`` type.
+    """
 
     def __unicode__(self):
-        """Return the string representation of the po file"""
+        """
+        Returns the unicode representation of the po file.
+        """
         ret, headers = '', self.header.split('\n')
         for header in headers:
             if header[:1] in [',', ':']:
@@ -716,27 +532,19 @@ class POFile(_BaseFile):
 
     def save_as_mofile(self, fpath):
         """
-        Save the binary representation of the file to *fpath*.
+        Saves the binary representation of the file to given ``fpath``.
 
-        **Keyword arguments**:
-          - *fpath*: string, full or relative path to the file.
+        Keyword argument:
+
+        ``fpath``
+            string, full or relative path to the mo file.
         """
         _BaseFile.save(self, fpath, 'to_binary')
 
     def percent_translated(self):
         """
-        Convenience method that return the percentage of translated
+        Convenience method that returns the percentage of translated
         messages.
-
-        **Example**:
-
-        >>> import polib
-        >>> po = polib.pofile('tests/test_pofile_helpers.po')
-        >>> po.percent_translated()
-        50
-        >>> po = POFile()
-        >>> po.percent_translated()
-        100
         """
         total = len([e for e in self if not e.obsolete])
         if total == 0:
@@ -746,83 +554,47 @@ class POFile(_BaseFile):
 
     def translated_entries(self):
         """
-        Convenience method that return a list of translated entries.
-
-        **Example**:
-
-        >>> import polib
-        >>> po = polib.pofile('tests/test_pofile_helpers.po')
-        >>> len(po.translated_entries())
-        6
+        Convenience method that returns the list of translated entries.
         """
         return [e for e in self if e.translated()]
 
     def untranslated_entries(self):
         """
-        Convenience method that return a list of untranslated entries.
-
-        **Example**:
-
-        >>> import polib
-        >>> po = polib.pofile('tests/test_pofile_helpers.po')
-        >>> len(po.untranslated_entries())
-        4
+        Convenience method that returns the list of untranslated entries.
         """
         return [e for e in self if not e.translated() and not e.obsolete \
                 and not 'fuzzy' in e.flags]
 
     def fuzzy_entries(self):
         """
-        Convenience method that return the list of 'fuzzy' entries.
-
-        **Example**:
-
-        >>> import polib
-        >>> po = polib.pofile('tests/test_pofile_helpers.po')
-        >>> len(po.fuzzy_entries())
-        2
+        Convenience method that returns the list of fuzzy entries.
         """
         return [e for e in self if 'fuzzy' in e.flags]
 
     def obsolete_entries(self):
         """
-        Convenience method that return the list of obsolete entries.
-
-        **Example**:
-
-        >>> import polib
-        >>> po = polib.pofile('tests/test_pofile_helpers.po')
-        >>> len(po.obsolete_entries())
-        4
+        Convenience method that returns the list of obsolete entries.
         """
         return [e for e in self if e.obsolete]
 
     def merge(self, refpot):
         """
-        XXX this could not work if encodings are different, needs thinking
+        FIXME: this could not work if encodings are different, needs thinking
         and general refactoring of how polib handles encoding...
 
-        Convenience method that merge the current pofile with the pot file
+        Convenience method that merges the current pofile with the pot file
         provided. It behaves exactly as the gettext msgmerge utility:
 
-          - comments of this file will be preserved, but extracted comments
-            and occurrences will be discarded
-          - any translations or comments in the file will be discarded,
-            however dot comments and file positions will be preserved
-          - keep the fuzzy flag
+        * comments of this file will be preserved, but extracted comments and
+          occurrences will be discarded;
+        * any translations or comments in the file will be discarded, however,
+          dot comments and file positions will be preserved;
+        * the fuzzy flags are preserved.
 
-        **Keyword argument**:
-          - *refpot*: object POFile, the reference catalog.
+        Keyword argument:
 
-        **Example**:
-
-        >>> import polib
-        >>> refpot = polib.pofile('tests/test_merge.pot')
-        >>> po = polib.pofile('tests/test_merge_before.po')
-        >>> po.merge(refpot)
-        >>> expected_po = polib.pofile('tests/test_merge_after.po')
-        >>> unicode(po) == unicode(expected_po)
-        True
+        ``refpot``
+            object POFile, the reference catalog.
         """
         for entry in refpot:
             e = self.find(entry.msgid, include_obsolete_entries=True)
@@ -830,8 +602,7 @@ class POFile(_BaseFile):
                 e = POEntry()
                 self.append(e)
             e.merge(entry)
-        # ok, now we must "obsolete" entries that are not in the refpot
-        # anymore
+        # ok, now we must "obsolete" entries that are not in the refpot anymore
         for entry in self:
             if refpot.find(entry.msgid) is None:
                 entry.obsolete = True
@@ -840,48 +611,21 @@ class POFile(_BaseFile):
 # class MOFile {{{
 
 class MOFile(_BaseFile):
-    '''
+    """
     Mo file reader/writer.
-    MOFile objects inherit the list objects methods.
-
-    **Example**:
-
-    >>> mo = MOFile()
-    >>> entry1 = POEntry(
-    ...     msgid="Some english text",
-    ...     msgstr="Un texte en anglais"
-    ... )
-    >>> entry2 = POEntry(
-    ...     msgid="I need my dirty cheese",
-    ...     msgstr="Je veux mon sale fromage"
-    ... )
-    >>> entry3 = MOEntry(
-    ...     msgid='Some entry with quotes " \\"',
-    ...     msgstr='Un message unicode avec des quotes " \\"'
-    ... )
-    >>> mo.append(entry1)
-    >>> mo.append(entry2)
-    >>> mo.append(entry3)
-    >>> print(mo)
-    msgid ""
-    msgstr ""
-    <BLANKLINE>
-    msgid "Some english text"
-    msgstr "Un texte en anglais"
-    <BLANKLINE>
-    msgid "I need my dirty cheese"
-    msgstr "Je veux mon sale fromage"
-    <BLANKLINE>
-    msgid "Some entry with quotes \\" \\""
-    msgstr "Un message unicode avec des quotes \\" \\""
-    <BLANKLINE>
-    '''
+    This class inherits the :class:`~polib._BaseFile` class and, by
+    extension, the python ``list`` type.
+    """
 
     def __init__(self, *args, **kwargs):
         """
-        MOFile constructor. Mo files have two other properties:
-            - magic_number: the magic_number of the binary file,
-            - version: the version of the mo spec.
+        Constructor, accepts the following keyword arguments:
+
+        ``magic_number``
+            the magic_number of the binary file.
+
+        ``version``
+            the version of the mo file specification.
         """
         _BaseFile.__init__(self, *args, **kwargs)
         self.magic_number = None
@@ -889,19 +633,23 @@ class MOFile(_BaseFile):
 
     def save_as_pofile(self, fpath):
         """
-        Save the string representation of the file to *fpath*.
+        Saves the mofile as a pofile to ``fpath``.
 
-        **Keyword argument**:
-          - *fpath*: string, full or relative path to the file.
+        Keyword argument:
+
+        ``fpath``
+            string, full or relative path to the file.
         """
         _BaseFile.save(self, fpath)
 
-    def save(self, fpath):
+    def save(self, fpath=None):
         """
-        Save the binary representation of the file to *fpath*.
+        Saves the mofile to ``fpath``.
 
-        **Keyword argument**:
-          - *fpath*: string, full or relative path to the file.
+        Keyword argument:
+
+        ``fpath``
+            string, full or relative path to the file.
         """
         _BaseFile.save(self, fpath, 'to_binary')
 
@@ -940,12 +688,14 @@ class MOFile(_BaseFile):
 
 class _BaseEntry(object):
     """
-    Base class for POEntry or MOEntry objects.
-    This class must *not* be instanciated directly.
+    Base class for :class:`~polib.POEntry` and :class:`~polib.MOEntry` classes.
+    This class should **not** be instanciated directly.
     """
 
     def __init__(self, *args, **kwargs):
-        """Base Entry constructor."""
+        """
+        TODO: document keyword arguments.
+        """
         self.msgid = kwargs.get('msgid', '')
         self.msgstr = kwargs.get('msgstr', '')
         self.msgid_plural = kwargs.get('msgid_plural', '')
@@ -955,12 +705,14 @@ class _BaseEntry(object):
         self.msgctxt = kwargs.get('msgctxt', None)
 
     def __repr__(self):
-        """Return the official string representation of the object."""
+        """
+        Returns the python representation of the entry.
+        """
         return '<%s instance at %x>' % (self.__class__.__name__, id(self))
 
     def __unicode__(self, wrapwidth=78):
         """
-        Unicode representation of the entry.
+        Returns the unicode representation of the entry.
         """
         if self.obsolete:
             delflag = '#~ '
@@ -996,7 +748,7 @@ class _BaseEntry(object):
 
     def __str__(self):
         """
-        String representation of the entry.
+        Returns the string representation of the entry.
         """
         return unicode(self).encode(self.encoding)
 
@@ -1022,50 +774,12 @@ class _BaseEntry(object):
 class POEntry(_BaseEntry):
     """
     Represents a po file entry.
-
-    **Examples**:
-
-    >>> entry = POEntry(msgid='Welcome', msgstr='Bienvenue')
-    >>> entry.occurrences = [('welcome.py', 12), ('anotherfile.py', 34)]
-    >>> print(entry)
-    #: welcome.py:12 anotherfile.py:34
-    msgid "Welcome"
-    msgstr "Bienvenue"
-    <BLANKLINE>
-    >>> entry = POEntry()
-    >>> entry.occurrences = [('src/some-very-long-filename-that-should-not-be-wrapped-even-if-it-is-larger-than-the-wrap-limit.c', 32), ('src/eggs.c', 45)]
-    >>> entry.comment = 'A plural translation. This is a very very very long line please do not wrap, this is just for testing comment wrapping...'
-    >>> entry.tcomment = 'A plural translation. This is a very very very long line please do not wrap, this is just for testing comment wrapping...'
-    >>> entry.flags.append('c-format')
-    >>> entry.previous_msgctxt = '@somecontext'
-    >>> entry.previous_msgid = 'I had eggs but no spam !'
-    >>> entry.previous_msgid_plural = 'I had eggs and %d spam !'
-    >>> entry.msgctxt = '@somenewcontext'
-    >>> entry.msgid = 'I have spam but no egg !'
-    >>> entry.msgid_plural = 'I have spam and %d eggs !'
-    >>> entry.msgstr_plural[0] = "J'ai du jambon mais aucun oeuf !"
-    >>> entry.msgstr_plural[1] = "J'ai du jambon et %d oeufs !"
-    >>> print(entry)
-    #. A plural translation. This is a very very very long line please do not
-    #. wrap, this is just for testing comment wrapping...
-    # A plural translation. This is a very very very long line please do not wrap,
-    # this is just for testing comment wrapping...
-    #: src/some-very-long-filename-that-should-not-be-wrapped-even-if-it-is-larger-than-the-wrap-limit.c:32
-    #: src/eggs.c:45
-    #, c-format
-    #| msgctxt "@somecontext"
-    #| msgid "I had eggs but no spam !"
-    #| msgid_plural "I had eggs and %d spam !"
-    msgctxt "@somenewcontext"
-    msgid "I have spam but no egg !"
-    msgid_plural "I have spam and %d eggs !"
-    msgstr[0] "J'ai du jambon mais aucun oeuf !"
-    msgstr[1] "J'ai du jambon et %d oeufs !"
-    <BLANKLINE>
     """
 
     def __init__(self, *args, **kwargs):
-        """POEntry constructor."""
+        """
+        TODO: document keyword arguments.
+        """
         _BaseEntry.__init__(self, *args, **kwargs)
         self.comment = kwargs.get('comment', '')
         self.tcomment = kwargs.get('tcomment', '')
@@ -1077,7 +791,7 @@ class POEntry(_BaseEntry):
 
     def __unicode__(self, wrapwidth=78):
         """
-        Return the string representation of the entry.
+        Returns the unicode representation of the entry.
         """
         if self.obsolete:
             return _BaseEntry.__unicode__(self)
@@ -1152,42 +866,9 @@ class POEntry(_BaseEntry):
         return ret
 
     def __cmp__(self, other):
-        '''
+        """
         Called by comparison operations if rich comparison is not defined.
-
-        **Tests**:
-        >>> a  = POEntry(msgid='a', occurrences=[('b.py', 1), ('b.py', 3)])
-        >>> b  = POEntry(msgid='b', occurrences=[('b.py', 1), ('b.py', 3)])
-        >>> c1 = POEntry(msgid='c1', occurrences=[('a.py', 1), ('b.py', 1)])
-        >>> c2 = POEntry(msgid='c2', occurrences=[('a.py', 1), ('a.py', 3)])
-        >>> po = POFile()
-        >>> po.append(a)
-        >>> po.append(b)
-        >>> po.append(c1)
-        >>> po.append(c2)
-        >>> po.sort()
-        >>> print(po)
-        # 
-        msgid ""
-        msgstr ""
-        <BLANKLINE>
-        #: a.py:1 a.py:3
-        msgid "c2"
-        msgstr ""
-        <BLANKLINE>
-        #: a.py:1 b.py:1
-        msgid "c1"
-        msgstr ""
-        <BLANKLINE>
-        #: b.py:1 b.py:3
-        msgid "a"
-        msgstr ""
-        <BLANKLINE>
-        #: b.py:1 b.py:3
-        msgid "b"
-        msgstr ""
-        <BLANKLINE>
-        '''
+        """
         def compare_occurrences(a, b):
             """
             Compare an entry occurrence with another one.
@@ -1234,7 +915,8 @@ class POEntry(_BaseEntry):
 
     def translated(self):
         """
-        Return True if the entry has been translated or False.
+        Returns ``True`` if the entry has been translated or ``False``
+        otherwise.
         """
         if self.obsolete or 'fuzzy' in self.flags:
             return False
@@ -1256,7 +938,7 @@ class POEntry(_BaseEntry):
         self.occurrences = other.occurrences
         self.comment = other.comment
         fuzzy = 'fuzzy' in self.flags
-        self.flags = other.flags[:] #Clone flags
+        self.flags = other.flags[:]  # clone flags
         if fuzzy:
             self.flags.append('fuzzy')
         self.msgid_plural = other.msgid_plural
@@ -1278,16 +960,6 @@ class POEntry(_BaseEntry):
 class MOEntry(_BaseEntry):
     """
     Represents a mo file entry.
-
-    **Examples**:
-
-    >>> entry = MOEntry()
-    >>> entry.msgid  = 'translate me !'
-    >>> entry.msgstr = 'traduisez moi !'
-    >>> print(entry)
-    msgid "translate me !"
-    msgstr "traduisez moi !"
-    <BLANKLINE>
     """
     pass
 
@@ -1304,15 +976,20 @@ class _POFileParser(object):
         """
         Constructor.
 
-        **Arguments**:
-          - *pofile*: string, path to the po file or its content
-          - *encoding*: string, the encoding to use, defaults to
-            "default_encoding" global variable (optional),
-          - *check_for_duplicates*: whether to check for duplicate entries
-            when adding entries to the file, default: False (optional).
+        Keyword arguments:
+
+        ``pofile``
+            string, path to the po file or its content
+
+        ``encoding``
+            string, the encoding to use, defaults to ``default_encoding``
+            global variable (optional).
+
+        ``check_for_duplicates``
+            whether to check for duplicate entries when adding entries to the
+            file (optional, default: ``False``).
         """
         enc = kwargs.get('encoding', default_encoding)
-        check_dup = kwargs.get('check_for_duplicates', False)
         if os.path.exists(pofile):
             try:
                 self.fhandle = codecs.open(pofile, 'rU', enc)
@@ -1325,7 +1002,7 @@ class _POFileParser(object):
         self.instance = POFile(
             pofile=pofile,
             encoding=enc,
-            check_for_duplicates=check_dup
+            check_for_duplicates=kwargs.get('check_for_duplicates', False)
         )
         self.transitions = {}
         self.current_entry = POEntry()
@@ -1458,11 +1135,17 @@ class _POFileParser(object):
     def add(self, symbol, states, next_state):
         """
         Add a transition to the state machine.
+
         Keywords arguments:
 
-        symbol     -- string, the matched token (two chars symbol)
-        states     -- list, a list of states (two chars symbols)
-        next_state -- the next state the fsm will have after the action
+        ``symbol``
+            string, the matched token (two chars symbol).
+
+        ``states``
+            list, a list of states (two chars symbols).
+
+        ``next_state``
+            the next state the fsm will have after the action.
         """
         for state in states:
             action = getattr(self, 'handle_%s' % next_state.lower())
@@ -1474,8 +1157,12 @@ class _POFileParser(object):
         symbol provided.
 
         Keywords arguments:
-        symbol  -- string, the matched token (two chars symbol)
-        linenum -- integer, the current line number of the parsed file
+
+        ``symbol``
+            string, the matched token (two chars symbol).
+
+        ``linenum``
+            integer, the current line number of the parsed file.
         """
         try:
             (action, state) = self.transitions[(symbol, self.current_state)]
@@ -1643,24 +1330,28 @@ class _MOFileParser(object):
     BIG_ENDIAN    = 0xde120495
     LITTLE_ENDIAN = 0x950412de
 
-    def __init__(self, fpath, *args, **kwargs):
+    def __init__(self, mofile, *args, **kwargs):
         """
         Constructor.
 
-        **Arguments**:
-          - *fpath*: string, path to the po file
-          - *encoding*: string, the encoding to use, defaults to
-            "default_encoding" global variable (optional),
-          - *check_for_duplicates*: whether to check for duplicate entries
-            when adding entries to the file, default: False (optional).
+        Keyword arguments:
+
+        ``mofile``
+            string, path to the mo file or its content
+
+        ``encoding``
+            string, the encoding to use, defaults to ``default_encoding``
+            global variable (optional).
+
+        ``check_for_duplicates``
+            whether to check for duplicate entries when adding entries to the
+            file (optional, default: ``False``).
         """
-        enc = kwargs.get('encoding', default_encoding)
-        check_dup = kwargs.get('check_for_duplicates', False)
-        self.fhandle = open(fpath, 'rb')
+        self.fhandle = open(mofile, 'rb')
         self.instance = MOFile(
-            fpath=fpath,
-            encoding=enc,
-            check_for_duplicates=check_dup
+            fpath=mofile,
+            encoding=kwargs.get('encoding', default_encoding),
+            check_for_duplicates=kwargs.get('check_for_duplicates', False)
         )
 
     def parse_magicnumber(self):
@@ -1738,28 +1429,5 @@ class _MOFileParser(object):
         if len(tup) == 1:
             return tup[0]
         return tup
-
-# }}}
-# __main__ {{{
-
-if __name__ == '__main__':
-    """
-    **Main function**::
-      - to **test** the module just run: *python polib.py [-v]*
-      - to **profile** the module: *python polib.py -p <some_pofile.po>*
-    """
-    import sys
-    if len(sys.argv) > 2 and sys.argv[1] == '-p':
-        def test(f):
-            if os.path.exists(f) and f.endswith('mo'):
-                p = mofile(f)
-            else:
-                p = pofile(f)
-            s = unicode(p)
-        import profile
-        profile.run('test("'+sys.argv[2]+'")')
-    else:
-        import doctest
-        doctest.testmod()
 
 # }}}
