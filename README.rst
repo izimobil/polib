@@ -1,10 +1,6 @@
-.. _readme:
-
+=====
 polib
 =====
-
-Introduction
-------------
 
 polib is a library to manipulate, create, modify gettext files (pot, po and mo
 files). You can load existing files, iterate through it's entries, add, modify
@@ -13,91 +9,11 @@ entries, comments or metadata, etc... or create new po files from scratch.
 polib is pretty stable now and is used by many 
 `opensource projects <http://bitbucket.org/izi/polib/wiki/ProjectsUsingPolib>`_.
 
+The project code and bugtracker is hosted on 
+`Bitbucket <http://bitbucket.org/izi/polib/>`_. 
 
-Installation
-------------
+polib is generously documented, you can `browse the documentation online 
+<http://packages.python.org/polib/>`_, a good start is to read 
+`the quickstart guide  <http://packages.python.org/polib/quickstart.html>`_.
 
-Note: chances are that polib is already packaged for your linux/bsd system, if
-so, we recommend you use your OS package system, if not then choose a method below:
-
-Installing latest polib version with setuptools
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-::
-
-$ easy_install polib
-
-Installing latest polib version with pip
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-::
-
-$ pip install polib
-
-Installing latest polib version from source tarball
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-`Download latest version <http://bitbucket.org/izi/polib/downloads/>`_
-
-::
-
-$ tar xzfv polib-x.y.z.tar.gz
-$ cd polib-x.y.z
-$ python setup build
-$ sudo python setup.py install
-
-Installing the polib development version
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Note: this is **not recommended** in a production environment.
-
-::
-
-$ hg clone http://bitbucket.org/izi/polib/
-$ cd polib
-$ python setup build
-$ sudo python setup.py install
-
-Basic usage example
--------------------
-
-::
-
->>> import polib
->>> # load an existing po file
->>> po = polib.pofile('tests/test_utf8.po')
->>> for entry in po: print entry.msgid, entry.msgstr
->>> # add an entry
->>> entry = polib.POEntry(msgid='Welcome', msgstr='Bienvenue')
->>> entry.occurrences = [('welcome.py', '12'), ('anotherfile.py', '34')]
->>> po.append(entry)
->>> # save our modified po file
->>> po.save()
->>> # compile mo file
->>> po.save_as_mofile('tests/test_utf8.mo')
-
-Documentation
--------------
-
-`A tutorial <http://bitbucket.org/izi/polib/wiki/Tutorial>`_ is available and
-you can also browse the `complete api documentation <http://www.izimobil.org/polib/api/>`_.
-
-Development
------------
-
-Bugtracker, wiki and mercurial repository can be found at the `project's page <http://bitbucket.org/izi/polib/>`_.
-New releases are also published at the `cheeseshop <http://cheeseshop.python.org/pypi/polib/>`_.
-
-
-Credits
--------
-
-**Author:** `David Jean Louis <izimobil@gmail.com>`_.
-
-References
-----------
-
-* `Gettext Manual <http://www.gnu.org/software/gettext/manual/>`_
-* `PO file format <http://www.gnu.org/software/gettext/manual/html_node/gettext_9.html>`_
-* `MO file format <http://www.gnu.org/software/gettext/manual/html_node/gettext_136.html>`_
-
+Thanks for downloading polib !
