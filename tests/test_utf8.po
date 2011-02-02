@@ -13,7 +13,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 # Added for previous msgid/msgid_plural/msgctxt testing
 #| msgctxt "@previous_context"
@@ -34,7 +34,7 @@ msgid "test context"
 msgstr "test context 2"
 
 # test context
-msgctxt "@context1"
+msgctxt "@context3"
 msgid "Some msgid"
 msgstr "Some msgstr"
 
@@ -47,9 +47,15 @@ msgstr "Some msgstr"
 #| msgid_plural ""
 #| "previous untranslated entry plural, this is also a "
 #| "long string written on multiple lines"
-msgctxt "@context"
+msgctxt "@context4"
 msgid "Some msgid2"
 msgstr "Some msgstr2"
+
+#| msgctxt "@previous_context"
+#| msgid "previous untranslated entry"
+msgctxt "@context5"
+msgid "Some msgid"
+msgstr ""
 
 #: db/models/manipulators.py:309
 #, python-format

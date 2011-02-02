@@ -13,7 +13,7 @@ modify entries, comments or metadata, etc. or create new po files from scratch.
 """
 
 __author__    = 'David Jean Louis <izimobil@gmail.com>'
-__version__   = '1.0.0-RC1'
+__version__   = '0.6.0'
 __all__       = ['pofile', 'POFile', 'POEntry', 'mofile', 'MOFile', 'MOEntry',
                  'detect_encoding', 'escape', 'unescape', 'detect_encoding',]
 
@@ -67,8 +67,7 @@ def pofile(pofile, **kwargs):
     Arguments:
 
     ``pofile``
-        string, full or relative path to the po/pot file or its content to
-        parse.
+        string, full or relative path to the po/pot file or its content (data).
 
     ``wrapwidth``
         integer, the wrap width, only useful when the ``-w`` option was passed
@@ -100,7 +99,7 @@ def mofile(mofile, **kwargs):
     Arguments:
 
     ``mofile``
-        string, full or relative path to the mo file to parse.
+        string, full or relative path to the mo file or its content (data).
 
     ``wrapwidth``
         integer, the wrap width, only useful when the ``-w`` option was passed
@@ -289,6 +288,9 @@ class _BaseFile(list):
             an instance of :class:`~polib._BaseEntry`.
         """
         return self.find(entry.msgid, by='msgid') is not None
+    
+    def __eq__(self, other):
+        return unicode(self) == unicode(other)
 
     def append(self, entry):
         """
@@ -366,6 +368,9 @@ class _BaseFile(list):
                 contents = contents.decode(self.encoding)
         fhandle.write(contents)
         fhandle.close()
+        # set the file path if not set
+        if self.fpath is None and fpath:
+            self.fpath = fpath
 
     def find(self, st, by='msgid', include_obsolete_entries=False,
              msgctxt=False):
@@ -388,15 +393,15 @@ class _BaseFile(list):
             string, allows to specify a specific message context for the
             search.
         """
-        for e in self:
+        if include_obsolete_entries:
+            entries = self[:]
+        else:
+            entries = [e for e in self if not e.obsolete]
+        for e in entries:
             if getattr(e, by) == st:
                 if msgctxt and e.msgctxt != msgctxt:
                     continue
                 return e
-        if include_obsolete_entries:
-            for e in self.obsolete_entries():
-                if getattr(e, by) == st:
-                    return e
         return None
 
     def ordered_metadata(self):
@@ -425,9 +430,10 @@ class _BaseFile(list):
                 ordered_data.append((data, value))
             except KeyError:
                 pass
-        # the rest of the metadata won't be ordered there are no specs for this
+        # the rest of the metadata will be alphabetically ordered since there
+        # are no specs for this AFAIK
         keys = metadata.keys()
-        list(keys).sort()
+        keys.sort()
         for data in keys:
             value = metadata[data]
             ordered_data.append((data, value))
@@ -441,36 +447,45 @@ class _BaseFile(list):
         entries = self.translated_entries()
         # the keys are sorted in the .mo file
         def cmp(_self, other):
-            if _self.msgid > other.msgid:
+            # msgfmt compares entries with msgctxt if it exists
+            self_msgid = _self.msgctxt and _self.msgctxt or _self.msgid
+            other_msgid = other.msgctxt and other.msgctxt or other.msgid
+            if self_msgid > other_msgid:
                 return 1
-            elif _self.msgid < other.msgid:
+            elif self_msgid < other_msgid:
                 return -1
             else:
                 return 0
         # add metadata entry
         entries.sort(cmp)
         mentry = self.metadata_as_entry()
-        mentry.msgstr = mentry.msgstr.replace('\\n', '').lstrip()
+        #mentry.msgstr = mentry.msgstr.replace('\\n', '').lstrip()
         entries = [mentry] + entries
         entries_len = len(entries)
         ids, strs = '', ''
         for e in entries:
             # For each string, we need size and file offset.  Each string is
             # NUL terminated; the NUL does not count into the size.
+            msgid = ''
+            if e.msgctxt:
+                # Contexts are stored by storing the concatenation of the
+                # context, a <EOT> byte, and the original string
+                msgid = self._encode(e.msgctxt + '\4')
             if e.msgid_plural:
                 indexes = e.msgstr_plural.keys()
                 indexes.sort()
                 msgstr = []
                 for index in indexes:
                     msgstr.append(e.msgstr_plural[index])
-                msgid = self._encode(e.msgid + '\0' + e.msgid_plural)
+                msgid += self._encode(e.msgid + '\0' + e.msgid_plural)
                 msgstr = self._encode('\0'.join(msgstr))
             else:
-                msgid = self._encode(e.msgid)
+                msgid += self._encode(e.msgid)
                 msgstr = self._encode(e.msgstr)
             offsets.append((len(ids), len(msgid), len(strs), len(msgstr)))
             ids  += msgid  + '\0'
             strs += msgstr + '\0'
+
         # The header is 7 32-bit unsigned integers.
         keystart = 7*4+16*entries_len
         # and the values start after the keys
@@ -483,14 +498,23 @@ class _BaseFile(list):
             koffsets += [l1, o1+keystart]
             voffsets += [l2, o2+valuestart]
         offsets = koffsets + voffsets
-        output  = struct.pack("IIIIIII",
-                             0x950412de,        # Magic number
-                             0,                 # Version
-                             entries_len,       # # of entries
-                             7*4,               # start of key index
-                             7*4+entries_len*8, # start of value index
-                             0, keystart)       # size and offset of hash table
-        output += array.array("I", offsets).tostring()
+        # check endianness for magic number
+        if struct.pack('@h', 1) == struct.pack('<h', 1):
+            magic_number = MOFile.LITTLE_ENDIAN
+        else:
+            magic_number = MOFile.BIG_ENDIAN
+
+        output = struct.pack(
+            "Iiiiiii",
+            magic_number,      # Magic number
+            0,                 # Version
+            entries_len,       # # of entries
+            7*4,               # start of key index
+            7*4+entries_len*8, # start of value index
+            0, keystart        # size and offset of hash table
+                               # Important: we don't use hash tables
+        )              
+        output += array.array("i", offsets).tostring()
         output += ids
         output += strs
         return output
@@ -579,9 +603,6 @@ class POFile(_BaseFile):
 
     def merge(self, refpot):
         """
-        FIXME: this could not work if encodings are different, needs thinking
-        and general refactoring of how polib handles encoding...
-
         Convenience method that merges the current pofile with the pot file
         provided. It behaves exactly as the gettext msgmerge utility:
 
@@ -616,16 +637,13 @@ class MOFile(_BaseFile):
     This class inherits the :class:`~polib._BaseFile` class and, by
     extension, the python ``list`` type.
     """
+    BIG_ENDIAN    = 0xde120495
+    LITTLE_ENDIAN = 0x950412de
 
     def __init__(self, *args, **kwargs):
         """
-        Constructor, accepts the following keyword arguments:
-
-        ``magic_number``
-            the magic_number of the binary file.
-
-        ``version``
-            the version of the mo file specification.
+        Constructor, accepts all keywords arguments accepted by 
+        :class:`~polib._BaseFile` class.
         """
         _BaseFile.__init__(self, *args, **kwargs)
         self.magic_number = None
@@ -721,12 +739,12 @@ class _BaseEntry(object):
         ret = []
         # write the msgctxt if any
         if self.msgctxt is not None:
-            ret += self._str_field("msgctxt", delflag, "", self.msgctxt)
+            ret += self._str_field("msgctxt", delflag, "", self.msgctxt, wrapwidth)
         # write the msgid
-        ret += self._str_field("msgid", delflag, "", self.msgid)
+        ret += self._str_field("msgid", delflag, "", self.msgid, wrapwidth)
         # write the msgid_plural if any
         if self.msgid_plural:
-            ret += self._str_field("msgid_plural", delflag, "", self.msgid_plural)
+            ret += self._str_field("msgid_plural", delflag, "", self.msgid_plural, wrapwidth)
         if self.msgstr_plural:
             # write the msgstr_plural if any
             msgstrs = self.msgstr_plural
@@ -735,10 +753,10 @@ class _BaseEntry(object):
             for index in keys:
                 msgstr = msgstrs[index]
                 plural_index = '[%s]' % index
-                ret += self._str_field("msgstr", delflag, plural_index, msgstr)
+                ret += self._str_field("msgstr", delflag, plural_index, msgstr, wrapwidth)
         else:
             # otherwise write the msgstr
-            ret += self._str_field("msgstr", delflag, "", self.msgstr)
+            ret += self._str_field("msgstr", delflag, "", self.msgstr, wrapwidth)
         ret.append('')
         ret = '\n'.join(ret)
 
@@ -751,13 +769,24 @@ class _BaseEntry(object):
         Returns the string representation of the entry.
         """
         return unicode(self).encode(self.encoding)
+    
+    def __eq__(self, other):
+        return unicode(self) == unicode(other)
 
-    def _str_field(self, fieldname, delflag, plural_index, field):
+    def _str_field(self, fieldname, delflag, plural_index, field, wrapwidth=78):
         lines = field.splitlines(True)
         if len(lines) > 1:
             lines = ['']+lines # start with initial empty line
         else:
-            lines = [field] # needed for the empty string case
+            if wrapwidth > 0 and len(field) > wrapwidth-(len(fieldname)+2):
+                 # Wrap the line but take field name into account
+                lines = ['']+ textwrap.wrap(field,
+                                            wrapwidth-(len(fieldname)+2),
+                                            drop_whitespace=False,
+                                            break_long_words=False)
+            else:
+                lines = [field] # needed for the empty string case
+            #lines = [field] # needed for the empty string case
         if fieldname.startswith('previous_'):
             # quick and dirty trick to get the real field name
             fieldname = fieldname[9:]
@@ -794,7 +823,7 @@ class POEntry(_BaseEntry):
         Returns the unicode representation of the entry.
         """
         if self.obsolete:
-            return _BaseEntry.__unicode__(self)
+            return _BaseEntry.__unicode__(self, wrapwidth)
         ret = []
         # comment first, if any (with text wrapping as xgettext does)
         if self.comment != '':
@@ -850,15 +879,15 @@ class POEntry(_BaseEntry):
         # previous context and previous msgid/msgid_plural
         if self.previous_msgctxt:
             ret += self._str_field("previous_msgctxt", "#| ", "",
-                                   self.previous_msgctxt)
+                                   self.previous_msgctxt, wrapwidth)
         if self.previous_msgid:
             ret += self._str_field("previous_msgid", "#| ", "", 
-                                   self.previous_msgid)
+                                   self.previous_msgid, wrapwidth)
         if self.previous_msgid_plural:
             ret += self._str_field("previous_msgid_plural", "#| ", "", 
-                                   self.previous_msgid_plural)
+                                   self.previous_msgid_plural, wrapwidth)
 
-        ret.append(_BaseEntry.__unicode__(self))
+        ret.append(_BaseEntry.__unicode__(self, wrapwidth))
         ret = '\n'.join(ret)
 
         if type(ret) != types.UnicodeType:
@@ -1327,8 +1356,6 @@ class _MOFileParser(object):
     """
     A class to parse binary mo files.
     """
-    BIG_ENDIAN    = 0xde120495
-    LITTLE_ENDIAN = 0x950412de
 
     def __init__(self, mofile, *args, **kwargs):
         """
@@ -1354,20 +1381,16 @@ class _MOFileParser(object):
             check_for_duplicates=kwargs.get('check_for_duplicates', False)
         )
 
-    def parse_magicnumber(self):
-        """
-        Parse the magic number and raise an exception if not valid.
-        """
-
     def parse(self):
         """
         Build the instance with the file handle provided in the
         constructor.
         """
+        # parse magic number
         magic_number = self._readbinary('<I', 4)
-        if magic_number == self.LITTLE_ENDIAN:
+        if magic_number == MOFile.LITTLE_ENDIAN:
             ii = '<II'
-        elif magic_number == self.BIG_ENDIAN:
+        elif magic_number == MOFile.BIG_ENDIAN:
             ii = '>II'
         else:
             raise IOError('Invalid mo file, magic number is incorrect !')
