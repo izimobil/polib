@@ -9,11 +9,11 @@ polib is a library to manipulate, create, modify gettext files (pot, po and mo
 files). You can load existing files, iterate through it's entries, add, modify
 entries, comments or metadata, etc. or create new po files from scratch.
 
-polib is pretty stable now and is used by many 
-`opensource projects <http://bitbucket.org/izi/polib/wiki/ProjectsUsingPolib>`_.
+polib is pretty stable now and is used by many
+:ref:`opensource projects <projects>`.
 
-polib is completely free and opensource, the license used is `the MIT license
-http://www.opensource.org/licenses/mit-license.php>`.
+polib is completely free and opensource, the license used is
+`the MIT license <http://www.opensource.org/licenses/mit-license.php>`_.
 It was developed back in 2006 by `David Jean Louis <izimobil@gmail.com>`_
 and it is still actively maintained.
 
@@ -32,3 +32,4 @@ Contents:
    installation
    api
    contributing
+   projects

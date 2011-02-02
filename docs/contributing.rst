@@ -1,4 +1,4 @@
-.. _installation:
+.. _contributing:
 
 Contributing to polib
 =====================
@@ -15,16 +15,22 @@ How to contribute
 
 There are various possibilities to get involved, for example you can:
 
-* `Report bugs http://www.bitbucket.org/izi/polib/issues/new/>`
+* `Report bugs <http://www.bitbucket.org/izi/polib/issues/new/>`_
   preferably with patches if you can;
-* Enhance this `documentation
-  http://www.bitbucket.org/izi/polib/src/tip/docs/>`;
-* `Fork the code http://www.bitbucket.org/izi/polib/>`,
-  implement new features, test and send a pull request.
+* Enhance this `documentation <http://www.bitbucket.org/izi/polib/src/tip/docs/>`_
+* `Fork the code <http://www.bitbucket.org/izi/polib/>`_, implement new
+  features, test and send a pull request
 
 Running the test suite
 ~~~~~~~~~~~~~~~~~~~~~~
 
 To run the tests, just type the following on a terminal::
+
     $ cd /path/to/polib/
     $ ./runtests.sh
+
+If you want to generate coverage information::
+
+    $ pip install coverage
+    $ ./runtests.sh
+    $ coverage html
