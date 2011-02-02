@@ -2,6 +2,15 @@
 Changelog
 =========
 
+Version 0.6.0 (2011/02/02)
+--------------------------
+ - polib is now `fully documented <http://polib.rtfd.org>`_,
+ - switched from doctests to unit tests to keep the polib.py file clean,
+ - fixed issue #7 (wrapping issues, thanks @jezdez),
+ - added a __eq__ method to _BaseFile (thanks @kost BebiX),
+ - handle msgctxt correctly when compiling mo files,
+ - compiled mo files are now exactly the same as those compiled by msgfmt without using hash tables.
+
 Version 0.5.5 (2010/10/30)
 --------------------------
  - Removed multiline handling code, it was a mess and was the source of potential bugs like issue #11,
