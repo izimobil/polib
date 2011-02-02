@@ -8,7 +8,7 @@
 polib setup script.
 """
 
-__author__   = 'David Jean Louis <izimobil@gmail.com>'
+__author__ = 'David Jean Louis <izimobil@gmail.com>'
 
 from distutils.core import setup
 import polib
@@ -24,9 +24,6 @@ long_desc = '''
 
 %s
 
-========
-METADATA
-========
 ''' % (open('README.rst').read(), open('CHANGELOG').read())
 
 if __name__ == '__main__':

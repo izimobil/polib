@@ -1,0 +1,18 @@
+syntax: glob
+*.egg-info
+*.pyc
+*.*~
+*.orig
+*.old
+.*.swp
+build
+dist
+MANIFEST
+_build
+_static
+.project
+.pydevproject
+.settings
+.DS_Store
+.svn
+.coverage
