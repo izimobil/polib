@@ -2,7 +2,7 @@
 Changelog
 =========
 
-Version 0.6.0 (2011/02/02)
+Version 0.6.0 (2011/02/07)
 --------------------------
  - polib is now `fully documented <http://polib.readthedocs.org>`_,
  - switched from doctests to unit tests to keep the polib.py file clean,
