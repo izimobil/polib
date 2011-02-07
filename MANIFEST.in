@@ -1,2 +1,4 @@
-include CHANGELOG LICENSE README.rst *.py
-recursive-include tests *.po *.pot *.mo
+include CHANGELOG LICENSE README.rst *.py *.sh
+recursive-include tests *.py *.po *.pot *.mo
+recursive-include docs *
+prune docs/_build
