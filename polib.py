@@ -13,7 +13,7 @@ modify entries, comments or metadata, etc. or create new po files from scratch.
 """
 
 __author__    = 'David Jean Louis <izimobil@gmail.com>'
-__version__   = '0.6.0'
+__version__   = '0.6.1'
 __all__       = ['pofile', 'POFile', 'POEntry', 'mofile', 'MOFile', 'MOEntry',
                  'detect_encoding', 'escape', 'unescape', 'detect_encoding',]
 
@@ -36,9 +36,6 @@ def _pofile_or_mofile(f, type, **kwargs):
     Internal function used by :func:`polib.pofile` and :func:`polib.mofile` to
     honor the DRY concept.
     """
-    if not os.path.exists(f):
-        raise OSError("No such file or directory: '%s'" % f)
-
     # get the file encoding
     if kwargs.get('autodetect_encoding', True):
         enc = detect_encoding(f, type == 'mofile')
