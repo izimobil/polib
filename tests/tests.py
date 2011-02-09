@@ -19,9 +19,18 @@ class TestFunctions(unittest.TestCase):
         """
         Test bad usage of pofile/mofile. 
         """
-        def bad_call():
-            polib.pofile('not_a_file.txt')
-        self.assertRaises(OSError, bad_call)
+        data = u'''# test for pofile/mofile with string buffer
+msgid ""
+msgstr ""
+"Project-Id-Version: django\n"
+
+msgid "foo"
+msgstr "bar"
+'''
+        po = polib.pofile(data)
+        self.assertTrue(isinstance(po, polib.POFile))
+        self.assertEqual(po.encoding, 'utf-8')
+        self.assertEqual(po[0].msgstr, u"bar")
 
     def test_pofile_and_mofile2(self):
         """

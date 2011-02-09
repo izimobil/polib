@@ -2,6 +2,10 @@
 Changelog
 =========
 
+Version 0.6.1 (2011/02/09)
+--------------------------
+ - fixed regression that prevented POFile initialization from data to work (issue #17).
+
 Version 0.6.0 (2011/02/07)
 --------------------------
  - polib is now `fully documented <http://polib.readthedocs.org>`_,
