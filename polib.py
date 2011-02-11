@@ -1452,6 +1452,7 @@ class _MOFileParser(object):
         return tup
 
 # }}}
+# class TextWrapper {{{
 
 class TextWrapper(textwrap.TextWrapper):
     """
@@ -1533,6 +1534,9 @@ class TextWrapper(textwrap.TextWrapper):
 
         return lines
 
+# }}}
+# function wrap() {{{
+
 def wrap(text, width=70, **kwargs):
     """
     Wrap a single paragraph of text, returning a list of wrapped lines.
@@ -1540,3 +1544,5 @@ def wrap(text, width=70, **kwargs):
     if sys.version_info < (2, 6):
         return TextWrapper(width=width, **kwargs).wrap(text)
     return textwrap.wrap(text, width=width, **kwargs)
+
+#}}}
