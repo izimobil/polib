@@ -22,6 +22,7 @@ import codecs
 import os
 import re
 import struct
+import sys
 import textwrap
 import types
 
@@ -777,10 +778,10 @@ class _BaseEntry(object):
         else:
             if wrapwidth > 0 and len(field) > wrapwidth-(len(fieldname)+2):
                  # Wrap the line but take field name into account
-                lines = ['']+ textwrap.wrap(field,
-                                            wrapwidth-(len(fieldname)+2),
-                                            drop_whitespace=False,
-                                            break_long_words=False)
+                lines = ['']+ wrap(field,
+                                   wrapwidth-(len(fieldname)+2),
+                                   drop_whitespace=False,
+                                   break_long_words=False)
             else:
                 lines = [field] # needed for the empty string case
             #lines = [field] # needed for the empty string case
@@ -826,20 +827,20 @@ class POEntry(_BaseEntry):
         if self.comment != '':
             for comment in self.comment.split('\n'):
                 if wrapwidth > 0 and len(comment) > wrapwidth-3:
-                    ret += textwrap.wrap(comment, wrapwidth,
-                                         initial_indent='#. ',
-                                         subsequent_indent='#. ',
-                                         break_long_words=False)
+                    ret += wrap(comment, wrapwidth,
+                                initial_indent='#. ',
+                                subsequent_indent='#. ',
+                                break_long_words=False)
                 else:
                     ret.append('#. %s' % comment)
         # translator comment, if any (with text wrapping as xgettext does)
         if self.tcomment != '':
             for tcomment in self.tcomment.split('\n'):
                 if wrapwidth > 0 and len(tcomment) > wrapwidth-2:
-                    ret += textwrap.wrap(tcomment, wrapwidth,
-                                         initial_indent='# ',
-                                         subsequent_indent='# ',
-                                         break_long_words=False)
+                    ret += wrap(tcomment, wrapwidth,
+                                initial_indent='# ',
+                                subsequent_indent='# ',
+                                break_long_words=False)
                 else:
                     ret.append('# %s' % tcomment)
         # occurrences (with text wrapping as xgettext does)
@@ -856,11 +857,11 @@ class POEntry(_BaseEntry):
                 # what we want for filenames, so the dirty hack is to 
                 # temporally replace hyphens with a char that a file cannot 
                 # contain, like "*"
-                lines = textwrap.wrap(filestr.replace('-', '*'),
-                                      wrapwidth,
-                                      initial_indent='#: ',
-                                      subsequent_indent='#: ',
-                                      break_long_words=False)
+                lines = wrap(filestr.replace('-', '*'),
+                             wrapwidth,
+                             initial_indent='#: ',
+                             subsequent_indent='#: ',
+                             break_long_words=False)
                 # end of the replace hack
                 for line in lines:
                     ret.append(line.replace('*', '-'))
@@ -1451,3 +1452,91 @@ class _MOFileParser(object):
         return tup
 
 # }}}
+
+class TextWrapper(textwrap.TextWrapper):
+    """
+    Subclass of textwrap.TextWrapper that backport the
+    drop_whitespace option.
+    """
+    def __init__(self, *args, **kwargs):
+        drop_whitespace = kwargs.pop('drop_whitespace', True) 
+        textwrap.TextWrapper.__init__(self, *args, **kwargs)
+        self.drop_whitespace = drop_whitespace
+
+    def _wrap_chunks(self, chunks):
+        """_wrap_chunks(chunks : [string]) -> [string]
+
+        Wrap a sequence of text chunks and return a list of lines of
+        length 'self.width' or less.  (If 'break_long_words' is false,
+        some lines may be longer than this.)  Chunks correspond roughly
+        to words and the whitespace between them: each chunk is
+        indivisible (modulo 'break_long_words'), but a line break can
+        come between any two chunks.  Chunks should not have internal
+        whitespace; ie. a chunk is either all whitespace or a "word".
+        Whitespace chunks will be removed from the beginning and end of
+        lines, but apart from that whitespace is preserved.
+        """
+        lines = []
+        if self.width <= 0:
+            raise ValueError("invalid width %r (must be > 0)" % self.width)
+
+        # Arrange in reverse order so items can be efficiently popped
+        # from a stack of chucks.
+        chunks.reverse()
+
+        while chunks:
+
+            # Start the list of chunks that will make up the current line.
+            # cur_len is just the length of all the chunks in cur_line.
+            cur_line = []
+            cur_len = 0
+
+            # Figure out which static string will prefix this line.
+            if lines:
+                indent = self.subsequent_indent
+            else:
+                indent = self.initial_indent
+
+            # Maximum width for this line.
+            width = self.width - len(indent)
+
+            # First chunk on line is whitespace -- drop it, unless this
+            # is the very beginning of the text (ie. no lines started yet).
+            if self.drop_whitespace and chunks[-1].strip() == '' and lines:
+                del chunks[-1]
+
+            while chunks:
+                l = len(chunks[-1])
+
+                # Can at least squeeze this chunk onto the current line.
+                if cur_len + l <= width:
+                    cur_line.append(chunks.pop())
+                    cur_len += l
+
+                # Nope, this line is full.
+                else:
+                    break
+
+            # The current line is full, and the next chunk is too big to
+            # fit on *any* line (not just this one).
+            if chunks and len(chunks[-1]) > width:
+                self._handle_long_word(chunks, cur_line, cur_len, width)
+
+            # If the last chunk on this line is all whitespace, drop it.
+            if self.drop_whitespace and cur_line and cur_line[-1].strip() == '':
+                del cur_line[-1]
+
+            # Convert current line back to a string and store it in list
+            # of all lines (return value).
+            if cur_line:
+                lines.append(indent + ''.join(cur_line))
+
+        return lines
+
+def wrap(text, width=70, **kwargs):
+    """
+    Wrap a single paragraph of text, returning a list of wrapped lines.
+    """
+    if sys.version_info < (2, 6):
+        return TextWrapper(width=width, **kwargs).wrap(text)
+    return textwrap.wrap(text, width=width, **kwargs)
