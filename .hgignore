@@ -16,3 +16,4 @@ _static
 .DS_Store
 .svn
 .coverage
+.tox
