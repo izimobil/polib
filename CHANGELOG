@@ -2,6 +2,10 @@
 Changelog
 =========
 
+Version 0.6.2 (2011/02/09)
+--------------------------
+ - Backported textwrap.TextWrapper._wrap_chunks that has support for the drop_whitespace parameter added in Python 2.6 (Fixes #18: broken compatibility with python 2.5, thanks @jezdez).
+
 Version 0.6.1 (2011/02/09)
 --------------------------
  - fixed regression that prevented POFile initialization from data to work (issue #17).
