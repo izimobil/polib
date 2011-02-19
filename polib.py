@@ -710,21 +710,37 @@ class _BaseEntry(object):
 
     def __init__(self, *args, **kwargs):
         """
-        TODO: document keyword arguments.
+        Constructor, accepts the following keyword arguments:
+
+        ``msgid``
+            string, the entry msgid.
+
+        ``msgstr``
+            string, the entry msgstr.
+
+        ``msgid_plural``
+            string, the entry msgid_plural.
+
+        ``msgstr_plural``
+            list, the entry msgstr_plural lines.
+
+        ``msgctxt``
+            string, the entry context (msgctxt).
+
+        ``obsolete``
+            bool, whether the entry is "obsolete" or not.
+
+        ``encoding``
+            string, the encoding to use, defaults to ``default_encoding``
+            global variable (optional).
         """
         self.msgid = kwargs.get('msgid', '')
         self.msgstr = kwargs.get('msgstr', '')
         self.msgid_plural = kwargs.get('msgid_plural', '')
         self.msgstr_plural = kwargs.get('msgstr_plural', {})
+        self.msgctxt = kwargs.get('msgctxt', None)
         self.obsolete = kwargs.get('obsolete', False)
         self.encoding = kwargs.get('encoding', default_encoding)
-        self.msgctxt = kwargs.get('msgctxt', None)
-
-    def __repr__(self):
-        """
-        Returns the python representation of the entry.
-        """
-        return '<%s instance at %x>' % (self.__class__.__name__, id(self))
 
     def __unicode__(self, wrapwidth=78):
         """
@@ -774,7 +790,7 @@ class _BaseEntry(object):
     def _str_field(self, fieldname, delflag, plural_index, field, wrapwidth=78):
         lines = field.splitlines(True)
         if len(lines) > 1:
-            lines = ['']+lines # start with initial empty line
+            lines = [''] + lines # start with initial empty line
         else:
             escaped_field = escape(field)
             specialchars_count = 0
@@ -782,7 +798,10 @@ class _BaseEntry(object):
                 specialchars_count += field.count(c)
             # comparison must take into account fieldname length + one space 
             # + 2 quotes (eg. msgid "<string>")
-            real_wrapwidth = wrapwidth - (len(fieldname)+3) + specialchars_count
+            flength = len(fieldname) + 3
+            if plural_index:
+                flength += len(plural_index)
+            real_wrapwidth = wrapwidth - flength + specialchars_count
             if wrapwidth > 0 and len(field) > real_wrapwidth:
                 # Wrap the line but take field name into account
                 lines = [''] + [unescape(item) for item in wrap(
@@ -792,8 +811,7 @@ class _BaseEntry(object):
                     break_long_words=False
                 )]
             else:
-                lines = [field] # needed for the empty string case
-            #lines = [field] # needed for the empty string case
+                lines = [field]
         if fieldname.startswith('previous_'):
             # quick and dirty trick to get the real field name
             fieldname = fieldname[9:]
@@ -814,7 +832,28 @@ class POEntry(_BaseEntry):
 
     def __init__(self, *args, **kwargs):
         """
-        TODO: document keyword arguments.
+        Constructor, accepts the following keyword arguments:
+
+        ``comment``
+            string, the entry comment.
+
+        ``tcomment``
+            string, the entry translator comment.
+
+        ``occurrences``
+            list, the entry occurrences.
+
+        ``flags``
+            list, the entry flags.
+
+        ``previous_msgctxt``
+            string, the entry previous context.
+
+        ``previous_msgid``
+            string, the entry previous msgid.
+
+        ``previous_msgid_plural``
+            string, the entry previous msgid_plural.
         """
         _BaseEntry.__init__(self, *args, **kwargs)
         self.comment = kwargs.get('comment', '')
@@ -831,27 +870,25 @@ class POEntry(_BaseEntry):
         """
         if self.obsolete:
             return _BaseEntry.__unicode__(self, wrapwidth)
+
         ret = []
-        # comment first, if any (with text wrapping as xgettext does)
-        if self.comment != '':
-            for comment in self.comment.split('\n'):
-                if wrapwidth > 0 and len(comment) > wrapwidth-3:
-                    ret += wrap(comment, wrapwidth,
-                                initial_indent='#. ',
-                                subsequent_indent='#. ',
-                                break_long_words=False)
-                else:
-                    ret.append('#. %s' % comment)
-        # translator comment, if any (with text wrapping as xgettext does)
-        if self.tcomment != '':
-            for tcomment in self.tcomment.split('\n'):
-                if wrapwidth > 0 and len(tcomment) > wrapwidth-2:
-                    ret += wrap(tcomment, wrapwidth,
-                                initial_indent='# ',
-                                subsequent_indent='# ',
-                                break_long_words=False)
-                else:
-                    ret.append('# %s' % tcomment)
+        # comments first, if any (with text wrapping as xgettext does)
+        comments = [('comment', '#. '), ('tcomment', '# ')]
+        for c in comments:
+            val = getattr(self, c[0])
+            if val:
+                for comment in val.split('\n'):
+                    if wrapwidth > 0 and len(comment) + len(c[1]) > wrapwidth:
+                        ret += wrap(
+                            comment,
+                            wrapwidth,
+                            initial_indent=c[1],
+                            subsequent_indent=c[1],
+                            break_long_words=False
+                        )
+                    else:
+                        ret.append('%s%s' % (c[1], comment))
+
         # occurrences (with text wrapping as xgettext does)
         if self.occurrences:
             filelist = []
@@ -861,38 +898,31 @@ class POEntry(_BaseEntry):
                 else:
                     filelist.append(fpath)
             filestr = ' '.join(filelist)
-            if wrapwidth > 0 and len(filestr)+3 > wrapwidth:
-                # XXX textwrap split words that contain hyphen, this is not 
+            if wrapwidth > 0 and len(filestr) + 3 > wrapwidth:
+                # textwrap split words that contain hyphen, this is not 
                 # what we want for filenames, so the dirty hack is to 
                 # temporally replace hyphens with a char that a file cannot 
                 # contain, like "*"
-                lines = wrap(filestr.replace('-', '*'),
-                             wrapwidth,
-                             initial_indent='#: ',
-                             subsequent_indent='#: ',
-                             break_long_words=False)
-                # end of the replace hack
-                for line in lines:
-                    ret.append(line.replace('*', '-'))
+                ret += [l.replace('*', '-') for l in wrap(
+                    filestr.replace('-', '*'),
+                    wrapwidth,
+                    initial_indent='#: ',
+                    subsequent_indent='#: ',
+                    break_long_words=False
+                )]
             else:
-                ret.append('#: '+filestr)
-        # flags
+                ret.append('#: ' + filestr)
+
+        # flags (TODO: wrapping ?)
         if self.flags:
-            flags = []
-            for flag in self.flags:
-                flags.append(flag)
-            ret.append('#, %s' % ', '.join(flags))
+            ret.append('#, %s' % ', '.join(self.flags))
 
         # previous context and previous msgid/msgid_plural
-        if self.previous_msgctxt:
-            ret += self._str_field("previous_msgctxt", "#| ", "",
-                                   self.previous_msgctxt, wrapwidth)
-        if self.previous_msgid:
-            ret += self._str_field("previous_msgid", "#| ", "", 
-                                   self.previous_msgid, wrapwidth)
-        if self.previous_msgid_plural:
-            ret += self._str_field("previous_msgid_plural", "#| ", "", 
-                                   self.previous_msgid_plural, wrapwidth)
+        fields = ['previous_msgctxt', 'previous_msgid', 'previous_msgid_plural']
+        for f in fields:
+            val = getattr(self, f)
+            if val:
+                ret += self._str_field(f, "#| ", "", val, wrapwidth)
 
         ret.append(_BaseEntry.__unicode__(self, wrapwidth))
         ret = '\n'.join(ret)
