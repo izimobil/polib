@@ -219,18 +219,40 @@ class TestBaseFile(unittest.TestCase):
         self.assertEqual(pofile.ordered_metadata(), mdata)
 
     def test_unicode1(self):
-        pofile  = polib.pofile('tests/test_merge_after.po', wrapwidth=80)
+        pofile  = polib.pofile('tests/test_merge_after.po')
         expected = codecs.open('tests/test_merge_after.po', encoding='utf8').read()
         self.assertEqual(unicode(pofile), unicode(expected))
 
     def test_unicode2(self):
-        pofile  = polib.pofile('tests/test_iso-8859-15.po', wrapwidth=80)
+        pofile  = polib.pofile('tests/test_iso-8859-15.po')
         expected = codecs.open('tests/test_iso-8859-15.po', encoding='iso-8859-15').read()
         self.assertEqual(unicode(pofile), unicode(expected))
 
     def test_str(self):
-        pofile  = polib.pofile('tests/test_iso-8859-15.po', wrapwidth=80)
+        pofile  = polib.pofile('tests/test_iso-8859-15.po')
         expected = open('tests/test_iso-8859-15.po').read()
+        self.assertEqual(str(pofile), expected)
+
+    def test_wrapping(self):
+        pofile  = polib.pofile('tests/test_wrap.po', wrapwidth=50)
+        expected = r'''# test wrapping
+msgid ""
+msgstr ""
+
+msgid "This line will not be wrapped"
+msgstr ""
+
+msgid ""
+"Some line that contain special characters \" and"
+" that \t is very, very, very long...: %s \n"
+msgstr ""
+
+msgid ""
+"Some line that contain special characters "
+"\"foobar\" and that contains whitespace at the "
+"end          "
+msgstr ""
+'''
         self.assertEqual(str(pofile), expected)
 
     def test_sort(self):
@@ -354,7 +376,7 @@ class TestMoFile(unittest.TestCase):
         Test for the MOFile.save_as_pofile() method.
         """
         tmpfile = tempfile.mkstemp()[1]
-        mo = polib.mofile('tests/test_utf8.mo')
+        mo = polib.mofile('tests/test_utf8.mo', wrapwidth=78)
         mo.save_as_pofile(tmpfile)
         try:
             self.assertEqual(open(tmpfile).read(), open('tests/test_save_as_pofile.po').read())

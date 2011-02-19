@@ -33,8 +33,7 @@ msgstr "Some msgstr"
 #      explicite.
 msgid "E83: Cannot allocate buffer, using other one..."
 msgstr ""
-"E83: L'allocation du tampon a échoué : arrêtez Vim, libérez de la "
-"mémoire"
+"E83: L'allocation du tampon a échoué : arrêtez Vim, libérez de la mémoire"
 
 #, c-format
 msgid "1 line --%d%%--"
