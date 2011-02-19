@@ -776,12 +776,21 @@ class _BaseEntry(object):
         if len(lines) > 1:
             lines = ['']+lines # start with initial empty line
         else:
-            if wrapwidth > 0 and len(field) > wrapwidth-(len(fieldname)+2):
-                 # Wrap the line but take field name into account
-                lines = ['']+ wrap(field,
-                                   wrapwidth-(len(fieldname)+2),
-                                   drop_whitespace=False,
-                                   break_long_words=False)
+            escaped_field = escape(field)
+            specialchars_count = 0
+            for c in ['\\', '\n', '\r', '\t', '"']:
+                specialchars_count += field.count(c)
+            # comparison must take into account fieldname length + one space 
+            # + 2 quotes (eg. msgid "<string>")
+            real_wrapwidth = wrapwidth - (len(fieldname)+3) + specialchars_count
+            if wrapwidth > 0 and len(field) > real_wrapwidth:
+                # Wrap the line but take field name into account
+                lines = [''] + [unescape(item) for item in wrap(
+                    escaped_field,
+                    wrapwidth - 2, # 2 for quotes ""
+                    drop_whitespace=False,
+                    break_long_words=False
+                )]
             else:
                 lines = [field] # needed for the empty string case
             #lines = [field] # needed for the empty string case
