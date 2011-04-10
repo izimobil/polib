@@ -383,6 +383,23 @@ class TestMoFile(unittest.TestCase):
         finally:
             os.remove(tmpfile)
 
+    def test_msgctxt(self):
+        mo = polib.mofile('tests/test_msgctxt.mo')
+        expected = u'''msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8\\n"
+
+msgctxt "Some message context"
+msgid "some string"
+msgstr "une chaîne"
+
+msgctxt "Some other message context"
+msgid "singular"
+msgid_plural "plural"
+msgstr[0] "singulier"
+msgstr[1] "pluriel"
+'''
+        self.assertEqual(unicode(mo), expected)
+
 
 class TestTextWrap(unittest.TestCase):
 
