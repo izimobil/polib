@@ -1466,18 +1466,35 @@ class _MOFileParser(object):
             # test if we have a plural entry
             msgid_tokens = msgid.split('\0')
             if len(msgid_tokens) > 1:
-                entry = MOEntry(
+                entry = self._build_entry(
                     msgid=msgid_tokens[0],
                     msgid_plural=msgid_tokens[1],
-                    msgstr_plural=dict((k,v) for k,v in \
-                        enumerate(msgstr.split('\0')))
+                    msgstr_plural=dict((k,v) for k,v in enumerate(msgstr.split('\0')))
                 )
             else:
-                entry = MOEntry(msgid=msgid, msgstr=msgstr)
+                entry = self._build_entry(msgid=msgid, msgstr=msgstr)
             self.instance.append(entry)
         # close opened file
         self.fhandle.close()
         return self.instance
+    
+    def _build_entry(self, msgid, msgstr=None, msgid_plural=None,
+                     msgstr_plural=None):
+        msgctxt_msgid = msgid.split('\x04')
+        if len(msgctxt_msgid) > 1:
+            kwargs = {
+                'msgctxt': msgctxt_msgid[0],
+                'msgid'  : msgctxt_msgid[1],
+            }
+        else:
+            kwargs = {'msgid': msgid}
+        if msgstr:
+            kwargs['msgstr'] = msgstr
+        if msgid_plural:
+            kwargs['msgid_plural'] = msgid_plural
+        if msgstr_plural:
+            kwargs['msgstr_plural'] = msgstr_plural
+        return MOEntry(**kwargs)
 
     def _readbinary(self, fmt, numbytes):
         """
