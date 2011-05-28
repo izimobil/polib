@@ -19,14 +19,11 @@ __all__       = ['pofile', 'POFile', 'POEntry', 'mofile', 'MOFile', 'MOEntry',
 
 import array
 import codecs
-import logging
 import os
 import re
 import struct
 import sys
 import textwrap
-
-logger = logging.getLogger(__name__)
 
 if sys.version_info[:2] < (3, 0):
     PY3 = False
@@ -806,11 +803,6 @@ class _BaseEntry(object):
             ret += self._str_field("msgstr", delflag, "", self.msgstr, wrapwidth)
         ret.append('')
         ret = u('\n').join(ret)
-        assert isinstance(ret, text_type)
-        #if not isinstance(ret, text_type):
-        #    ret = ret.decode(self.encoding)
-        logger.debug('_BaseEntry.__unicode__ data:\n%s', self.__dict__)
-        logger.debug('_BaseEntry.__unicode__ return:\n%s', ret)
         return ret
 
     if PY3:
@@ -1548,7 +1540,6 @@ class _MOFileParser(object):
             for k in msgstr_plural:
                 msgstr_plural[k] = msgstr_plural[k].decode(encoding)
             kwargs['msgstr_plural'] = msgstr_plural
-        logger.debug('MOEntry: %s', kwargs)
         return MOEntry(**kwargs)
 
     def _readbinary(self, fmt, numbytes):
