@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import codecs
-import logging
 import os
 import subprocess
 import sys
@@ -14,8 +13,6 @@ sys.path.insert(1, os.path.abspath('.'))
 import polib
 
 from polib import u
-
-logger = logging.getLogger('tests')
 
 class TestFunctions(unittest.TestCase):
 
@@ -410,26 +407,20 @@ class TestMoFile(unittest.TestCase):
         """
         Test for the MOFile.save_as_pofile() method.
         """
-        logger.debug('Test started: test_save_as_pofile')
+        fd, tmpfile = tempfile.mkstemp()
+        os.close(fd)
+        mo = polib.mofile('tests/test_utf8.mo', wrapwidth=78)
+        mo.save_as_pofile(tmpfile)
         try:
-            fd, tmpfile = tempfile.mkstemp()
-            os.close(fd)
-            mo = polib.mofile('tests/test_utf8.mo', wrapwidth=78)
-            logger.debug('Read mo file, saving as po file')
-            mo.save_as_pofile(tmpfile)
-            logger.debug('Done po file save')
-            try:
-                f = open(tmpfile)
-                s1 = f.read()
-                f.close()
-                f = open('tests/test_save_as_pofile.po')
-                s2 = f.read()
-                f.close()
-                self.assertEqual(s1, s2)
-            finally:
-                os.remove(tmpfile)
+            f = open(tmpfile)
+            s1 = f.read()
+            f.close()
+            f = open('tests/test_save_as_pofile.po')
+            s2 = f.read()
+            f.close()
+            self.assertEqual(s1, s2)
         finally:
-            logger.debug('Test ended: test_save_as_pofile')
+            os.remove(tmpfile)
         
     def test_msgctxt(self):
         #import pdb; pdb.set_trace()
@@ -471,7 +462,4 @@ class TestTextWrap(unittest.TestCase):
         self.assertEqual(ret, expected)
 
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.DEBUG, filename='polib.log',
-                        filemode='w', format='%(asctime)s %(levelname)-8s '
-                                             '%(name)s %(message)s')
     unittest.main()
