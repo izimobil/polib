@@ -75,7 +75,6 @@ the charset is not specified in the po file header for example), to do so::
     import polib
     po = polib.pofile(
         'path/to/catalog.po',
-        autodetect_encoding=False,
         encoding='iso-8859-15'
     )
 

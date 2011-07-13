@@ -13,7 +13,7 @@ modify entries, comments or metadata, etc. or create new po files from scratch.
 """
 
 __author__    = 'David Jean Louis <izimobil@gmail.com>'
-__version__   = '0.6.3'
+__version__   = '0.6.4'
 __all__       = ['pofile', 'POFile', 'POEntry', 'mofile', 'MOFile', 'MOEntry',
                  'detect_encoding', 'escape', 'unescape', 'detect_encoding',]
 
@@ -27,7 +27,7 @@ import textwrap
 import types
 
 
-# the default encoding to use when autodetect_encoding is disabled
+# the default encoding to use when encoding cannot be detected
 default_encoding = 'utf-8'
 
 # _pofile_or_mofile {{{
@@ -38,10 +38,9 @@ def _pofile_or_mofile(f, type, **kwargs):
     honor the DRY concept.
     """
     # get the file encoding
-    if kwargs.get('autodetect_encoding', True):
+    enc = kwargs.get('encoding')
+    if enc is None:
         enc = detect_encoding(f, type == 'mofile')
-    else:
-        enc = kwargs.get('encoding', default_encoding)
 
     # parse the file
     kls = type == 'pofile' and _POFileParser or _MOFileParser
@@ -71,14 +70,9 @@ def pofile(pofile, **kwargs):
         integer, the wrap width, only useful when the ``-w`` option was passed
         to xgettext (optional, default: ``78``).
 
-    ``autodetect_encoding``
-        boolean, if set to ``False`` the function will not try to detect the
-        po file encoding and will use either the value of the ``encoding``
-        argument or the ``default_encoding`` (optional, default: ``True``).
-
     ``encoding``
-        string, the encoding to use (e.g. "utf-8"), only relevant if
-        ``autodetect_encoding`` is set to ``False``.
+        string, the encoding to use (e.g. "utf-8") (default: ``None``, the
+        encoding will be auto-detected).
 
     ``check_for_duplicates``
         whether to check for duplicate entries when adding entries to the
@@ -104,13 +98,9 @@ def mofile(mofile, **kwargs):
         to xgettext to generate the po file that was used to format the mo file
         (optional, default: ``78``).
 
-    ``autodetect_encoding``
-        boolean, if set to ``False`` the function will not try to detect the
-        mo file encoding (optional, default: ``True``).
-
     ``encoding``
-        string, the encoding to use, only relevant if ``autodetect_encoding``
-        is set to ``False``.
+        string, the encoding to use (e.g. "utf-8") (default: ``None``, the
+        encoding will be auto-detected).
 
     ``check_for_duplicates``
         whether to check for duplicate entries when adding entries to the
@@ -1120,59 +1110,103 @@ class _POFileParser(object):
         Run the state machine, parse the file line by line and call process()
         with the current matched symbol.
         """
-        i, lastlen = 1, 0
+        i = 0
+
+        keywords = {
+            'msgctxt': 'CT',
+            'msgid': 'MI',
+            'msgstr': 'MS',
+            'msgid_plural': 'MP',
+        }
+        prev_keywords = {
+            'msgid_plural': 'PP',
+            'msgid': 'PM',
+            'msgctxt': 'PC',
+        }
+
         for line in self.fhandle:
+            i += 1
             line = line.strip()
             if line == '':
-                i = i+1
                 continue
-            if line[:3] == '#~ ':
-                line = line[3:]
+
+            tokens = line.split(None, 2)
+            nb_tokens = len(tokens)
+
+            if tokens[0] == '#~' and nb_tokens > 1:
+                line = line[3:].strip()
+                tokens = tokens[1:]
+                nb_tokens -= 1
                 self.entry_obsolete = 1
             else:
                 self.entry_obsolete = 0
+
+            # Take care of keywords like
+            # msgid, msgid_plural, msgctxt & msgstr.
+            if tokens[0] in keywords and nb_tokens > 1:
+                line = line[len(tokens[0]):].lstrip()
+                self.current_token = line
+                self.process(keywords[tokens[0]], i)
+                continue
+
             self.current_token = line
-            if line[:2] == '#:':
+
+            if tokens[0] == '#:' and nb_tokens > 1:
                 # we are on a occurrences line
                 self.process('OC', i)
-            elif line[:9] == 'msgctxt "':
-                # we are on a msgctxt
-                self.process('CT', i)
-            elif line[:7] == 'msgid "':
-                # we are on a msgid
-                self.process('MI', i)
-            elif line[:8] == 'msgstr "':
-                # we are on a msgstr
-                self.process('MS', i)
-            elif line[:1] == '"' or line[:4] == '#| "':
-                # we are on a continuation line or some metadata
+
+            elif line[:1] == '"':
+                # we are on a continuation line
                 self.process('MC', i)
-            elif line[:14] == 'msgid_plural "':
-                # we are on a msgid plural
-                self.process('MP', i)
+
             elif line[:7] == 'msgstr[':
                 # we are on a msgstr plural
                 self.process('MX', i)
-            elif line[:3] == '#, ':
+
+            elif tokens[0] == '#,' and nb_tokens > 1:
                 # we are on a flags line
                 self.process('FL', i)
-            elif line[:2] == '# ' or line == '#':
-                if line == '#': line = line + ' '
+
+            elif tokens[0] == '#':
+                if line == '#': line += ' '
                 # we are on a translator comment line
                 self.process('TC', i)
-            elif line[:2] == '#.':
+
+            elif tokens[0] == '#.' and nb_tokens > 1:
                 # we are on a generated comment line
                 self.process('GC', i)
-            elif line[:15] == '#| msgid_plural':
-                # we are on a previous msgid_plural
-                self.process('PP', i)
-            elif line[:8] == '#| msgid':
-                self.process('PM', i)
-                # we are on a previous msgid
-            elif line[:10] == '#| msgctxt':
-                # we are on a previous msgctxt
-                self.process('PC', i)
-            i = i+1
+
+            elif tokens[0] == '#|':
+                if nb_tokens < 2:
+                    self.process('??', i)
+                    continue
+
+                # Remove the marker and any whitespace right after that.
+                line = line[2:].lstrip()
+                self.current_token = line
+
+                if tokens[1].startswith('"'):
+                    # Continuation of previous metadata.
+                    self.process('MC', i)
+                    continue
+
+                if nb_tokens == 2:
+                    # Invalid continuation line.
+                    self.process('??', i)
+
+                # we are on a "previous translation" comment line,
+                if tokens[1] not in prev_keywords:
+                    # Unknown keyword in previous translation comment.
+                    self.process('??', i)
+
+                # Remove the keyword and any whitespace
+                # between it and the starting quote.
+                line = line[len(tokens[1]):].lstrip()
+                self.current_token = line
+                self.process(prev_keywords[tokens[1]], i)
+
+            else:
+                self.process('??', i)
 
         if self.current_entry:
             # since entries are added when another entry is found, we must add
@@ -1298,7 +1332,7 @@ class _POFileParser(object):
             self.instance.append(self.current_entry)
             self.current_entry = POEntry()
         self.current_entry.previous_msgid_plural = \
-            unescape(self.current_token[17:-1])
+            unescape(self.current_token[1:-1])
         return True
 
     def handle_pm(self):
@@ -1307,7 +1341,7 @@ class _POFileParser(object):
             self.instance.append(self.current_entry)
             self.current_entry = POEntry()
         self.current_entry.previous_msgid = \
-            unescape(self.current_token[10:-1])
+            unescape(self.current_token[1:-1])
         return True
 
     def handle_pc(self):
@@ -1316,7 +1350,7 @@ class _POFileParser(object):
             self.instance.append(self.current_entry)
             self.current_entry = POEntry()
         self.current_entry.previous_msgctxt = \
-            unescape(self.current_token[12:-1])
+            unescape(self.current_token[1:-1])
         return True
 
     def handle_ct(self):
@@ -1324,7 +1358,7 @@ class _POFileParser(object):
         if self.current_state in ['MC', 'MS', 'MX']:
             self.instance.append(self.current_entry)
             self.current_entry = POEntry()
-        self.current_entry.msgctxt = unescape(self.current_token[9:-1])
+        self.current_entry.msgctxt = unescape(self.current_token[1:-1])
         return True
 
     def handle_mi(self):
@@ -1333,17 +1367,17 @@ class _POFileParser(object):
             self.instance.append(self.current_entry)
             self.current_entry = POEntry()
         self.current_entry.obsolete = self.entry_obsolete
-        self.current_entry.msgid = unescape(self.current_token[7:-1])
+        self.current_entry.msgid = unescape(self.current_token[1:-1])
         return True
 
     def handle_mp(self):
         """Handle a msgid plural."""
-        self.current_entry.msgid_plural = unescape(self.current_token[14:-1])
+        self.current_entry.msgid_plural = unescape(self.current_token[1:-1])
         return True
 
     def handle_ms(self):
         """Handle a msgstr."""
-        self.current_entry.msgstr = unescape(self.current_token[8:-1])
+        self.current_entry.msgstr = unescape(self.current_token[1:-1])
         return True
 
     def handle_mx(self):

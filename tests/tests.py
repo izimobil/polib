@@ -32,6 +32,13 @@ msgstr "bar"
         self.assertEqual(po.encoding, 'utf-8')
         self.assertEqual(po[0].msgstr, u"bar")
 
+    def test_indented_pofile(self):
+        """
+        Test that an indented pofile returns a POFile instance.
+        """
+        po = polib.pofile('tests/test_indented.po')
+        self.assertTrue(isinstance(po, polib.POFile))
+
     def test_pofile_and_mofile2(self):
         """
         Test that the pofile function returns a POFile instance.
@@ -64,14 +71,14 @@ msgstr "bar"
         """
         Test that encoding is default_encoding when detect_encoding is False.
         """
-        po = polib.pofile('tests/test_noencoding.po', autodetect_encoding=False)
+        po = polib.pofile('tests/test_noencoding.po')
         self.assertTrue(po.encoding == 'utf-8')
 
     def test_pofile_and_mofile7(self):
         """
         Test that encoding is ok when encoding is explicitely given.
         """
-        po = polib.pofile('tests/test_iso-8859-15.po', autodetect_encoding=False, encoding='iso-8859-15')
+        po = polib.pofile('tests/test_iso-8859-15.po', encoding='iso-8859-15')
         self.assertTrue(po.encoding == 'iso-8859-15')
 
     def test_detect_encoding1(self):
