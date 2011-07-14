@@ -2,9 +2,11 @@
 Changelog
 =========
 
-Version 0.7.0 (????/??/??)
+Version 0.7.0 (2011/07/14)
 --------------------------
- - polib now supports python 3 ! (thanks to Vinay Sajip),
+This version adds support for python 3 (thanks to Vinay Sajip).
+polib now supports out-of-the-box any version of python ranging from 2.4 to latest 3.X version.
+polib is now 5 years old ;) so the 0.7.X branch will be the last before the 1.X stable branch.
 
 Version 0.6.4 (2011/07/13)
 --------------------------
