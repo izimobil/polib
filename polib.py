@@ -531,7 +531,7 @@ class _BaseFile(list):
             0, keystart        # size and offset of hash table
                                # Important: we don't use hash tables
         )
-        if PY3:
+        if PY3 and sys.version_info.minor > 1:  # python 3.2 or superior
             output += array.array("i", offsets).tobytes()
         else:
             output += array.array("i", offsets).tostring()

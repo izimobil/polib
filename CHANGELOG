@@ -2,6 +2,10 @@
 Changelog
 =========
 
+Version 0.7.0 (????/??/??)
+--------------------------
+ - polib now supports python 3 ! (thanks to Vinay Sajip),
+
 Version 0.6.4 (2011/07/13)
 --------------------------
  - Better api, autodetected_encoding is no longer required to explicitely set the encoding (fixes issue #23),
