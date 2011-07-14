@@ -49,6 +49,7 @@ if __name__ == '__main__':
             'Natural Language :: French',
             'Operating System :: OS Independent',
             'Programming Language :: Python',
+            'Programming Language :: Python :: 3',
             'Topic :: Software Development :: Libraries :: Python Modules',
             'Topic :: Software Development :: Internationalization',
             'Topic :: Software Development :: Localization',
