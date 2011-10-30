@@ -83,6 +83,13 @@ msgstr "bar"
         po = polib.pofile('tests/test_iso-8859-15.po', encoding='iso-8859-15')
         self.assertTrue(po.encoding == 'iso-8859-15')
 
+    def test_obsolete_entries(self):
+        """
+        Test that weird occurrences are correctly parsed.
+        """
+        po = polib.pofile('tests/test_weird_occurrences.po')
+        self.assertEqual(len(po), 46)
+
     def test_detect_encoding1(self):
         """
         Test that given enconding is returned when file has no encoding defined.
