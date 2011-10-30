@@ -1204,7 +1204,7 @@ class _POFileParser(object):
                 # we are on a msgstr plural
                 self.process('MX', i)
 
-            elif tokens[0] == '#,' and nb_tokens > 1:
+            elif tokens[0] == '#,' and nb_tokens >= 1:
                 # we are on a flags line
                 self.process('FL', i)
 
@@ -1213,7 +1213,7 @@ class _POFileParser(object):
                 # we are on a translator comment line
                 self.process('TC', i)
 
-            elif tokens[0] == '#.' and nb_tokens > 1:
+            elif tokens[0] == '#.' and nb_tokens >= 1:
                 # we are on a generated comment line
                 self.process('GC', i)
 
