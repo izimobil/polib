@@ -1186,7 +1186,7 @@ class _POFileParser(object):
             # msgid, msgid_plural, msgctxt & msgstr.
             if tokens[0] in keywords and nb_tokens > 1:
                 line = line[len(tokens[0]):].lstrip()
-                if re.search(r'[^\\]"', line[1:-1]):
+                if re.search(r'([^\\]|^)"', line[1:-1]):
                     raise IOError('Syntax error in po file %s (line %s): '\
                                   'unescaped double quote found' % \
                                   (self.instance.fpath, i))
@@ -1202,7 +1202,7 @@ class _POFileParser(object):
 
             elif line[:1] == '"':
                 # we are on a continuation line
-                if re.search(r'[^\\]"', line[1:-1]):
+                if re.search(r'([^\\]|^)"', line[1:-1]):
                     raise IOError('Syntax error in po file %s (line %s): '\
                                   'unescaped double quote found' % \
                                   (self.instance.fpath, i))
