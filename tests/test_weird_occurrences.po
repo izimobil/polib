@@ -19,7 +19,7 @@ msgstr ""
 #,
 #: main.c:117
 msgid "Override the default prgname"
-msgstr "Override the default prgname"''
+msgstr "Override the default prgname"
 
 #: Balloon-Fills,BitmapFillStyle>>addFillStyleMenuItems:hand:from:
 msgid "choose new graphic"
