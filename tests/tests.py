@@ -215,6 +215,14 @@ msgstr ""
             '\\t and \\n and \\r and \\" and \\\\'
         )
 
+    def test_check_content_type(self):
+        """
+        Tests the check_content_type function.
+        """
+        self.assertEqual(
+             polib.check_content_type('text/plain; charset=CHARSET'),
+             'text/plain; charset=UTF-8' 
+        ) 
 
 class TestBaseFile(unittest.TestCase):
     """
