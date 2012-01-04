@@ -99,6 +99,11 @@ def pofile(pofile, **kwargs):
     ``check_for_duplicates``
         whether to check for duplicate entries when adding entries to the
         file (optional, default: ``False``).
+        
+    ``klass``
+        class which is used to instantiate the return value (optional,
+        default: ``None``, the return value with be a :class:`~polib.POFile`
+        instance).
     """
     return _pofile_or_mofile(pofile, 'pofile', **kwargs)
 
@@ -127,6 +132,11 @@ def mofile(mofile, **kwargs):
     ``check_for_duplicates``
         whether to check for duplicate entries when adding entries to the
         file (optional, default: ``False``).
+        
+    ``klass``
+        class which is used to instantiate the return value (optional,
+        default: ``None``, the return value with be a :class:`~polib.POFile`
+        instance).
     """
     return _pofile_or_mofile(mofile, 'mofile', **kwargs)
 
@@ -1096,6 +1106,7 @@ class _POFileParser(object):
                 self.fhandle = codecs.open(pofile, 'rU', enc)
         else:
             self.fhandle = pofile.splitlines()
+
         klass = kwargs.get('klass')
         if klass is None:
             klass = POFile
