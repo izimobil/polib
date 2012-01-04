@@ -68,7 +68,8 @@ def _pofile_or_mofile(f, type, **kwargs):
     parser = kls(
         f,
         encoding=enc,
-        check_for_duplicates=kwargs.get('check_for_duplicates', False)
+        check_for_duplicates=kwargs.get('check_for_duplicates', False),
+        klass = kwargs.get('klass')
     )
     instance = parser.parse()
     instance.wrapwidth = kwargs.get('wrapwidth', 78)
@@ -1095,8 +1096,10 @@ class _POFileParser(object):
                 self.fhandle = codecs.open(pofile, 'rU', enc)
         else:
             self.fhandle = pofile.splitlines()
-
-        self.instance = POFile(
+        klass = kwargs.get('klass')
+        if klass is None:
+            klass = POFile
+        self.instance = klass(
             pofile=pofile,
             encoding=enc,
             check_for_duplicates=kwargs.get('check_for_duplicates', False)
@@ -1487,7 +1490,11 @@ class _MOFileParser(object):
             file (optional, default: ``False``).
         """
         self.fhandle = open(mofile, 'rb')
-        self.instance = MOFile(
+
+        klass = kwargs.get('klass')
+        if klass is None:
+            klass = MOFile
+        self.instance = klass(
             fpath=mofile,
             encoding=kwargs.get('encoding', default_encoding),
             check_for_duplicates=kwargs.get('check_for_duplicates', False)
