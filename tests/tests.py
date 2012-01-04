@@ -146,6 +146,28 @@ msgstr "bar"
             polib.unescape('\\\\t and \\\\n and \\\\r and \\\\" and \\\\\\\\'),
             '\\t and \\n and \\r and \\" and \\\\'
         )
+        
+    def test_pofile_with_subclass(self):
+        """
+        Test that the pofile function correctly returns an instance of the 
+        passed in class
+        """
+        class CustomPOFile(polib.POFile):
+            pass
+        
+        pofile = polib.pofile('tests/test_indented.po', klass=CustomPOFile)
+        self.assertEqual(pofile.__class__, CustomPOFile)
+        
+    def test_mofile_with_subclass(self):
+        """
+        Test that the mofile function correctly returns an instance of the 
+        passed in class
+        """
+        class CustomMOFile(polib.MOFile):
+            pass
+        
+        mofile = polib.mofile('tests/test_utf8.mo', klass=CustomMOFile)
+        self.assertEqual(mofile.__class__, CustomMOFile)     
 
 
 class TestBaseFile(unittest.TestCase):
