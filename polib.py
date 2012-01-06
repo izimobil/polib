@@ -68,7 +68,8 @@ def _pofile_or_mofile(f, type, **kwargs):
     parser = kls(
         f,
         encoding=enc,
-        check_for_duplicates=kwargs.get('check_for_duplicates', False)
+        check_for_duplicates=kwargs.get('check_for_duplicates', False),
+        klass = kwargs.get('klass')
     )
     instance = parser.parse()
     instance.wrapwidth = kwargs.get('wrapwidth', 78)
@@ -98,6 +99,11 @@ def pofile(pofile, **kwargs):
     ``check_for_duplicates``
         whether to check for duplicate entries when adding entries to the
         file (optional, default: ``False``).
+        
+    ``klass``
+        class which is used to instantiate the return value (optional,
+        default: ``None``, the return value with be a :class:`~polib.POFile`
+        instance).
     """
     return _pofile_or_mofile(pofile, 'pofile', **kwargs)
 
@@ -126,6 +132,11 @@ def mofile(mofile, **kwargs):
     ``check_for_duplicates``
         whether to check for duplicate entries when adding entries to the
         file (optional, default: ``False``).
+        
+    ``klass``
+        class which is used to instantiate the return value (optional,
+        default: ``None``, the return value with be a :class:`~polib.POFile`
+        instance).
     """
     return _pofile_or_mofile(mofile, 'mofile', **kwargs)
 
@@ -1096,7 +1107,10 @@ class _POFileParser(object):
         else:
             self.fhandle = pofile.splitlines()
 
-        self.instance = POFile(
+        klass = kwargs.get('klass')
+        if klass is None:
+            klass = POFile
+        self.instance = klass(
             pofile=pofile,
             encoding=enc,
             check_for_duplicates=kwargs.get('check_for_duplicates', False)
@@ -1500,7 +1514,11 @@ class _MOFileParser(object):
             file (optional, default: ``False``).
         """
         self.fhandle = open(mofile, 'rb')
-        self.instance = MOFile(
+
+        klass = kwargs.get('klass')
+        if klass is None:
+            klass = MOFile
+        self.instance = klass(
             fpath=mofile,
             encoding=kwargs.get('encoding', default_encoding),
             check_for_duplicates=kwargs.get('check_for_duplicates', False)
