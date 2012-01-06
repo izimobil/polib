@@ -83,6 +83,74 @@ msgstr "bar"
         po = polib.pofile('tests/test_iso-8859-15.po', encoding='iso-8859-15')
         self.assertTrue(po.encoding == 'iso-8859-15')
 
+    def test_pofile_and_mofile8(self):
+        """
+        Test that weird occurrences are correctly parsed.
+        """
+        po = polib.pofile('tests/test_weird_occurrences.po')
+        self.assertEqual(len(po), 46)
+
+    def test_unescaped_double_quote1(self):
+        """
+        Test that polib reports an error when unescaped double quote is found.
+        """
+        data = r'''
+msgid "Some msgid with \"double\" quotes"
+msgid "Some msgstr with "double\" quotes"
+'''
+        try:
+            po = polib.pofile(data)
+            self.fail("Unescaped quote not detected")
+        except IOError, exc:
+            msg = 'Syntax error in po file None (line 3): unescaped double quote found'
+            self.assertEqual(str(exc), msg)
+
+    def test_unescaped_double_quote2(self):
+        """
+        Test that polib reports an error when unescaped double quote is found.
+        """
+        data = r'''
+msgid "Some msgid with \"double\" quotes"
+msgstr ""
+"Some msgstr with "double\" quotes"
+'''
+        try:
+            po = polib.pofile(data)
+            self.fail("Unescaped quote not detected")
+        except IOError, exc:
+            msg = 'Syntax error in po file None (line 4): unescaped double quote found'
+            self.assertEqual(str(exc), msg)
+
+    def test_unescaped_double_quote3(self):
+        """
+        Test that polib reports an error when unescaped double quote is found at the beginning of the string.
+        """
+        data = r'''
+msgid "Some msgid with \"double\" quotes"
+msgid ""Some msgstr with double\" quotes"
+'''
+        try:
+            po = polib.pofile(data)
+            self.fail("Unescaped quote not detected")
+        except IOError, exc:
+            msg = 'Syntax error in po file None (line 3): unescaped double quote found'
+
+    def test_unescaped_double_quote4(self):
+        """
+        Test that polib reports an error when unescaped double quote is found at the beginning of the string.
+        """
+        data = r'''
+msgid "Some msgid with \"double\" quotes"
+msgstr ""
+""Some msgstr with double\" quotes"
+'''
+        try:
+            po = polib.pofile(data)
+            self.fail("Unescaped quote not detected")
+        except IOError, exc:
+            msg = 'Syntax error in po file None (line 4): unescaped double quote found'
+            self.assertEqual(str(exc), msg)
+    
     def test_detect_encoding1(self):
         """
         Test that given enconding is returned when file has no encoding defined.
