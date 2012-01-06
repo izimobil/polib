@@ -101,7 +101,8 @@ msgid "Some msgstr with "double\" quotes"
         try:
             po = polib.pofile(data)
             self.fail("Unescaped quote not detected")
-        except IOError, exc:
+        except IOError:
+            exc = sys.exc_info()[1]
             msg = 'Syntax error in po file None (line 3): unescaped double quote found'
             self.assertEqual(str(exc), msg)
 
@@ -117,7 +118,8 @@ msgstr ""
         try:
             po = polib.pofile(data)
             self.fail("Unescaped quote not detected")
-        except IOError, exc:
+        except IOError:
+            exc = sys.exc_info()[1]
             msg = 'Syntax error in po file None (line 4): unescaped double quote found'
             self.assertEqual(str(exc), msg)
 
@@ -132,8 +134,10 @@ msgid ""Some msgstr with double\" quotes"
         try:
             po = polib.pofile(data)
             self.fail("Unescaped quote not detected")
-        except IOError, exc:
+        except IOError:
+            exc = sys.exc_info()[1]
             msg = 'Syntax error in po file None (line 3): unescaped double quote found'
+            self.assertEqual(str(exc), msg)
 
     def test_unescaped_double_quote4(self):
         """
@@ -147,7 +151,8 @@ msgstr ""
         try:
             po = polib.pofile(data)
             self.fail("Unescaped quote not detected")
-        except IOError, exc:
+        except IOError:
+            exc = sys.exc_info()[1]
             msg = 'Syntax error in po file None (line 4): unescaped double quote found'
             self.assertEqual(str(exc), msg)
     
