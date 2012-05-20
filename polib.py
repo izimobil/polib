@@ -1282,13 +1282,13 @@ class _POFileParser(object):
             self.instance.append(self.current_entry)
         # before returning the instance, check if there's metadata and if 
         # so extract it in a dict
-        firstentry = self.instance[0]
-        if firstentry.msgid == '': # metadata found
+        metadataentry = self.instance.find('')
+        if metadataentry: # metadata found
             # remove the entry
-            firstentry = self.instance.pop(0)
-            self.instance.metadata_is_fuzzy = firstentry.flags
+            self.instance.remove(metadataentry)
+            self.instance.metadata_is_fuzzy = metadataentry.flags
             key = None
-            for msg in firstentry.msgstr.splitlines():
+            for msg in metadataentry.msgstr.splitlines():
                 try:
                     key, val = msg.split(':', 1)
                     self.instance.metadata[key] = val.strip()
