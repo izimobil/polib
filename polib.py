@@ -222,32 +222,6 @@ def unescape(st):
     return re.sub(r'\\(\\|n|t|r|")', unescape_repl, st)
 
 # }}}
-# function check_contenttype() {{{
-
-def check_content_type(content_type):
-    """
-    Try to check value of 'charset' in Content-Type of header entry, if value
-    is not valid, replace it with UTF-8.
-    """
-    PATTERN = r'charset=([\w_\-:\.]+)'
-    rxt = re.compile(u(PATTERN))
-
-    def charset_exists(charset):
-        """Check whether ``charset`` is valid or not."""
-        try:
-            codecs.lookup(charset)
-        except LookupError:
-            return False
-        return True
-
-    match = rxt.search(content_type)
-    if match:
-    	enc = match.group(1).strip()
-        if not charset_exists(enc):
-       	    return content_type.replace(enc, default_encoding.upper())
-    return content_type
-
-# }}}
 # class _BaseFile {{{
 
 class _BaseFile(list):
@@ -404,8 +378,6 @@ class _BaseFile(list):
         """
         if self.fpath is None and fpath is None:
             raise IOError('You must provide a file path to save() method')
-	if self.metadata.has_key('Content-Type'):
-            self.metadata['Content-Type'] = check_content_type(self.metadata['Content-Type'])
         contents = getattr(self, repr_method)()
         if fpath is None:
             fpath = self.fpath
