@@ -491,7 +491,7 @@ class TestPoFile(unittest.TestCase):
 
     def test_unusual_metadata_location(self):
         po = polib.pofile('tests/test_unusual_metadata_location.po')
-        self.assertNotEqual(po.metadata, None)
+        self.assertNotEqual(po.metadata, {})
         self.assertEqual(po.metadata['Content-Type'], 'text/plain; charset=UTF-8')
 
 class TestMoFile(unittest.TestCase):
