@@ -1188,6 +1188,9 @@ class _POFileParser(object):
             tokens = line.split(None, 2)
             nb_tokens = len(tokens)
 
+            if tokens[0] == '#~|':
+                continue
+
             if tokens[0] == '#~' and nb_tokens > 1:
                 line = line[3:].strip()
                 tokens = tokens[1:]
