@@ -431,7 +431,7 @@ msgstr ""
 
 class TestPoFile(unittest.TestCase):
     """
-    Tests for MoFile class.
+    Tests for PoFile class.
     """
 
     def test_save_as_mofile(self):
@@ -489,6 +489,10 @@ class TestPoFile(unittest.TestCase):
         po = polib.pofile('tests/test_pofile_helpers.po')
         self.assertEqual(len(po.obsolete_entries()), 4)
 
+    def test_unusual_metadata_location(self):
+        po = polib.pofile('tests/test_unusual_metadata_location.po')
+        self.assertNotEqual(po.metadata, None)
+        self.assertEqual(po.metadata['Content-Type'], 'text/plain; charset=UTF-8')
 
 class TestMoFile(unittest.TestCase):
     """
