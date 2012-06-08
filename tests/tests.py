@@ -90,6 +90,13 @@ msgstr "bar"
         po = polib.pofile('tests/test_weird_occurrences.po')
         self.assertEqual(len(po), 46)
 
+    def test_pofile_and_mofile9(self):
+        """
+        Test that obsolete previous msgid are ignored
+        """
+        po = polib.pofile('tests/test_obsolete_previousmsgid.po')
+        self.assertTrue(isinstance(po, polib.POFile))
+
     def test_unescaped_double_quote1(self):
         """
         Test that polib reports an error when unescaped double quote is found.
