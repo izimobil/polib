@@ -1,0 +1,6411 @@
+# Evolution translation to Catalan.
+# Copyright © 2000, 2004, 2005, 2006 Free Software Foundation, Inc.
+# Softcatalà <info@softcatala.org>, 2000, 2004-2006
+#
+# Víctor Nieto <vnie2025@alu-etsetb.upc.es>
+# Aleix Badia i Bosch <abadia@ica.es>, 2004
+# Xavier Conde Rueda <xavi.conde@gmail.com>, 2004-2007
+# Francesc Dorca <f.dorca@filnet.es>, 2004
+# Jordi Mas <jmas@softcatala.org>, 2004-2007
+# Enric Balletbò i Serra <eballetbo@km103.com>, 2004
+# Gil Forcada <gilforcada@guifi.net>, 2006, 2011.
+# David Planella Molas <david.planella@gmail.com>, 2007, 2008, 2009, 2010, 2011, 2012.
+# Jordi Serratosa <jordis@softcatala.cat>, 2012.
+#
+#: ../shell/main.c:573
+msgid ""
+msgstr ""
+"Project-Id-Version: evolution\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=evolution&keywords=I18N+L10N&component=Miscellaneous\n"
+"POT-Creation-Date: 2012-06-04 00:00+0000\n"
+"PO-Revision-Date: 2012-03-18 13:14+0100\n"
+"Last-Translator: David Planella <david.planella@gmail.com>\n"
+"Language-Team: Catalan <tradgnome@softcatala.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bits\n"
+"Language: ca\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#: ../addressbook/addressbook.error.xml.h:1
+msgid "This address book could not be opened."
+msgstr "No s'ha pogut obrir aquesta llibreta d'adreces."
+
+#: ../addressbook/addressbook.error.xml.h:2
+msgid ""
+"This address book server might be unreachable or the server name may be "
+"misspelled or your network connection could be down."
+msgstr ""
+"O bé no es pot contactar amb el servidor de la llibreta d'adreces, o bé el "
+"seu nom està mal escrit, o potser no esteu connectat a la xarxa."
+
+#: ../addressbook/addressbook.error.xml.h:3
+msgid "Failed to authenticate with LDAP server."
+msgstr "No es pot autenticar amb el servidor LDAP."
+
+#: ../addressbook/addressbook.error.xml.h:4
+msgid ""
+"Check to make sure your password is spelled correctly and that you are using "
+"a supported login method. Remember that many passwords are case sensitive; "
+"your caps lock might be on."
+msgstr ""
+"Assegureu-vos que la contrasenya està escrita correctament i que utilitzeu "
+"un mètode d'entrada compatible. Recordeu que moltes contrasenyes "
+"distingeixen entre majúscules i minúscules."
+
+#: ../addressbook/addressbook.error.xml.h:5
+msgid "This address book server does not have any suggested search bases."
+msgstr ""
+"Aquest servidor de llibreta d'adreces no té cap base de cerca suggerida."
+
+#: ../addressbook/addressbook.error.xml.h:6
+msgid ""
+"This LDAP server may use an older version of LDAP, which does not support "
+"this functionality or it may be misconfigured. Ask your administrator for "
+"supported search bases."
+msgstr ""
+"Pot ser que aquest servidor LDAP utilitzi una versió antiga de l'LDAP que no "
+"és compatible amb aquesta funcionalitat, o bé pot ser que estigui mal "
+"configurat. Demaneu al vostre administrador quines són les bases de cerca "
+"compatibles."
+
+#: ../addressbook/addressbook.error.xml.h:7
+msgid "This server does not support LDAPv3 schema information."
+msgstr "Aquest servidor no és compatible amb la informació d'esquema LDAPv3."
+
+#: ../addressbook/addressbook.error.xml.h:8
+msgid "Could not get schema information for LDAP server."
+msgstr "No s'ha pogut obtenir la informació d'esquema per al servidor LDAP."
+
+#: ../addressbook/addressbook.error.xml.h:9
+msgid "LDAP server did not respond with valid schema information."
+msgstr "El servidor LDAP no ha respost amb informació d'esquema vàlida."
+
+#: ../addressbook/addressbook.error.xml.h:10
+msgid "Could not remove address book."
+msgstr "No s'ha pogut suprimir la llibreta d'adreces."
+
+#: ../addressbook/addressbook.error.xml.h:11
+msgid "Delete address book '{0}'?"
+msgstr "Voleu suprimir la llibreta d'adreces «{0}»?"
+
+#: ../addressbook/addressbook.error.xml.h:12
+msgid "This address book will be removed permanently."
+msgstr "Se suprimirà la llibreta d'adreces de manera permanent."
+
+#: ../addressbook/addressbook.error.xml.h:13
+#: ../calendar/calendar.error.xml.h:7 ../mail/mail.error.xml.h:63
+msgid "Do _Not Delete"
+msgstr "No ho _suprimeixis"
+
+#, fuzzy
+#~| msgid ""
+#~| "Error on %s\n"
+#~| "%s"
+#~ msgid ""
+#~ "Error on %s: %s\n"
+#~ "%s"
+#~ msgstr ""
+#~ "S'ha produït un error en %s:\n"
+#~ "%s"
+
+#~ msgid "Unable to reconstruct message from autosave file"
+#~ msgstr ""
+#~ "No s'ha pogut recuperar el missatge a partir del fitxer de desament "
+#~ "automàtic"
+
+#~ msgid "<span size=\"large\" weight=\"bold\">Details:</span>"
+#~ msgstr "<span size=\"large\" weight=\"bold\">Detalls:</span>"
+
+#~ msgid "<span size=\"large\" weight=\"bold\">Receiving</span>"
+#~ msgstr "<span size=\"large\" weight=\"bold\">Recepció</span>"
+
+#~ msgid "<span size=\"large\" weight=\"bold\">Sending</span>"
+#~ msgstr "<span size=\"large\" weight=\"bold\">Enviament</span>"
+
+#~ msgid "<span size=\"large\" weight=\"bold\">Google account settings:</span>"
+#~ msgstr ""
+#~ "<span size=\"large\" weight=\"bold\">Paràmetres del compte del Google:</"
+#~ "span>"
+
+#~ msgid "<span size=\"large\" weight=\"bold\">Yahoo account settings:</span>"
+#~ msgstr ""
+#~ "<span size=\"large\" weight=\"bold\">Paràmetres del compte del Yahoo:</"
+#~ "span>"
+
+#~ msgid "Blink icon in notification area."
+#~ msgstr "Parpelleja la icona a l'àrea de notificació."
+
+#~ msgid "Whether the icon should blink or not."
+#~ msgstr "Si la icona ha de parpellejar o no."
+
+#~ msgid "B_link icon in notification area"
+#~ msgstr "Parpe_lleja la icona a l'àrea de notificació"
+
+#~ msgctxt "yes"
+#~ msgid "_Select..."
+#~ msgstr "S_elecciona..."
+
+#~ msgid ""
+#~ "Evolution backup can start only when Evolution is not running. Please "
+#~ "make sure that you save and close all your unsaved windows before "
+#~ "proceeding.  If you want Evolution to restart automatically after backup, "
+#~ "please enable the toggle button."
+#~ msgstr ""
+#~ "La còpia de seguretat de l'Evolution només es podrà iniciar quan "
+#~ "l'Evolution no s'estigui executant. Assegureu-vos de desar totes les "
+#~ "dades de les finestres obertes abans de continuar. Si voleu que "
+#~ "l'Evolution s'iniciï automàticament un cop finalitzada la còpia de "
+#~ "seguretat, habiliteu el botó commutador."
+
+#~ msgid ""
+#~ "This will delete all your current Evolution data and settings and restore "
+#~ "them from your backup. Evolution restore can start only when Evolution is "
+#~ "not running. Please make sure that you close all your unsaved windows "
+#~ "before you proceed. If you want Evolution to restart automatically "
+#~ "restart after restore, please enable the toggle button."
+#~ msgstr ""
+#~ "Això farà que se suprimeixin totes les vostres dades i paràmetres de "
+#~ "l'Evolution, els quals es restauraran seguidament a partir de la còpia de "
+#~ "seguretat. La restauració només podrà iniciar-se si l'Evolution no s'està "
+#~ "executant. Assegureu-vos de desar totes les dades de les finestres "
+#~ "obertes abans de continuar. Si voleu que l'Evolution s'iniciï "
+#~ "automàticament un cop finalitzada la restauració, habiliteu el botó "
+#~ "commutador."
+
+#~ msgid "Default Sync Address:"
+#~ msgstr "Adreça de sincronització per defecte:"
+
+#~ msgid "Could not load address book"
+#~ msgstr "No s'ha pogut carregar la llibreta d'adreces"
+
+#~ msgid "Could not read pilot's Address application block"
+#~ msgstr "No s'ha pogut llegir el bloc d'aplicació d'adreces del pilot"
+
+#~ msgid "Web Log:"
+#~ msgstr "Bloc:"
+
+#~ msgid "_Web Log:"
+#~ msgstr "Bloc _web:"
+
+#~ msgid "Success"
+#~ msgstr "Correcte"
+
+#~ msgid "Backend busy"
+#~ msgstr "Recurs ocupat"
+
+#~ msgid "Repository offline"
+#~ msgstr "El dipòsit està fora de línia"
+
+#~ msgid "Address Book does not exist"
+#~ msgstr "No existeix la llibreta d'adreces"
+
+#~ msgid "No Self Contact defined"
+#~ msgstr "No s'ha definit cap contacte propi"
+
+#~ msgid "Permission denied"
+#~ msgstr "S'ha denegat el permís"
+
+#~ msgid "Contact not found"
+#~ msgstr "No s'ha trobat el contacte"
+
+#~ msgid "Contact ID already exists"
+#~ msgstr "L'ID del contacte ja existeix"
+
+#~ msgid "Protocol not supported"
+#~ msgstr "El protocol no és compatible"
+
+#~ msgid "Could not cancel"
+#~ msgstr "No s'ha pogut cancel·lar"
+
+#~ msgid "Authentication Required"
+#~ msgstr "Cal autenticació"
+
+#~ msgid "TLS not Available"
+#~ msgstr "El TLS no està disponible"
+
+#~ msgid "No such source"
+#~ msgstr "No existeix tal font"
+
+#~ msgid "Not available in offline mode"
+#~ msgstr "No està disponible en mode fora de línia"
+
+#~ msgid "Other error"
+#~ msgstr "Un altre error"
+
+#~ msgid "Invalid server version"
+#~ msgstr "La versió del servidor no és vàlida"
+
+#~ msgid "Unsupported authentication method"
+#~ msgstr "El mètode d'autenticació no està implementat"
+
+#~ msgid "Calendar repository is offline."
+#~ msgstr "El dipòsit del calendari està fora de línia."
+
+#~ msgid "No response from the server."
+#~ msgstr "No s'ha rebut cap resposta del servidor."
+
+#~ msgid "Unable to load the calendar"
+#~ msgstr "No s'ha pogut carregar el calendari"
+
+#~ msgid "Split Multi-Day Events:"
+#~ msgstr "Divideix els esdeveniments de múltiples dies:"
+
+#~ msgid "Could not start evolution-data-server"
+#~ msgstr "No s'ha pogut iniciar l'evolution-data-server"
+
+#~ msgid "Could not read pilot's Calendar application block"
+#~ msgstr "No s'ha pogut llegir el bloc d'aplicació de calendari del Pilot"
+
+#~ msgid "Could not read pilot's Memo application block"
+#~ msgstr "No s'ha pogut llegir el bloc d'aplicació d'anotacions del Pilot"
+
+#~ msgid "Could not write pilot's Memo application block"
+#~ msgstr "No s'ha pogut escriure el bloc d'aplicació d'anotacions del Pilot"
+
+#~ msgid "Default Priority:"
+#~ msgstr "Prioritat per defecte:"
+
+#~ msgid "Could not read pilot's ToDo application block"
+#~ msgstr "No s'ha pogut llegir el bloc d'aplicació de tasques del Pilot"
+
+#~ msgid "Could not write pilot's ToDo application block"
+#~ msgstr "No s'ha pogut llegir el bloc d'aplicació de tasques del Pilot"
+
+#~ msgid "Check this to use system timezone in Evolution."
+#~ msgstr "Marqueu-ho per utilitzar el fus horari del sistema a l'Evolution."
+
+#~ msgid "Show week numbers in date navigator"
+#~ msgstr "Mostra el número de setmana en el navegador de dates"
+
+#~ msgid "Whether to show week number in the Day and Work Week View."
+#~ msgstr ""
+#~ "Si s'ha de mostrar el número de setmana a les visualitzacions de dies i "
+#~ "setmanes laborables."
+
+#~ msgid "Show week n_umber in Day and Work Week View"
+#~ msgstr ""
+#~ "Mostra el nú_mero de setmana a les visualitzacions de dies i setmanes "
+#~ "laborables"
+
+#~ msgid "Save"
+#~ msgstr "Desa"
+
+#~ msgid "The event could not be deleted due to a corba error"
+#~ msgstr ""
+#~ "No s'ha pogut suprimir l'esdeveniment perquè s'ha produït un error del "
+#~ "CORBA"
+
+#~ msgid "The task could not be deleted due to a corba error"
+#~ msgstr ""
+#~ "No s'ha pogut suprimir la tasca perquè s'ha produït un error del CORBA"
+
+#~ msgid "The memo could not be deleted due to a corba error"
+#~ msgstr ""
+#~ "No s'ha pogut suprimir l'anotació perquè s'ha produït un error del CORBA"
+
+#~ msgid "The item could not be deleted due to a corba error"
+#~ msgstr ""
+#~ "No s'ha pogut suprimir l'element perquè s'ha produït un error del CORBA"
+
+#~ msgid "Appoint_ment"
+#~ msgstr "Ci_ta"
+
+#~ msgid "Attendee_s..."
+#~ msgstr "A_ssistents..."
+
+#~ msgid "_Task"
+#~ msgstr "_Tasca"
+
+#~ msgid "A_ttendees..."
+#~ msgstr "Ass_istents..."
+
+#~ msgid "0%"
+#~ msgstr "0%"
+
+#~ msgid "10%"
+#~ msgstr "10%"
+
+#~ msgid "20%"
+#~ msgstr "20%"
+
+#~ msgid "30%"
+#~ msgstr "30%"
+
+#~ msgid "40%"
+#~ msgstr "40%"
+
+#~ msgid "50%"
+#~ msgstr "50%"
+
+#~ msgid "60%"
+#~ msgstr "60%"
+
+#~ msgid "70%"
+#~ msgstr "70%"
+
+#~ msgid "80%"
+#~ msgstr "80%"
+
+#~ msgid "90%"
+#~ msgstr "90%"
+
+#~ msgid "100%"
+#~ msgstr "100%"
+
+#~ msgid "_Select Today"
+#~ msgstr "_Selecciona avui"
+
+#~ msgid "_From Field"
+#~ msgstr "Camp _De"
+
+#~ msgid "Hide"
+#~ msgstr "Oculta"
+
+#~ msgid "address card"
+#~ msgstr "targeta d'adreça"
+
+#~ msgid "calendar information"
+#~ msgstr "informació del calendari"
+
+#~ msgid "Could not parse PGP message: Unknown error"
+#~ msgstr "No s'ha pogut analitzar el missatge PGP: error desconegut"
+
+#~ msgid "Enable to render message text part of limited size."
+#~ msgstr ""
+#~ "Habiliteu-ho per representar la part de text del missatge de mida "
+#~ "limitada."
+
+#~ msgid "Show \"From\" field when sending a mail message"
+#~ msgstr "Mostra el camp «De» en enviar un missatge de correu"
+
+#~ msgid ""
+#~ "Show the \"From\" field when sending a mail message. This is controlled "
+#~ "from the View menu when a mail account is chosen."
+#~ msgstr ""
+#~ "Mostra el camp «De» en enviar un missatge de correu. Aquest paràmetre es "
+#~ "controla des del menú Visualitza en seleccionar un compte de correu."
+
+# FIXME: (dpm). Es refereix a l'opció de mantenir la signatura
+# a sobre del missatge original en respondre
+#~ msgid "<b>Top Posting Option</b> (Not Recommended)"
+#~ msgstr "<b>Opció de publicar a sobre</b> (no recomanada)"
+
+#~ msgid "    "
+#~ msgstr "    "
+
+#~ msgid "Because \"{0}\"."
+#~ msgstr "Degut a «{0}»."
+
+#~ msgid "Because \"{2}\"."
+#~ msgstr "Degut a «{2}»."
+
+#~ msgid "Do not d_elete"
+#~ msgstr "No ho su_primeixis"
+
+#~ msgid "Save as vCard..."
+#~ msgstr "Desa com a vCard..."
+
+#~ msgid "3268"
+#~ msgstr "3268"
+
+#~ msgid "389"
+#~ msgstr "389"
+
+#~ msgid "636"
+#~ msgstr "636"
+
+#~ msgid "Check whether Evolution is the default mail client on startup."
+#~ msgstr ""
+#~ "Comprova si l'Evolution és el gestor de correu per defecte en iniciar."
+
+#~ msgid "Default Mail Client"
+#~ msgstr "Client de correu per defecte"
+
+#~ msgid "<b>Server</b>"
+#~ msgstr "<b>Servidor</b>"
+
+#~ msgid "<b>Users:</b>"
+#~ msgstr "<b>Usuaris:</b>"
+
+#~ msgid "<b>Account Name</b>"
+#~ msgstr "<b>Nom del compte</b>"
+
+#~ msgid "Add Hula support to Evolution."
+#~ msgstr "Afegeix compatibilitat amb Hula a l'Evolution."
+
+#~ msgid "Hula Support"
+#~ msgstr "Compatibilitat amb Hula"
+
+#~ msgid "_Accept"
+#~ msgstr "_Accepta"
+
+#~ msgid "Guides you through your initial account setup."
+#~ msgstr "Us guiarà a través de la configuració del vostre compte inicial."
+
+#~ msgid "Setup Assistant"
+#~ msgstr "Auxiliar de configuració"
+
+#~ msgid "Importing data."
+#~ msgstr "Importació de dades."
+
+#~ msgid "Please wait"
+#~ msgstr "Espereu"
+
+#~ msgid "GNOME Pilot is not installed."
+#~ msgstr "El GNOME Pilot no està instal·lat."
+
+#~ msgid "GNOME Pilot could not be run."
+#~ msgstr "No es pot executar el GNOME Pilot."
+
+#~ msgid "GNOME Pilot _Synchronization..."
+#~ msgstr "_Sincronització del GNOME Pilot..."
+
+#~ msgid "Set up GNOME Pilot configuration"
+#~ msgstr "Configura el GNOME Pilot"
+
+#~ msgid "Edit"
+#~ msgstr "Edita"
+
+#~ msgid "Import"
+#~ msgstr "Importa"
+
+#~ msgid "Show _Attachment Bar"
+#~ msgstr "Mostra la barra _de fitxers adjunts"
+
+#~ msgid "Sync with:"
+#~ msgstr "Sincronitza amb:"
+
+#~ msgid "Sync Private Records:"
+#~ msgstr "Sincronitza els registres privats:"
+
+#~ msgid "Sync Categories:"
+#~ msgstr "Categories de sincronització:"
+
+#~ msgid "popup"
+#~ msgstr "emergent"
+
+#~ msgid "edit"
+#~ msgstr "edita"
+
+#~ msgid "toggle"
+#~ msgstr "commuta"
+
+#~ msgid "expand"
+#~ msgstr "expandeix"
+
+#~ msgid "{1}"
+#~ msgstr "{1}"
+
+#~ msgid "Editable"
+#~ msgstr "Editable"
+
+#~ msgid "Source Book"
+#~ msgstr "Llibreta d'adreces d'origen"
+
+#~ msgid "Target Book"
+#~ msgstr "Llibreta d'adreces de destinació"
+
+#~ msgid "Is New Contact"
+#~ msgstr "És un contacte nou"
+
+#~ msgid "Writable Fields"
+#~ msgstr "Camps d'escriptura"
+
+#~ msgid "Required Fields"
+#~ msgstr "Camps necessaris"
+
+#~ msgid "Changed"
+#~ msgstr "Modificat"
+
+#~ msgid "Shell"
+#~ msgstr "Shell"
+
+#~ msgid "The EShell singleton"
+#~ msgstr "El patró singleton de l'EShell"
+
+#~ msgid "Book"
+#~ msgstr "Llibreta"
+
+#~ msgid "Is New List"
+#~ msgstr "És una llista nova"
+
+#~ msgid "Query"
+#~ msgstr "Consulta"
+
+#~ msgid "Model"
+#~ msgstr "Model"
+
+#~ msgid "Shell View"
+#~ msgstr "Visualització del Shell"
+
+#~ msgid "Width"
+#~ msgstr "Amplada"
+
+#~ msgid "Height"
+#~ msgstr "Alçada"
+
+#~ msgid "Has Focus"
+#~ msgstr "Té el focus"
+
+#~ msgid "Field"
+#~ msgstr "Camp"
+
+#~ msgid "Field Name"
+#~ msgstr "Nom del camp"
+
+#~ msgid "Text Model"
+#~ msgstr "Model del text"
+
+#~ msgid "Max field name length"
+#~ msgstr "Longitud màxima del nom del camp"
+
+#~ msgid "Column Width"
+#~ msgstr "Amplada de la columna"
+
+#~ msgid "Adapter"
+#~ msgstr "Adaptador"
+
+#~ msgid "Has Cursor"
+#~ msgstr "Té el cursor"
+
+#~ msgid "{0}."
+#~ msgstr "{0}."
+
+#~ msgid "Default Client"
+#~ msgstr "Client per defecte"
+
+#~ msgid "New Tab"
+#~ msgstr "Pestanya nova"
+
+#~ msgid "Name of the logger"
+#~ msgstr "Nom de l'enregistrador"
+
+#~ msgid "Filename"
+#~ msgstr "Nom de fitxer"
+
+#~ msgid "The filename of the module"
+#~ msgstr "El nom del fitxer del mòdul"
+
+#~ msgid "Whether the plugin is enabled"
+#~ msgstr "Si el connector està habilitat"
+
+#~ msgid "Focus Tracker"
+#~ msgstr "Seguidor de focus"
+
+#~ msgid "Shell Module"
+#~ msgstr "Mòdul del Shell"
+
+#~ msgid "The mail shell backend"
+#~ msgstr "El rerefons del Shell del correu"
+
+#~ msgid "Show Deleted"
+#~ msgstr "Mostra els suprimits"
+
+#~ msgid "To Do"
+#~ msgstr "Per fer"
+
+#~ msgid "Later"
+#~ msgstr "Més tard"
+
+#~ msgid "Unable to create new folder `%s': %s"
+#~ msgstr "No es pot crear la carpeta nova «%s»: %s"
+
+#~ msgid "Unable to copy folder `%s' to `%s': %s"
+#~ msgstr "No es pot copiar la carpeta «%s» a «%s»: %s"
+
+#~ msgid "Unable to scan for existing mailboxes at `%s': %s"
+#~ msgstr "No es poden cercar bústies de correu existents a «%s»: %s"
+
+#~ msgid ""
+#~ "The location and hierarchy of the Evolution mailbox folders has changed "
+#~ "since Evolution 1.x.\n"
+#~ "\n"
+#~ "Please be patient while Evolution migrates your folders..."
+#~ msgstr ""
+#~ "La ubicació i la jerarquia de les carpetes de les bústies de correu ha "
+#~ "canviat des de l'Evolution 1.x.\n"
+#~ "\n"
+#~ "Espereu mentre l'Evolution migra les vostres carpetes..."
+
+#~ msgid "Unable to open old POP keep-on-server data `%s': %s"
+#~ msgstr "No s'han pogut obrir les dades velles «%s» POP3 keep-on-server: %s"
+
+#~ msgid "Unable to create POP3 keep-on-server data directory `%s': %s"
+#~ msgstr ""
+#~ "No s'ha pogut crear el directori de dades «%s» POP3 keep-on-server: %s"
+
+#~ msgid "Unable to copy POP3 keep-on-server data `%s': %s"
+#~ msgstr "No s'han pogut copiar les dades «%s» POP3 keep-on-server: %s"
+
+#~ msgid "Failed to create local mail storage `%s': %s"
+#~ msgstr "No s'ha pogut crear el magatzem de correu local «%s»: %s"
+
+#~ msgid ""
+#~ "Unable to read settings from previous Evolution install, `evolution/"
+#~ "config.xmldb' does not exist or is corrupt."
+#~ msgstr ""
+#~ "No s'ha pogut llegir la configuració de la instal·lació anterior de "
+#~ "l'Evolution. El fitxer «evolution/config.xmldb» no existeix o està malmès."
+
+#~ msgid ""
+#~ "The following Search Folder(s):\n"
+#~ "{0}\n"
+#~ "Used the now removed folder:\n"
+#~ "    \"{1}\"\n"
+#~ "And have been updated."
+#~ msgstr ""
+#~ "Les carpetes de cerca següents:\n"
+#~ "{0}\n"
+#~ "feien servir la carpeta suprimida:\n"
+#~ "    «{1}»\n"
+#~ "i s'han actualitzat."
+
+#~ msgid ""
+#~ "The following filter rule(s):\n"
+#~ "{0}\n"
+#~ "Used the now removed folder:\n"
+#~ "    \"{1}\"\n"
+#~ "And have been updated."
+#~ msgstr ""
+#~ "Les regles de filtre següents:\n"
+#~ "{0}\n"
+#~ "feien servir la carpeta suprimida:\n"
+#~ "    «{1}»\n"
+#~ "i s'han actualitzat."
+
+#~ msgid "Shell Backend"
+#~ msgstr "Rerefons del Shell"
+
+#~ msgid ""
+#~ "There are only hidden messages in this folder. Use View->Show Hidden "
+#~ "Messages to show them."
+#~ msgstr ""
+#~ "Aquesta carpeta només conté missatges ocults. Utilitzeu l'entrada de menú "
+#~ "«Visualitza->Mostra els missatges amagats» per mostrar-los."
+
+#~ msgid "Table column:"
+#~ msgstr "Columna de la taula:"
+
+#~ msgid "Source List"
+#~ msgstr "Llista d'origen"
+
+#~ msgid "Current View"
+#~ msgstr "Visualització actual"
+
+#~ msgid "The currently selected address book view"
+#~ msgstr "La visualització de llibreta d'adreces seleccionada"
+
+#~ msgid "Previewed Contact"
+#~ msgstr "Contacte que es previsualitza"
+
+#~ msgid "The contact being shown in the preview pane"
+#~ msgstr "El contacte que es mostra la subfinestra de previsualització"
+
+#~ msgid "Preview is Visible"
+#~ msgstr "La previsualització és visible"
+
+#~ msgid "Whether the preview pane is visible"
+#~ msgstr "Si s'ha de mostrar la subfinestra de previsualització"
+
+#~ msgid "LDAP Servers"
+#~ msgstr "Servidors d'LDAP"
+
+#~ msgid "Autocompletion Settings"
+#~ msgstr "Paràmetres de la compleció automàtica"
+
+#~ msgid ""
+#~ "The location and hierarchy of the Evolution contact folders has changed "
+#~ "since Evolution 1.x.\n"
+#~ "\n"
+#~ "Please be patient while Evolution migrates your folders..."
+#~ msgstr ""
+#~ "S'ha modificat la ubicació i jerarquia de les carpetes de contactes de "
+#~ "l'Evolution des de la versió 1.x.\n"
+#~ "\n"
+#~ "Espereu mentre l'Evolution migra les carpetes..."
+
+#~ msgid ""
+#~ "The format of mailing list contacts has changed.\n"
+#~ "\n"
+#~ "Please be patient while Evolution migrates your folders..."
+#~ msgstr ""
+#~ "Ha canviat el format dels contactes de les llistes de correu.\n"
+#~ "\n"
+#~ "Espereu mentre l'Evolution migra les carpetes..."
+
+#~ msgid ""
+#~ "The way Evolution stores some phone numbers has changed.\n"
+#~ "\n"
+#~ "Please be patient while Evolution migrates your folders..."
+#~ msgstr ""
+#~ "Ha canviat la manera com l'Evolution emmagatzema els números de telèfon.\n"
+#~ "\n"
+#~ "Espereu mentre l'Evolution migra les carpetes..."
+
+#~ msgid ""
+#~ "Evolution's Palm Sync changelog and map files have changed.\n"
+#~ "\n"
+#~ "Please be patient while Evolution migrates your Pilot Sync data..."
+#~ msgstr ""
+#~ "Ha canviat el registre de canvis del Palm Sync de l'Evolution i els "
+#~ "fitxers de mapes.\n"
+#~ "\n"
+#~ "Espereu mentre l'Evolution migra les vostres dades del Pilot Sync..."
+
+#~ msgid "Source Selector Widget"
+#~ msgstr "Giny de selecció de font"
+
+#~ msgid "This widget displays groups of address books"
+#~ msgstr "Aquest giny mostra grups de llibretes d'adreces"
+
+#~ msgid "The registry of calendars"
+#~ msgstr "El registre de calendaris"
+
+#~ msgid ""
+#~ "The location and hierarchy of the Evolution calendar folders has changed "
+#~ "since Evolution 1.x.\n"
+#~ "\n"
+#~ "Please be patient while Evolution migrates your folders..."
+#~ msgstr ""
+#~ "Des de l'Evolution 1.x s'ha modificat la ubicació i la jerarquia de les "
+#~ "carpetes del calendari de l'Evolution.\n"
+#~ "\n"
+#~ "Espereu mentre l'Evolution migra les carpetes..."
+
+#~ msgid "Unable to migrate old settings from evolution/config.xmldb"
+#~ msgstr ""
+#~ "No s'ha pogut actualitzar la configuració anterior des de l'evolution/"
+#~ "config.xmldb"
+
+#~ msgid "Unable to migrate calendar `%s'"
+#~ msgstr "No s'ha pogut actualitzar el calendari «%s»"
+
+#~ msgid "Date Navigator Widget"
+#~ msgstr "Giny de navegació de dates"
+
+#~ msgid "This widget displays a miniature calendar"
+#~ msgstr "Aquest giny mostra un calendari en miniatura"
+
+#~ msgid "Default Calendar Client"
+#~ msgstr "Client de calendari per defecte"
+
+#~ msgid "Default client for calendar operations"
+#~ msgstr "Client per defecte per a les operacions de calendari"
+
+#~ msgid "This widget displays groups of calendars"
+#~ msgstr "Aquest giny mostra grups de calendaris"
+
+#~ msgid "The memo table model"
+#~ msgstr "El model de la taula d'anotacions"
+
+#~ msgid "Default Memo Client"
+#~ msgstr "Client d'anotacions per defecte"
+
+#~ msgid "Default client for memo operations"
+#~ msgstr "El client per defecte per a les operacions d'anotacions"
+
+#~ msgid "This widget displays groups of memo lists"
+#~ msgstr "Aquest giny mostra un grup de llistes d'anotacions"
+
+#~ msgid "The task table model"
+#~ msgstr "Model de la taula de tasques"
+
+#~ msgid ""
+#~ "The location and hierarchy of the Evolution task folders has changed "
+#~ "since Evolution 1.x.\n"
+#~ "\n"
+#~ "Please be patient while Evolution migrates your folders..."
+#~ msgstr ""
+#~ "Des de l'Evolution 1.x s'ha modificat la ubicació i la jerarquia de les "
+#~ "carpetes de les tasques de l'Evolution.\n"
+#~ "\n"
+#~ "Espereu mentre l'Evolution migra les carpetes..."
+
+#~ msgid "Unable to migrate tasks `%s'"
+#~ msgstr "No s'han pogut actualitzar les tasques «%s»"
+
+#~ msgid "Default Task Client"
+#~ msgstr "Client de tasques per defecte"
+
+#~ msgid "Default client for task operations"
+#~ msgstr "Client per defecte per les tasques d'operacions"
+
+#~ msgid "This widget displays groups of task lists"
+#~ msgstr "Aquest giny mostra grups de llistes de tasques"
+
+#~ msgid "Group by Threads"
+#~ msgstr "Agrupa per fils"
+
+#~ msgid "Whether to group messages by threads"
+#~ msgstr "Si s'han d'agrupar els missatges per fils"
+
+#~ msgid "Hide _Read Messages"
+#~ msgstr "Amaga els missatges _llegits"
+
+#~ msgid "Temporarily hide all messages that have already been read"
+#~ msgstr "Amaga temporalment tots els missatges que ja s'hagin llegit"
+
+#~ msgid "Temporarily hide the selected messages"
+#~ msgstr "Amaga temporalment els missatges seleccionats"
+
+#~ msgid "Show Hidde_n Messages"
+#~ msgstr "Mostra els missatges ama_gats"
+
+#~ msgid "Show messages that have been temporarily hidden"
+#~ msgstr "Mostra els missatges que s'han amagat temporalment"
+
+#~ msgid "Hide _Deleted Messages"
+#~ msgstr "Amaga els missatges _suprimits"
+
+#~ msgid ""
+#~ "Hide deleted messages rather than displaying them with a line through them"
+#~ msgstr ""
+#~ "Oculta els missatges suprimits en comptes de mostrar-los amb una línia a "
+#~ "sobre"
+
+#~ msgid "%ld KB"
+#~ msgstr "%ld KB"
+
+#~ msgid "Toolbar Style"
+#~ msgstr "Estil de la barra d'eines"
+
+#~ msgid "The switcher's toolbar style"
+#~ msgstr "L'estil de la barra d'eines del commutador"
+
+#~ msgid "Toolbar Visible"
+#~ msgstr "La barra d'eines és visible"
+
+#~ msgid "Whether the switcher is visible"
+#~ msgstr "Si s'ha de veure el commutador"
+
+#~ msgid "Switcher Action"
+#~ msgstr "Acció del commutador"
+
+#~ msgid "The switcher action for this shell view"
+#~ msgstr "L'acció del commutador per a aquesta visualització del Shell"
+
+#~ msgid "Page Number"
+#~ msgstr "Número de pàgina"
+
+#~ msgid "The notebook page number of the shell view"
+#~ msgstr "El número de pàgina de llibreta de la visualització del Shell"
+
+#~ msgid "Search Rule"
+#~ msgstr "Regla de cerca"
+
+#~ msgid "Criteria for the current search results"
+#~ msgstr "Criteris dels resultats de la cerca actual"
+
+#~ msgid "The EShellBackend for this shell view"
+#~ msgstr "L'EShellBackend per a aquesta visualització del Shell"
+
+#~ msgid "Shell Content Widget"
+#~ msgstr "Giny de contingut del Shell"
+
+#~ msgid "The content widget appears in a shell window's right pane"
+#~ msgstr ""
+#~ "El giny de contingut apareix a la subfinestra dreta d'una finestra del "
+#~ "Shell"
+
+#~ msgid "Shell Sidebar Widget"
+#~ msgstr "Giny de la barra lateral del Shell"
+
+#~ msgid "The sidebar widget appears in a shell window's left pane"
+#~ msgstr ""
+#~ "El giny de barra lateral apareix a la subfinestra esquerra d'una finestra "
+#~ "del Shell"
+
+#~ msgid "Shell Taskbar Widget"
+#~ msgstr "Giny de la barra de tasques del Shell"
+
+#~ msgid "The taskbar widget appears at the bottom of a shell window"
+#~ msgstr ""
+#~ "El giny de la barra de tasques es mostra a la part de sota d'una finestra "
+#~ "del Shell"
+
+#~ msgid "Shell Window"
+#~ msgstr "Finestra del Shell"
+
+#~ msgid "The key file holding widget state data"
+#~ msgstr "El fitxer de clau que conté les dades d'estat dels ginys"
+
+#~ msgid "The title of the shell view"
+#~ msgstr "El títol de la visualització del Shell"
+
+#~ msgid "Current View ID"
+#~ msgstr "Identificador de la visualització actual"
+
+#~ msgid "The current GAL view ID"
+#~ msgstr ""
+#~ "L'identificador de visualització de la llibreta d'adreces global actual"
+
+#~ msgid "Active Shell View"
+#~ msgstr "Visualització activa del Shell"
+
+#~ msgid "Name of the active shell view"
+#~ msgstr "Nom de la visualització del Shell activa"
+
+#~ msgid "The shell window's EFocusTracker"
+#~ msgstr "L'EFocusTracker de la finestra del Shell"
+
+#~ msgid "Geometry"
+#~ msgstr "Geometria"
+
+#~ msgid "Initial window geometry string"
+#~ msgstr "Cadena de la geometria de finestra inicial"
+
+#~ msgid "Safe Mode"
+#~ msgstr "Mode segur"
+
+#~ msgid "Whether the shell window is in safe mode"
+#~ msgstr "Si la finestra del Shell està en mode segur o no"
+
+#~ msgid "Sidebar Visible"
+#~ msgstr "La barra lateral és visible"
+
+#~ msgid "Whether the shell window's side bar is visible"
+#~ msgstr "Si la barra lateral de la finestra del Shell és visible"
+
+#~ msgid "Switcher Visible"
+#~ msgstr "El commutador és visible"
+
+#~ msgid "Whether the shell window's switcher buttons are visible"
+#~ msgstr "Si els botons de commutació de les finestres del Shell són visibles"
+
+#~ msgid "Taskbar Visible"
+#~ msgstr "La barra de tasques és visible"
+
+#~ msgid "Whether the shell window's task bar is visible"
+#~ msgstr "Si la barra de tasques de la finestra és visible"
+
+#~ msgid "Whether the shell window's tool bar is visible"
+#~ msgstr "Si la barra d'eines de la finestra del Shell és visible"
+
+#~ msgid "UI Manager"
+#~ msgstr "Gestor de la interfície d'usuari"
+
+#~ msgid "The shell window's GtkUIManager"
+#~ msgstr "El GtkUIManager de la finestra del Shell"
+
+#~ msgid "The directory from which to load EModules"
+#~ msgstr "El directori d'on carregar els EModules"
+
+#~ msgid "Network Available"
+#~ msgstr "La xarxa està disponible"
+
+#~ msgid "Online"
+#~ msgstr "En línia"
+
+#~ msgid "Whether the shell is online"
+#~ msgstr "Si el Shell està en línia"
+
+#~ msgid "Application-wide settings"
+#~ msgstr "Paràmetres de l'aplicació"
+
+#~ msgid "Forcibly re-migrate from Evolution 1.4"
+#~ msgstr "Força tornar a migrar des de l'Evolution 1.4"
+
+#~ msgid "Insufficient disk space for upgrade."
+#~ msgstr "Espai insuficient de disc per a l'actualització."
+
+#~ msgid "Really delete old data?"
+#~ msgstr "Realment voleu suprimir les dades antigues?"
+
+#~ msgid ""
+#~ "The entire contents of the &quot;evolution&quot; directory are about to "
+#~ "be permanently removed.\n"
+#~ "\n"
+#~ "It is suggested you manually verify that all of your mail, contact, and "
+#~ "calendar data is present, and that this version of Evolution operates "
+#~ "correctly before deleting this old data.\n"
+#~ "\n"
+#~ "Once deleted, you cannot downgrade to the previous version of Evolution "
+#~ "without manual intervention.\n"
+#~ msgstr ""
+#~ "Se suprimiran permanentment els continguts del directori &quot;"
+#~ "evolution&quot;.\n"
+#~ "\n"
+#~ "És recomanable que verifiqueu manualment que es conserven totes les "
+#~ "vostres adreces de correu, contactes i calendaris, i que aquesta versió "
+#~ "de l'Evolution funciona correctament abans de suprimir aquestes dades "
+#~ "antigues.\n"
+#~ "\n"
+#~ "Una vegada que s'hagin suprimit, haureu d'efectuar modificacions "
+#~ "manualment si és que voleu tornar a instal·lar una versió antiga.\n"
+
+#~ msgid ""
+#~ "The previous version of Evolution stored its data in a different "
+#~ "location.\n"
+#~ "\n"
+#~ "If you choose to remove this data, the entire contents of the &quot;"
+#~ "evolution&quot; directory will be removed permanently. If you choose to "
+#~ "keep this data, then you may manually remove the contents of &quot;"
+#~ "evolution&quot; at your convenience.\n"
+#~ msgstr ""
+#~ "La versió anterior de l'Evolution emmagatzemava les seves dades en una "
+#~ "ubicació diferent.\n"
+#~ "\n"
+#~ "Si trieu suprimir aquestes dades, tots els continguts del directori &quot;"
+#~ "evolution&quot; se suprimiran permanentment. Si voleu conservar aquestes "
+#~ "dades, podeu suprimir el contingut de la carpeta «evolution» quan "
+#~ "vulgueu.\n"
+
+#~ msgid ""
+#~ "Upgrading your data and settings will require up to {0} of disk space, "
+#~ "but you only have {1} available.\n"
+#~ "\n"
+#~ "You will need to make more space available in your home directory before "
+#~ "you can continue."
+#~ msgstr ""
+#~ "Per actualitzar les vostres dades i la configuració necessitareu fins a "
+#~ "{0} d'espai de disc, però només en teniu {1} de disponible.\n"
+#~ "\n"
+#~ "Necessitareu més espai lliure en la carpeta d'inici abans de poder "
+#~ "continuar."
+
+#~ msgid "_Keep Data"
+#~ msgstr "_Conserva les dades"
+
+#~ msgid "_Remind Me Later"
+#~ msgstr "_Recorda-m'ho després"
+
+#~ msgid "Collection"
+#~ msgstr "Col·lecció"
+
+#~ msgid "Instance"
+#~ msgstr "Instància"
+
+# gal/widgets/e-categories-master-list-dialog.c:194
+#~ msgid "Factory"
+#~ msgstr "Fàbrica"
+
+#~ msgid "Action"
+#~ msgstr "Acció"
+
+#~ msgid "A GtkRadioAction"
+#~ msgstr "Una GtkRadioAction"
+
+# gal/e-table/e-table-field-chooser.glade.h:1
+#~ msgid "Fill color"
+#~ msgstr "Color per emplenar"
+
+#~ msgid "GDK fill color"
+#~ msgstr "Color GDK per emplenar"
+
+# gal/widgets/color-palette.c:595
+#~ msgid "Fill stipple"
+#~ msgstr "Omple puntejant"
+
+#~ msgid "X1"
+#~ msgstr "X1"
+
+#~ msgid "X2"
+#~ msgstr "X2"
+
+#~ msgid "Y1"
+#~ msgstr "Y1"
+
+#~ msgid "Y2"
+#~ msgstr "Y2"
+
+#~ msgid "Minimum width"
+#~ msgstr "Amplada mínima"
+
+#~ msgid "Minimum Width"
+#~ msgstr "Amplada mínima"
+
+#~ msgid "Spacing"
+#~ msgstr "Espaiat"
+
+#~ msgid "The button state is online"
+#~ msgstr "L'estat del botó és en línia"
+
+#~ msgid "Horizontal Position"
+#~ msgstr "Posició horitzontal"
+
+#~ msgid "Pane position when oriented horizontally"
+#~ msgstr "Posició de la subfinestra quan s'orienti horitzontalment"
+
+#~ msgid "Pane position when oriented vertically"
+#~ msgstr "Posició de la subfinestra quan s'orienti verticalment"
+
+#~ msgid "Proportion"
+#~ msgstr "Proporció"
+
+#~ msgid "Proportion of the 2nd pane size"
+#~ msgstr "Proporció de la mida de la segona subfinestra"
+
+#~ msgid "Fixed Resize"
+#~ msgstr "Fixa en canviar de mida"
+
+#~ msgid "Keep the 2nd pane fixed during resize"
+#~ msgstr "Manté la segona subfinestra fixa en canviar la mida"
+
+#~ msgid "Cursor Row"
+#~ msgstr "Fila del cursor"
+
+#~ msgid "Cursor Column"
+#~ msgstr "Columna del cursor"
+
+#~ msgid "Sorter"
+#~ msgstr "Tipus d'ordenació"
+
+#~ msgid "Selection Mode"
+#~ msgstr "Mode de selecció"
+
+#~ msgid "Cursor Mode"
+#~ msgstr "Mode del cursor"
+
+#~ msgid "Selected Column"
+#~ msgstr "Columna seleccionada"
+
+#~ msgid "Focused Column"
+#~ msgstr "Columna amb el focus"
+
+#~ msgid "Strikeout Column"
+#~ msgstr "Columna ratllada"
+
+#~ msgid "Underline Column"
+#~ msgstr "Columna subratllada"
+
+# gal/e-table/e-table-header-item.c:1473
+#~ msgid "Bold Column"
+#~ msgstr "Columna en negreta"
+
+# gal/e-table/e-table-header-item.c:1477
+#~ msgid "Color Column"
+#~ msgstr "Color de la columna"
+
+#~ msgid "BG Color Column"
+#~ msgstr "Color de fons de la columna"
+
+# gal/widgets/e-categories-master-list-array.c:80
+#~ msgid "State"
+#~ msgstr "Estat"
+
+#~ msgid "Alternating Row Colors"
+#~ msgstr "Alterna els colors de fila"
+
+#~ msgid "Horizontal Draw Grid"
+#~ msgstr "Graella de dibuix horitzontal"
+
+#~ msgid "Vertical Draw Grid"
+#~ msgstr "Graella de dibuix vertical"
+
+#~ msgid "Draw focus"
+#~ msgstr "Dibuixa el focus"
+
+#~ msgid "Cursor mode"
+#~ msgstr "Mode del cursor"
+
+#~ msgid "Selection model"
+#~ msgstr "Model de selecció"
+
+#~ msgid "Length Threshold"
+#~ msgstr "Llindar de la longitud"
+
+#~ msgid "Uniform row height"
+#~ msgstr "Alçada de fila uniforme"
+
+#~ msgid "Frozen"
+#~ msgstr "Aturat"
+
+#~ msgid "Table header"
+#~ msgstr "Capçalera de la taula"
+
+#~ msgid "Table model"
+#~ msgstr "Model de la taula"
+
+#~ msgid "Cursor row"
+#~ msgstr "Fila del cursor"
+
+#~ msgid "Sort Info"
+#~ msgstr "Ordena informació"
+
+#~ msgid "Always search"
+#~ msgstr "Cerca sempre"
+
+#~ msgid "Use click to add"
+#~ msgstr "Afegeix amb un clic"
+
+#~ msgid "Vertical Row Spacing"
+#~ msgstr "Espaiat vertical de les files"
+
+#~ msgid ""
+#~ "Vertical space between rows. It is added to top and to bottom of a row"
+#~ msgstr "Espai vertical entre files. S'afegeix a sobre i a sota d'una fila"
+
+#~ msgid "ETree table adapter"
+#~ msgstr "Adaptador de taula ETree"
+
+#~ msgid "Retro Look"
+#~ msgstr "Aparença retro"
+
+#~ msgid "Draw lines and +/- expanders."
+#~ msgstr "Dibuixa línies i expansors +/-."
+
+#~ msgid "Expander Size"
+#~ msgstr "Mida de l'expansor"
+
+#~ msgid "Size of the expander arrow"
+#~ msgstr "Mida de la fletxa de l'expansor"
+
+#~ msgid "Event Processor"
+#~ msgstr "Processador d'esdeveniments"
+
+#~ msgid "Text"
+#~ msgstr "Text"
+
+# gal/widgets/color-palette.c:591
+#~ msgid "Bold"
+#~ msgstr "Negreta"
+
+#~ msgid "Strikeout"
+#~ msgstr "Ratllat"
+
+#~ msgid "Anchor"
+#~ msgstr "Àncora"
+
+#~ msgid "Justification"
+#~ msgstr "Justificació"
+
+#~ msgid "Clip Width"
+#~ msgstr "Amplada del tall"
+
+#~ msgid "Clip Height"
+#~ msgstr "Alçada del tall"
+
+#~ msgid "Clip"
+#~ msgstr "Talla"
+
+#~ msgid "Fill clip rectangle"
+#~ msgstr "Emplena el rectangle de tall"
+
+#~ msgid "X Offset"
+#~ msgstr "Desplaçament en X"
+
+#~ msgid "Y Offset"
+#~ msgstr "Desplaçament en Y"
+
+#~ msgid "Text width"
+#~ msgstr "Amplada de text"
+
+#~ msgid "Text height"
+#~ msgstr "Alçada del text"
+
+#~ msgid "Use ellipsis"
+#~ msgstr "Utilitza els punts suspensius"
+
+#~ msgid "Ellipsis"
+#~ msgstr "Punts suspensius"
+
+#~ msgid "Line wrap"
+#~ msgstr "Ajustament de línia"
+
+#~ msgid "Break characters"
+#~ msgstr "Caràcters de trencament"
+
+#~ msgid "Max lines"
+#~ msgstr "Màxim de línies"
+
+#~ msgid "Draw borders"
+#~ msgstr "Dibuixa les cantonades"
+
+#~ msgid "Allow newlines"
+#~ msgstr "Permet les línies noves"
+
+#~ msgid "Draw background"
+#~ msgstr "Dibuixa el fons"
+
+#~ msgid "Draw button"
+#~ msgstr "Dibuixa el botó"
+
+#~ msgid "Cursor position"
+#~ msgstr "Posició del cursor"
+
+#~ msgid "IM Context"
+#~ msgstr "Context de MI"
+
+#~ msgid "Handle Popup"
+#~ msgstr "Menú emergent de l'ansa"
+
+#~ msgid "Loading appointments at %s"
+#~ msgstr "S'estan carregant les cites a %s"
+
+#~ msgid "_Security"
+#~ msgstr "_Seguretat"
+
+#~ msgid "Copying `%s' to `%s'"
+#~ msgstr "S'està copiant «%s» a «%s»"
+
+#~ msgid "Error loading address book."
+#~ msgstr "S'ha produït un error en carregar la llibreta d'adreces."
+
+#~ msgid "Server Version"
+#~ msgstr "Versió del servidor"
+
+#~ msgid "<b>Email</b>"
+#~ msgstr "<b>Correu electrònic</b>"
+
+#~ msgid "<b>Home</b>"
+#~ msgstr "<b>Casa</b>"
+
+#~ msgid "<b>Job</b>"
+#~ msgstr "<b>Feina</b>"
+
+#~ msgid "<b>Miscellaneous</b>"
+#~ msgstr "<b>Miscel·lània</b>"
+
+#~ msgid "<b>Notes</b>"
+#~ msgstr "<b>Notes</b>"
+
+#~ msgid "<b>Other</b>"
+#~ msgstr "<b>Altres</b>"
+
+#~ msgid "<b>Telephone</b>"
+#~ msgstr "<b>Telèfon</b>"
+
+#~ msgid "<b>Work</b>"
+#~ msgstr "<b>Feina</b>"
+
+# He utilitzat la mateixa traducció per a Mrs., Ms., Miss per a no caure en un ús sexista (dpm).
+#~ msgid ""
+#~ "\n"
+#~ "Mr.\n"
+#~ "Mrs.\n"
+#~ "Ms.\n"
+#~ "Miss\n"
+#~ "Dr."
+#~ msgstr ""
+#~ "\n"
+#~ "Sr.\n"
+#~ "Sra.\n"
+#~ "Sra.\n"
+#~ "Sra.\n"
+#~ "Dr."
+
+# "Esq."="Esquire", títol posat darrere del cognom a les cartes;
+#                   equival a Sr. o En.
+#~ msgid ""
+#~ "\n"
+#~ "Sr.\n"
+#~ "Jr.\n"
+#~ "I\n"
+#~ "II\n"
+#~ "III\n"
+#~ "Esq."
+#~ msgstr ""
+#~ "\n"
+#~ "Sr.\n"
+#~ "Fill\n"
+#~ "I\n"
+#~ "II\n"
+#~ "III\n"
+#~ "En."
+
+#~ msgid "<b>Members</b>"
+#~ msgstr "<b>Membres</b>"
+
+#~ msgid ""
+#~ "%s already exists\n"
+#~ "Do you want to overwrite it?"
+#~ msgstr ""
+#~ "Ja existeix %s\n"
+#~ "El voleu sobreescriure?"
+
+#~ msgid "Overwrite"
+#~ msgstr "Sobreescriu"
+
+#~ msgid "Save Appointment"
+#~ msgstr "Desa la cita"
+
+#~ msgid "Save Memo"
+#~ msgstr "Desa l'anotació"
+
+#~ msgid "Save Task"
+#~ msgstr "Desa la tasca"
+
+#~ msgid "<b>Alarm</b>"
+#~ msgstr "<b>Alarma</b>"
+
+#~ msgid "<b>Options</b>"
+#~ msgstr "<b>Opcions</b>"
+
+#~ msgid ""
+#~ "before\n"
+#~ "after"
+#~ msgstr ""
+#~ "abans de\n"
+#~ "després de"
+
+# Apareix al mig d'una frase, per això ha d'anar en minúscula (dpm)
+#~ msgid ""
+#~ "minute(s)\n"
+#~ "hour(s)\n"
+#~ "day(s)"
+#~ msgstr ""
+#~ "minuts\n"
+#~ "hores\n"
+#~ "dies"
+
+# Apareix al mig d'una frase, per això ha d'anar en minúscula (dpm)
+#~ msgid ""
+#~ "minutes\n"
+#~ "hours\n"
+#~ "days"
+#~ msgstr ""
+#~ "minuts\n"
+#~ "hores\n"
+#~ "dies"
+
+#~ msgid ""
+#~ "start of appointment\n"
+#~ "end of appointment"
+#~ msgstr ""
+#~ "inici de la cita\n"
+#~ "final de la cita"
+
+#~ msgid "Attach file(s)"
+#~ msgstr "Adjunta fitxers"
+
+#~ msgid ""
+#~ "60 minutes\n"
+#~ "30 minutes\n"
+#~ "15 minutes\n"
+#~ "10 minutes\n"
+#~ "05 minutes"
+#~ msgstr ""
+#~ "60 minuts\n"
+#~ "30 minuts\n"
+#~ "15 minuts\n"
+#~ "10 minuts\n"
+#~ "05 minuts"
+
+#~ msgid "<span weight=\"bold\">Alarms</span>"
+#~ msgstr "<span weight=\"bold\">Alarmes</span>"
+
+#~ msgid "<span weight=\"bold\">Alerts</span>"
+#~ msgstr "<span weight=\"bold\">Alertes</span>"
+
+#~ msgid "<span weight=\"bold\">Date/Time Format</span>"
+#~ msgstr "<span weight=\"bold\">Format de la data i hora</span>"
+
+#~ msgid "<span weight=\"bold\">Default Free/Busy Server</span>"
+#~ msgstr "<span weight=\"bold\">Servidor lliure/ocupat per defecte</span>"
+
+#~ msgid "<span weight=\"bold\">Task List</span>"
+#~ msgstr "<span weight=\"bold\">Llista de tasques</span>"
+
+#~ msgid "<span weight=\"bold\">Time</span>"
+#~ msgstr "<span weight=\"bold\">Hores</span>"
+
+#~ msgid "<span weight=\"bold\">Work Week</span>"
+#~ msgstr "<span weight=\"bold\">Setmana laboral</span>"
+
+# Apareix al mig d'una frase, per això ha d'anar en minúscula (dpm)
+#~ msgid ""
+#~ "Minutes\n"
+#~ "Hours\n"
+#~ "Days"
+#~ msgstr ""
+#~ "minuts\n"
+#~ "hores\n"
+#~ "dies"
+
+# Apareix al mig d'una frase, per això ha d'anar en minúscula (dpm)
+#~ msgid ""
+#~ "Monday\n"
+#~ "Tuesday\n"
+#~ "Wednesday\n"
+#~ "Thursday\n"
+#~ "Friday\n"
+#~ "Saturday\n"
+#~ "Sunday"
+#~ msgstr ""
+#~ "dilluns\n"
+#~ "dimarts\n"
+#~ "dimecres\n"
+#~ "dijous\n"
+#~ "divendres\n"
+#~ "dissabte\n"
+#~ "diumenge"
+
+#~ msgid ""
+#~ "15 minutes before appointment\n"
+#~ "1 hour before appointment\n"
+#~ "1 day before appointment"
+#~ msgstr ""
+#~ "15 minuts abans de la cita\n"
+#~ "1 hora abans de la cita\n"
+#~ "1 dia abans de la cita"
+
+#~ msgid ""
+#~ "a\n"
+#~ "b"
+#~ msgstr ""
+#~ "a\n"
+#~ "b"
+
+#~ msgid "<b>Preview</b>"
+#~ msgstr "<b>Previsualització</b>"
+
+#~ msgid "<b>Recurrence</b>"
+#~ msgstr "<b>Periodicitat</b>"
+
+#~ msgid ""
+#~ "day(s)\n"
+#~ "week(s)\n"
+#~ "month(s)\n"
+#~ "year(s)"
+#~ msgstr ""
+#~ "dies\n"
+#~ "setmanes\n"
+#~ "mesos\n"
+#~ "anys"
+
+#~ msgid ""
+#~ "for\n"
+#~ "until\n"
+#~ "forever"
+#~ msgstr ""
+#~ "durant\n"
+#~ "fins\n"
+#~ "per sempre"
+
+#~ msgid "<span weight=\"bold\">Miscellaneous</span>"
+#~ msgstr "<span weight=\"bold\">Miscel·lània</span>"
+
+#~ msgid "<span weight=\"bold\">Status</span>"
+#~ msgstr "<span weight=\"bold\">Estat</span>"
+
+#~ msgid ""
+#~ "High\n"
+#~ "Normal\n"
+#~ "Low\n"
+#~ "Undefined"
+#~ msgstr ""
+#~ "Alta\n"
+#~ "Normal\n"
+#~ "Baixa\n"
+#~ "No definida"
+
+#~ msgid ""
+#~ "Not Started\n"
+#~ "In Progress\n"
+#~ "Completed\n"
+#~ "Canceled"
+#~ msgstr ""
+#~ "Per començar\n"
+#~ "En curs\n"
+#~ "Completada\n"
+#~ "Cancel·lada"
+
+#~ msgid ""
+#~ "January\n"
+#~ "February\n"
+#~ "March\n"
+#~ "April\n"
+#~ "May\n"
+#~ "June\n"
+#~ "July\n"
+#~ "August\n"
+#~ "September\n"
+#~ "October\n"
+#~ "November\n"
+#~ "December"
+#~ msgstr ""
+#~ "gener\n"
+#~ "febrer\n"
+#~ "març\n"
+#~ "abril\n"
+#~ "maig\n"
+#~ "juny\n"
+#~ "juliol\n"
+#~ "agost\n"
+#~ "setembre\n"
+#~ "octubre\n"
+#~ "novembre\n"
+#~ "desembre"
+
+#, fuzzy
+#~ msgid "Show CC"
+#~ msgstr "Mostra"
+
+#, fuzzy
+#~ msgid "Show BCC"
+#~ msgstr "Mostra"
+
+#~ msgid "Directories can not be attached to Messages."
+#~ msgstr "No es poden adjuntar directoris als missatges."
+
+#~ msgid ""
+#~ "Send options available only for Novell GroupWise and Microsoft Exchange "
+#~ "accounts."
+#~ msgstr ""
+#~ "Les opcions d'enviament només estan disponibles per als comptes de "
+#~ "GroupWise de Novell i de l'Exchange de Microsoft."
+
+#~ msgid "Send options not available."
+#~ msgstr "Les opcions d'enviament no estan disponibles."
+
+#~ msgid ""
+#~ "To attach the contents of this directory, either attach the files in this "
+#~ "directory individually, or create an archive of the directory and attach "
+#~ "it."
+#~ msgstr ""
+#~ "Per a adjuntar el contingut d'aquest directori, adjunteu els fitxers del "
+#~ "directori un per un, o creeu un arxiu del directori i adjunteu-lo."
+
+#~ msgid "Warning: Modified Message"
+#~ msgstr "Atenció: s'ha modificat el missatge"
+
+#~ msgid "Overwrite file?"
+#~ msgstr "Voleu sobreescriure el fitxer?"
+
+#~ msgid "Test"
+#~ msgstr "Prova"
+
+#~ msgid "<b>_Filter Rules</b>"
+#~ msgstr "<b>Regles de _filtre</b>"
+
+#~ msgid ""
+#~ "seconds\n"
+#~ "minutes\n"
+#~ "hours\n"
+#~ "days\n"
+#~ "weeks\n"
+#~ "months\n"
+#~ "years"
+#~ msgstr ""
+#~ "segons\n"
+#~ "minuts\n"
+#~ "hores\n"
+#~ "dies\n"
+#~ "setmanes\n"
+#~ "mesos\n"
+#~ "anys"
+
+#~ msgid "Rule name"
+#~ msgstr "Nom de la regla"
+
+#~ msgid "Select _All Text"
+#~ msgstr "Seleccion_a tot el text"
+
+#~ msgid "message"
+#~ msgstr "missatge"
+
+#~ msgid "Show the \"Preview\" pane"
+#~ msgstr "Mostra la subfinestra «Previsualització»"
+
+#~ msgid "Show the \"Preview\" pane."
+#~ msgstr "Mostra la subfinestra «Previsualització»."
+
+#~ msgid "Thread the message list."
+#~ msgstr "Crea fils basats en la llista de missatges."
+
+#~ msgid "Thread the message-list"
+#~ msgstr "Crea fils basats en la llista de missatges"
+
+#~ msgid "<b>Sig_natures</b>"
+#~ msgstr "<b>S_ignatures</b>"
+
+#~ msgid "<b>_Languages</b>"
+#~ msgstr "<b>_Idiomes</b>"
+
+#~ msgid "<span weight=\"bold\">Authentication</span>"
+#~ msgstr "<span weight=\"bold\">Autenticació</span>"
+
+#~ msgid "<span weight=\"bold\">Composing Messages</span>"
+#~ msgstr "<span weight=\"bold\">Redacció de missatges</span>"
+
+#~ msgid "<span weight=\"bold\">Configuration</span>"
+#~ msgstr "<span weight=\"bold\">Configuració</span>"
+
+#~ msgid "<span weight=\"bold\">Default Behavior</span>"
+#~ msgstr "<span weight=\"bold\">Comportament per defecte</span>"
+
+#~ msgid "<span weight=\"bold\">Displayed Message _Headers</span>"
+#~ msgstr "<span weight=\"bold\">Ca_pçaleres del correu mostrades</span>"
+
+#~ msgid "<span weight=\"bold\">Labels</span>"
+#~ msgstr "<span weight=\"bold\">Etiquetes</span>"
+
+#~ msgid "<span weight=\"bold\">Loading Images</span>"
+#~ msgstr "<span weight=\"bold\">Càrrega d'imatges</span>"
+
+#~ msgid "<span weight=\"bold\">Message Display</span>"
+#~ msgstr "<span weight=\"bold\">Visualització dels missatges</span>"
+
+#~ msgid "<span weight=\"bold\">Message Fonts</span>"
+#~ msgstr "<span weight=\"bold\">Tipus de lletra dels missatges</span>"
+
+#~ msgid "<span weight=\"bold\">Message Receipts</span>"
+#~ msgstr "<span weight=\"bold\">Confirmacions de lectura</span>"
+
+#~ msgid "<span weight=\"bold\">Optional Information</span>"
+#~ msgstr "<span weight=\"bold\">Informació opcional</span>"
+
+#~ msgid "<span weight=\"bold\">Options</span>"
+#~ msgstr "<span weight=\"bold\">Opcions</span>"
+
+#~ msgid "<span weight=\"bold\">Printed Fonts</span>"
+#~ msgstr "<span weight=\"bold\">Tipus de lletra per a la impressió</span>"
+
+#~ msgid "<span weight=\"bold\">Proxy Settings</span>"
+#~ msgstr "<span weight=\"bold\">Paràmetres del servidor intermediari</span>"
+
+#~ msgid "<span weight=\"bold\">Required Information</span>"
+#~ msgstr "<span weight=\"bold\">Informació necessària</span>"
+
+#~ msgid "<span weight=\"bold\">Secure MIME (S/MIME)</span>"
+#~ msgstr "<span weight=\"bold\">MIME segur (S/MIME)</span>"
+
+#~ msgid "<span weight=\"bold\">Security</span>"
+#~ msgstr "<span weight=\"bold\">Seguretat</span>"
+
+#~ msgid "<span weight=\"bold\">Sent and Draft Messages</span>"
+#~ msgstr "<span weight=\"bold\">Missatges enviats i esborranys</span>"
+
+#~ msgid "<span weight=\"bold\">Server Configuration</span>"
+#~ msgstr "<span weight=\"bold\">Configuració del servidor</span>"
+
+#~ msgid "<span weight=\"bold\">_Authentication Type</span>"
+#~ msgstr "<span weight=\"bold\">Tipus d'_autenticació</span>"
+
+#~ msgid ""
+#~ "Attachment\n"
+#~ "Inline\n"
+#~ "Quoted"
+#~ msgstr ""
+#~ "Adjunció\n"
+#~ "En línia\n"
+#~ "Citat"
+
+#~ msgid ""
+#~ "Attachment\n"
+#~ "Inline (Outlook style)\n"
+#~ "Quoted\n"
+#~ "Do not quote"
+#~ msgstr ""
+#~ "Adjunció\n"
+#~ "En línia (a l'estil de l'Outlook)\n"
+#~ "Citat\n"
+#~ "Sense citar"
+
+#~ msgid "Message Composer"
+#~ msgstr "Redactor de missatges"
+
+#~ msgid "<b>Search Folder Sources</b>"
+#~ msgstr "<b>Origen de la carpeta de cerca</b>"
+
+#~ msgid "<span weight=\"bold\">Digital Signature</span>"
+#~ msgstr "<span weight=\"bold\">Signatura digital</span>"
+
+#~ msgid "<span weight=\"bold\">Encryption</span>"
+#~ msgstr "<span weight=\"bold\">Xifratge</span>"
+
+#~ msgid "Base"
+#~ msgstr "Base"
+
+#~ msgid "_Open"
+#~ msgstr "_Obre"
+
+#~ msgid ""
+#~ "389\n"
+#~ "636\n"
+#~ "3268"
+#~ msgstr ""
+#~ "389\n"
+#~ "636\n"
+#~ "3268"
+
+#~ msgid "<b>Authentication</b>"
+#~ msgstr "<b>Autenticació</b>"
+
+#~ msgid "<b>Downloading</b>"
+#~ msgstr "<b>Baixades</b>"
+
+#~ msgid "<b>Searching</b>"
+#~ msgstr "<b>Cerca</b>"
+
+#~ msgid ""
+#~ "Anonymously\n"
+#~ "Using email address\n"
+#~ "Using distinguished name (DN)"
+#~ msgstr ""
+#~ "De manera anònima\n"
+#~ "Utilitza l'adreça electrònica\n"
+#~ "Utilitza el nom distingit (DN)"
+
+#~ msgid ""
+#~ "Evolution will use this email address to authenticate you with the server."
+#~ msgstr ""
+#~ "L'Evolution utilitzarà aquesta adreça electrònica per autenticar-vos al "
+#~ "servidor"
+
+# És el nom d'un mètode
+#~ msgid ""
+#~ "One\n"
+#~ "Sub"
+#~ msgstr ""
+#~ "One\n"
+#~ "Sub"
+
+#~ msgid ""
+#~ "SSL encryption\n"
+#~ "TLS encryption\n"
+#~ "No encryption"
+#~ msgstr ""
+#~ "Xifratge SSL\n"
+#~ "Xifratge TLS\n"
+#~ "Sense xifratge"
+
+#~ msgid ""
+#~ "The search base is the distinguished name (DN) of the entry where your "
+#~ "searches will begin. If you leave this blank, the search will begin at "
+#~ "the root of the directory tree."
+#~ msgstr ""
+#~ "La base de la cerca és el nom distingit (DN) de l'entrada on començaran "
+#~ "les cerques. Si la deixeu en blanc, la cerca començarà a l'arrel de "
+#~ "l'arbre de directoris."
+
+#~ msgid ""
+#~ "This is the full name of your LDAP server. For example, \"ldap.mycompany."
+#~ "com\"."
+#~ msgstr ""
+#~ "El nom complet del servidor d'LDAP. Per exemple, «ldap.lamevaempresa.cat»."
+
+#~ msgid ""
+#~ "This is the maximum number of entries to download. Setting this number to "
+#~ "be too large will slow down your address book."
+#~ msgstr ""
+#~ "És el nombre màxim d'entrades a baixar. Si especifiqueu un nombre massa "
+#~ "gran, la llibreta d'adreces funcionarà més lentament."
+
+#~ msgid ""
+#~ "This is the name for this server that will appear in your Evolution "
+#~ "folder list. It is for display purposes only. "
+#~ msgstr ""
+#~ "El nom que apareixerà a la llista de carpetes de l'Evolution per a aquest "
+#~ "servidor. Només s'utilitzarà per a visualitzar-lo."
+
+#~ msgid "Save As..."
+#~ msgstr "Anomena i desa..."
+
+#, fuzzy
+#~ msgid "Deleting selected memos..."
+#~ msgstr "S'estan suprimint els objectes seleccionats..."
+
+#~ msgid "Copy selected memo"
+#~ msgstr "Copia les anotacions seleccionades"
+
+#~ msgid "Cut selected memo"
+#~ msgstr "Retalla l'anotació seleccionada"
+
+#, fuzzy
+#~ msgid "Deleting selected tasks..."
+#~ msgstr "S'estan suprimint els objectes seleccionats..."
+
+#~ msgid "Copy selected tasks"
+#~ msgstr "Copia les tasques seleccionades"
+
+#~ msgid "Cut selected tasks"
+#~ msgstr "Retalla les tasques seleccionades"
+
+#~ msgid "Select _All Messages"
+#~ msgstr "Seleccion_a tots els missatges"
+
+#~ msgid "Select a (48*48) png of size < 700bytes"
+#~ msgstr "Seleccioneu un fitxer PNG de 48 x 48 i menys de 700 bytes"
+
+#~ msgid "PNG files"
+#~ msgstr "Fitxers PNG"
+
+#~ msgid "_Face"
+#~ msgstr "_Cara"
+
+#~ msgid ""
+#~ "Attach a small picture of your face to outgoing messages.\n"
+#~ "\n"
+#~ "First time the user needs to configure a 48x48 PNG image. It is Base-64 "
+#~ "encoded and stored in ~/.evolution/faces. This will be used in subsequent "
+#~ "sent messages."
+#~ msgstr ""
+#~ "Adjunta una petita imatge de la vostra cara als correus de sortida.\n"
+#~ "\n"
+#~ "La primera vegada l'usuari haurà de configurar una imatge PNG de 48x48 "
+#~ "píxels codificada en Base-64, la qual s'haurà d'emmagatzemar a ~/."
+#~ "evolution/faces. A partir d'aquí aquesta imatge s'utilitzarà per a tots "
+#~ "els correus enviats."
+
+#~ msgid "<b>Junk List:</b>"
+#~ msgstr "<b>Llista de correu brossa:</b>"
+
+#~ msgid "<b>Name</b>"
+#~ msgstr "<b>Nom</b>"
+
+#~ msgid "<b>Custom Headers</b>"
+#~ msgstr "<b>Capçaleres personalitzades</b>"
+
+#~ msgid "<b>IMAP Headers</b>"
+#~ msgstr "<b>Capçaleres IMAP</b>"
+
+#~ msgid "Prefer PLAIN"
+#~ msgstr "Prefereixo text sense format"
+
+#~ msgid "<span weight=\"bold\">Location</span>"
+#~ msgstr "<span weight=\"bold\">Ubicació</span>"
+
+#~ msgid "<span weight=\"bold\">Sources</span>"
+#~ msgstr "<span weight=\"bold\">Orígens</span>"
+
+#~ msgid ""
+#~ "Secure FTP (SSH)\n"
+#~ "Public FTP\n"
+#~ "FTP (with login)\n"
+#~ "Windows share\n"
+#~ "WebDAV (HTTP)\n"
+#~ "Secure WebDAV (HTTPS)\n"
+#~ "Custom Location"
+#~ msgstr ""
+#~ "FTP segur (SSH)\n"
+#~ "FTP públic\n"
+#~ "FTP (amb entrada)\n"
+#~ "Recurs compartit del Windows\n"
+#~ "WebDAV (HTTP)\n"
+#~ "WebDAV segur (HTTPS)\n"
+#~ "Ubicació personalitzada"
+
+#~ msgid ""
+#~ "days\n"
+#~ "weeks\n"
+#~ "months"
+#~ msgstr ""
+#~ "dies\n"
+#~ "setmanes\n"
+#~ "mesos"
+
+#~ msgid ""
+#~ "iCal\n"
+#~ "Free/Busy"
+#~ msgstr ""
+#~ "iCal\n"
+#~ "Lliure/ocupat"
+
+#~ msgid "_Synchronization Options..."
+#~ msgstr "Opcions de _sincronització..."
+
+#~ msgid "<b>Field Value</b>"
+#~ msgstr "<b>Valor del camp</b>"
+
+#~ msgid "<b>Fingerprints</b>"
+#~ msgstr "<b>Empremtes electròniques</b>"
+
+#~ msgid "<b>Issued By</b>"
+#~ msgstr "<b>Emès per</b>"
+
+#~ msgid "<b>Issued To</b>"
+#~ msgstr "<b>Emès per a</b>"
+
+# FIXME: no se m'ha acudit res millor ara per ara (dpm)
+#~ msgid "Dummy window only"
+#~ msgstr "Només la finestra de simulació"
+
+#~ msgid "<b>Time Zones</b>"
+#~ msgstr "<b>Fusos horaris</b>"
+
+#~ msgid "<b>_Selection</b>"
+#~ msgstr "<b>_Selecció</b>"
+
+#~ msgid "Hide _Attachment Bar"
+#~ msgstr "Amaga la _barra de fitxers adjunts"
+
+#, fuzzy
+#~ msgid "Source Action"
+#~ msgstr "Compte origen"
+
+#, fuzzy
+#~ msgid "The source action to proxy"
+#~ msgstr "Hi ha un altre contacte."
+
+#~ msgid "<b>Replies</b>"
+#~ msgstr "<b>Respostes</b>"
+
+#~ msgid "<b>Status Tracking</b>"
+#~ msgstr "<b>Seguiment de l'estat</b>"
+
+#~ msgid ""
+#~ "Normal\n"
+#~ "Proprietary\n"
+#~ "Confidential\n"
+#~ "Secret\n"
+#~ "Top Secret\n"
+#~ "For Your Eyes Only"
+#~ msgstr ""
+#~ "Normal\n"
+#~ "Propietari\n"
+#~ "Confidencial\n"
+#~ "Secret\n"
+#~ "Alt secret\n"
+#~ "Només per als vostres ulls"
+
+#~ msgid ""
+#~ "Undefined\n"
+#~ "High\n"
+#~ "Standard\n"
+#~ "Low"
+#~ msgstr ""
+#~ "No definit\n"
+#~ "Alt\n"
+#~ "Estàndard\n"
+#~ "Baix"
+
+# gal/e-table/e-table-field-chooser-dialog.c:126
+#~ msgid "Add a column..."
+#~ msgstr "Afegeix una columna..."
+
+#~ msgid "Field Chooser"
+#~ msgstr "Selector de camp"
+
+#~ msgid "Tree"
+#~ msgstr "Arbre"
+
+#~ msgid "search bar"
+#~ msgstr "barra de cerca"
+
+#~ msgid "evolution calendar search bar"
+#~ msgstr "barra de cerca del calendari de l'Evolution"
+
+#~ msgid "Combo Button"
+#~ msgstr "Botó combinat"
+
+#~ msgid "Activate Default"
+#~ msgstr "Activa el per defecte"
+
+#~ msgid "Popup Menu"
+#~ msgstr "Menú emergent"
+
+#~ msgid "C_ontacts"
+#~ msgstr "C_ontactes"
+
+#~ msgid "Configure contacts and autocompletion here"
+#~ msgstr "Configureu els contactes i la compleció automàtica aquí"
+
+#~ msgid "Evolution Address Book"
+#~ msgstr "Llibreta d'adreces de l'Evolution"
+
+#~ msgid "Evolution Address Book address popup"
+#~ msgstr ""
+#~ "Finestra emergent de les adreces de la llibreta d'adreces de l'Evolution"
+
+#~ msgid "Evolution Address Book address viewer"
+#~ msgstr "Visualitzador d'adreces de la llibreta d'adreces de l'Evolution"
+
+#~ msgid "Evolution Address Book card viewer"
+#~ msgstr "Visualitzador de targetes de la llibreta d'adreces de l'Evolution"
+
+#~ msgid "Evolution Address Book component"
+#~ msgstr "Component de la llibreta d'adreces de l'Evolution"
+
+#~ msgid "Evolution S/MIME Certificate Management Control"
+#~ msgstr "Control de la gestió dels certificats S/MIME de l'Evolution"
+
+#~ msgid "Evolution folder settings configuration control"
+#~ msgstr ""
+#~ "Control dels paràmetres de configuració de les carpetes de l'Evolution"
+
+#~ msgid "Manage your S/MIME certificates here"
+#~ msgstr "Gestioneu els vostres certificats S/MIME aquí"
+
+#~ msgid "Failed upgrading Address Book settings or folders."
+#~ msgstr ""
+#~ "No s'han pogut actualitzar els paràmetres o el directori de la llibreta "
+#~ "d'adreces."
+
+#~ msgid "Rename the \"%s\" folder to:"
+#~ msgstr "Canvia el nom de la carpeta «%s» a:"
+
+#~ msgid "Rename Folder"
+#~ msgstr "Canvia el nom de la carpeta"
+
+#~ msgid "Save As vCard..."
+#~ msgstr "Desa com a vCard..."
+
+#~ msgid "Contact Source Selector"
+#~ msgstr "Seleccionador de fonts de contacte"
+
+#~ msgid ""
+#~ "Position of the vertical pane, between the card and list views and the "
+#~ "preview pane, in pixels."
+#~ msgstr ""
+#~ "Posició de la subfinestra vertical, entre les visualitzacions de targeta "
+#~ "i de llista, i la subfinestra de previsualització, en píxels."
+
+#~ msgid "Name begins with"
+#~ msgstr "El nom comença per"
+
+#~ msgid "_Print"
+#~ msgstr "_Imprimeix"
+
+#~ msgid "Cop_y to Address Book..."
+#~ msgstr "Cop_ia a la llibreta d'adreces..."
+
+#~ msgid "Mo_ve to Address Book..."
+#~ msgstr "Mou a la lli_breta d'adreces..."
+
+#~ msgid "Cu_t"
+#~ msgstr "Re_talla"
+
+#~ msgid "_Copy"
+#~ msgstr "_Copia"
+
+#~ msgid "P_aste"
+#~ msgstr "Engan_xa"
+
+#~ msgid "Querying Address Book..."
+#~ msgstr "S'està consultant la llibreta d'adreces..."
+
+#~ msgid "Configure your timezone, Calendar and Task List here "
+#~ msgstr "Configureu el fus horari, el calendari i la llista de tasques "
+
+#~ msgid "Evolution Calendar and Tasks"
+#~ msgstr "Tasques i calendari de l'Evolution"
+
+#~ msgid "Evolution Calendar configuration control"
+#~ msgstr "Control de configuració del calendari de l'Evolution"
+
+#~ msgid "Evolution Calendar scheduling message viewer"
+#~ msgstr ""
+#~ "Visualitzador de missatges de planificació del calendari de l'Evolution"
+
+#~ msgid "Evolution Calendar/Task editor"
+#~ msgstr "Editor del calendari/tasques de l'Evolution"
+
+#~ msgid "Evolution's Calendar component"
+#~ msgstr "Component de calendari de l'Evolution"
+
+#~ msgid "Evolution's Memos component"
+#~ msgstr "Component d'anotacions de l'Evolution"
+
+#~ msgid "Evolution's Tasks component"
+#~ msgstr "Component de tasques de l'Evolution"
+
+#~ msgid "Memo_s"
+#~ msgstr "Anotacion_s"
+
+#~ msgid "_Calendars"
+#~ msgstr "_Calendaris"
+
+#~ msgid "Evolution Calendar alarm notification service"
+#~ msgstr "Servei de notificació per alarma del calendari de l'Evolution"
+
+#~ msgid "Could not initialize Bonobo"
+#~ msgstr "No s'ha pogut inicialitzar el Bonobo"
+
+#~ msgid ""
+#~ "Could not create the alarm notify service factory, maybe it's already "
+#~ "running..."
+#~ msgstr ""
+#~ "No s'ha pogut crear la fàbrica de serveis de notificació per alarma. "
+#~ "Potser ja s'està executant..."
+
+#~ msgid ""
+#~ "Position of the vertical pane, between the task list and the task preview "
+#~ "pane, in pixels."
+#~ msgstr ""
+#~ "Posició de la subfinestra vertical, entre la llista de tasques i la "
+#~ "subfinestra de previsualització de tasques, en píxels."
+
+#~ msgid "Category is"
+#~ msgstr "La categoria és"
+
+#~ msgid "Comment contains"
+#~ msgstr "El comentari conté"
+
+#~ msgid "Location contains"
+#~ msgstr "La ubicació conté"
+
+#~ msgid "_Make available for offline use"
+#~ msgstr "_Fes-lo disponible fora de línia"
+
+#~ msgid "_Do not make available for offline use"
+#~ msgstr "No el facis _disponible fora de línia"
+
+#~ msgid "Failed upgrading calendars."
+#~ msgstr "No s'han pogut actualitzar els calendaris."
+
+#~ msgid "Unable to open the calendar '%s' for creating events and meetings"
+#~ msgstr ""
+#~ "No s'ha pogut obrir el calendari «%s» per a crear-hi esdeveniments i "
+#~ "reunions"
+
+#~ msgid "There is no calendar available for creating events and meetings"
+#~ msgstr ""
+#~ "No hi ha cap calendari disponible per a crear esdeveniment i reunions"
+
+#~ msgid "New appointment"
+#~ msgstr "Cita nova"
+
+#~ msgid "New meeting"
+#~ msgstr "Reunió nova"
+
+#~ msgid "New all day appointment"
+#~ msgstr "Cita de tot el dia nova"
+
+#~ msgid "Error while opening the calendar"
+#~ msgstr "S'ha produït un error en obrir el calendari"
+
+#~ msgid "Method not supported when opening the calendar"
+#~ msgstr "S'ha trobat un mètode no compatible en obrir el calendari"
+
+#~ msgid "Permission denied to open the calendar"
+#~ msgstr "No teniu permís per a obrir el calendari"
+
+#~ msgid "_Add "
+#~ msgstr "_Afegeix "
+
+#~ msgid "_Save As..."
+#~ msgstr "Anomena i de_sa..."
+
+#~ msgid "P_rint..."
+#~ msgstr "Im_primeix..."
+
+#~ msgid "C_ut"
+#~ msgstr "Re_talla"
+
+#~ msgid "_Paste"
+#~ msgstr "Engan_xa"
+
+#~ msgid "_Forward as iCalendar"
+#~ msgstr "R_eenvia com a iCalendar"
+
+#~ msgid "_Mark Selected Tasks as Complete"
+#~ msgstr "_Marca les tasques seleccionades com a acabades"
+
+#~ msgid "_Mark Selected Tasks as Incomplete"
+#~ msgstr "_Marca les tasques seleccionades com a incompletes"
+
+#~ msgid "_Delete Selected Tasks"
+#~ msgstr "Suprimeix les tasques selecciona_des"
+
+#~ msgid "Select T_oday"
+#~ msgstr "Selecciona av_ui"
+
+#~ msgid "_Select Date..."
+#~ msgstr "_Seleccioneu una data..."
+
+#~ msgid "Pri_nt..."
+#~ msgstr "Im_primeix..."
+
+#~ msgid "_Delete Selected Memos"
+#~ msgstr "Suprimeix les anotacions selecciona_des"
+
+#~ msgid "Completing tasks..."
+#~ msgstr "S'estan acabant les tasques..."
+
+#~ msgid "_Custom View"
+#~ msgstr "_Visualització personalitzada"
+
+#~ msgid "_Save Custom View"
+#~ msgstr "De_sa la visualització personalitzada"
+
+#~ msgid "_Define Views..."
+#~ msgstr "_Defineix les visualitzacions..."
+
+#~ msgid "Loading tasks at %s"
+#~ msgstr "S'estan carregant les tasques a %s"
+
+#~ msgid "Loading memos at %s"
+#~ msgstr "S'estan carregant les anotacions a %s"
+
+#~ msgid "Failed upgrading memos."
+#~ msgstr "No s'han pogut actualitzar les anotacions."
+
+#~ msgid "Unable to open the memo list '%s' for creating events and meetings"
+#~ msgstr ""
+#~ "No es pot obrir la llista d'anotacions «%s» per a crear esdeveniments i "
+#~ "reunions"
+
+#~ msgid "There is no calendar available for creating memos"
+#~ msgstr "No hi ha cap calendari disponible per a crear anotacions"
+
+#~ msgid "New shared memo"
+#~ msgstr "Anotació compartida nova"
+
+#~ msgid "New memo list"
+#~ msgstr "Llista d'anotacions nova"
+
+#~ msgctxt "New"
+#~ msgid "Memo li_st"
+#~ msgstr "Ll_ista d'anotacions"
+
+#~ msgid "Failed upgrading tasks."
+#~ msgstr "No s'han pogut actualitzar les tasques."
+
+#~ msgid "Unable to open the task list '%s' for creating events and meetings"
+#~ msgstr "No es pot obrir la llista «%s» per a crear esdeveniments i reunions"
+
+#~ msgid "There is no calendar available for creating tasks"
+#~ msgstr "No hi ha cap calendari disponible per a crear tasques"
+
+#~ msgid "New task"
+#~ msgstr "Tasca nova"
+
+#~ msgid "New assigned task"
+#~ msgstr "Tasca assignada nova"
+
+#~ msgid "New task list"
+#~ msgstr "Llista de tasques nova"
+
+#~ msgctxt "New"
+#~ msgid "Tas_k list"
+#~ msgstr "Llista de tas_ques"
+
+#~ msgid "Evolution Information"
+#~ msgstr "Informació de l'Evolution"
+
+#~ msgid "Evolution Query"
+#~ msgstr "Consulta de l'Evolution"
+
+#~ msgid "Component"
+#~ msgstr "Component"
+
+#~ msgid "Label name cannot be empty."
+#~ msgstr "En nom de l'etiqueta no pot ser buit."
+
+#~ msgid ""
+#~ "A label having the same tag already exists on the server. Please rename "
+#~ "your label."
+#~ msgstr ""
+#~ "Ja existeix una etiqueta amb el mateix nom al servidor. Hauríeu de "
+#~ "canviar-li el nom."
+
+#~ msgid ""
+#~ "Configure mail preferences, including security and message display, here"
+#~ msgstr ""
+#~ "Configureu les preferències del correu, la seguretat i la visualització "
+#~ "dels missatges"
+
+#~ msgid "Configure spell-checking, signatures, and the message composer here"
+#~ msgstr ""
+#~ "Configureu la comprovació ortogràfica, les signatures i el redactor de "
+#~ "missatges"
+
+#~ msgid "Configure your network connection settings here"
+#~ msgstr "Configureu els paràmetres de connexió a la xarxa"
+
+#~ msgid "Evolution Mail"
+#~ msgstr "Correu de l'Evolution"
+
+#~ msgid "Evolution Mail accounts configuration control"
+#~ msgstr "Control de configuració dels comptes de correu de l'Evolution"
+
+#~ msgid "Evolution Mail component"
+#~ msgstr "Component de correu de l'Evolution"
+
+#~ msgid "Evolution Mail composer"
+#~ msgstr "Redactor de correu de l'Evolution"
+
+#~ msgid "Evolution Mail composer configuration control"
+#~ msgstr "Control de configuració del redactor de correu de l'Evolution"
+
+#~ msgid "Evolution Mail preferences control"
+#~ msgstr "Control de preferències de correu de l'Evolution"
+
+#~ msgid "Evolution Network configuration control"
+#~ msgstr "Control de configuració de la xarxa de l'Evolution"
+
+#~ msgid "[Default]"
+#~ msgstr "[Per defecte]"
+
+#~ msgid "Signature(s)"
+#~ msgstr "Signatures"
+
+#~ msgid "_Copy to Folder"
+#~ msgstr "_Copia a la carpeta"
+
+#~ msgid "_Move to Folder"
+#~ msgstr "_Mou a la carpeta"
+
+#~ msgid "Cancel _Drag"
+#~ msgstr "Cance_l·la l'arrossegament"
+
+#~ msgid "Open in _New Window"
+#~ msgstr "Obre e_n una finestra nova"
+
+#~ msgid "_Unread Search Folder"
+#~ msgstr "Marca la carpeta de cerca com a _no llegida"
+
+#~ msgid "U_ndelete"
+#~ msgstr "Desfés la su_pressió"
+
+#~ msgid "Fla_g Completed"
+#~ msgstr "Sen_yala-ho com a completat"
+
+#~ msgid "Cl_ear Flag"
+#~ msgstr "N_eteja el senyalador"
+
+#~ msgid "Crea_te Rule From Message"
+#~ msgstr "C_rea una regla a partir del missatge"
+
+#~ msgid "Search Folder based on _Subject"
+#~ msgstr "Carpeta de cerca a partir de l'a_ssumpte"
+
+#~ msgid "Search Folder based on Se_nder"
+#~ msgstr "Carpeta de cerca a partir del remite_nt"
+
+#~ msgid "Search Folder based on _Recipients"
+#~ msgstr "Carpeta de cerca a partir dels destinata_ris"
+
+#~ msgid "Filter based on Sub_ject"
+#~ msgstr "Filtre a partir de l'a_ssumpte"
+
+#~ msgid "Filter based on Sen_der"
+#~ msgstr "Filtre a partir del remi_tent"
+
+#~ msgid "Filter based on Re_cipients"
+#~ msgstr "Filtre a partir dels _destinataris"
+
+#~ msgid "Filter based on _Mailing List"
+#~ msgstr "Fil_tre a partir de la llista de correu"
+
+#~ msgid "_Fit to Width"
+#~ msgstr "A_justa a l'amplada"
+
+#~ msgid "Tag"
+#~ msgstr "Etiqueta"
+
+#~ msgid "untitled_image.%s"
+#~ msgstr "imatge_sense_nom.%s"
+
+#~ msgid "_Reply to sender"
+#~ msgstr "_Respon al remitent"
+
+#~ msgid "Open in %s..."
+#~ msgstr "Obre a %s..."
+
+#~ msgid "Add address"
+#~ msgstr "Afegeix una adreça"
+
+#~ msgid "Default height of the message window."
+#~ msgstr "Amplada per defecte de la finestra de missatge."
+
+#~ msgid "Default width of the message window."
+#~ msgstr "Amplada per defecte de la finestra dels missatges."
+
+#~ msgid ""
+#~ "If the \"Preview\" pane is on, then show it side-by-side rather than "
+#~ "vertically."
+#~ msgstr ""
+#~ "Si la subfinestra de «Previsualització» està activada, mostra-la al costat "
+#~ "en comptes de verticalment."
+
+#~ msgid "Message Window default height"
+#~ msgstr "Alçada per defecte de la finestra de missatges"
+
+#~ msgid "Message Window default width"
+#~ msgstr "Amplada per defecte de la finestra de missatges"
+
+#~ msgid "Prompt to check if the user wants to go offline immediately"
+#~ msgstr "Pregunta si l'usuari vol treballar fora de línia immediatament"
+
+#~ msgid "Use side-by-side or wide layout"
+#~ msgstr "Utilitza una disposició de costat o ampla"
+
+#~ msgid "New Mail Message"
+#~ msgstr "Missatge de correu nou"
+
+#~ msgid "New Mail Folder"
+#~ msgstr "Carpeta de correu nova"
+
+#~ msgid "Failed upgrading Mail settings or folders."
+#~ msgstr "No s'ha pogut actualitzar la configuració o les carpetes."
+
+#~ msgid "Baltic (ISO-8859-13)"
+#~ msgstr "Bàltic (ISO-8859-13)"
+
+#~ msgid "Baltic (ISO-8859-4)"
+#~ msgstr "Bàltic (ISO-8859-4)"
+
+#~ msgid "Email Accounts"
+#~ msgstr "Comptes de correu"
+
+#~ msgid ""
+#~ "If the server uses a non-standard port then specify the server address as "
+#~ "\"server-name:port-number\""
+#~ msgstr ""
+#~ "Si el servidor utilitza un port no estàndard, especifiqueu l'adreça del "
+#~ "servidor en el format «nom-del-servidor:número-de-port»"
+
+#~ msgid "Signatures Table"
+#~ msgstr "Taula de signatures"
+
+#~ msgid "Delete \"{0}\"?"
+#~ msgstr "Voleu suprimir «{0}»?"
+
+#~ msgid "Delete messages in Search Folder?"
+#~ msgstr "Voleu suprimir els missatges de la carpeta de cerca?"
+
+#~ msgid "Discard changes?"
+#~ msgstr "Voleu descartar els canvis?"
+
+#~ msgid "Mark all messages as read"
+#~ msgstr "Marca com a llegits tots els missatges"
+
+#~ msgid "Querying server"
+#~ msgstr "S'està consultant el servidor"
+
+#~ msgid "Subject or Recipients contains"
+#~ msgstr "L'assumpte o els destinataris contenen"
+
+#~ msgid "Subject or Sender contains"
+#~ msgstr "L'assumpte o el remitent conté"
+
+#~ msgid "Audio Inline"
+#~ msgstr "Àudio en línia"
+
+#~ msgid "Copy Tool"
+#~ msgstr "Eina de còpia"
+
+#~ msgid "Open Other User's Folder"
+#~ msgstr "Obre la carpeta d'un altre usuari"
+
+#~ msgid "_Folder Name:"
+#~ msgstr "_Nom de la carpeta:"
+
+#~ msgid "_User:"
+#~ msgstr "_Usuari:"
+
+#~ msgid "Secure Password"
+#~ msgstr "Contrasenya segura"
+
+#~ msgid ""
+#~ "This option will connect to the Exchange server using secure password "
+#~ "(NTLM) authentication."
+#~ msgstr ""
+#~ "Amb aquesta opció es connectarà al servidor Exchange utilitzant "
+#~ "autenticació basada en contrasenya segura (NTLM)."
+
+#~ msgid "Plaintext Password"
+#~ msgstr "Contrasenya sense xifrar"
+
+#~ msgid ""
+#~ "This option will connect to the Exchange server using standard plaintext "
+#~ "password authentication."
+#~ msgstr ""
+#~ "Amb aquesta opció es connectarà al servidor Exchange mitjançant una "
+#~ "contrasenya de text sense xifrar."
+
+#~ msgid "Out Of Office"
+#~ msgstr "Fora de l'oficina"
+
+#~ msgid ""
+#~ "The message specified below will be automatically sent to \n"
+#~ "each person who sends mail to you while you are out of the office."
+#~ msgstr ""
+#~ "El missatge especificat a sota s'enviarà automàticament a totes les "
+#~ "persones\n"
+#~ "que us enviïn un correu quan no sigueu a l'oficina."
+
+#~ msgid "I am out of the office"
+#~ msgstr "No sóc a l'oficina"
+
+#~ msgid "I am in the office"
+#~ msgstr "Sóc a l'oficina"
+
+#~ msgid "Change the password for Exchange account"
+#~ msgstr "Canvia la contrasenya per al compte de l'Exchange"
+
+#~ msgid "Change Password"
+#~ msgstr "Canvia la contrasenya"
+
+#~ msgid "Manage the delegate settings for Exchange account"
+#~ msgstr "Gestiona la configuració de delegats per al compte de l'Exchange"
+
+#~ msgid "Delegation Assistant"
+#~ msgstr "Assistent de delegació"
+
+#~ msgid "Miscelleneous"
+#~ msgstr "Miscel·lània"
+
+#~ msgid "View the size of all Exchange folders"
+#~ msgstr "Visualitza la mida de totes les carpetes de l'Exchange"
+
+#~ msgid "Folders Size"
+#~ msgstr "Mida de les carpetes"
+
+#~ msgid "Exchange Settings"
+#~ msgstr "Configuració de l'Exchange"
+
+#~ msgid "_OWA URL:"
+#~ msgstr "URL _OWA:"
+
+#~ msgid "A_uthenticate"
+#~ msgstr "A_utenticació"
+
+#~ msgid "Mailbox name is _different than user name"
+#~ msgstr "El nom de la bústia de correu és _diferent del nom de l'usuari"
+
+#~ msgid "_Mailbox:"
+#~ msgstr "_Bústia de correu:"
+
+#~ msgid "%s KB"
+#~ msgstr "%s KB"
+
+#~ msgid "0 KB"
+#~ msgstr "0 KB"
+
+#~ msgid "Size:"
+#~ msgstr "Mida:"
+
+#~ msgid ""
+#~ "Evolution is in offline mode. You cannot create or modify folders now.\n"
+#~ "Please switch to online mode for such operations."
+#~ msgstr ""
+#~ "L'Evolution està en mode fora de línia. Ara no podeu crear o modificar "
+#~ "carpetes.\n"
+#~ "Canvieu al mode en línia per a realitzar aquestes operacions."
+
+#~ msgid ""
+#~ "The current password does not match the existing password for your "
+#~ "account. Please enter the correct password"
+#~ msgstr ""
+#~ "La contrasenya actual no concorda amb l'existent en el vostre compte. "
+#~ "Introduïu la contrasenya correcta"
+
+#~ msgid "The two passwords do not match. Please re-enter the passwords."
+#~ msgstr ""
+#~ "Les contrasenyes són diferents. Torneu a introduir les contrasenyes."
+
+#~ msgid "Confirm Password:"
+#~ msgstr "Confirmeu la contrasenya:"
+
+#~ msgid "Current Password:"
+#~ msgstr "Contrasenya actual:"
+
+#~ msgid "New Password:"
+#~ msgstr "Contrasenya nova:"
+
+#~ msgid "Your current password has expired. Please change your password now."
+#~ msgstr "La contrasenya actual ha vençut. Hauríeu de canviar-la ara."
+
+#~ msgid "Your password will expire in the next %d days"
+#~ msgstr "La contrasenya vencerà en els propers %d dies"
+
+#~ msgid "Custom"
+#~ msgstr "Personalitzat"
+
+#~ msgid "Editor (read, create, edit)"
+#~ msgstr "Editor (llegir, crear, editar)"
+
+#~ msgid "Author (read, create)"
+#~ msgstr "Autor (llegir, crear)"
+
+#~ msgid "Reviewer (read-only)"
+#~ msgstr "Revisor (només lectura)"
+
+#~ msgid "Delegate Permissions"
+#~ msgstr "Permisos del delegat"
+
+#~ msgid "Permissions for %s"
+#~ msgstr "Permisos per a %s"
+
+#~ msgid ""
+#~ "This message was sent automatically by Evolution to inform you that you "
+#~ "have been designated as a delegate. You can now send messages on my "
+#~ "behalf."
+#~ msgstr ""
+#~ "L'Evolution us ha enviat aquest missatge automàticament per a informar-"
+#~ "vos que se us ha designat com a delegat meu. A partir d'ara podeu enviar "
+#~ "missatges en el meu nom."
+
+#~ msgid "You have been given the following permissions on my folders:"
+#~ msgstr "Heu obtingut els permisos següents sobre les meves carpetes:"
+
+#~ msgid "You are also permitted to see my private items."
+#~ msgstr "També teniu permís per veure els meus elements privats."
+
+#~ msgid "However you are not permitted to see my private items."
+#~ msgstr "Tot i això, no teniu permís per veure els meus elements privats."
+
+#~ msgid "You have been designated as a delegate for %s"
+#~ msgstr "Heu estat designat delegat per a %s"
+
+#~ msgid "Could not access Active Directory"
+#~ msgstr "No s'ha pogut accedir l'Active Directory"
+
+#~ msgid "Could not find self in Active Directory"
+#~ msgstr "No se us ha trobat en l'Active Directory"
+
+#~ msgid "Could not find delegate %s in Active Directory"
+#~ msgstr "No s'ha pogut trobar el delegat %s en l'Active Directory"
+
+#~ msgid "Could not remove delegate %s"
+#~ msgstr "No s'ha pogut suprimir el delegat %s"
+
+#~ msgid "Could not update list of delegates."
+#~ msgstr "No s'ha pogut actualitzar la llista de delegats."
+
+#~ msgid "Could not add delegate %s"
+#~ msgstr "No s'ha pogut afegir el delegat %s"
+
+#~ msgid "Error reading delegates list."
+#~ msgstr "S'ha produït un error en llegir la llista de delegats."
+
+#~ msgid "C_alendar:"
+#~ msgstr "C_alendari:"
+
+#~ msgid "Co_ntacts:"
+#~ msgstr "Co_ntactes:"
+
+#~ msgid "Delegates"
+#~ msgstr "Delegats"
+
+#~ msgid ""
+#~ "None\n"
+#~ "Reviewer (read-only)\n"
+#~ "Author (read, create)\n"
+#~ "Editor (read, create, edit)"
+#~ msgstr ""
+#~ "Cap\n"
+#~ "Revisor (només lectura)\n"
+#~ "Autor (lectura, creació)\n"
+#~ "Editor (lectura, creació, edició)"
+
+#~ msgid "Permissions for"
+#~ msgstr "Permisos per a"
+
+#~ msgid ""
+#~ "These users will be able to send mail on your behalf\n"
+#~ "and access your folders with the permissions you give them."
+#~ msgstr ""
+#~ "Aquests usuaris podran enviar correus en el vostre nom i\n"
+#~ "accedir les vostres carpetes amb els permisos que els hi doneu."
+
+#~ msgid "_Delegate can see private items"
+#~ msgstr "El _delegat pot veure els elements privats"
+
+#~ msgid "_Inbox:"
+#~ msgstr "_Safata d'entrada:"
+
+#~ msgid "_Summarize permissions"
+#~ msgstr "_Resumeix els permisos"
+
+#~ msgid "Permissions..."
+#~ msgstr "Permisos..."
+
+#~ msgid "Folder Name"
+#~ msgstr "Nom de la carpeta"
+
+#~ msgid "Folder Size"
+#~ msgstr "Mida de les carpetes"
+
+#~ msgid "Subscribe to Other User's Folder"
+#~ msgstr "Subscriu-me a la carpeta d'un altre usuari"
+
+#~ msgid "Exchange Folder Tree"
+#~ msgstr "Arbre de carpetes de l'Exchange"
+
+#~ msgid "Unsubscribe Folder..."
+#~ msgstr "Cancel·la la subscripció a una carpeta..."
+
+#~ msgid ""
+#~ "<b>Currently, your status is \"Out of the Office\". </b>\n"
+#~ "\n"
+#~ "Would you like to change your status to \"In the Office\"? "
+#~ msgstr ""
+#~ "<b>En aquest moment, el vostre estat és «Absent de l'oficina». </b>\n"
+#~ "\n"
+#~ "Voleu canviar-lo a «A l'oficina»? "
+
+#~ msgid "<b>Out of Office Message:</b>"
+#~ msgstr "<b>Missatge d'absència de l'oficina:</b>"
+
+#~ msgid "<b>Status:</b>"
+#~ msgstr "<b>Estat:</b>"
+
+#~ msgid ""
+#~ "<small>The message specified below will be automatically sent to each "
+#~ "person who sends\n"
+#~ "mail to you while you are out of the office.</small>"
+#~ msgstr ""
+#~ "<small>El missatge especificat a sota s'enviarà automàticament a totes "
+#~ "les persones\n"
+#~ "que us enviïn un correu quan no sigueu a l'oficina.</small>"
+
+#~ msgid "I am currently in the office"
+#~ msgstr "En aquest moment sóc a l'oficina"
+
+#~ msgid "I am currently out of the office"
+#~ msgstr "En aquest moment no sóc a l'oficina"
+
+#~ msgid "No, Don't Change Status"
+#~ msgstr "No, no canviïs l'estat"
+
+#~ msgid "Out of Office Assistant"
+#~ msgstr "Assistent d'absència de l'oficina"
+
+#~ msgid "Yes, Change Status"
+#~ msgstr "Sí, canvia l'estat"
+
+#~ msgid "Password Expiry Warning..."
+#~ msgstr "Avís d'expiració de la contrasenya..."
+
+#~ msgid "Your password will expire in 7 days..."
+#~ msgstr "La contrasenya vencerà en 7 dies..."
+
+#~ msgid "_Change Password"
+#~ msgstr "_Canvia la contrasenya"
+
+#~ msgid "(Permission denied.)"
+#~ msgstr "(S'ha denegat el permís.)"
+
+#~ msgid "Add User:"
+#~ msgstr "Afegeix un usuari:"
+
+#~ msgid "<b>Permissions</b>"
+#~ msgstr "<b>Permisos</b>"
+
+#~ msgid "Cannot Delete"
+#~ msgstr "No es pot suprimir"
+
+#~ msgid "Cannot Edit"
+#~ msgstr "No es pot editar"
+
+#~ msgid "Create items"
+#~ msgstr "Crea elements"
+
+#~ msgid "Create subfolders"
+#~ msgstr "Crea subcarpetes"
+
+#~ msgid "Delete Any Items"
+#~ msgstr "Suprimeix qualsevol element"
+
+#~ msgid "Delete Own Items"
+#~ msgstr "Suprimeix els elements propis"
+
+#~ msgid "Edit Any Items"
+#~ msgstr "Edita qualsevol element"
+
+#~ msgid "Edit Own Items"
+#~ msgstr "Edita els elements propis"
+
+#~ msgid "Folder contact"
+#~ msgstr "Contacte de la carpeta"
+
+#~ msgid "Folder owner"
+#~ msgstr "Propietari de la carpeta"
+
+#~ msgid "Folder visible"
+#~ msgstr "Carpeta visible"
+
+#~ msgid "Read items"
+#~ msgstr "Elements llegits"
+
+#~ msgid "Role: "
+#~ msgstr "Rol: "
+
+#~ msgid "<b>Message Settings</b>"
+#~ msgstr "<b>Opcions dels missatges</b>"
+
+#~ msgid "<b>Tracking Options</b>"
+#~ msgstr "<b>Opcions de seguiment</b>"
+
+#~ msgid "Exchange - Send Options"
+#~ msgstr "Exchange - Opcions d'enviament"
+
+#~ msgid ""
+#~ "Normal\n"
+#~ "High\n"
+#~ "Low"
+#~ msgstr ""
+#~ "Normal\n"
+#~ "Alta\n"
+#~ "Baixa"
+
+#~ msgid ""
+#~ "Normal\n"
+#~ "Personal\n"
+#~ "Private\n"
+#~ "Confidential"
+#~ msgstr ""
+#~ "Normal\n"
+#~ "Personal\n"
+#~ "Privat\n"
+#~ "Confidencial"
+
+#~ msgid "Request a _delivery receipt for this message"
+#~ msgstr "Demana un avís _de recepció per a aquest missatge"
+
+#~ msgid "Request a _read receipt for this message"
+#~ msgstr "Demana un avís de lectu_ra per a aquest missatge"
+
+#~ msgid "Send as Delegate"
+#~ msgstr "Envia com a delegat"
+
+#~ msgid "_Sensitivity: "
+#~ msgstr "_Sensibilitat: "
+
+#~ msgid "_User"
+#~ msgstr "_Usuari"
+
+#~ msgid "Select User"
+#~ msgstr "Seleccioneu l'usuari"
+
+#~ msgid "Address Book..."
+#~ msgstr "Llibreta d'adreces..."
+
+#~ msgid "Subscribe to Other User's Contacts"
+#~ msgstr "Subscriu-me als contactes d'un altre"
+
+#~ msgid "Subscribe to Other User's Calendar"
+#~ msgstr "Subscriu-me al calendari d'un altre usuari"
+
+#~ msgid "Activates the Evolution-Exchange extension package."
+#~ msgstr "Activa el paquet d'extensió de l'Evolution-Exchange."
+
+#~ msgid "Exchange Operations"
+#~ msgstr "Operacions de l'Exchange"
+
+#~ msgid "Cannot access the \"Exchange settings\" tab in offline mode."
+#~ msgstr ""
+#~ "No es pot accedir a la pestanya «Paràmetres de l'Exchange» en mode fora de "
+#~ "línia."
+
+#~ msgid "Cannot change password due to configuration problems."
+#~ msgstr "No es pot canviar la contrasenya degut a problemes de configuració."
+
+#~ msgid "Cannot display folders."
+#~ msgstr "No es poden mostrar les carpetes."
+
+#~ msgid ""
+#~ "Changes to options for Exchange account \"{0}\" will only take effect "
+#~ "after restarting Evolution."
+#~ msgstr ""
+#~ "Els canvis a la configuració del compte de l'Exchange «{0}» es produiran "
+#~ "després de reiniciar l'Evolution."
+
+#~ msgid "Could not authenticate to server."
+#~ msgstr "No s'ha pogut autenticar al servidor."
+
+#~ msgid "Could not change password."
+#~ msgstr "No s'ha pogut canviar la contrasenya."
+
+#~ msgid ""
+#~ "Could not configure Exchange account because \n"
+#~ "an unknown error occurred. Check the URL, \n"
+#~ "username, and password, and try again."
+#~ msgstr ""
+#~ "No es pot configurar el compte de l'Exchange perquè\n"
+#~ "s'ha produït un error desconegut. Comproveu l'URL,\n"
+#~ "el compte d'usuari i contrasenya, i torneu-ho a provar."
+
+#~ msgid "Could not connect to Exchange server."
+#~ msgstr "No s'ha pogut connectar al servidor Exchange."
+
+#~ msgid "Could not connect to server {0}."
+#~ msgstr "No s'ha pogut connectar al servidor {0}."
+
+#~ msgid "Could not determine folder permissions for delegates."
+#~ msgstr ""
+#~ "No s'han pogut determinar els permisos de les carpetes per als delegats."
+
+#~ msgid "Could not find Exchange Web Storage System."
+#~ msgstr "No s'ha trobat el sistema d'emmagatzematge web de l'Exchange."
+
+#~ msgid "Could not locate server {0}."
+#~ msgstr "No s'ha pogut localitzar el servidor {0}."
+
+#~ msgid "Could not make {0} a delegate"
+#~ msgstr "No s'ha pogut fer de {0} un delegat"
+
+#~ msgid "Could not read folder permissions"
+#~ msgstr "No s'han pogut llegir els permisos de la carpeta"
+
+#~ msgid "Could not read folder permissions."
+#~ msgstr "No s'han pogut llegir els permisos de la carpeta"
+
+#~ msgid "Could not read out-of-office state"
+#~ msgstr "No s'ha pogut llegir l'estat de fora de l'oficina."
+
+#~ msgid "Could not update folder permissions."
+#~ msgstr "No s'han pogut actualitzar els permisos de la carpeta."
+
+#~ msgid "Could not update out-of-office state"
+#~ msgstr "No s'ha pogut actualitzar l'estat d'absència de l'oficina"
+
+#~ msgid "Evolution requires a restart to load the subscribed user's mailbox"
+#~ msgstr ""
+#~ "Cal reiniciar l'Evolution per a poder carregar la subscripció a la bústia "
+#~ "de correu de l'usuari"
+
+#~ msgid "Exchange Account is offline."
+#~ msgstr "El compte de l'Exchange està fora de línia."
+
+#~ msgid ""
+#~ "Exchange Connector requires access to certain\n"
+#~ "functionality on the Exchange Server that appears\n"
+#~ "to be disabled or blocked. (This is usually \n"
+#~ "unintentional.) Your Exchange Administrator will \n"
+#~ "need to enable this functionality in order for \n"
+#~ "you to be able to use Evolution Exchange Connector.\n"
+#~ "\n"
+#~ "For information to provide to your Exchange \n"
+#~ "administrator, please follow the link below:\n"
+#~ "\n"
+#~ "{0}\n"
+#~ "  "
+#~ msgstr ""
+#~ "El connector de l'Exchange ha d'accedir a certa funcionalitat\n"
+#~ "en el servidor d'Exchange que sembla inhabilitada o blocada\n"
+#~ "(normalment no és intencional). El vostre administrador \n"
+#~ "d'Exchange hauria d'habilitar-la perquè pugueu fer\n"
+#~ "servir el connector de l'Exchange de l'Evolution.\n"
+#~ "\n"
+#~ "En el següent enllaç trobareu la informació que\n"
+#~ "heu de proporcionar al vostre administrador de l'Exchange:\n"
+#~ "\n"
+#~ "{0}\n"
+#~ "  "
+
+#~ msgid "Folder already exists"
+#~ msgstr "La carpeta ja existeix"
+
+#~ msgid "Folder does not exist"
+#~ msgstr "La carpeta no existeix"
+
+#~ msgid "Folder offline"
+#~ msgstr "Carpeta fora de línia"
+
+#~ msgid "Generic error"
+#~ msgstr "Error genèric"
+
+#~ msgid "Global Catalog Server is not reachable"
+#~ msgstr "No es pot trobar el servidor del catàleg global"
+
+#~ msgid ""
+#~ "If OWA is running on a different path, you must specify that in the "
+#~ "account configuration dialog."
+#~ msgstr ""
+#~ "Si l'OWA s'està executant en un camí diferent, heu d'especificar-ho en el "
+#~ "diàleg de configuració del compte."
+
+#~ msgid "Mailbox for {0} is not on this server."
+#~ msgstr "La bústia de correu per a {0} no és en aquest servidor."
+
+#~ msgid "Make sure the URL is correct and try again."
+#~ msgstr "Assegureu-vos que l'URL és correcte i torneu-ho a provar."
+
+#~ msgid "Make sure the server name is spelled correctly and try again."
+#~ msgstr ""
+#~ "Assegureu-vos que el nom del servidor està escrit correctament i torneu-"
+#~ "ho a provar."
+
+#~ msgid "Make sure the username and password are correct and try again."
+#~ msgstr ""
+#~ "Assegureu-vos que el nom d'usuari i la contrasenya són correctes i torneu-"
+#~ "ho a provar."
+
+#~ msgid "No Global Catalog server configured for this account."
+#~ msgstr ""
+#~ "No s'ha configurat un servidor de catàleg global per a aquest compte."
+
+#~ msgid "No mailbox for user {0} on {1}."
+#~ msgstr "L'usuari {0} no té bústia de correu a {1}."
+
+#~ msgid "No such user {0}"
+#~ msgstr "No existeix l'usuari {0}"
+
+#~ msgid "Password successfully changed."
+#~ msgstr "S'ha canviat la contrasenya correctament."
+
+#~ msgid ""
+#~ "Please enter a Delegate's ID or deselect the Send as a Delegate option."
+#~ msgstr ""
+#~ "Introduïu un identificador de delegat o bé inhabiliteu l'opció d'enviar "
+#~ "com a delegat"
+
+#~ msgid "Please make sure the Global Catalog Server name is correct."
+#~ msgstr ""
+#~ "Assegureu-vos que el nom del servidor de catàleg global és correcte."
+
+#~ msgid "Please restart Evolution for changes to take effect"
+#~ msgstr "Heu de reiniciar l'Evolution perquè s'apliquin els canvis"
+
+#~ msgid "Server rejected password because it is too weak."
+#~ msgstr "El servidor ha rebutjat la contrasenya perquè és massa feble."
+
+#~ msgid "The Exchange account will be disabled when you quit Evolution"
+#~ msgstr "El compte d'Exchange s'inhabilitarà quan sortiu de l'Evolution"
+
+#~ msgid "The Exchange account will be removed when you quit Evolution"
+#~ msgstr "El compte d'Exchange se suprimirà quan sortiu de l'Evolution"
+
+#~ msgid "The Exchange server is not compatible with Exchange Connector."
+#~ msgstr "El servidor d'Exchange no és compatible amb l'Exchange Connector."
+
+#~ msgid ""
+#~ "The server is running Exchange 5.5. Exchange Connector \n"
+#~ "supports Microsoft Exchange 2000 and 2003 only."
+#~ msgstr ""
+#~ "El servidor està executant l'Exchange 5.5. L'Exchange Connector\n"
+#~ "només pot treballar amb Microsoft Exchange 2000 i 2003."
+
+#~ msgid ""
+#~ "This probably means that your server requires \n"
+#~ "you to specify the Windows domain name \n"
+#~ "as part of your username (eg, &quot;DOMAIN\\user&quot;).\n"
+#~ "\n"
+#~ "Or you might have just typed your password wrong."
+#~ msgstr ""
+#~ "Això probablement significa que el servidor requereix\n"
+#~ "que especifiqueu el nom de domini de Windows\n"
+#~ "com a part del nom d'usuari (p.e., &quot;DOMINI\\usuari&quot;).\n"
+#~ "\n"
+#~ "O potser simplement heu escrit malament la contrasenya."
+
+#~ msgid "Try again with a different password."
+#~ msgstr "Proveu-ho de nou amb una contrasenya diferent."
+
+#~ msgid "Unable to add user to access control list:"
+#~ msgstr "No s'ha pogut afegir l'usuari a la llista de control d'accés:"
+
+#~ msgid "Unable to edit delegates."
+#~ msgstr "No es poden editar els delegats."
+
+#~ msgid "Unknown error looking up {0}"
+#~ msgstr "S'ha produït un error desconegut en cercar {0}"
+
+#~ msgid "Unknown type"
+#~ msgstr "Tipus desconegut"
+
+#~ msgid "Unsupported operation"
+#~ msgstr "L'operació no està implementada"
+
+#~ msgid ""
+#~ "You are nearing your quota available for storing mail on this server."
+#~ msgstr ""
+#~ "Us esteu acostant a la vostra quota disponible per a emmagatzemar correus "
+#~ "en aquest servidor."
+
+#~ msgid ""
+#~ "You are permitted to send a message on behalf of only one delegator at a "
+#~ "time."
+#~ msgstr ""
+#~ "Només podeu enviar un missatge en nom d'un sol delegant a la vegada."
+
+#~ msgid "You cannot make yourself your own delegate"
+#~ msgstr "No podeu ser el vostre propi delegat"
+
+#~ msgid "You have exceeded your quota for storing mail on this server."
+#~ msgstr ""
+#~ "Heu superat la vostra quota per a emmagatzemar correus en aquest servidor."
+
+#~ msgid ""
+#~ "Your current usage is: {0} KB. Try to clear up some space by deleting "
+#~ "some mail."
+#~ msgstr ""
+#~ "El vostre ús actual és: {0} KB. Intenteu netejar una mica d'espai "
+#~ "esborrant alguns correus."
+
+#~ msgid ""
+#~ "Your current usage is: {0} KB. You will not be able to either send or "
+#~ "receive mail now."
+#~ msgstr "El vostre ús actual és: {0} KB. No podreu enviar ni rebre correus."
+
+#~ msgid ""
+#~ "Your current usage is: {0} KB. You will not be able to send mail until "
+#~ "you clear up some space by deleting some mail."
+#~ msgstr ""
+#~ "El vostre ús actual és: {0} KB. No podreu enviar correus fins que netegeu "
+#~ "una mica d'espai esborrant alguns correus."
+
+#~ msgid "{0} cannot be added to an access control list"
+#~ msgstr "No es pot afegir {0} a la llista de control d'accés"
+
+#~ msgid "{0} is already a delegate"
+#~ msgstr "{0} ja és un delegat"
+
+#~ msgid "Subscribe to Other User's Tasks"
+#~ msgstr "Subscriviu-vos a les tasques d'un altre usuari"
+
+#~ msgid "Check folder permissions"
+#~ msgstr "Comproveu els permisos de la carpeta"
+
+#~ msgid ""
+#~ "Unsubscribe from an IMAP folder by right-clicking on it in the folder "
+#~ "tree."
+#~ msgstr ""
+#~ "Cancel·leu la subscripció a una carpeta IMAP en fer-hi clic amb el botó "
+#~ "secundari en l'arbre de carpetes."
+
+#~ msgid "Add Novell GroupWise support to Evolution."
+#~ msgstr "Afegeix compatibilitat amb el GroupWise de Novell a l'Evolution."
+
+#~ msgid "GroupWise Account Setup"
+#~ msgstr "Configuració del compte GroupWise"
+
+#~ msgid "Hardware Abstraction Layer not loaded"
+#~ msgstr "No s'ha carregat la capa d'abstracció del maquinari (HAL)"
+
+#~ msgid ""
+#~ "The \"hald\" service is required but not currently running. Please enable "
+#~ "the service and rerun this program, or contact your system administrator."
+#~ msgstr ""
+#~ "Es requereix el servei «hald», però no s'està executant. Hauríeu "
+#~ "d'habilitar-lo i reiniciar aquest programa, o bé contactar "
+#~ "l'administrador del sistema."
+
+#~ msgid ""
+#~ "Evolution could not find an iPod to synchronize with. Either the iPod is "
+#~ "not connected to the system or it is not powered on."
+#~ msgstr ""
+#~ "L'Evolution no ha trobat cap iPod amb el qual poder-se sincronitzar. Pot "
+#~ "ser que aquest no estigui connectat al sistema o bé que estigui apagat."
+
+#~ msgid "Synchronize to iPod"
+#~ msgstr "Sincronitza l'iPod"
+
+#~ msgid "Synchronize your data with your Apple iPod."
+#~ msgstr "Sincronitzeu les vostres dades amb l'iPod d'Apple."
+
+#~ msgid "Disable an account by right-clicking on it in the folder tree."
+#~ msgstr ""
+#~ "Inhabliliteu un compte en fer-hi clic amb el botó secundari en l'arbre de "
+#~ "carpetes."
+
+#~ msgid "Specify _filename:"
+#~ msgstr "Especifiqueu un nom de _fitxer:"
+
+#~ msgid "Pl_ay"
+#~ msgstr "Reproduei_x"
+
+#~ msgid "Mail-to-Task"
+#~ msgstr "Correu a tasca"
+
+#~ msgid "Contact list _owner"
+#~ msgstr "Contacta amb el pr_opietari de la llista"
+
+#~ msgid "Get list _archive"
+#~ msgstr "Obté l'_arxiu de llista"
+
+#~ msgid "Get list _usage information"
+#~ msgstr "Obté informació de l'ús de la ll_ista"
+
+#~ msgid "_Post message to list"
+#~ msgstr "Envia un _missatge a la llista"
+
+#~ msgid "_Un-subscribe to list"
+#~ msgstr "Suprimeix la s_ubscripció"
+
+#~ msgid "Mono Loader"
+#~ msgstr "Carregador del Mono"
+
+#~ msgid "Support plugins written in Mono."
+#~ msgstr "Compatibilitat amb els connectors creats amb el Mono."
+
+#~ msgid "A plugin which loads other plugins written using Python."
+#~ msgstr "Un connector que carrega altres connectors escrits en Python."
+
+#~ msgid "Python Loader"
+#~ msgstr "Carregador del Python"
+
+#~ msgid "_Save to Disk"
+#~ msgstr "_Desa a disc"
+
+#~ msgid "Quickly select a single calendar or task list for viewing."
+#~ msgstr ""
+#~ "Selecciona de manera ràpida un únic calendari o llista de tasques per a "
+#~ "visualitzar."
+
+#~ msgid "Select One Source"
+#~ msgstr "Selecciona una font"
+
+#~ msgid "Evolution Shell"
+#~ msgstr "Intèrpret d'ordres de l'Evolution"
+
+#~ msgid "Evolution Shell Config factory"
+#~ msgstr "Fàbrica de configuració de l'entorn d'ordres de l'Evolution"
+
+#~ msgid "Evolution Test"
+#~ msgstr "Prova de l'Evolution"
+
+#~ msgid "Evolution Test component"
+#~ msgstr "Component de prova de l'Evolution"
+
+#~ msgid "<b>Active Connections</b>"
+#~ msgstr "<b>Connexions actives</b>"
+
+#~ msgid "Active Connections"
+#~ msgstr "Connexions actives"
+
+#~ msgid "Click OK to close these connections and go offline"
+#~ msgstr ""
+#~ "Feu clic a d'acord per a tancar aquestes connexions i passar a mode fora "
+#~ "de línia"
+
+#~ msgid "The GNOME Pilot tools do not appear to be installed on this system."
+#~ msgstr ""
+#~ "Sembla que aquest sistema no té instal·lades les eines Pilot del GNOME."
+
+#~ msgid "Error executing %s. (%s)"
+#~ msgstr "S'ha produït un error en executar %s. (%s)"
+
+#~ msgid "Work Offline"
+#~ msgstr "Treballa fora de línia"
+
+#~ msgid "Evolution is in the process of going offline."
+#~ msgstr "L'Evolution està procedint a treballar fora de línia."
+
+#~ msgid "Unknown system error."
+#~ msgstr "S'ha produït un error desconegut del sistema."
+
+#~ msgid "Invalid arguments"
+#~ msgstr "Els arguments no són vàlids"
+
+#~ msgid "Cannot register on OAF"
+#~ msgstr "No s'ha pogut registrar a l'OAF"
+
+#~ msgid "Configuration Database not found"
+#~ msgstr "No s'ha pogut trobar la base de dades de configuració."
+
+#~ msgid "New Test"
+#~ msgstr "Prova nova"
+
+#~ msgid "Import File"
+#~ msgstr "Importa un fitxer"
+
+#~ msgid "Evolution can not start."
+#~ msgstr "No es pot iniciar l'Evolution."
+
+#~ msgid ""
+#~ "Your system configuration does not match your Evolution configuration.\n"
+#~ "\n"
+#~ "Click help for details"
+#~ msgstr ""
+#~ "La configuració del sistema és diferent de la configuració de "
+#~ "l'Evolution:\n"
+#~ "\n"
+#~ "Feu clic a l'ajuda per a obtenir més detalls."
+
+#~ msgid ""
+#~ "Your system configuration does not match your Evolution configuration:\n"
+#~ "\n"
+#~ "{0}\n"
+#~ "\n"
+#~ "Click help for details."
+#~ msgstr ""
+#~ "La configuració del sistema és diferent de la configuració de "
+#~ "l'Evolution:\n"
+#~ "\n"
+#~ "{0}\n"
+#~ "\n"
+#~ "Feu clic a l'ajuda per a obtenir més detalls."
+
+#~ msgid "Could not execute '%s': %s\n"
+#~ msgstr "No es pot executar «%s»: %s\n"
+
+#~ msgid "Shutting down %s (%s)\n"
+#~ msgstr "S'està tancant %s (%s)\n"
+
+#~ msgid "Copy"
+#~ msgstr "Copia"
+
+#~ msgid "Copy to Folder..."
+#~ msgstr "Copia a una carpeta..."
+
+#~ msgid "Create a new address book folder"
+#~ msgstr "Crea una carpeta de llibreta d'adreces nova"
+
+#~ msgid "Cut"
+#~ msgstr "Retalla"
+
+#~ msgid "Forward Contact"
+#~ msgstr "Reenvia el contacte"
+
+#~ msgid "Move to Folder..."
+#~ msgstr "Mou a la carpeta..."
+
+#~ msgid "Paste"
+#~ msgstr "Enganxa"
+
+#~ msgid "Save as VCard..."
+#~ msgstr "Desa com a VCard..."
+
+#~ msgid "Select _All"
+#~ msgstr "Seleccion_a-ho tot"
+
+#~ msgid "Send message to contact"
+#~ msgstr "Envia un missatge al contacte"
+
+#~ msgid "St_op"
+#~ msgstr "At_ura"
+
+#~ msgid "Stop"
+#~ msgstr "Atura"
+
+#~ msgid "_Copy Folder Contacts To"
+#~ msgstr "_Copia els contactes de la carpeta a"
+
+#~ msgid "_Move Folder Contacts To"
+#~ msgstr "_Mou la carpeta de contactes a"
+
+#~ msgid "_Rename"
+#~ msgstr "Can_via el nom"
+
+#~ msgid "_Save Contact as VCard..."
+#~ msgstr "De_sa el contacte com a VCard..."
+
+#~ msgid "_Save Folder Contacts As VCard"
+#~ msgstr "D_esa els contactes de la carpeta com a VCard"
+
+#~ msgid "Delete _all Occurrences"
+#~ msgstr "Suprimeix totes les _aparicions"
+
+#~ msgid "Show the working week"
+#~ msgstr "Mostra la setmana actual"
+
+#~ msgid "View the debug console for log messages"
+#~ msgstr "Mostra la consola de depuració per als missatges de registre"
+
+#~ msgid "_Debug Logs"
+#~ msgstr "Registres de _depuració"
+
+#~ msgid "Show message preview side-by-side with the message list"
+#~ msgstr ""
+#~ "Mostra la previsualització del missatge al costat de la llista de "
+#~ "missatges"
+
+#~ msgid "Copy selected message(s) to the clipboard"
+#~ msgstr "Copia els missatges al porta-retalls"
+
+#~ msgid "Cut selected message(s) to the clipboard"
+#~ msgstr "Retalla els missatges al porta-retalls"
+
+#~ msgid "Paste message(s) from the clipboard"
+#~ msgstr "Enganxa els missatges del porta-retalls"
+
+#~ msgid "Select all and only the messages that are not currently selected"
+#~ msgstr "Selecciona'ls tots i només els missatges que no estan seleccionats"
+
+#~ msgid "Not Junk"
+#~ msgstr "No és brossa"
+
+#~ msgid "Paste messages from the clipboard"
+#~ msgstr "Enganxa els missatges del porta-retalls"
+
+#~ msgid "_Save Message..."
+#~ msgstr "De_sa el missatge..."
+
+#~ msgid "Main toolbar"
+#~ msgstr "Barra d'eines principal"
+
+#~ msgid "Mar_k as Complete"
+#~ msgstr "Mar_ca com a completa"
+
+#~ msgid "Show task preview window"
+#~ msgstr "Mostra la finestra de previsualització de tasques"
+
+#~ msgid "About Evolution..."
+#~ msgstr "Quant a l'Evolution..."
+
+#~ msgid "Change the visibility of the toolbar"
+#~ msgstr "Canvia la visibilitat de la barra d'eines"
+
+#~ msgid "Forget remembered passwords so you will be prompted for them again"
+#~ msgstr "Oblida les contrasenyes recordades perquè se us preguntin de nou"
+
+#~ msgid "Hide window buttons"
+#~ msgstr "Amaga els botons de la finestra"
+
+#~ msgid "Page Set_up..."
+#~ msgstr "Confi_guració de la pàgina..."
+
+#~ msgid "Prefere_nces"
+#~ msgstr "Preferè_ncies"
+
+#~ msgid "Submit Bug Report"
+#~ msgstr "Envia un informe d'error"
+
+#~ msgid "Toggle whether we are working offline."
+#~ msgstr "Commuta entre treballar en línia i fora de línia."
+
+#~ msgid "View/Hide the Side Bar"
+#~ msgstr "Mostra/amaga la barra lateral"
+
+#~ msgid "View/Hide the Status Bar"
+#~ msgstr "Mostra/amaga la barra d'estat"
+
+#~ msgid "Work _Offline"
+#~ msgstr "Treballa _fora de línia"
+
+#~ msgid "_About"
+#~ msgstr "_Quant a"
+
+#~ msgid "_Frequently Asked Questions"
+#~ msgstr "_Preguntes Més Freqüents"
+
+#~ msgid "_Hide Buttons"
+#~ msgstr "O_culta els botons"
+
+#~ msgid "Save Custom View"
+#~ msgstr "Desa la visualització personalitzada"
+
+#~ msgid "Unknown character set: %s"
+#~ msgstr "Joc de caràcters desconegut: %s"
+
+#~ msgid "_Searches"
+#~ msgstr "_Cerques"
+
+#~ msgid "Choose Image"
+#~ msgstr "Trieu una imatge"
+
+#~ msgid "Reflow model"
+#~ msgstr "Model de reflux"
+
+#~ msgid "Column width"
+#~ msgstr "Amplada de la columna"
+
+#~ msgid "Search"
+#~ msgstr "Cerca"
+
+#~ msgid "_Clear"
+#~ msgstr "_Neteja"
+
+#~ msgid "Item ID"
+#~ msgstr "ID de l'element"
+
+#~ msgid "Toggle Attachment Bar"
+#~ msgstr "Commuta la barra de fitxers adjunts"
+
+#~ msgid "activate"
+#~ msgstr "activa"
+
+#~ msgid "<b>Type:</b>"
+#~ msgstr "<b>Tipus:</b>"
+
+#~ msgid "Add Address Book"
+#~ msgstr "Afegeix una llibreta d'adreces"
+
+#~ msgid "Basic"
+#~ msgstr "Bàsic"
+
+#~ msgid "_Add Address Book"
+#~ msgstr "_Afegeix una llibreta d'adreces"
+
+#~ msgid "MSN Messenger"
+#~ msgstr "Missatgeria de l'MSN"
+
+#~ msgid "Novell GroupWise"
+#~ msgstr "GroupWise de Novell"
+
+#~ msgid "_Notes:"
+#~ msgstr "_Notes:"
+
+#~ msgid "United States"
+#~ msgstr "Estats Units"
+
+#~ msgid "Afghanistan"
+#~ msgstr "Afganistan"
+
+#~ msgid "Albania"
+#~ msgstr "Albània"
+
+#~ msgid "Algeria"
+#~ msgstr "Algèria"
+
+#~ msgid "American Samoa"
+#~ msgstr "Samoa Americana"
+
+#~ msgid "Andorra"
+#~ msgstr "Andorra"
+
+#~ msgid "Angola"
+#~ msgstr "Angola"
+
+#~ msgid "Anguilla"
+#~ msgstr "Anguilla"
+
+#~ msgid "Antarctica"
+#~ msgstr "Antàrtida"
+
+#~ msgid "Antigua And Barbuda"
+#~ msgstr "Antigua i Barbuda"
+
+#~ msgid "Argentina"
+#~ msgstr "Argentina"
+
+#~ msgid "Armenia"
+#~ msgstr "Armènia"
+
+#~ msgid "Aruba"
+#~ msgstr "Aruba"
+
+#~ msgid "Australia"
+#~ msgstr "Austràlia"
+
+#~ msgid "Austria"
+#~ msgstr "Àustria"
+
+#~ msgid "Azerbaijan"
+#~ msgstr "Azerbaitjan"
+
+#~ msgid "Bahamas"
+#~ msgstr "Bahames"
+
+#~ msgid "Bahrain"
+#~ msgstr "Bahrain"
+
+#~ msgid "Bangladesh"
+#~ msgstr "Bangla Desh"
+
+#~ msgid "Barbados"
+#~ msgstr "Barbados"
+
+#~ msgid "Belarus"
+#~ msgstr "Bielorússia"
+
+#~ msgid "Belgium"
+#~ msgstr "Bèlgica"
+
+#~ msgid "Belize"
+#~ msgstr "Belize"
+
+#~ msgid "Benin"
+#~ msgstr "Benín"
+
+#~ msgid "Bermuda"
+#~ msgstr "Bermuda"
+
+#~ msgid "Bhutan"
+#~ msgstr "Bhutan"
+
+#~ msgid "Bolivia"
+#~ msgstr "Bolívia"
+
+#~ msgid "Bosnia And Herzegowina"
+#~ msgstr "Bòsnia i Hercegovina"
+
+#~ msgid "Botswana"
+#~ msgstr "Botswana"
+
+#~ msgid "Bouvet Island"
+#~ msgstr "Illa Bouvet"
+
+#~ msgid "Brazil"
+#~ msgstr "Brasil"
+
+#~ msgid "British Indian Ocean Territory"
+#~ msgstr "Territori Britànic de l'Oceà Índic"
+
+#~ msgid "Brunei Darussalam"
+#~ msgstr "Brunei"
+
+#~ msgid "Bulgaria"
+#~ msgstr "Bulgària"
+
+#~ msgid "Burkina Faso"
+#~ msgstr "Burkina Faso"
+
+#~ msgid "Burundi"
+#~ msgstr "Burundi"
+
+#~ msgid "Cambodia"
+#~ msgstr "Cambodja"
+
+#~ msgid "Cameroon"
+#~ msgstr "Camerun"
+
+#~ msgid "Canada"
+#~ msgstr "Canadà"
+
+#~ msgid "Cape Verde"
+#~ msgstr "Cap Verd"
+
+#~ msgid "Cayman Islands"
+#~ msgstr "Illes Caiman"
+
+#~ msgid "Central African Republic"
+#~ msgstr "República Centreafricana"
+
+#~ msgid "Chad"
+#~ msgstr "Txad"
+
+#~ msgid "Chile"
+#~ msgstr "Xile"
+
+#~ msgid "China"
+#~ msgstr "Xina"
+
+#~ msgid "Christmas Island"
+#~ msgstr "Illa Christmas"
+
+#~ msgid "Cocos (Keeling) Islands"
+#~ msgstr "Illes Cocos (Keeling)"
+
+#~ msgid "Colombia"
+#~ msgstr "Colòmbia"
+
+#~ msgid "Comoros"
+#~ msgstr "Comores"
+
+#~ msgid "Congo"
+#~ msgstr "Congo"
+
+#~ msgid "Congo, The Democratic Republic Of The"
+#~ msgstr "Congo, República Democràtica del"
+
+#~ msgid "Cook Islands"
+#~ msgstr "Illes Cook"
+
+#~ msgid "Costa Rica"
+#~ msgstr "Costa Rica"
+
+#~ msgid "Cote d'Ivoire"
+#~ msgstr "Costa d'Ivori"
+
+#~ msgid "Croatia"
+#~ msgstr "Croàcia"
+
+#~ msgid "Cuba"
+#~ msgstr "Cuba"
+
+#~ msgid "Cyprus"
+#~ msgstr "Xipre"
+
+#~ msgid "Czech Republic"
+#~ msgstr "República Txeca"
+
+#~ msgid "Denmark"
+#~ msgstr "Dinamarca"
+
+#~ msgid "Djibouti"
+#~ msgstr "Djibouti"
+
+#~ msgid "Dominica"
+#~ msgstr "Dominica"
+
+#~ msgid "Dominican Republic"
+#~ msgstr "República Dominicana"
+
+#~ msgid "Ecuador"
+#~ msgstr "Equador"
+
+#~ msgid "Egypt"
+#~ msgstr "Egipte"
+
+#~ msgid "El Salvador"
+#~ msgstr "El Salvador"
+
+#~ msgid "Equatorial Guinea"
+#~ msgstr "Guinea Equatorial"
+
+#~ msgid "Eritrea"
+#~ msgstr "Eritrea"
+
+#~ msgid "Estonia"
+#~ msgstr "Estònia"
+
+#~ msgid "Ethiopia"
+#~ msgstr "Etiòpia"
+
+#~ msgid "Falkland Islands"
+#~ msgstr "Illes Malvines (Falkland)"
+
+#~ msgid "Faroe Islands"
+#~ msgstr "Illes Fèroe"
+
+#~ msgid "Finland"
+#~ msgstr "Finlàndia"
+
+#~ msgid "France"
+#~ msgstr "França"
+
+#~ msgid "French Guiana"
+#~ msgstr "Guaiana Francesa"
+
+#~ msgid "French Polynesia"
+#~ msgstr "Polinèsia Francesa"
+
+#~ msgid "French Southern Territories"
+#~ msgstr "Territoris Francesos del Sud"
+
+#~ msgid "Gabon"
+#~ msgstr "Gabon"
+
+#~ msgid "Gambia"
+#~ msgstr "Gàmbia"
+
+#~ msgid "Georgia"
+#~ msgstr "Geòrgia"
+
+#~ msgid "Germany"
+#~ msgstr "Alemanya"
+
+#~ msgid "Ghana"
+#~ msgstr "Ghana"
+
+#~ msgid "Gibraltar"
+#~ msgstr "Gibraltar"
+
+#~ msgid "Greece"
+#~ msgstr "Grècia"
+
+#~ msgid "Greenland"
+#~ msgstr "Groenlàndia"
+
+#~ msgid "Grenada"
+#~ msgstr "Grenada"
+
+#~ msgid "Guadeloupe"
+#~ msgstr "Guadaloupe"
+
+#~ msgid "Guam"
+#~ msgstr "Guam"
+
+#~ msgid "Guatemala"
+#~ msgstr "Guatemala"
+
+#~ msgid "Guernsey"
+#~ msgstr "Guernsey"
+
+#~ msgid "Guinea"
+#~ msgstr "Guinea"
+
+#~ msgid "Guinea-Bissau"
+#~ msgstr "Guinea Bissau"
+
+#~ msgid "Guyana"
+#~ msgstr "Guyana"
+
+#~ msgid "Haiti"
+#~ msgstr "Haití"
+
+#~ msgid "Heard And McDonald Islands"
+#~ msgstr "Illa Heard i Illes McDonald"
+
+#~ msgid "Holy See"
+#~ msgstr "Ciutat de Vaticà"
+
+#~ msgid "Honduras"
+#~ msgstr "Hondures"
+
+#~ msgid "Hong Kong"
+#~ msgstr "Hong Kong"
+
+#~ msgid "Hungary"
+#~ msgstr "Hongria"
+
+#~ msgid "Iceland"
+#~ msgstr "Islàndia"
+
+#~ msgid "India"
+#~ msgstr "Índia"
+
+#~ msgid "Indonesia"
+#~ msgstr "Indonèsia"
+
+#~ msgid "Iran"
+#~ msgstr "Iran"
+
+#~ msgid "Iraq"
+#~ msgstr "Iraq"
+
+#~ msgid "Ireland"
+#~ msgstr "Irlanda"
+
+#~ msgid "Isle of Man"
+#~ msgstr "Illa de Man"
+
+#~ msgid "Israel"
+#~ msgstr "Israel"
+
+#~ msgid "Italy"
+#~ msgstr "Itàlia"
+
+#~ msgid "Jamaica"
+#~ msgstr "Jamaica"
+
+#~ msgid "Japan"
+#~ msgstr "Japó"
+
+#~ msgid "Jersey"
+#~ msgstr "Jersey"
+
+#~ msgid "Jordan"
+#~ msgstr "Jordània"
+
+#~ msgid "Kazakhstan"
+#~ msgstr "Kazakhstan"
+
+#~ msgid "Kenya"
+#~ msgstr "Kenya"
+
+#~ msgid "Kiribati"
+#~ msgstr "Kiribati"
+
+#~ msgid "Korea, Democratic People's Republic Of"
+#~ msgstr "Corea del Nord"
+
+#~ msgid "Korea, Republic Of"
+#~ msgstr "Corea del Sud"
+
+#~ msgid "Kuwait"
+#~ msgstr "Kuwait"
+
+#~ msgid "Kyrgyzstan"
+#~ msgstr "Kirgizistan"
+
+#~ msgid "Laos"
+#~ msgstr "Laos"
+
+#~ msgid "Latvia"
+#~ msgstr "Letònia"
+
+#~ msgid "Lebanon"
+#~ msgstr "Líban"
+
+#~ msgid "Lesotho"
+#~ msgstr "Lesotho"
+
+#~ msgid "Liberia"
+#~ msgstr "Libèria"
+
+#~ msgid "Libya"
+#~ msgstr "Líbia"
+
+#~ msgid "Liechtenstein"
+#~ msgstr "Liechtenstein"
+
+#~ msgid "Lithuania"
+#~ msgstr "Lituània"
+
+#~ msgid "Luxembourg"
+#~ msgstr "Luxemburg"
+
+#~ msgid "Macao"
+#~ msgstr "Macau"
+
+#~ msgid "Macedonia"
+#~ msgstr "Macedònia"
+
+#~ msgid "Madagascar"
+#~ msgstr "Madagascar"
+
+#~ msgid "Malawi"
+#~ msgstr "Malawi"
+
+#~ msgid "Malaysia"
+#~ msgstr "Malàisia"
+
+#~ msgid "Maldives"
+#~ msgstr "Maldives"
+
+#~ msgid "Mali"
+#~ msgstr "Mali"
+
+#~ msgid "Malta"
+#~ msgstr "Malta"
+
+#~ msgid "Marshall Islands"
+#~ msgstr "Illes Marshall"
+
+#~ msgid "Martinique"
+#~ msgstr "Martinica"
+
+#~ msgid "Mauritania"
+#~ msgstr "Mauritània"
+
+#~ msgid "Mauritius"
+#~ msgstr "Maurici"
+
+#~ msgid "Mayotte"
+#~ msgstr "Mayotte"
+
+#~ msgid "Mexico"
+#~ msgstr "Mèxic"
+
+#~ msgid "Micronesia"
+#~ msgstr "Micronèsia"
+
+#~ msgid "Moldova, Republic Of"
+#~ msgstr "Moldàvia, República de"
+
+#~ msgid "Monaco"
+#~ msgstr "Mònaco"
+
+#~ msgid "Mongolia"
+#~ msgstr "Mongòlia"
+
+#~ msgid "Montserrat"
+#~ msgstr "Montserrat"
+
+#~ msgid "Morocco"
+#~ msgstr "Marroc"
+
+#~ msgid "Mozambique"
+#~ msgstr "Moçambic"
+
+#~ msgid "Myanmar"
+#~ msgstr "Myanmar"
+
+#~ msgid "Namibia"
+#~ msgstr "Namíbia"
+
+#~ msgid "Nauru"
+#~ msgstr "Nauru"
+
+#~ msgid "Nepal"
+#~ msgstr "Nepal"
+
+#~ msgid "Netherlands"
+#~ msgstr "Països Baixos"
+
+#~ msgid "Netherlands Antilles"
+#~ msgstr "Antilles Holandeses"
+
+#~ msgid "New Caledonia"
+#~ msgstr "Nova Caledònia"
+
+#~ msgid "New Zealand"
+#~ msgstr "Nova Zelanda"
+
+#~ msgid "Nicaragua"
+#~ msgstr "Nicaragua"
+
+#~ msgid "Niger"
+#~ msgstr "Níger"
+
+#~ msgid "Nigeria"
+#~ msgstr "Nigèria"
+
+#~ msgid "Niue"
+#~ msgstr "Niue"
+
+#~ msgid "Norfolk Island"
+#~ msgstr "Illes Norfolk"
+
+#~ msgid "Northern Mariana Islands"
+#~ msgstr "Illes Marianes del Nord"
+
+#~ msgid "Norway"
+#~ msgstr "Noruega"
+
+#~ msgid "Oman"
+#~ msgstr "Oman"
+
+#~ msgid "Pakistan"
+#~ msgstr "Pakistan"
+
+#~ msgid "Palau"
+#~ msgstr "Palau"
+
+#~ msgid "Palestinian Territory"
+#~ msgstr "Palestina"
+
+#~ msgid "Panama"
+#~ msgstr "Panamà"
+
+#~ msgid "Papua New Guinea"
+#~ msgstr "Papua Nova Guinea"
+
+#~ msgid "Paraguay"
+#~ msgstr "Paraguai"
+
+#~ msgid "Peru"
+#~ msgstr "Perú"
+
+#~ msgid "Philippines"
+#~ msgstr "Filipines"
+
+#~ msgid "Pitcairn"
+#~ msgstr "Pitcairn"
+
+#~ msgid "Poland"
+#~ msgstr "Polònia"
+
+#~ msgid "Portugal"
+#~ msgstr "Portugal"
+
+#~ msgid "Puerto Rico"
+#~ msgstr "Puerto Rico"
+
+#~ msgid "Qatar"
+#~ msgstr "Qatar"
+
+#~ msgid "Reunion"
+#~ msgstr "Reunion"
+
+#~ msgid "Romania"
+#~ msgstr "Romania"
+
+#~ msgid "Russian Federation"
+#~ msgstr "Federació Russa"
+
+#~ msgid "Rwanda"
+#~ msgstr "Rwanda"
+
+#~ msgid "Saint Kitts And Nevis"
+#~ msgstr "Saint Christopher i Nevis"
+
+#~ msgid "Saint Lucia"
+#~ msgstr "Saint Lucia"
+
+#~ msgid "Saint Vincent And The Grenadines"
+#~ msgstr "Saint Vincent i les Grenadines"
+
+#~ msgid "Samoa"
+#~ msgstr "Samoa"
+
+#~ msgid "San Marino"
+#~ msgstr "San Marino"
+
+#~ msgid "Sao Tome And Principe"
+#~ msgstr "Sao Tomé i Príncipe"
+
+#~ msgid "Saudi Arabia"
+#~ msgstr "Aràbia Saudita"
+
+#~ msgid "Senegal"
+#~ msgstr "Senegal"
+
+#~ msgid "Serbia And Montenegro"
+#~ msgstr "Sèrbia i Montenegro"
+
+#~ msgid "Sierra Leone"
+#~ msgstr "Sierra Leone"
+
+#~ msgid "Singapore"
+#~ msgstr "Singapur"
+
+#~ msgid "Slovakia"
+#~ msgstr "Eslovàquia"
+
+#~ msgid "Slovenia"
+#~ msgstr "Eslovènia"
+
+#~ msgid "Solomon Islands"
+#~ msgstr "Illes Salomó"
+
+#~ msgid "Somalia"
+#~ msgstr "Somàlia"
+
+#~ msgid "South Africa"
+#~ msgstr "Sud-àfrica"
+
+#~ msgid "South Georgia And The South Sandwich Islands"
+#~ msgstr "Illes Geòrgia del Sud i Sandwich del Sud"
+
+#~ msgid "Spain"
+#~ msgstr "Espanya"
+
+#~ msgid "Sri Lanka"
+#~ msgstr "Sri Lanka"
+
+#~ msgid "St. Helena"
+#~ msgstr "St. Helena"
+
+#~ msgid "St. Pierre And Miquelon"
+#~ msgstr "St. Pierre i Miquelon"
+
+#~ msgid "Sudan"
+#~ msgstr "Sudan"
+
+#~ msgid "Suriname"
+#~ msgstr "Surinam"
+
+#~ msgid "Svalbard And Jan Mayen Islands"
+#~ msgstr "Illes Svalbard i Jan Mayen"
+
+#~ msgid "Swaziland"
+#~ msgstr "Swazilàndia"
+
+#~ msgid "Sweden"
+#~ msgstr "Suècia"
+
+#~ msgid "Switzerland"
+#~ msgstr "Suïssa"
+
+#~ msgid "Syria"
+#~ msgstr "Síria"
+
+#~ msgid "Taiwan"
+#~ msgstr "Taiwan"
+
+#~ msgid "Tajikistan"
+#~ msgstr "Tadjikistan"
+
+#~ msgid "Tanzania, United Republic Of"
+#~ msgstr "Tanzània"
+
+#~ msgid "Thailand"
+#~ msgstr "Tailàndia"
+
+#~ msgid "Timor-Leste"
+#~ msgstr "Timor-Leste"
+
+#~ msgid "Togo"
+#~ msgstr "Togo"
+
+#~ msgid "Tokelau"
+#~ msgstr "Tokelau"
+
+#~ msgid "Tonga"
+#~ msgstr "Tonga"
+
+#~ msgid "Trinidad And Tobago"
+#~ msgstr "Trinitat i Tobago"
+
+#~ msgid "Tunisia"
+#~ msgstr "Tunísia"
+
+#~ msgid "Turkey"
+#~ msgstr "Turquia"
+
+#~ msgid "Turkmenistan"
+#~ msgstr "Turkmenistan"
+
+#~ msgid "Turks And Caicos Islands"
+#~ msgstr "Illes Turks i Caicos"
+
+#~ msgid "Tuvalu"
+#~ msgstr "Tuvalu"
+
+#~ msgid "Uganda"
+#~ msgstr "Uganda"
+
+#~ msgid "Ukraine"
+#~ msgstr "Ucraïna"
+
+#~ msgid "United Arab Emirates"
+#~ msgstr "Unió dels Emirats Àrabs"
+
+#~ msgid "United Kingdom"
+#~ msgstr "Regne Unit"
+
+#~ msgid "United States Minor Outlying Islands"
+#~ msgstr "Illes Perifèriques menors dels Estats Units"
+
+#~ msgid "Uruguay"
+#~ msgstr "Uruguai"
+
+#~ msgid "Uzbekistan"
+#~ msgstr "Uzbekistan"
+
+#~ msgid "Vanuatu"
+#~ msgstr "Vanuatu"
+
+#~ msgid "Venezuela"
+#~ msgstr "Veneçuela"
+
+#~ msgid "Viet Nam"
+#~ msgstr "Vietnam"
+
+#~ msgid "Virgin Islands, British"
+#~ msgstr "Illes Verge Britàniques"
+
+#~ msgid "Virgin Islands, U.S."
+#~ msgstr "Illes Verge Americanes"
+
+#~ msgid "Wallis And Futuna Islands"
+#~ msgstr "Illes Wallis i Futuna"
+
+#~ msgid "Western Sahara"
+#~ msgstr "Sàhara Occidental"
+
+#~ msgid "Yemen"
+#~ msgstr "Iemen"
+
+#~ msgid "Zambia"
+#~ msgstr "Zàmbia"
+
+#~ msgid "Zimbabwe"
+#~ msgstr "Zimbabwe"
+
+#~ msgid "AOL Instant Messenger"
+#~ msgstr "Missatgeria instantània de l'AOL"
+
+#~ msgid "Yahoo Messenger"
+#~ msgstr "Missatgeria del Yahoo"
+
+#~ msgid "Gadu-Gadu Messenger"
+#~ msgstr "Missatgeria Gadu-Gadu"
+
+#~ msgid "Service"
+#~ msgstr "Servei"
+
+#~ msgid "Username"
+#~ msgstr "Nom d'usuari"
+
+#~ msgid "Address _2:"
+#~ msgstr "Adreça _2:"
+
+#~ msgid "Ci_ty:"
+#~ msgstr "Pob_lació:"
+
+#~ msgid "Countr_y:"
+#~ msgstr "Paí_s:"
+
+#~ msgid "Full Address"
+#~ msgstr "Adreça completa"
+
+#~ msgid "_ZIP Code:"
+#~ msgstr "_Codi postal:"
+
+#~ msgid "_Account name:"
+#~ msgstr "Nom d_el compte:"
+
+#~ msgid "_IM Service:"
+#~ msgstr "Serve_i de MI:"
+
+#~ msgid "10 pt. Tahoma"
+#~ msgstr "10 pt. Tahoma"
+
+#~ msgid "8 pt. Tahoma"
+#~ msgstr "8 pt. Tahoma"
+
+#~ msgid "Blank forms at end:"
+#~ msgstr "Formularis en blanc al final:"
+
+#~ msgid "Body"
+#~ msgstr "Cos"
+
+#~ msgid "Bottom:"
+#~ msgstr "Inferior:"
+
+#~ msgid "Dimensions:"
+#~ msgstr "Dimensions:"
+
+#~ msgid "F_ont..."
+#~ msgstr "_Tipus de lletra..."
+
+#~ msgid "Fonts"
+#~ msgstr "Tipus de lletres"
+
+#~ msgid "Footer:"
+#~ msgstr "Peu de pàgina:"
+
+#~ msgid "Header/Footer"
+#~ msgstr "Capçalera i peu de pàgina"
+
+#~ msgid "Headings"
+#~ msgstr "Encapçalaments"
+
+#~ msgid "Headings for each letter"
+#~ msgstr "Encapçalaments per a cada carta"
+
+#~ msgid "Height:"
+#~ msgstr "Alçada:"
+
+#~ msgid "Immediately follow each other"
+#~ msgstr "Un segueix immediatament l'altre"
+
+#~ msgid "Landscape"
+#~ msgstr "Horitzontal"
+
+#~ msgid "Left:"
+#~ msgstr "Esquerra:"
+
+#~ msgid "Letter tabs on side"
+#~ msgstr "Les tabulacions de la carta al costat"
+
+#~ msgid "Margins"
+#~ msgstr "Marges"
+
+#~ msgid "Number of columns:"
+#~ msgstr "Nombre de columnes:"
+
+#~ msgid "Orientation"
+#~ msgstr "Orientació"
+
+#~ msgid "Page Setup:"
+#~ msgstr "Configuració de la pàgina:"
+
+#~ msgid "Paper"
+#~ msgstr "Paper"
+
+#~ msgid "Paper source:"
+#~ msgstr "Font del paper:"
+
+#~ msgid "Portrait"
+#~ msgstr "Vertical"
+
+#~ msgid "Preview:"
+#~ msgstr "Previsualització:"
+
+#~ msgid "Print using gray shading"
+#~ msgstr "Imprimeix en ombrejat de grisos"
+
+#~ msgid "Reverse on even pages"
+#~ msgstr "Inverteix-ho per a les pàgines parells"
+
+#~ msgid "Right:"
+#~ msgstr "Dreta:"
+
+#~ msgid "Sections:"
+#~ msgstr "Seccions:"
+
+#~ msgid "Start on a new page"
+#~ msgstr "Comença en una pàgina nova"
+
+#~ msgid "Style name:"
+#~ msgstr "Nom de l'estil:"
+
+#~ msgid "Top:"
+#~ msgstr "Superior:"
+
+#~ msgid "Width:"
+#~ msgstr "Amplada:"
+
+#~ msgid "_Font..."
+#~ msgstr "Tipus de _lletra..."
+
+#~ msgid "Whether to use daylight savings time while displaying events."
+#~ msgstr "Si s'utilitzarà l'horari d'estiu quan es mostrin els esdeveniments."
+
+#~ msgid "daylight savings time"
+#~ msgstr "horari d'estiu"
+
+#~ msgid "Adjust for daylight sa_ving time"
+#~ msgstr "Ajusta per a l'_horari d'estiu"
+
+#~ msgid "Attached message - %s"
+#~ msgstr "Missatge adjunt - %s"
+
+#~ msgid "<b>%d</b> Attachment"
+#~ msgid_plural "<b>%d</b> Attachments"
+#~ msgstr[0] "<b>%d</b> fitxer adjunt"
+#~ msgstr[1] "<b>%d</b> fitxers adjunts"
+
+#~ msgid "Show Attachments"
+#~ msgstr "Mostra les adjuncions"
+
+#~ msgid "Press space key to toggle attachment bar"
+#~ msgstr "Premeu la barra d'espai per a commutar la barra d'adjuncions"
+
+#~ msgid "<b>Att_endees</b>"
+#~ msgstr "<b>_Participants</b>"
+
+#~ msgid "C_hange Organizer"
+#~ msgstr "Can_via l'organitzador"
+
+#~ msgid "Co_ntacts..."
+#~ msgstr "Co_ntactes..."
+
+#~ msgid "_Save Selected"
+#~ msgstr "D_esa els seleccionats"
+
+#~ msgid "Could not open autosave file"
+#~ msgstr "No es pot obrir el fitxer de desament automàtic"
+
+#~ msgid "_Post-To Field"
+#~ msgstr "Cam_p Envia-a"
+
+#~ msgid "Toggles whether the Post-To field is displayed"
+#~ msgstr "Commuta la visualització del camp «Envia-a»"
+
+#~ msgid "_Subject Field"
+#~ msgstr "Camp de l'_Assumpte"
+
+#~ msgid "Toggles whether the Subject field is displayed"
+#~ msgstr "Commuta la visualització del camp de l'Assumpte"
+
+#~ msgid "_To Field"
+#~ msgstr "Camp _Per a"
+
+#~ msgid "Toggles whether the To field is displayed"
+#~ msgstr "Commuta la visualització del camp «Per a»"
+
+#~ msgid "Retrieving Message..."
+#~ msgstr "S'està recuperant el missatge..."
+
+#~ msgid "C_all To..."
+#~ msgstr "_Truca..."
+
+#~ msgid "Completed on %B %d, %Y, %l:%M %p"
+#~ msgstr "Completat el %d de %B del %Y, a les %H:%M"
+
+# Consulteu man 3 strftime per comprendre aquest format
+#~ msgid "by %B %d, %Y, %l:%M %p"
+#~ msgstr "pel %d de %B del %Y, a les %H:%M"
+
+#~ msgid "Select folder to save all attachments"
+#~ msgstr "Seleccioneu la carpeta on desar tots els fitxers adjunts"
+
+#~ msgid "_Save Selected..."
+#~ msgstr "_Desa els seleccionats..."
+
+#~ msgid "%d at_tachment"
+#~ msgid_plural "%d at_tachments"
+#~ msgstr[0] "%d fi_txer adjunt"
+#~ msgstr[1] "%d fi_txers adjunts"
+
+#~ msgid "S_ave"
+#~ msgstr "_Desa"
+
+#~ msgid "No Attachment"
+#~ msgstr "Cap fitxer adjunt"
+
+#~ msgid " (%a, %R %Z)"
+#~ msgstr " (%a a les %R %Z)"
+
+#~ msgid " (%R %Z)"
+#~ msgstr " (%R %Z)"
+
+#~ msgid ""
+#~ "Enable side bar search feature so that you can start interactive "
+#~ "searching by typing in the text. Use is that you can easily find a folder "
+#~ "in that side bar by just typing the folder name and the selection jumps "
+#~ "automatically to that folder."
+#~ msgstr ""
+#~ "Habiliteu la cerca a la barra lateral per a començar una cerca "
+#~ "interactiva en teclejar en el text. D'aquesta manera, només escrivint-ne "
+#~ "el nom podreu trobar fàcilment una carpeta a la barra lateral, que se "
+#~ "seleccionarà automàticament."
+
+#~ msgid "View/Bcc menu item is checked"
+#~ msgstr "L'element del menú Visualitza/CCO està activat."
+
+#~ msgid "View/Bcc menu item is checked."
+#~ msgstr "L'element del menú Visualitza/CCO està activat."
+
+#~ msgid "View/Cc menu item is checked"
+#~ msgstr "L'element del menú Visualitza/Cc està activat."
+
+#~ msgid "View/Cc menu item is checked."
+#~ msgstr "L'element del menú Visualitza/Cc està activat."
+
+#~ msgid "View/From menu item is checked"
+#~ msgstr "L'element del menú Visualitza/De està activat."
+
+#~ msgid "View/From menu item is checked."
+#~ msgstr "L'element del menú Visualitza/De està activat."
+
+#~ msgid "View/PostTo menu item is checked"
+#~ msgstr "L'element del menú Visualitza/Envia a està activat."
+
+#~ msgid "View/PostTo menu item is checked."
+#~ msgstr "L'element del menú Visualitza/Envia a està activat."
+
+#~ msgid "View/ReplyTo menu item is checked"
+#~ msgstr "L'element del menú Visualitza/Respon a està activat."
+
+#~ msgid "View/ReplyTo menu item is checked."
+#~ msgstr "L'element del menú Visualitza/Respon a està activat."
+
+#~ msgid " Ch_eck for Supported Types "
+#~ msgstr "Comprova els tipus _permesos "
+
+#~ msgid "Ch_eck for Supported Types "
+#~ msgstr "Comprova _els tipus suportats "
+
+#~ msgid "S_OCKS Host:"
+#~ msgstr "Ordinador S_OCKS:"
+
+#~ msgid "_Automatic proxy configuration URL:"
+#~ msgstr "URL de configuració _automàtica del servidor intermediari:"
+
+#~ msgid "Case _sensitive"
+#~ msgstr "Diferencia les majú_scules de les minúscules"
+
+#~ msgid "F_ind:"
+#~ msgstr "Ce_rca:"
+
+#~ msgid "Find in Message"
+#~ msgstr "Cerca en el missatge"
+
+#~ msgid "None Selected"
+#~ msgstr "Cap seleccionat"
+
+#~ msgid "Provides core functionality for local address books."
+#~ msgstr "Proporciona funcionalitat central per la llibreta d'adreces local."
+
+#~ msgid ""
+#~ "Looks for clues in a message for mention of attachments and warns if the "
+#~ "attachment is missing"
+#~ msgstr ""
+#~ "Cerca pistes que mencionin adjuncions en un missatge i us avisa si no heu "
+#~ "adjuntat cap fitxer."
+
+#~ msgid ""
+#~ "A formatter plugin which displays audio attachments inline and allows you "
+#~ "to play them directly from Evolution."
+#~ msgstr ""
+#~ "Un connector formatador que mostra els fitxers de so adjunts i permet "
+#~ "reproduir-los directament des de l'Evolution."
+
+#~ msgid "A plugin for backing up and restore Evolution data and settings."
+#~ msgstr ""
+#~ "Un connector per a copiar i restaurar les dades i la configuració de "
+#~ "l'Evolution."
+
+#~ msgid "CalDAV Calendar sources"
+#~ msgstr "Fonts del calendari CalDAV"
+
+#~ msgid "Provides core functionality for local calendars."
+#~ msgstr "Proporciona funcionalitat central per als calendaris locals."
+
+#~ msgid "HTTP Calendars"
+#~ msgstr "Calendaris HTTP"
+
+#~ msgid "Provides core functionality for webcal and http calendars."
+#~ msgstr "Proporciona funcionalitat central per a webcal i calendaris HTTP."
+
+#~ msgid "Provides core functionality for weather calendars."
+#~ msgstr "Proporciona funcionalitat central per a calendaris del clima."
+
+#~ msgid ""
+#~ "A test plugin which demonstrates a popup menu plugin which lets you copy "
+#~ "things to the clipboard."
+#~ msgstr ""
+#~ "Un connector de prova que demostra un connector de menú emergent que us "
+#~ "permet copiar coses al porta-retalls."
+
+#~ msgid ""
+#~ "Provides functionality for marking a calendar or an address book as the "
+#~ "default one."
+#~ msgstr ""
+#~ "Proporciona funcionalitat per a marcar com a per defecte un calendari o "
+#~ "una llibreta d'adreces."
+
+#~ msgid "S_pecify the mailbox name"
+#~ msgstr "Es_pecifiqueu el nom de la bústia de correu"
+
+#~ msgid ""
+#~ "A plugin that manages a collection of Exchange account specific "
+#~ "operations and features."
+#~ msgstr ""
+#~ "Un connector que gestiona una col·lecció d'operacions i funcions "
+#~ "específiques de comptes de l'Exchange."
+
+#~ msgid "Compose messages using an external editor"
+#~ msgstr "Redacteu els missatges utilitzant un editor extern"
+
+#~ msgid "Allows unsubscribing of mail folders in the side bar context menu."
+#~ msgstr ""
+#~ "Permet cancel·lar la subscripció a carpetes de correu en el menú "
+#~ "contextual de la barra lateral."
+
+#~ msgid "A plugin to setup Google Calendar and Contacts."
+#~ msgstr ""
+#~ "Un connector per a configurar el calendari i els contactes del Google."
+
+#~ msgid "A plugin to setup GroupWise calendar and contacts sources."
+#~ msgstr ""
+#~ "Un connector per a configurar fonts de calendari i contactes del "
+#~ "GroupWise."
+
+#~ msgid "A plugin to setup hula calendar sources."
+#~ msgstr "Un connector per a configurar fonts de calendari Hula."
+
+#~ msgid "Hula Account Setup"
+#~ msgstr "Configuració del compte Hula"
+
+#~ msgid "A plugin for the features in the IMAP accounts."
+#~ msgstr "Un connector per a les característiques dels comptes d'IMAP"
+
+#~ msgid "_Import to Calendar"
+#~ msgstr "_Importa al calendari"
+
+#~ msgid "Import ICS"
+#~ msgstr "Importa un ICS"
+
+#~ msgid "Imports ICS attachments to calendar."
+#~ msgstr "Importa fitxers adjunts ICS al calendari."
+
+#~ msgid ""
+#~ "Synchronize the selected task/memo/calendar/address book with Apple iPod"
+#~ msgstr ""
+#~ "Sincronitza la llibreta d'adreces, anotació, calendari o tasca "
+#~ "seleccionats amb un iPod d'Apple"
+
+#~ msgid "_Tasks :"
+#~ msgstr "_Tasques :"
+
+#~ msgid "Memos :"
+#~ msgstr "Anotacions :"
+
+#~ msgid "Allows disabling of accounts."
+#~ msgstr "Permet inhabilitar els comptes."
+
+#~ msgid ""
+#~ "Generates a D-Bus message or notifies the user with an icon in "
+#~ "notification area and a notification message whenever a new message has "
+#~ "arrived."
+#~ msgstr ""
+#~ "Genera un missatge del D-Bus o bé notifica l'usuari a través d'una icona "
+#~ "i un missatge de notificació a l'àrea de notificació quan hagi rebut "
+#~ "correu nou."
+
+#~ msgid ""
+#~ "A plugin which allows the creation of meetings from the contents of a "
+#~ "mail message."
+#~ msgstr ""
+#~ "Un connector que permet crear reunions dels continguts d'un missatge de "
+#~ "correu."
+
+#~ msgid "Con_vert to Meeting"
+#~ msgstr "Con_verteix a reunió"
+
+#~ msgid "Mail to meeting"
+#~ msgstr "Correu a reunió"
+
+#~ msgid ""
+#~ "A plugin which allows the creation of tasks from the contents of a mail "
+#~ "message."
+#~ msgstr ""
+#~ "Un connector que us permet crear tasques a partir dels continguts d'un "
+#~ "missatge de correu."
+
+#~ msgid "Con_vert to Task"
+#~ msgstr "Con_verteix a tasca"
+
+#~ msgid "Used for marking all the messages under a folder as read"
+#~ msgstr ""
+#~ "S'utilitza per a marcar tots els missatges d'una carpeta com a llegits"
+
+#~ msgid "A plugin which implements mono plugins."
+#~ msgstr "Un connector que implementa connectors del Mono."
+
+#~ msgid "A plugin for managing which plugins are enabled or disabled."
+#~ msgstr ""
+#~ "Un connector per a gestionar quins connectors estan habilitats o "
+#~ "inhabilitats."
+
+#~ msgid ""
+#~ "A test plugin which demonstrates a formatter plugin which lets you choose "
+#~ "to disable HTML messages.\n"
+#~ "\n"
+#~ "This plugin is unsupported demonstration code only.\n"
+#~ msgstr ""
+#~ "Un connector de prova que demostra un connector formatador que us permet "
+#~ "triar inhabilitar els correus HTML.\n"
+#~ "\n"
+#~ "Aquest connector és un codi només per a demostració.\n"
+
+#~ msgid "Writes a log of profiling data events."
+#~ msgstr "Escriu un registre de dades d'esdeveniments de dades perfilació."
+
+#~ msgid "SpamAssassin (built-in)"
+#~ msgstr "SpamAssassin (integrat)"
+
+#~ msgid ""
+#~ "Filters junk messages using SpamAssassin. This plugin requires "
+#~ "SpamAssassin to be installed."
+#~ msgstr ""
+#~ "Filtra els missatges brossa fent servir l'SpamAssassin. Heu de tenir-lo "
+#~ "instal·lat perquè aquest connector funcioni."
+
+#~ msgid "A plugin for saving all attachments or parts of a message at once."
+#~ msgstr ""
+#~ "Un connector per a desar tots els fitxers adjunts o parts d'un missatge a "
+#~ "la vegada."
+
+#~ msgid "Save Attachments..."
+#~ msgstr "Desa els fitxers adjunts..."
+
+#~ msgid "Save all attachments"
+#~ msgstr "Desa tots els fitxers adjunts"
+
+#~ msgid "Select save base name"
+#~ msgstr "Selecciona el nom base per a desar"
+
+#~ msgid "Indicates if threading of messages should fall back to subject."
+#~ msgstr ""
+#~ "Indica si en mostrar els missatges en fils, s'ha de recórrer a l'assumpte "
+#~ "per a organitzar-los."
+
+#~ msgid "A simple plugin which uses yTNEF to decode TNEF attachments."
+#~ msgstr ""
+#~ "Un connector senzill que utilitza l'yTNEF per a decodificar fitxers "
+#~ "adjunts TNEF."
+
+#~ msgid "A plugin to setup WebDAV contacts."
+#~ msgstr "Un connector per a configurar els contactes WebDAV."
+
+#~ msgid "Pos_t New Message to Folder"
+#~ msgstr "Envia un missa_tge nou a la carpeta"
+
+#~ msgid "Post a Repl_y"
+#~ msgstr "Envia una respos_ta"
+
+#~ msgid "Post a message to a Public folder"
+#~ msgstr "Envia un missatge a una carpeta pública"
+
+#~ msgid "Post a reply to a message in a Public folder"
+#~ msgstr "Envia una resposta a un missatge en una carpeta pública"
+
+#~ msgid "Attachment Bar"
+#~ msgstr "Barra de fitxers adjunts"
+
+#~ msgid "Cannot attach file %s: %s"
+#~ msgstr "No s'ha pogut adjuntar el fitxer %s: %s"
+
+#~ msgid "Cannot attach file %s: not a regular file"
+#~ msgstr "No s'ha pogut adjuntar el fitxer %s: no és un fitxer normal"
+
+#~ msgid "MIME type:"
+#~ msgstr "Tipus MIME:"
+
+#~ msgid "Suggest automatic display of attachment"
+#~ msgstr "Demana si s'ha de visualitzar el fitxer adjunt automàticament"
+
+#~ msgid "Expanded"
+#~ msgstr "Expandit"
+
+#~ msgid "Whether or not the expander is expanded"
+#~ msgstr "Si l'expansor està expandit"
+
+#~ msgid "Text of the expander's label"
+#~ msgstr "Text de l'etiqueta de l'expansor"
+
+#~ msgid ""
+#~ "If set, an underline in the text indicates the next character should be "
+#~ "used for the mnemonic accelerator key"
+#~ msgstr ""
+#~ "Si està habilitat, caràcter de subratllat en el text indicarà que el "
+#~ "caràcter següent s'ha d'utilitzar com a tecla acceleradora"
+
+#~ msgid "Space to put between the label and the child"
+#~ msgstr "Espai que es posarà entre l'etiqueta i el fill"
+
+#~ msgid "Label widget"
+#~ msgstr "Element d'interfície gràfica d'etiqueta"
+
+#~ msgid "A widget to display in place of the usual expander label"
+#~ msgstr ""
+#~ "Un element d'interfície gràfica a mostrar en comptes de l'etiqueta "
+#~ "d'expansió habitual"
+
+#~ msgid "Indicator Spacing"
+#~ msgstr "Espaiat de l'indicador"
+
+#~ msgid "Spacing around expander arrow"
+#~ msgstr "Espaiat al voltant de la fletxa de l'expansor"
+
+#~ msgid "Current Message"
+#~ msgstr "Missatge actual"
+
+#~ msgid "Edit Master Category List..."
+#~ msgstr "Edita la llista de categories mestre..."
+
+#~ msgid "Item(s) belong to these _categories:"
+#~ msgstr "Els elements pertanyen a aquestes _categories:"
+
+#~ msgid "categories"
+#~ msgstr "categories"
+
+# gal/e-table/e-cell-date.c:58
+#~ msgid "%l:%M %p"
+#~ msgstr "%l:%M %p"
+
+#~ msgid "DnD code"
+#~ msgstr "Codi DnD"
+
+#~ msgid "Full Header"
+#~ msgstr "Capçalera completa"
+
+#~ msgid "Font Description"
+#~ msgstr "Descripció del tipus de lletra"
+
+#~ msgid "Novell Groupwise"
+#~ msgstr "GroupWise de Novell"
+
+#~ msgid ""
+#~ "[Security=Personal;Unclassified;Protected;InConfidence;Secret;Topsecret]"
+#~ msgstr ""
+#~ "[Security=Personal;Unclassified;Protected;InConfidence;Secret;Topsecret]"
+
+#~ msgid ""
+#~ "We were unable to open this address book.  This either means you have "
+#~ "entered an incorrect URI, or the LDAP server is unreachable."
+#~ msgstr ""
+#~ "No s'ha pogut obrir la llibreta d'adreces perquè l'URI que heu introduït "
+#~ "és incorrecte o el servidor d'LDAP no està disponible."
+
+#~ msgid "Contact Print Style Editor Test"
+#~ msgstr "Prova de l'editor d'estil d'impressió de contactes"
+
+#~ msgid "Copyright (C) 2000, Ximian, Inc."
+#~ msgstr "Copyright (C) 2000, Ximian, Inc."
+
+#~ msgid "This should test the contact print style editor widget"
+#~ msgstr ""
+#~ "Això hauria de provar el giny d'edició d'estils d'impressió de contactes"
+
+#~ msgid "This should test the contact print code"
+#~ msgstr "Això hauria de provar el codi d'impressió de contactes"
+
+#~ msgid "Business"
+#~ msgstr "Negocis"
+
+#~ msgid "Competition"
+#~ msgstr "Competició"
+
+#~ msgid "Favourites"
+#~ msgstr "Preferits"
+
+#~ msgid "Gifts"
+#~ msgstr "Regals"
+
+#~ msgid "Goals/Objectives"
+#~ msgstr "Fites/Objectius"
+
+#~ msgid "Holiday"
+#~ msgstr "Vacances"
+
+#~ msgid "Holiday Cards"
+#~ msgstr "Postals"
+
+#~ msgid "Hot Contacts"
+#~ msgstr "Contactes importants"
+
+#~ msgid "Ideas"
+#~ msgstr "Idees"
+
+#~ msgid "International"
+#~ msgstr "Internacional"
+
+#~ msgid "Key Customer"
+#~ msgstr "Client important"
+
+#~ msgid "Next 7 days"
+#~ msgstr "Els propers 7 dies"
+
+#~ msgid "Phone Calls"
+#~ msgstr "Trucades"
+
+#~ msgid "Strategies"
+#~ msgstr "Estratègies"
+
+#~ msgid "Time &amp; Expenses"
+#~ msgstr "Temps i despeses"
+
+#~ msgid "VIP"
+#~ msgstr "Personalitat"
+
+#~ msgid "Next 7 Days"
+#~ msgstr "Els propers 7 dies"
+
+#~ msgid "A_dd Filter Criteria"
+#~ msgstr "A_fegeix un criteri de filtre"
+
+#~ msgid "Weather: Partly Cloudy"
+#~ msgstr "Temps: parcialment ennuvolat"
+
+#~ msgid "Mark calendar offline"
+#~ msgstr "Marca el calendari com a desconnectat"
+
+#~ msgid "Marks the selected calendar for offline viewing."
+#~ msgstr "Marca el calendari seleccionat per a veure'l fora de línia."
+
+#~ msgid "Error opening the FAQ webpage."
+#~ msgstr "S'ha produït un error en obrir la pàgina web de les PMF."
+
+#~ msgid "Select Importers"
+#~ msgstr "Seleccioneu els importadors"
+
+#~ msgid "Re_fresh..."
+#~ msgstr "Re_fresca..."
+
+#~ msgid "Recent Docu_ments"
+#~ msgstr "Do_cuments recents"
+
+#~ msgid "_Properties..."
+#~ msgstr "_Propietats..."
+
+#~ msgid ""
+#~ "'{0}' is a read-only calendar source. Change Calendar to one that can "
+#~ "accept appointments."
+#~ msgstr ""
+#~ "«{0}» és una font de calendari a la qual no és permès escriure-hi. Canvieu "
+#~ "a la visualització de calendari i ressalteu un calendari que pugui "
+#~ "acceptar cites."
+
+#~ msgid "D_escription:"
+#~ msgstr "D_escripció:"
+
+#~ msgid "De_scription:"
+#~ msgstr "Desc_ripció:"
+
+#~ msgid "Updating query"
+#~ msgstr "S'està actualitzant la consulta"
+
+#~ msgid "Upcoming Appointments"
+#~ msgstr "Properes cites"
+
+#~ msgid "folder-display|%s (%u)"
+#~ msgstr "%s (%u)"
+
+#~ msgid "Do you want the operation to be performed also in the subfolders?"
+#~ msgstr "Voleu que també s'apliqui l'operació a les subcarpetes?"
+
+#~ msgid "Mark all messages in this folder and subfolders as read?"
+#~ msgstr ""
+#~ "Voleu marcar tots els missatges d'aquesta carpeta i les seves subcarpetes "
+#~ "com a llegits?"
+
+#~ msgid "Only on _Current Folder"
+#~ msgstr "Només a la _carpeta actual"
+
+#~ msgid "Enable attachment reminder plugin"
+#~ msgstr "Habilita el connector de recordatori d'adjuncions"
+
+#~ msgid "Enable attachment reminder plugin."
+#~ msgstr "Habilita el connector de recordatori d'adjuncions."
+
+# FIXME [l10n-bug] (dpm)
+#~ msgid "button-user"
+#~ msgstr "button-user"
+
+#~ msgid "There is no configuration option for this plugin."
+#~ msgstr "Aquest connector no té cap opció de configuració."
+
+#~ msgid "A plugin that handles the Startup wizard."
+#~ msgstr "Un connector que gestiona l'auxiliar d'inici."
+
+#~ msgid "Startup wizard"
+#~ msgstr "Auxiliar de l'inici"
+
+#~ msgid "A string description of the current printer settings."
+#~ msgstr "Una cadena de descripció de la configuració d'impressió actual."
+
+#~ msgid "Decides whether the crash detection should be run or not."
+#~ msgstr "Decideix si s'ha d'executar o no la funció de detecció de fallades."
+
+#~ msgid "Skip recovery warning dialog"
+#~ msgstr "Omet el diàleg d'avís de recuperació"
+
+#~ msgid "Whether crash detection should be done or not"
+#~ msgstr "Si s'ha d'executar la detecció de fallades o no"
+
+#~ msgid "Whether the warning dialog in recovery of Evolution is skipped."
+#~ msgstr ""
+#~ "Si s'ha de mostrar el diàleg d'avís quan es produeixi una recuperació de "
+#~ "l'Evolution."
+
+#~ msgid "No folder name specified."
+#~ msgstr "No s'ha especificat cap nom de carpeta."
+
+#~ msgid "Folder name cannot contain the Return character."
+#~ msgstr "El nom de la carpeta no pot contenir el caràcter «retorn»."
+
+#~ msgid "Folder name cannot contain the character \"/\"."
+#~ msgstr "El nom de la carpeta no pot contenir el caràcter «/»."
+
+#~ msgid "Folder name cannot contain the character \"#\"."
+#~ msgstr "El nom de la carpeta no pot contenir el caràcter «#»."
+
+#~ msgid "'.' and '..' are reserved folder names."
+#~ msgstr "«.» i «..» són noms de carpeta reservats."
+
+#~ msgid "Evolution Crash Detection"
+#~ msgstr "Detecció de fallades de l'Evolution"
+
+#~ msgid "Ig_nore"
+#~ msgstr "I_gnora"
+
+#~ msgid ""
+#~ "Evolution appears to have exited unexpectedly the last time it was\n"
+#~ "run.  As a precautionary measure, all preview panes will be hidden.\n"
+#~ "You can restore the preview panes from the View menu.\n"
+#~ msgstr ""
+#~ "Sembla que l'Evolution va finalitzar de manera inesperada l'últim cop \n"
+#~ "que es va executar. Com a mesura preventiva, s'ocultaran totes les \n"
+#~ "subfinestres de previsualització, les quals podreu restaurar manualment \n"
+#~ "des del menú Visualitza.\n"
+
+#~ msgid "I_nsert"
+#~ msgstr "I_nsereix"
+
+#~ msgid "All Day Event"
+#~ msgstr "Esdeveniment de tot el dia"
+
+#~ msgid "Send _Options"
+#~ msgstr "_Opcions d'enviament"
+
+#~ msgid "Show messages in the normal style"
+#~ msgstr "Mostra els missatges amb l'estil normal"
+
+#~ msgid "C_lose"
+#~ msgstr "Ta_nca"
+
+#~ msgid "For_mat"
+#~ msgstr "For_mat"
+
+#~ msgid "H_TML"
+#~ msgstr "H_TML"
+
+#~ msgid "Save and _Close"
+#~ msgstr "Desa i tan_ca"
+
+#~ msgid "Send the mail in HTML format"
+#~ msgstr "Envia el missatge en format HTML"
+
+#~ msgid "Refresh List"
+#~ msgstr "Actualitza la llista"
+
+#~ msgid "Refresh List of Folders"
+#~ msgstr "Actualitza la llista de carpetes"
+
+#~ msgid "Remove folder from your list of subscribed folders"
+#~ msgstr "Suprimeix la carpeta de la llista de carpetes subscrites"
+
+#~ msgid "Unsubscribe"
+#~ msgstr "Cancel·la la subscripció"
+
+#~ msgid "_Invert Selection"
+#~ msgstr "_Inverteix la selecció"
+
+#~ msgid "Status Details"
+#~ msgstr "Detalls de l'estat"
+
+#~ msgid "%.1f KB"
+#~ msgstr "%.1f KB"
+
+#~ msgid "%.1f MB"
+#~ msgstr "%.1f MB"
+
+#~ msgid "%.1f GB"
+#~ msgstr "%.1f GB"
+
+#~ msgid "Permission Denied."
+#~ msgstr "S'ha denegat el permís."
+
+#~ msgid "<b>Display</b>"
+#~ msgstr "<b>Visualització</b>"
+
+#~ msgid "<b>Server Information</b>"
+#~ msgstr "<b>Informació del servidor</b>"
+
+#~ msgid "Open File"
+#~ msgstr "Obre un fitxer"
+
+#~ msgid "Cannot open file &quot;{0}&quot;."
+#~ msgstr "No es pot obrir el fitxer &quot;{0}&quot;."
+
+#~ msgid "Attach original message"
+#~ msgstr "Adjunta el missatge original"
+
+#~ msgid "Do not quote original message"
+#~ msgstr "No citis el missatge original"
+
+#~ msgid "Enter a name for this signature."
+#~ msgstr "Introduïu un nom per a aquesta signatura."
+
+#~ msgid ""
+#~ "Are you sure you want to permanently remove all the deleted messages in "
+#~ "folder &quot;{0}&quot;?"
+#~ msgstr ""
+#~ "Segur que voleu suprimir permanentment tots els missatges suprimits a la "
+#~ "carpeta &quot;{0}&quot;?"
+
+#~ msgid "Delete messages in Search Folder &quot;{0}&quot;?"
+#~ msgstr ""
+#~ "Voleu suprimir els missatges de la carpeta de cerca &quot;{0}&quot;?"
+
+#~ msgid "_Refresh:"
+#~ msgstr "Actualit_za:"
+
+#~ msgid "Gives an option to print from the composer."
+#~ msgstr "Afegeix una opció per a imprimir des del redactor."
+
+#~ msgid "Prints the message"
+#~ msgstr "Imprimeix el missatge"
+
+#~ msgid "Cut selection to clipboard"
+#~ msgstr "Retalla la selecció al porta-retalls"
+
+#~ msgid "Paste from clipboard"
+#~ msgstr "Enganxa el porta-retalls"
+
+#~ msgid "Delete all but signature"
+#~ msgstr "Suprimeix-ho tot excepte la signatura"
+
+#~ msgid "HT_ML"
+#~ msgstr "HT_ML"
+
+#~ msgid "Open a file"
+#~ msgstr "Obre un fitxer"
+
+#~ msgid "PGP Encrypt"
+#~ msgstr "Xifra amb PGP"
+
+#~ msgid "PGP Sign"
+#~ msgstr "Signa amb PGP"
+
+#~ msgid "Save in folder..."
+#~ msgstr "Desa a la carpeta..."
+
+#~ msgid "Save the message in a specified folder"
+#~ msgstr "Desa el missatge a una carpeta determinada"
+
+#~ msgid "Send"
+#~ msgstr "Envia"
+
+#~ msgid "_Open..."
+#~ msgstr "_Obre..."
+
+#~ msgid "TimeZone Combobox"
+#~ msgstr "Quadre combinat del fus horari"
+
+#~ msgid ""
+#~ "The address book {0} is read only, thus you cannot add contacts there. "
+#~ "Select other address book, please."
+#~ msgstr ""
+#~ "La llibreta d'adreces {0} és de només lectura, per la qual cosa no podeu "
+#~ "afegir-hi contactes. Hauríeu de seleccionar-ne una altra."
+
+#~ msgid "_Categories..."
+#~ msgstr "_Categories..."
+
+#~ msgid "\n"
+#~ msgstr "\n"
+
+#~ msgid "Or_ganiser:"
+#~ msgstr "Or_ganitzador:"
+
+#~ msgid "SMTWTFS"
+#~ msgstr "DDDDDDD"
+
+#~ msgid "Post To:"
+#~ msgstr "Envia a:"
+
+#~ msgid "_Search name:"
+#~ msgstr "Nom de la _cerca:"
+
+#~ msgid "Di_sable"
+#~ msgstr "In_habilita"
+
+#~ msgid "New Mail Notify sound file"
+#~ msgstr "Fitxer de so de correu nou"
+
+#~ msgid "New Mail Notify type"
+#~ msgstr "Tipus de notificació de correu nou"
+
+#~ msgid "Specifies the type of New Mail Notification the user wishes to use."
+#~ msgstr ""
+#~ "Especifica el tipus de notificació de correu nou que l'usuari vol "
+#~ "utilitzar."
+
+#~ msgid "<span weight=\"bold\">Labels and Colors</span>"
+#~ msgstr "<span weight=\"bold\">Etiquetes i colors</span>"
+
+#~ msgid "<span weight=\"bold\">New Message Notification</span>"
+#~ msgstr "<span weight=\"bold\">Notificació de correu nou</span>"
+
+#~ msgid "Se_lect..."
+#~ msgstr "Se_lecciona..."
+
+#~ msgid "_Beep when new messages arrive"
+#~ msgstr "Avisa amb un so quan arri_bi correu nou"
+
+#~ msgid "Attachment Reminder Preferences"
+#~ msgstr "Preferències del recordatori d'adjuncions"
+
+#~ msgid "_Contacts..."
+#~ msgstr "_Contactes..."
+
+#~ msgid "Every time a new mail arrives, pop up a libnotify notification."
+#~ msgstr ""
+#~ "Mostra una notificació del libnotify cada cop que es rebi el correu."
+
+#~ msgid "Make the status icon blink"
+#~ msgstr "Fes que la icona d'estat parpellegi"
+
+#~ msgid "When the new-mail status icon is visible, make it blink."
+#~ msgstr "Fes que la icona d'estat parpellegi si és visible."
+
+#~ msgid "System error: %s"
+#~ msgstr "Error del sistema: %s"
+
+#~ msgid "Account cannot send e-mail"
+#~ msgstr "El compte no pot enviar correus"
+
+#~ msgid ""
+#~ "A plugin which implements a CORBA interface for accessing mail data "
+#~ "remotely."
+#~ msgstr ""
+#~ "Un connector que implementa una interfície CORBA per a accedir dades de "
+#~ "correu remotament."
+
+#~ msgid "Mail Remote"
+#~ msgstr "Correu remot"
+
+#~ msgid "New Mail Notification"
+#~ msgstr "Notificació de correu nou"
+
+#~ msgid "Con_figure"
+#~ msgstr "Con_figura"
+
+#~ msgid "MTWTFSS"
+#~ msgstr "LMXJVSD"
+
+#~ msgid "Emulate label resize"
+#~ msgstr "Emula l'escalat d'etiquetes"
+
+#~ msgid "Task sort"
+#~ msgstr "Ordre de les tasques"
+
+#~ msgid "Memo sort"
+#~ msgstr "Ordre de les anotacions"
+
+#, fuzzy
+#~ msgid "The Evolution PIM and Email Client"
+#~ msgstr "El gestor d'informació personal i client de correu de l'Evolution"
+
+#, fuzzy
+#~ msgid "HTML Mail"
+#~ msgstr "Missatges HTML"
+
+#, fuzzy
+#~ msgid "<- _Remove"
+#~ msgstr "Sup_rimeix"
+
+#, fuzzy
+#~ msgid "Sh_ow these fields in order:"
+#~ msgstr "Mo_stra aquests camps en ordre:"
+
+#, fuzzy
+#~ msgid "_Add ->"
+#~ msgstr "_Afegeix "
+
+#, fuzzy
+#~ msgid "A Folder with this name already exists"
+#~ msgstr "La carpeta ja existeix"
+
+#, fuzzy
+#~ msgid "_Address: "
+#~ msgstr "_Adreça:"
+
+#, fuzzy
+#~ msgid "Print cards"
+#~ msgstr "Imprimeix les tasques"
+
+#, fuzzy
+#~ msgid "E-mail"
+#~ msgstr "Adreça electrònica"
+
+#, fuzzy
+#~ msgid "GTK Tree View"
+#~ msgstr "Visualització setmanal"
+
+#, fuzzy
+#~ msgid "Print envelope"
+#~ msgstr "Pre_visualització d'impressió"
+
+#, fuzzy
+#~ msgid "Print contact"
+#~ msgstr "Imprimeix els contactes seleccionats"
+
+#, fuzzy
+#~ msgid "Error loading default addressbook."
+#~ msgstr "S'ha produït un error en carregar la llibreta d'adreces."
+
+#, fuzzy
+#~ msgid "Input File"
+#~ msgstr "Importa un fitxer"
+
+#, fuzzy
+#~ msgid ""
+#~ "All information in these journal entries will be deleted and can not be "
+#~ "restored."
+#~ msgstr ""
+#~ "Se suprimirà tota la informació en aquestes anotacions i no es podrà "
+#~ "recuperar."
+
+#, fuzzy
+#~ msgid ""
+#~ "All information on this journal entry will be deleted and can not be "
+#~ "restored."
+#~ msgstr ""
+#~ "Se suprimirà tota la informació d'aquesta cita i no es podrà recuperar."
+
+#, fuzzy
+#~ msgid "Are you sure you want to delete these {0} journal entries?"
+#~ msgstr "Segur que voleu suprimir aquestes {0} cites?"
+
+#, fuzzy
+#~ msgid "Are you sure you want to delete this journal entry?"
+#~ msgstr "Segur que voleu suprimir aquest compte?"
+
+#, fuzzy
+#~ msgid ""
+#~ "If you do not send a cancelation notice, the other participants may not "
+#~ "know the journal has been deleted."
+#~ msgstr ""
+#~ "Si no envieu un avís de cancel·lació, els altres participants no sabran "
+#~ "que s'ha suprimit l'anotació."
+
+#, fuzzy
+#~ msgid "_Add Calendar"
+#~ msgstr "_Calendari:"
+
+#, fuzzy
+#~ msgid "_Add Task List"
+#~ msgstr "Llista de tasques _nova"
+
+#, fuzzy
+#~ msgid "This journal entry has been deleted."
+#~ msgstr "S'ha suprimit l'esdeveniment."
+
+#, fuzzy
+#~ msgid "This journal entry has been changed."
+#~ msgstr "S'ha modificat l'esdeveniment."
+
+#, fuzzy
+#~ msgid "The journal entry could not be deleted due to a corba error"
+#~ msgstr ""
+#~ "No s'ha pogut suprimir l'esdeveniment perquè s'ha produït un error del "
+#~ "CORBA"
+
+#, fuzzy
+#~ msgid "The journal entry could not be deleted because permission was denied"
+#~ msgstr "No s'ha pogut suprimir l'esdeveniment perquè no en teniu permís"
+
+#, fuzzy
+#~ msgid "The journal entry could not be deleted due to an error"
+#~ msgstr "No s'ha pogut suprimir l'esdeveniment perquè s'ha produït un error"
+
+#, fuzzy
+#~ msgid "<b>Calendar options</b>"
+#~ msgstr "<b>Opcions d'entrega</b>"
+
+#, fuzzy
+#~ msgid "Add New Calendar"
+#~ msgstr "Calendari nou"
+
+#, fuzzy
+#~ msgid "Calendar Group"
+#~ msgstr "Error de l'iCalendar"
+
+#, fuzzy
+#~ msgid "<b>Task List Options</b>"
+#~ msgstr "<b>Opcions de seguiment</b>"
+
+#, fuzzy
+#~ msgid "Add New Task List"
+#~ msgstr "Llista de tasques nova"
+
+#, fuzzy
+#~ msgid "Task List Group"
+#~ msgstr "Llista de tasques"
+
+#, fuzzy
+#~ msgid "Task List Name"
+#~ msgstr "Llista de tasques"
+
+#, fuzzy
+#~ msgid ""
+#~ "You are modifying a recurring journal entry. What would you like to "
+#~ "modify?"
+#~ msgstr "Esteu modificant un esdeveniment periòdic. Què voleu modificar?"
+
+#~ msgid "<b>Free/Busy C_alendars</b>"
+#~ msgstr "<b>C_alendaris lliure/ocupat</b>"
+
+#, fuzzy
+#~ msgid "<b>Publishing Frequency</b>"
+#~ msgstr "_Freqüència de publicació:"
+
+#, fuzzy
+#~ msgid "<b>Publishing _Location</b>"
+#~ msgstr "Ubicació de la publicació"
+
+#, fuzzy
+#~ msgid "Free/Busy Publishing Settings"
+#~ msgstr "Informació lliure/ocupat"
+
+#, fuzzy
+#~ msgid "_Manual"
+#~ msgstr "_Correu"
+
+#, fuzzy
+#~ msgid "Enter the password for %s"
+#~ msgstr "Introduïu la contrasenya per a «%s»"
+
+#, fuzzy
+#~ msgid "Journal information"
+#~ msgstr "Informació del contacte"
+
+#~ msgid "Selected day (%a %b %d %Y)"
+#~ msgstr "Dia seleccionat (%a %b %d %Y)"
+
+#, fuzzy
+#~ msgid "%a %b %d"
+#~ msgstr "%a %d %b"
+
+#, fuzzy
+#~ msgid "%a %d %Y"
+#~ msgstr "%a %d %b"
+
+#, fuzzy
+#~ msgid "%a %b %d %Y"
+#~ msgstr "%d de %b del %Y"
+
+#~ msgid "Selected week (%s - %s)"
+#~ msgstr "Setmana seleccionada (%s - %s)"
+
+#~ msgid "Selected month (%b %Y)"
+#~ msgstr "Mes seleccionat (%b %Y)"
+
+#, fuzzy
+#~ msgid "Selected year (%Y)"
+#~ msgstr "Seleccioneu l'usuari"
+
+#, fuzzy
+#~ msgid "Print Item"
+#~ msgstr "Imprimeix anotacions"
+
+#~ msgid "%.0fK"
+#~ msgstr "%.0fK"
+
+#, fuzzy
+#~ msgid "No, Do not Change Status"
+#~ msgstr "No, no canviïs l'estat"
+
+#, fuzzy
+#~ msgid "<b>Receiving Email</b>"
+#~ msgstr "Recepció de correu"
+
+#, fuzzy
+#~ msgid "<b>Sending Email:</b>"
+#~ msgstr "Enviament de correu"
+
+#~ msgid ""
+#~ "<small>This page allows you to choose if you want to be notified via a "
+#~ "read receipt when a message you\n"
+#~ "sent is read, and to specify what Evolution should do when someone "
+#~ "requests a receipt from you.</small>"
+#~ msgstr ""
+#~ "<small>Aquesta pàgina us permet triar si voleu que se us notifiqui "
+#~ "mitjançant una confirmació de lectura\n"
+#~ "que s'ha llegit un correu que hàgiu enviat, i per especificar què ha de "
+#~ "fer l'Evolution quan algú us sol·liciti l'enviament d'una confirmació de "
+#~ "lectura.</small>"
+
+#~ msgid "Ask me if I want to send back a read receipt"
+#~ msgstr "Demana'm si vull enviar una confirmació de lectura"
+
+#~ msgid "Never send back a read receipt"
+#~ msgstr "No enviïs mai una confirmació de lectura"
+
+#, fuzzy
+#~ msgid "Read Receipts"
+#~ msgstr "Envia la confirmació"
+
+#, fuzzy
+#~ msgid "Request a read receipt for all messages I send"
+#~ msgstr "Demana un avís de lectu_ra per a aquest missatge"
+
+#~ msgid ""
+#~ "Unless the message is sent to a mailing list, and not to me personally"
+#~ msgstr ""
+#~ "Si no és que s'envia el missatge a una llista de correu, no a mi "
+#~ "personalment"
+
+#~ msgid ""
+#~ "When you receive an email with a read receipt request, what should "
+#~ "Evolution do?"
+#~ msgstr ""
+#~ "Què ha de fer l'Evolution en rebre un correu pel qual es sol·liciti una "
+#~ "confirmació de lectura?"
+
+#, fuzzy
+#~ msgid "Enable"
+#~ msgstr "Habilitat"
+
+#, fuzzy
+#~ msgid "<b>Then</b>"
+#~ msgstr "<b>Tipus:</b>"
+
+#, fuzzy
+#~ msgid "Valid signature, cannot verify sender"
+#~ msgstr "La signatura és vàlida però no es pot verificar el remitent"
+
+#, fuzzy
+#~ msgid "Priority Filter \"%s\""
+#~ msgstr "Prioritat: %s"
+
+#~ msgid ""
+#~ "Some of your Netscape email filters are based on\n"
+#~ "email priorities, which are not used in Evolution.\n"
+#~ "Instead, Evolution provides scores in the range of\n"
+#~ "-3 to 3 that can be assigned to emails and filtered\n"
+#~ "accordingly.\n"
+#~ "\n"
+#~ "As a workaround, a set of filters called \"Priority Filter\"\n"
+#~ "was added that converts Netscape's email priorities into\n"
+#~ "Evolution's scores, and the affected filters use scores instead\n"
+#~ "of priorities. Check the imported filters to make sure\n"
+#~ "everything still works as intended."
+#~ msgstr ""
+#~ "Alguns dels filtres de correu del Netscape es basen en\n"
+#~ "prioritats de correu, però l'Evolution no ho fa servir.\n"
+#~ "En el seu lloc, l'Evolution proporciona puntuacions en\n"
+#~ "el rang -3 a 3 que es poden assignar als correus i filtrar\n"
+#~ "apropiadament.\n"
+#~ "\n"
+#~ "Com a solució temporal, es va afegir a les propietats del\n"
+#~ "correu de Netscape un conjunt de filtres anomenats «Filtre de\n"
+#~ "prioritat» que converteix prioritats de l'Evolution a\n"
+#~ "puntuacions, i els filtres afectats fan servir puntuacions en\n"
+#~ "comptes de prioritats. Comproveu els filtres per assegurar-vos\n"
+#~ "que tot funcioni apropiadament."
+
+#~ msgid ""
+#~ "Some of your Netscape email filters use\n"
+#~ "the \"Ignore Thread\" or \"Watch Thread\"\n"
+#~ "feature, which is not supported in Evolution.\n"
+#~ "These filters will be dropped."
+#~ msgstr ""
+#~ "Algun dels vostres filtres de correu del Netscape utilitzen\n"
+#~ "la característica «Ignora el fil» o «Vigila el fil»,\n"
+#~ "que no està suportada en l'Evolution.\n"
+#~ "Aquests filtres es perdran."
+
+#~ msgid ""
+#~ "Some of your Netscape email filters test the\n"
+#~ "body of emails for (in)equality to a given string,\n"
+#~ "which is not supported in Evolution. Those filters\n"
+#~ "were modified to test whether that string is or is not\n"
+#~ "contained in the message body."
+#~ msgstr ""
+#~ "Alguns dels vostres filtres de correu proven al cos\n"
+#~ "dels correus la igualtat/diferència d'una cadena donada,\n"
+#~ "però l'Evolution no ho suporta. Aquests filtres es van\n"
+#~ "modificar per provar si el cos del missatge conté\n"
+#~ "o no la cadena."
+
+#~ msgid "Evolution is importing your old Netscape data"
+#~ msgstr "L'Evolution està important les vostres antigues dades del Netscape"
+
+#, fuzzy
+#~ msgid "Importing Netscape data"
+#~ msgstr "S'estan important dades del Pine"
+
+#, fuzzy
+#~ msgid "Mail Filters"
+#~ msgstr "Carpeta de correu"
+
+#~ msgid ""
+#~ "Evolution has found Netscape mail files.\n"
+#~ "Would you like them to be imported into Evolution?"
+#~ msgstr ""
+#~ "L'Evolution ha trobat fitxers de correu del Netscape.\n"
+#~ "Voleu importar-los a l'Evolution?"
+
+#, fuzzy
+#~ msgid "<span weight=\"bold\">Filter Options</span>"
+#~ msgstr "<span weight=\"bold\">Opcions</span>"
+
+#, fuzzy
+#~ msgid "Mark as _Read"
+#~ msgstr "Mar_ca'l com a llegit"
+
+#, fuzzy
+#~ msgid "_Do not Mark as Read"
+#~ msgstr "Mar_ca'l com a llegit"
+
+#, fuzzy
+#~ msgid "<b>Junk Mail Settings</b>"
+#~ msgstr "Configuració del correu brossa"
+
+#, fuzzy
+#~ msgid "<b>Subject</b> :"
+#~ msgstr "Assumpte:"
+
+#, fuzzy
+#~ msgid "<b>From</b> :"
+#~ msgstr "<b>Casa</b>"
+
+#, fuzzy
+#~ msgid "<b>Recipients </b>"
+#~ msgstr "<b>Respostes</b>"
+
+#, fuzzy
+#~ msgid "<b>Action</b>"
+#~ msgstr "<b>Opcions</b>"
+
+#, fuzzy
+#~ msgid "<b>Date and Time</b>"
+#~ msgstr "Data i hora"
+
+#~ msgid ""
+#~ "The output directory was not found on iPod! Please ensure that iPod has "
+#~ "been correctly set up and try again."
+#~ msgstr ""
+#~ "No s'ha trobat el directori de sortida a l'iPod. Assegureu-vos que l'iPod "
+#~ "s'ha configurat correctament i torneu-ho a provar."
+
+#, fuzzy
+#~ msgid "Could not export data!"
+#~ msgstr "No s'han pogut escriure les dades: %s"
+
+#, fuzzy
+#~ msgid "Could not open addressbook!"
+#~ msgstr "No s'ha pogut carregar la llibreta d'adreces"
+
+#, fuzzy
+#~ msgid "Could not open the Evolution addressbook to export data."
+#~ msgstr "La llibreta d'adreces de l'Evolution ha sortit inesperadament."
+
+#, fuzzy
+#~ msgid "Could not open calendar/todo!"
+#~ msgstr "No s'ha pogut obrir la destinació"
+
+#, fuzzy
+#~ msgid "Could not open the Evolution calendar/todo list to export data."
+#~ msgstr "No s'ha pogut enviar un avís de cancel·lació al delegat"
+
+#, fuzzy
+#~ msgid "Unable to find this journal entry in any journal"
+#~ msgstr "No s'ha pogut trobar aquesta reunió en cap calendari"
+
+#, fuzzy
+#~ msgid "New mail notify"
+#~ msgstr "Tipus de notificació de correu nou"
+
+#, fuzzy
+#~ msgid "(Untitled)"
+#~ msgstr "Sense títol"
+
+#, fuzzy
+#~ msgid "Description of the attachment."
+#~ msgstr "La descripció conté"
+
+#, fuzzy
+#~ msgid "Mark attachment to be shown inline by default."
+#~ msgstr ""
+#~ "Identificador o sobrenom del component a mostrar per defecte a l'inici "
+#~ "per defecte."
+
+#, fuzzy
+#~ msgid "_Edit..."
+#~ msgstr "_Edita"
+
+#, fuzzy
+#~ msgid "..."
+#~ msgstr "_Nova..."
+
+#, fuzzy
+#~ msgid "%H:%M"
+#~ msgstr "%A a les %H:%M"
+
+# gal/e-table/e-cell-date.c:58
+#, fuzzy
+#~ msgid "%I:%M %p"
+#~ msgstr "%l:%M %p"
+
+#~ msgid "Minicard Test"
+#~ msgstr "Prova de la minitargeta"
+
+#, fuzzy
+#~ msgid "Copyright (C) 2000, Helix Code, Inc."
+#~ msgstr "Copyright (C) 2000, Ximian, Inc."
+
+#, fuzzy
+#~ msgid "This should test the minicard canvas item"
+#~ msgstr "Això hauria de provar el codi d'impressió de contactes"
+
+#, fuzzy
+#~ msgid "range"
+#~ msgstr "França"
+
+#, fuzzy
+#~ msgid "Fo_rward"
+#~ msgstr "Reenvia"
+
+#, fuzzy
+#~ msgid "Printer settings"
+#~ msgstr "Configuració del correu brossa"
+
+#, fuzzy
+#~ msgid "Fontset"
+#~ msgstr "Tipus de lletres"
+
+#, fuzzy
+#~ msgid "Font"
+#~ msgstr "Tipus de lletres"
+
+#, fuzzy
+#~ msgid "GDKFont"
+#~ msgstr "Tipus de lletres"
+
+#, fuzzy
+#~ msgid "Print Preview"
+#~ msgstr "Pre_visualització d'impressió"
+
+#~ msgid ""
+#~ "A file by that name already exists.\n"
+#~ "Overwrite it?"
+#~ msgstr ""
+#~ "Ja existeix una fitxer amb aquest nom.\n"
+#~ "El voleu sobreescriure?"
+
+#, fuzzy
+#~ msgid "ok_button"
+#~ msgstr "Botó combinat"
+
+#, fuzzy
+#~ msgid "_Send New Message To ..."
+#~ msgstr "Envia un mi_ssatge nou a..."
+
+#, fuzzy
+#~ msgid "Importing ..."
+#~ msgstr "S'està important..."
+
+#, fuzzy
+#~ msgid "Su_mmary"
+#~ msgstr "Resu_m:"
+
+#, fuzzy
+#~ msgid "_Memo Content:"
+#~ msgstr "Context de MI"
+
+#, fuzzy
+#~ msgid " New "
+#~ msgstr "Nou"
+
+#~ msgid "*"
+#~ msgstr "*"
+
+#~ msgid "Video Conferencing"
+#~ msgstr "Videoconferència"
+
+#, fuzzy
+#~ msgid "work"
+#~ msgstr "Feina"
+
+#~ msgid "WWW"
+#~ msgstr "www"
+
+#, fuzzy
+#~ msgid "personal"
+#~ msgstr "Personal"
+
+#, fuzzy
+#~ msgid "Cale_ndar:"
+#~ msgstr "Cale_ndari"
+
+#, fuzzy
+#~ msgid "Locat_ion:"
+#~ msgstr "Ubicació:"
+
+# FIXME: [l10n-bug] (dpm)
+#, fuzzy
+#~ msgid "Dele_gatees"
+#~ msgstr "De_legats"
+
+#, fuzzy
+#~ msgid "%P %%"
+#~ msgstr "%a %d %b"
+
+#, fuzzy
+#~ msgid "date-end"
+#~ msgstr "Actualitzat"
+
+#, fuzzy
+#~ msgid "date-start"
+#~ msgstr "Inici de setmana"
+
+#, fuzzy
+#~ msgid "Properties..."
+#~ msgstr "_Propietats..."
+
+#, fuzzy
+#~ msgid "_Memo"
+#~ msgstr "A_notacions"
+
+#, fuzzy
+#~ msgid "      "
+#~ msgstr "    "
+
+#, fuzzy
+#~ msgid "Original Location"
+#~ msgstr "Contacte original:"
+
+#, fuzzy
+#~ msgid "Search Type"
+#~ msgstr "Cerques"
+
+#, fuzzy
+#~ msgid "Subitem ID"
+#~ msgstr "ID de l'element"
+
+#, fuzzy
+#~ msgid "C_lassification"
+#~ msgstr "Classificació"
+
+#, fuzzy
+#~ msgid "%s : %s (%d items)"
+#~ msgstr "%s : %s (%d element)"
+
+#, fuzzy
+#~ msgid "%s (%d items)"
+#~ msgstr "%s (%d element)"
+
+#~ msgid ""
+#~ "The message was sent via the &quot;sendmail&quot; external application. "
+#~ "Sendmail reports the following error: status 67: mail not sent.\n"
+#~ "The message is stored in the Outbox folder. Check the message for errors "
+#~ "and resend."
+#~ msgstr ""
+#~ "El missatge s'ha enviat mitjançant l'aplicació externa &quot;"
+#~ "sendmail&quot;. El Sendmail informa del següent error: estat 67: no s'ha "
+#~ "enviat el correu.\n"
+#~ "El missatge s'ha emmagatzemat a la safata de sortida. Comproveu els "
+#~ "errors del missatge i torneu a enviar-lo."
+
+#~ msgid "Your message with the subject &quot;{0}&quot; was not delivered."
+#~ msgstr "No s'ha entregat el missatge amb assumpte &quot;{0}&quot;."
+
+#, fuzzy
+#~ msgid "(%ld seconds)"
+#~ msgstr "%d segon"
+
+#, fuzzy
+#~ msgid "(%d %s %d %s)"
+#~ msgstr "%A, %d de %B de %Y"
+
+#, fuzzy
+#~ msgid "(%d %s)"
+#~ msgstr "%d %b"
+
+#, fuzzy
+#~ msgid " %u second"
+#~ msgstr "%d segon"
+
+#, fuzzy
+#~ msgid " %u seconds"
+#~ msgstr "%d segon"
+
+#, fuzzy
+#~ msgid " %u minute"
+#~ msgstr "%d minut"
+
+#, fuzzy
+#~ msgid " %u minutes"
+#~ msgstr "%d minut"
+
+#, fuzzy
+#~ msgid "%u hour"
+#~ msgstr "%d hora"
+
+#, fuzzy
+#~ msgid "%u hours"
+#~ msgstr "%d hora"
+
+#, fuzzy
+#~ msgid "(%d seconds)"
+#~ msgstr "%d segon"
+
+#~ msgid ""
+#~ "Selecting this option means that Evolution will only try to use SSL/TLS "
+#~ "if you are in a insecure environment. For example, if you and your LDAP "
+#~ "server are behind a firewall at work, then Evolution doesn't need to use "
+#~ "SSL/TLS because your connection is already secure."
+#~ msgstr ""
+#~ "Si seleccioneu aquesta opció l'Evolution només intentarà utilitzar l'SSL/"
+#~ "TLS si esteu en un entorn insegur. Per exemple, si esteu en un servidor "
+#~ "d'LDAP darrere un tallafoc, l'Evolution no necessita utilitzar l'SSL/TLS "
+#~ "perquè la vostra connexió ja és segura."
+
+#, fuzzy
+#~ msgid "Task Table"
+#~ msgstr "Actualització de la tasca"
+
+# gal/menus/gal-view-factory-etable.c:38
+#, fuzzy
+#~ msgid "Memo Table"
+#~ msgstr "Taula"
+
+#, fuzzy
+#~ msgid "Timezone Button"
+#~ msgstr "Fus horari"
+
+#, fuzzy
+#~ msgid "Mail Accounts Table"
+#~ msgstr "Comptes de correu"
+
+#, fuzzy
+#~ msgid "Attachment Button"
+#~ msgstr "Barra de fitxers adjunts"
+
+#, fuzzy
+#~ msgid "Filters"
+#~ msgstr "Arxiva com a"
+
+#, fuzzy
+#~ msgid "<b>%s (%s)</b>"
+#~ msgstr "<b>Usuaris:</b>"
+
+# c-format
+#~ msgid "<b>%s</b> : %s"
+#~ msgstr "<b>%s</b> : %s"
+
+#, fuzzy
+#~ msgid "<b>%s</b>"
+#~ msgstr "<b>Feina</b>"
+
+#, fuzzy
+#~ msgid "<span weight=\"bold\">Automatic Contacts</span>"
+#~ msgstr "<span weight=\"bold\">Ubicació</span>"
+
+#, fuzzy
+#~ msgid "<span weight=\"bold\">Instant Messaging Contacts</span>"
+#~ msgstr "<span weight=\"bold\">Tipus de lletra dels missatges</span>"
+
+#, fuzzy
+#~ msgid "<span weight=\"bold\">Conflict Search</span>"
+#~ msgstr "<span weight=\"bold\">Configuració</span>"
+
+#, fuzzy
+#~ msgid "Delete this Occurrence"
+#~ msgstr "Suprimeix aquesta a_parició"
+
+#, fuzzy
+#~ msgid "Alar_ms"
+#~ msgstr "Alarmes"
+
+#~ msgid "Text Date Entry"
+#~ msgstr "Entrada de text de data"
+
+#, fuzzy
+#~ msgid "Date Button"
+#~ msgstr "Dibuixa el botó"
+
+#, fuzzy
+#~ msgid "Time Combo Box"
+#~ msgstr "Quadre combinat del fus horari"
+
+#, fuzzy
+#~ msgid "Search Text Entry"
+#~ msgstr "Filtre de cerca"
+
+#, fuzzy
+#~ msgid "Removal Complete"
+#~ msgstr "% acabat"
+
+#, fuzzy
+#~ msgid "Advanced..."
+#~ msgstr "Cerca _avançada..."
+
+#, fuzzy
+#~ msgid "_Advanced..."
+#~ msgstr "Cerca _avançada..."
+
+#, fuzzy
+#~ msgid "Select target addressbook."
+#~ msgstr "Seleccioneu la llibreta d'adreces"
+
+#, fuzzy
+#~ msgid "Select an Action"
+#~ msgstr "Seleccioneu una ubicació"
+
+#, fuzzy
+#~ msgid "Create a new contact \"%s\""
+#~ msgstr "Crea un contacte nou"
+
+#, fuzzy
+#~ msgid "Merge E-Mail Address"
+#~ msgstr "Adreça electrònica"
+
+#, fuzzy
+#~ msgid "_Configure Alarms"
+#~ msgstr "Con_figura"
+
+#, fuzzy
+#~ msgid "<b>Publishing</b>"
+#~ msgstr "<b>Permisos</b>"
+
+#, fuzzy
+#~ msgid "Publishing Table"
+#~ msgstr "Ubicació de la publicació"
+
+#, fuzzy
+#~ msgid "_Add URL"
+#~ msgstr "_Afegeix "
+
+#, fuzzy
+#~ msgid "Or_ganizer"
+#~ msgstr "Or_ganitzador:"
+
+#, fuzzy
+#~ msgid "_Set alarm\t"
+#~ msgstr "_Repeteix l'alarma"
+
+#, fuzzy
+#~ msgid "<b>Dele_gatees</b>"
+#~ msgstr "<b>Repetició</b>"
+
+#, fuzzy
+#~ msgid "<span weight=\"bold\">Basics</span>"
+#~ msgstr "<span weight=\"bold\">Llista de tasques</span>"
+
+#, fuzzy
+#~ msgid "Classi_fication:"
+#~ msgstr "Classificació"
+
+#, fuzzy
+#~ msgid "_Group"
+#~ msgstr "_Grup:"
+
+#, fuzzy
+#~ msgid "_Attachment Bar"
+#~ msgstr "Barra de fitxers adjunts"
+
+#, fuzzy
+#~ msgid "T_erminal Font:"
+#~ msgstr "Tipus de lletra de terminal"
+
+#, fuzzy
+#~ msgid "Server: %s, Type: %s"
+#~ msgstr "_Tipus de servidor:"
+
+#~ msgid "Path: %s, Type: %s"
+#~ msgstr "Camí: %s, tipus: %s"
+
+#, fuzzy
+#~ msgid "Type: %s"
+#~ msgstr "T_ipus:"
+
+#~ msgid "dialog1"
+#~ msgstr "diàleg1"
+
+#, fuzzy
+#~ msgid "Id"
+#~ msgstr "I"
+
+#, fuzzy
+#~ msgid "Evolution Settings"
+#~ msgstr "S'està carregant la configuració de l'Evolution"
+
+#, fuzzy
+#~ msgid "_Select All"
+#~ msgstr "Selecciona-ho tot"
+
+#, fuzzy
+#~ msgid "Show Time _Zone"
+#~ msgstr "Fus h_orari"
+
+#, fuzzy
+#~ msgid "_About Evolution..."
+#~ msgstr "Quant a l'Evolution..."
+
+#, fuzzy
+#~ msgid "Discard Changes"
+#~ msgstr "_Descarta els canvis"
+
+#, fuzzy
+#~ msgid "description of appointment"
+#~ msgstr "ubicació de la cita"
+
+#~ msgid ""
+#~ "Alarm on %s\n"
+#~ "%s\n"
+#~ "Starting at %s\n"
+#~ "Ending at %s"
+#~ msgstr ""
+#~ "Alarma el %s\n"
+#~ "%s\n"
+#~ "S'incia a %s\n"
+#~ "Finalitza a %s"
+
+#, fuzzy
+#~ msgid "Remove"
+#~ msgstr "Sup_rimeix"
+
+#, fuzzy
+#~ msgid "Don't Remove"
+#~ msgstr "N_o el recuperis"
+
+#, fuzzy
+#~ msgid "<b>General</b>"
+#~ msgstr "<b>Repetició</b>"
+
+#, fuzzy
+#~ msgid "<b>Task List</b>"
+#~ msgstr "<b>Llista de correu brossa:</b>"
+
+#, fuzzy
+#~ msgid "<b>Time</b>"
+#~ msgstr "<b>Casa</b>"
+
+#, fuzzy
+#~ msgid "<b>Work Week</b>"
+#~ msgstr "<b>Feina</b>"
+
+#, fuzzy
+#~ msgid "option menu to choose reminder units"
+#~ msgstr "Unitats per defecte pels recordatoris"
+
+#~ msgid "option menu to choose time units"
+#~ msgstr "menú d'opcions per triar la unitat del temps"
+
+#~ msgid "_Attachment Bar (drop attachments here)"
+#~ msgstr "Barra de fitxers _adjunts (deixeu-hi anar els fitxers adjunts)"
+
+#, fuzzy
+#~ msgid "Scheduling"
+#~ msgstr "Ombrejat"
+
+#, fuzzy
+#~ msgid "Invitations"
+#~ msgstr "Internacional"
+
+#, fuzzy
+#~ msgid "This appointment has customized alarms"
+#~ msgstr "Aq_uesta cita és periòdica"
+
+# gal/e-table/e-table-header-item.c:1475
+#, fuzzy
+#~ msgid "Assignment"
+#~ msgstr "Ali_neació"
+
+#, fuzzy
+#~ msgid "_Publish Free/Busy Information"
+#~ msgstr "Informació de lliure/ocupat"
+
+#, fuzzy
+#~ msgid "%a %m/%d/%Y %I:%M %p"
+#~ msgstr "%a %d/%m/%Y %I:%M:%S %p"
+
+#, fuzzy
+#~ msgid "%a %m/%d/%Y %H:%M"
+#~ msgstr "%a %d/%m/%Y %H:%M:%S"
+
+#, fuzzy
+#~ msgid "%a %m/%d/%Y %I %p"
+#~ msgstr "%a %d/%m/%Y %I:%M:%S %p"
+
+#, fuzzy
+#~ msgid "%a %m/%d/%Y %H"
+#~ msgstr "%a %d/%m/%Y"
+
+#, fuzzy
+#~ msgid "%m/%d/%Y %I:%M:%S %p"
+#~ msgstr "%a %d/%m/%Y %I:%M:%S %p"
+
+#, fuzzy
+#~ msgid "%m/%d/%Y %H:%M:%S"
+#~ msgstr "%a %d/%m/%Y %H:%M:%S"
+
+#, fuzzy
+#~ msgid "%m/%d/%Y %I:%M %p"
+#~ msgstr "%a %d/%m/%Y %I:%M:%S %p"
+
+#, fuzzy
+#~ msgid "%m/%d/%Y %H:%M"
+#~ msgstr "%a %d/%m/%Y %H:%M:%S"
+
+#, fuzzy
+#~ msgid "%m/%d/%Y %I %p"
+#~ msgstr "%a %d/%m/%Y %I:%M:%S %p"
+
+#, fuzzy
+#~ msgid "%m/%d/%Y %H"
+#~ msgstr "%d/%m/%Y"
+
+#, fuzzy
+#~ msgid "%I:%M:%S %p"
+#~ msgstr "%A a les %l:%M:%S %p"
+
+#, fuzzy
+#~ msgid "%H:%M:%S"
+#~ msgstr "%A a les %H:%M:%S"
+
+# gal/e-table/e-cell-date.c:58
+#, fuzzy
+#~ msgid "%I %p"
+#~ msgstr "%l:%M %p"
+
+#, fuzzy
+#~ msgid "If"
+#~ msgstr "I"
+
+#, fuzzy
+#~ msgid "Execute actions"
+#~ msgstr "Operacions de l'Exchange"
+
+#~ msgid "Execute Command..."
+#~ msgstr "Executa l'ordre..."
+
+#~ msgid "Exchange Connector access error."
+#~ msgstr "Error d'accés de l'Exchange Connector"
+
+#, fuzzy
+#~ msgid "Meetings and Tasks"
+#~ msgstr "Calendari i tasques"
+
+#, fuzzy
+#~ msgid "Plugin manager"
+#~ msgstr "Administrador de connectors"
+
+#, fuzzy
+#~ msgid "Uid"
+#~ msgstr "Unicode"
+
+#~ msgid "Url"
+#~ msgstr "Url"
+
+#~ msgid ""
+#~ "The suggested filename extension of this filetype (%s) is unused in the "
+#~ "chosen filename. Do you want to continue?"
+#~ msgstr ""
+#~ "L'extensió suggerida per al tipus de fitxer (%s) no es fa servir en el "
+#~ "nom de fitxer. Voleu continuar?"
+
+#~ msgid "CN"
+#~ msgstr "CN"
+
+#~ msgid "OU"
+#~ msgstr "OU"
+
+#, fuzzy
+#~ msgid "O"
+#~ msgstr "D'acord"
+
+#~ msgid "L"
+#~ msgstr "L"
+
+#~ msgid "DN"
+#~ msgstr "DN"
+
+#~ msgid "DC"
+#~ msgstr "DC"
+
+#~ msgid "ST"
+#~ msgstr "ST"
+
+#~ msgid "E"
+#~ msgstr "E"
+
+#, fuzzy
+#~ msgid "_Preview Pane"
+#~ msgstr "_Previsualització"
+
+#, fuzzy
+#~ msgid "Move"
+#~ msgstr "_Mou"
+
+#, fuzzy
+#~ msgid "_Send / Receive"
+#~ msgstr "Envia / rep"
+
+#, fuzzy
+#~ msgid "Always Search"
+#~ msgstr "Cerca sempre"
+
+#, fuzzy
+#~ msgid "Check Evolution archive"
+#~ msgstr "Comprova la còpia de seguretat de l'Evolution"
+
+#, fuzzy
+#~ msgid "With GUI"
+#~ msgstr "Amplada"
+
+#~ msgid "Update every"
+#~ msgstr "Actualitza cada"
