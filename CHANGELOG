@@ -5,11 +5,12 @@ Changelog
 Version 1.0.0 (2012/06/08)
 --------------------------
 Yeah... after nearly 6 years, polib reaches the stable state :)
-Changes and fixes in this release:
-- polib.pofile and polib.mofile functions can now return a custom class (thanks Craig Blaszczyk)
-- polib now can find the metadata entry no matter where it is located (thanks François Poirotte)
-- fixed issue #28 (IOError on reading obsolete "previous msgid" entries) (thanks James Ni)
-- Dropped python 2.4 support
+Changes and fixes in this release :
+
+ - polib.pofile and polib.mofile functions can now return a custom class (thanks Craig Blaszczyk)
+ - polib now can find the metadata entry no matter where it is located (thanks François Poirotte)
+ - fixed issue #28 (IOError on reading obsolete "previous msgid" entries) (thanks James Ni)
+ - Dropped python 2.4 support
 
 Version 0.7.0 (2011/07/14)
 --------------------------

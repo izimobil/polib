@@ -41,7 +41,7 @@ if __name__ == '__main__':
         license='MIT',
         platforms=['posix'],
         classifiers = [
-            'Development Status :: 4 - Beta',
+            'Development Status :: 5 - Production/Stable',
             'Environment :: Console',
             'Intended Audience :: System Administrators',
             'Intended Audience :: Developers',
