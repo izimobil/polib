@@ -648,15 +648,19 @@ class POFile(_BaseFile):
         ``refpot``
             object POFile, the reference catalog.
         """
+        # Store entries in dict/set for faster access
+        self_entries = dict((entry.msgid, entry) for entry in self)
+        refpot_msgids = set(entry.msgid for entry in refpot)
+        # Merge entries that are in the refpot
         for entry in refpot:
-            e = self.find(entry.msgid, include_obsolete_entries=True)
+            e = self_entries.get(entry.msgid)
             if e is None:
                 e = POEntry()
                 self.append(e)
             e.merge(entry)
         # ok, now we must "obsolete" entries that are not in the refpot anymore
         for entry in self:
-            if refpot.find(entry.msgid) is None:
+            if entry.msgid not in refpot_entries:
                 entry.obsolete = True
 
 # }}}
