@@ -2,6 +2,10 @@
 Changelog
 =========
 
+Version 1.0.1 (???)
+-------------------
+ - speed up POFile.merge method (thanks @encukou)
+
 Version 1.0.0 (2012/06/08)
 --------------------------
 Yeah... after nearly 6 years, polib reaches the stable state :)
