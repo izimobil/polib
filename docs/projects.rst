@@ -12,6 +12,7 @@ polib is used by many opensource projects, here are some of them:
 * `The evergreen library system <http://www.open-ils.org/>`_
 * `Qooxdoo <http://qooxdoo.org/>`_
 * `<http://www.linux.rk.edu.pl/tra/list/>`_
+* `Lictionary <http://www.lictionary.in/>`_
 
 If you are using polib and wish to be listed here (or not)
 `let me know <izimobil@gmail.com>`_.
