@@ -2,9 +2,10 @@
 Changelog
 =========
 
-Version 1.0.1 (???)
--------------------
+Version 1.0.1 (2012/09/11)
+--------------------------
  - speed up POFile.merge method (thanks @encukou)
+ - allow comments starting with two '#' characters (thanks @goibhniu)
 
 Version 1.0.0 (2012/06/08)
 --------------------------
@@ -14,7 +15,6 @@ Changes and fixes in this release :
  - polib.pofile and polib.mofile functions can now return a custom class (thanks Craig Blaszczyk)
  - polib now can find the metadata entry no matter where it is located (thanks François Poirotte)
  - fixed issue #28 (IOError on reading obsolete "previous msgid" entries) (thanks James Ni)
- - Dropped python 2.4 support
 
 Version 0.7.0 (2011/07/14)
 --------------------------
