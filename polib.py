@@ -1237,7 +1237,7 @@ class _POFileParser(object):
                 # we are on a flags line
                 self.process('FL', i)
 
-            elif tokens[0] == '#':
+            elif tokens[0] == '#' or tokens[0].startswith('##'):
                 if line == '#': line += ' '
                 # we are on a translator comment line
                 self.process('TC', i)
@@ -1362,7 +1362,10 @@ class _POFileParser(object):
             self.current_entry = POEntry()
         if self.current_entry.tcomment != '':
             self.current_entry.tcomment += '\n'
-        self.current_entry.tcomment += self.current_token[2:]
+        tcomment = self.current_token.lstrip('#')
+        if tcomment.startswith(' '):
+            tcomment = tcomment[1:]
+        self.current_entry.tcomment += tcomment
         return True
 
     def handle_gc(self):

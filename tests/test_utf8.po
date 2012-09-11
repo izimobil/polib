@@ -57,6 +57,7 @@ msgctxt "@context5"
 msgid "Some msgid"
 msgstr ""
 
+## Some comment starting with two '#'
 #: db/models/manipulators.py:309
 #, python-format
 msgid "%(object)s with this %(type)s already exists for the given %(field)s."

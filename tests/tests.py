@@ -501,6 +501,11 @@ class TestPoFile(unittest.TestCase):
         self.assertNotEqual(po.metadata, {})
         self.assertEqual(po.metadata['Content-Type'], 'text/plain; charset=UTF-8')
 
+    def test_comment_starting_with_two_hashes(self):
+        po = polib.pofile('tests/test_utf8.po')
+        e = po.find("Some comment starting with two '#'", by='tcomment')
+        self.assertTrue(isinstance(e, polib.POEntry))
+
 class TestMoFile(unittest.TestCase):
     """
     Tests for MoFile class.
