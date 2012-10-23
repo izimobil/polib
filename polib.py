@@ -1217,7 +1217,9 @@ class _POFileParser(object):
 
             self.current_token = line
 
-            if tokens[0] == '#:' and nb_tokens > 1:
+            if tokens[0] == '#:':
+                if nb_tokens <= 1:
+                    continue
                 # we are on a occurrences line
                 self.process('OC', i)
 
@@ -1233,7 +1235,9 @@ class _POFileParser(object):
                 # we are on a msgstr plural
                 self.process('MX', i)
 
-            elif tokens[0] == '#,' and nb_tokens >= 1:
+            elif tokens[0] == '#,':
+                if nb_tokens <= 1:
+                    continue
                 # we are on a flags line
                 self.process('FL', i)
 
@@ -1242,12 +1246,14 @@ class _POFileParser(object):
                 # we are on a translator comment line
                 self.process('TC', i)
 
-            elif tokens[0] == '#.' and nb_tokens >= 1:
+            elif tokens[0] == '#.':
+                if nb_tokens <= 1:
+                    continue
                 # we are on a generated comment line
                 self.process('GC', i)
 
             elif tokens[0] == '#|':
-                if nb_tokens < 2:
+                if nb_tokens <= 1:
                     raise IOError('Syntax error in po file %s (line %s)' % \
                                   (self.instance.fpath, i))
 

@@ -38,6 +38,12 @@ msgctxt "@context3"
 msgid "Some msgid"
 msgstr "Some msgstr"
 
+#. test generated comments
+#.
+#. more tests...
+msgid "Test generated comments"
+msgstr "Test generated comments"
+
 # Added for previous msgid/msgid_plural/msgctxt testing
 #| msgctxt "@previous_context"
 #| msgid ""
@@ -60,12 +66,14 @@ msgstr ""
 ## Some comment starting with two '#'
 #: db/models/manipulators.py:309
 #, python-format
+#,
 msgid "%(object)s with this %(type)s already exists for the given %(field)s."
 msgstr "%(object)s de este %(type)s ya existen en este %(field)s."
 
 #: db/models/manipulators.py:310 contrib/admin/views/main.py:342
 #: contrib/admin/views/main.py:344 contrib/admin/views/main.py:346
 #: core/validators.py:275
+#:
 msgid "and"
 msgstr "y"
 
