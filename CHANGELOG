@@ -2,6 +2,10 @@
 Changelog
 =========
 
+Version 1.0.2 (2012/10/23)
+--------------------------
+ - allow empty comments, flags or occurences lines
+
 Version 1.0.1 (2012/09/11)
 --------------------------
  - speed up POFile.merge method (thanks @encukou)
