@@ -1475,30 +1475,22 @@ class _POFileParser(object):
         """Handle a msgid or msgstr continuation line."""
         token = unescape(self.current_token[1:-1])
         if self.current_state == 'CT':
-            typ = 'msgctxt'
             self.current_entry.msgctxt += token
         elif self.current_state == 'MI':
-            typ = 'msgid'
             self.current_entry.msgid += token
         elif self.current_state == 'MP':
-            typ = 'msgid_plural'
             self.current_entry.msgid_plural += token
         elif self.current_state == 'MS':
-            typ = 'msgstr'
             self.current_entry.msgstr += token
         elif self.current_state == 'MX':
-            typ = 'msgstr[%s]' % self.msgstr_index
             self.current_entry.msgstr_plural[self.msgstr_index] += token
         elif self.current_state == 'PP':
-            typ = 'previous_msgid_plural'
             token = token[3:]
             self.current_entry.previous_msgid_plural += token
         elif self.current_state == 'PM':
-            typ = 'previous_msgid'
             token = token[3:]
             self.current_entry.previous_msgid += token
         elif self.current_state == 'PC':
-            typ = 'previous_msgctxt'
             token = token[3:]
             self.current_entry.previous_msgctxt += token
         # don't change the current state
