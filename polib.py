@@ -322,7 +322,8 @@ class _BaseFile(list):
         ``entry``
             an instance of :class:`~polib._BaseEntry`.
         """
-        return self.find(entry.msgid, by='msgid', msgctxt=entry.msgctxt)
+        return self.find(entry.msgid, by='msgid', msgctxt=entry.msgctxt) \
+            is not None
 
     def __eq__(self, other):
         return str(self) == str(other)
