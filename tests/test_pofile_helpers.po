@@ -26,6 +26,13 @@ msgstr "%(object)s de este %(type)s ya existen en este %(field)s."
 msgid "and"
 msgstr "y"
 
+#: db/models/manipulators.py:310 contrib/admin/views/main.py:342
+#: contrib/admin/views/main.py:344 contrib/admin/views/main.py:346
+#: core/validators.py:275
+msgctxt "some context"
+msgid "and"
+msgstr "y"
+
 #: db/models/fields/__init__.py:49
 #, python-format
 msgid "%(optname)s with this %(fieldname)s already exists."
