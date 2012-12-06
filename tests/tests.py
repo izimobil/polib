@@ -264,8 +264,20 @@ class TestBaseFile(unittest.TestCase):
     def test_append2(self):
         def add_duplicate():
             pofile = polib.pofile('tests/test_pofile_helpers.po', check_for_duplicates=True)
-            pofile.append(polib.POEntry(msgid="and", msgstr="y"))
+            pofile.append(polib.POEntry(msgid="and"))
         self.assertRaises(ValueError, add_duplicate)
+
+    def test_append3(self):
+        def add_duplicate():
+            pofile = polib.pofile('tests/test_pofile_helpers.po', check_for_duplicates=True)
+            pofile.append(polib.POEntry(msgid="and", msgctxt="some context"))
+        self.assertRaises(ValueError, add_duplicate)
+
+    def test_append4(self):
+        pofile = polib.pofile('tests/test_pofile_helpers.po', check_for_duplicates=True)
+        entry = polib.POEntry(msgid="and", msgctxt="some different context")
+        pofile.append(entry)
+        self.assertTrue(entry in pofile)
 
     def test_insert1(self):
         pofile = polib.pofile('tests/test_pofile_helpers.po')
@@ -476,13 +488,13 @@ class TestPoFile(unittest.TestCase):
 
     def test_percent_translated(self):
         po = polib.pofile('tests/test_pofile_helpers.po')
-        self.assertEqual(po.percent_translated(), 50)
+        self.assertEqual(po.percent_translated(), 53)
         po = polib.POFile()
         self.assertEqual(po.percent_translated(), 100)
 
     def test_translated_entries(self):
         po = polib.pofile('tests/test_pofile_helpers.po')
-        self.assertEqual(len(po.translated_entries()), 6)
+        self.assertEqual(len(po.translated_entries()), 7)
 
     def test_untranslated_entries(self):
         po = polib.pofile('tests/test_pofile_helpers.po')

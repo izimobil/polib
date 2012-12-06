@@ -314,14 +314,15 @@ class _BaseFile(list):
         Overriden ``list`` method to implement the membership test (in and
         not in).
         The method considers that an entry is in the file if it finds an entry
-        that has the same msgid (the test is **case sensitive**).
+        that has the same msgid (the test is **case sensitive**) and the same
+        msgctxt (or none for both entries).
 
         Argument:
 
         ``entry``
             an instance of :class:`~polib._BaseEntry`.
         """
-        return self.find(entry.msgid, by='msgid') is not None
+        return self.find(entry.msgid, by='msgid', msgctxt=entry.msgctxt)
 
     def __eq__(self, other):
         return str(self) == str(other)
@@ -433,7 +434,7 @@ class _BaseFile(list):
             entries = [e for e in self if not e.obsolete]
         for e in entries:
             if getattr(e, by) == st:
-                if msgctxt and e.msgctxt != msgctxt:
+                if msgctxt != False and e.msgctxt != msgctxt:
                     continue
                 return e
         return None
