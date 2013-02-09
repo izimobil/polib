@@ -185,9 +185,14 @@ msgstr ""
         """
         Test with utf8 data (no file).
         """
-        f = open('tests/test_utf8.po','r')
+        if polib.PY3:
+            f = open('tests/test_utf8.po', 'rb')
+            data = str(f.read(), 'utf-8')
+        else:
+            f = open('tests/test_utf8.po', 'r')
+            data = f.read()
         try:
-            self.assertEqual(polib.detect_encoding(f.read()), 'UTF-8')
+            self.assertEqual(polib.detect_encoding(data), 'UTF-8')
         finally:
             f.close()    
 
@@ -457,6 +462,13 @@ class TestPoFile(unittest.TestCase):
         """
         Test for the POFile.save_as_mofile() method.
         """
+        import distutils.spawn
+        msgfmt = distutils.spawn.find_executable('msgfmt')
+        if msgfmt is None:
+            try:
+                return unittest.skip('msgfmt is not installed')
+            except AttributeError:
+                return
         reffiles = ['tests/test_utf8.po', 'tests/test_iso-8859-15.po']
         encodings = ['utf-8', 'iso-8859-15']
         for reffile, encoding in zip(reffiles, encodings):
@@ -466,7 +478,7 @@ class TestPoFile(unittest.TestCase):
             os.close(fd)
             po = polib.pofile(reffile, autodetect_encoding=False, encoding=encoding)
             po.save_as_mofile(tmpfile1)
-            subprocess.call(['msgfmt', '--no-hash', '-o', tmpfile2, reffile])
+            subprocess.call([msgfmt, '--no-hash', '-o', tmpfile2, reffile])
             try:
                 f = open(tmpfile1, 'rb')
                 s1 = f.read()
@@ -542,10 +554,16 @@ class TestMoFile(unittest.TestCase):
         mo = polib.mofile('tests/test_utf8.mo', wrapwidth=78)
         mo.save_as_pofile(tmpfile)
         try:
-            f = open(tmpfile)
+            if polib.PY3:
+                f = open(tmpfile, encoding='utf-8')
+            else:
+                f = open(tmpfile)
             s1 = f.read()
             f.close()
-            f = open('tests/test_save_as_pofile.po')
+            if polib.PY3:
+                f = open('tests/test_save_as_pofile.po', encoding='utf-8')
+            else:
+                f = open('tests/test_save_as_pofile.po')
             s2 = f.read()
             f.close()
             self.assertEqual(s1, s2)
