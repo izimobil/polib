@@ -172,7 +172,12 @@ def detect_encoding(file, binary_mode=False):
             return False
         return True
 
-    if not os.path.exists(file):
+    try:
+        is_file = os.path.exists(file)
+    except (ValueError, UnicodeEncodeError):
+        is_file = False
+
+    if not is_file:
         match = rxt.search(file)
         if match:
             enc = match.group(1).strip()
