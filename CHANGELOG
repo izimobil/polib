@@ -2,6 +2,14 @@
 Changelog
 =========
 
+Version 1.0.3 (2013/02/09)
+--------------------------
+ - Fixed issue #38: POFile.append() raised a duplicate exception when you tried to add a new entry with the same msgid and a different msgctxt (only when check_for_duplicates option is set to True)
+ - Fixed issue #39: Added __init__.py file for convenience
+ - Fixed issue #41: UnicodeDecodeError when running setup.py build on python3 with C locale
+ - polib is now fully PEP8 compliant
+ - Small improvements: remove unused "typ" var (thanks Rodrigo Silva), mproved Makefile, Make sure _BaseFile.__contains__ returns a boolean value
+
 Version 1.0.2 (2012/10/23)
 --------------------------
  - allow empty comments, flags or occurences lines
