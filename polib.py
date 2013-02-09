@@ -13,7 +13,7 @@ modify entries, comments or metadata, etc. or create new po files from scratch.
 """
 
 __author__ = 'David Jean Louis <izimobil@gmail.com>'
-__version__ = '1.0.2'
+__version__ = '1.0.3'
 __all__ = ['pofile', 'POFile', 'POEntry', 'mofile', 'MOFile', 'MOEntry',
            'default_encoding', 'escape', 'unescape', 'detect_encoding', ]
 
@@ -440,7 +440,7 @@ class _BaseFile(list):
             entries = [e for e in self if not e.obsolete]
         for e in entries:
             if getattr(e, by) == st:
-                if msgctxt != False and e.msgctxt != msgctxt:
+                if msgctxt is not False and e.msgctxt != msgctxt:
                     continue
                 return e
         return None
