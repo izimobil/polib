@@ -19,17 +19,20 @@ author_data = __author__.split(' ')
 maintainer = ' '.join(author_data[0:-1])
 maintainer_email = author_data[-1]
 desc = 'A library to manipulate gettext files (po and mo files).'
-long_desc = '''
+
+if polib.PY3:
+    mode = 'rb'
+else:
+    mode = 'r'
+
+long_desc = r'''
 .. contents:: Table of Contents
 
 %s
 
 %s
 
-''' % (
-    codecs.open('README.rst', 'r', 'utf-8').read(),
-    codecs.open('CHANGELOG', 'r', 'utf-8').read()
-)
+''' % (open('README.rst', mode).read(), open('CHANGELOG', mode).read())
 
 if __name__ == '__main__':
     setup(
