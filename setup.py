@@ -11,6 +11,8 @@ polib setup script.
 __author__ = 'David Jean Louis <izimobil@gmail.com>'
 
 from distutils.core import setup
+import codecs
+
 import polib
 
 author_data = __author__.split(' ')
@@ -24,7 +26,10 @@ long_desc = '''
 
 %s
 
-''' % (open('README.rst').read(), open('CHANGELOG').read())
+''' % (
+    codecs.open('README.rst', 'r', 'utf-8').read(),
+    codecs.open('CHANGELOG', 'r', 'utf-8').read()
+)
 
 if __name__ == '__main__':
     setup(
