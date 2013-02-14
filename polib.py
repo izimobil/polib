@@ -537,7 +537,7 @@ class _BaseFile(list):
             voffsets += [l2, o2 + valuestart]
         offsets = koffsets + voffsets
         # check endianness for magic number
-        if struct.pack('@h', 1) == struct.pack('<h', 1):
+        if sys.byteorder == 'little':
             magic_number = MOFile.LITTLE_ENDIAN
         else:
             magic_number = MOFile.BIG_ENDIAN
