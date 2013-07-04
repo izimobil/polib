@@ -1110,7 +1110,31 @@ class MOEntry(_BaseEntry):
     """
     Represents a mo file entry.
     """
-    pass
+    def __init__(self, *args, **kwargs):
+        """
+        Constructor, accepts the following keyword arguments,
+        for consistency with :class:`~polib.POEntry`:
+
+        ``comment``
+        ``tcomment``
+        ``occurrences``
+        ``flags``
+        ``previous_msgctxt``
+        ``previous_msgid``
+        ``previous_msgid_plural``
+
+        Note: even though these keyword arguments are accepted,
+        they hold no real meaning in the context of MO files
+        and are simply ignored.
+        """
+        self.comment = ''
+        self.tcomment = ''
+        self.occurrences = []
+        self.flags = []
+        self.previous_msgctxt = None
+        self.previous_msgid = None
+        self.previous_msgid_plural = None
+
 # }}}
 # class _POFileParser {{{
 
