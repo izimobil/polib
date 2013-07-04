@@ -1505,8 +1505,8 @@ class _POFileParser(object):
     def handle_mx(self):
         """Handle a msgstr plural."""
         index, value = self.current_token[7], self.current_token[11:-1]
-        self.current_entry.msgstr_plural[index] = unescape(value)
-        self.msgstr_index = index
+        self.current_entry.msgstr_plural[int(index)] = unescape(value)
+        self.msgstr_index = int(index)
         return True
 
     def handle_mc(self):
