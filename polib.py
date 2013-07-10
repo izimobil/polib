@@ -1127,6 +1127,7 @@ class MOEntry(_BaseEntry):
         they hold no real meaning in the context of MO files
         and are simply ignored.
         """
+        _BaseEntry.__init__(self, *args, **kwargs)
         self.comment = ''
         self.tcomment = ''
         self.occurrences = []
@@ -1469,7 +1470,8 @@ class _POFileParser(object):
         if self.current_state in ['MC', 'MS', 'MX']:
             self.instance.append(self.current_entry)
             self.current_entry = POEntry()
-        self.current_entry.flags += self.current_token[3:].split(', ')
+        self.current_entry.flags += [c.strip() for c in \
+            self.current_token[3:].split(',')]
         return True
 
     def handle_pp(self):
