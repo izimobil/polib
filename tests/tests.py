@@ -588,6 +588,9 @@ msgstr[1] "pluriel"
 ''')
         self.assertEqual(mo.__unicode__(), expected)
 
+    def test_invalid_version(self):
+        self.assertRaises(IOError, polib.mofile, 'tests/test_invalid_version.mo')
+
 
 class TestTextWrap(unittest.TestCase):
 

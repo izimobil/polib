@@ -1611,7 +1611,12 @@ class _MOFileParser(object):
             raise IOError('Invalid mo file, magic number is incorrect !')
         self.instance.magic_number = magic_number
         # parse the version number and the number of strings
-        self.instance.version, numofstrings = self._readbinary(ii, 8)
+        version, numofstrings = self._readbinary(ii, 8)
+        # from MO file format specs: "A program seeing an unexpected major
+        # revision number should stop reading the MO file entirely"
+        if version not in (0, 1):
+            raise IOError('Invalid mo file, unexpected major revision number')
+        self.instance.version = version
         # original strings and translation strings hash table offset
         msgids_hash_offset, msgstrs_hash_offset = self._readbinary(ii, 8)
         # move to msgid hash table and read length and offset of msgids
