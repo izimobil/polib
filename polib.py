@@ -1637,7 +1637,7 @@ class _MOFileParser(object):
 
             self.fhandle.seek(msgstrs_index[i][1])
             msgstr = self.fhandle.read(msgstrs_index[i][0])
-            if i == 0:  # metadata
+            if i == 0 and not msgid:  # metadata
                 raw_metadata, metadata = msgstr.split(b('\n')), {}
                 for line in raw_metadata:
                     tokens = line.split(b(':'), 1)
