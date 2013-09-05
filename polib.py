@@ -549,16 +549,11 @@ class _BaseFile(list):
             koffsets += [l1, o1 + keystart]
             voffsets += [l2, o2 + valuestart]
         offsets = koffsets + voffsets
-        # check endianness for magic number
-        if sys.byteorder == 'little':
-            magic_number = MOFile.LITTLE_ENDIAN
-        else:
-            magic_number = MOFile.BIG_ENDIAN
 
         output = struct.pack(
             "Iiiiiii",
             # Magic number
-            magic_number,
+            MOFile.MAGIC,
             # Version
             0,
             # number of entries
@@ -701,8 +696,8 @@ class MOFile(_BaseFile):
     This class inherits the :class:`~polib._BaseFile` class and, by
     extension, the python ``list`` type.
     """
-    BIG_ENDIAN = 0xde120495
-    LITTLE_ENDIAN = 0x950412de
+    MAGIC = 0x950412de
+    MAGIC_SWAPPED = 0xde120495
 
     def __init__(self, *args, **kwargs):
         """
@@ -1470,8 +1465,8 @@ class _POFileParser(object):
         if self.current_state in ['MC', 'MS', 'MX']:
             self.instance.append(self.current_entry)
             self.current_entry = POEntry()
-        self.current_entry.flags += [c.strip() for c in \
-            self.current_token[3:].split(',')]
+        self.current_entry.flags += [c.strip() for c in
+                                     self.current_token[3:].split(',')]
         return True
 
     def handle_pp(self):
@@ -1603,9 +1598,9 @@ class _MOFileParser(object):
         """
         # parse magic number
         magic_number = self._readbinary('<I', 4)
-        if magic_number == MOFile.LITTLE_ENDIAN:
+        if magic_number == MOFile.MAGIC:
             ii = '<II'
-        elif magic_number == MOFile.BIG_ENDIAN:
+        elif magic_number == MOFile.MAGIC_SWAPPED:
             ii = '>II'
         else:
             raise IOError('Invalid mo file, magic number is incorrect !')
