@@ -1273,6 +1273,7 @@ class _POFileParser(object):
                 continue
 
             self.current_token = line
+            is_real_entry = False
 
             if tokens[0] == '#:':
                 if nb_tokens <= 1:
@@ -1347,10 +1348,12 @@ class _POFileParser(object):
                 raise IOError('Syntax error in po file %s (line %s)' %
                               (self.instance.fpath, i))
 
-        if self.current_entry:
+        if self.current_entry and not tokens[0].startswith('#'):
             # since entries are added when another entry is found, we must add
-            # the last entry here (only if there are lines)
+            # the last entry here (only if there are lines). Trailing comments
+            # are ignored
             self.instance.append(self.current_entry)
+
         # before returning the instance, check if there's metadata and if
         # so extract it in a dict
         metadataentry = self.instance.find('')
