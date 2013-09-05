@@ -453,6 +453,17 @@ msgstr ""
 ''')
         self.assertEqual(pofile.__unicode__(), expected)
 
+    def test_trailing_comment(self):
+        pofile  = polib.pofile('tests/test_trailing_comment.po')
+        expected = r'''# 
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "foo"
+msgstr "oof"
+'''
+        self.assertEqual(str(pofile), expected)
+
 class TestPoFile(unittest.TestCase):
     """
     Tests for PoFile class.
