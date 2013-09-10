@@ -1097,6 +1097,9 @@ class POEntry(_BaseEntry):
                     self.msgstr_plural[pos]
                 except KeyError:
                     self.msgstr_plural[pos] = ''
+
+    def __hash__(self):
+        return hash((self.msgid, self.msgstr))
 # }}}
 # class MOEntry {{{
 
@@ -1130,6 +1133,9 @@ class MOEntry(_BaseEntry):
         self.previous_msgctxt = None
         self.previous_msgid = None
         self.previous_msgid_plural = None
+
+    def __hash__(self):
+        return hash((self.msgid, self.msgstr))
 
 # }}}
 # class _POFileParser {{{
