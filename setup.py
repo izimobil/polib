@@ -45,7 +45,7 @@ if __name__ == '__main__':
         maintainer=maintainer,
         maintainer_email=maintainer_email,
         url='http://bitbucket.org/izi/polib/',
-        download_url='http://bitbucket.org/izi/polib/downloads/polib-%s.tar.gz' % polib.__version__,
+        download_url='https://pypi.python.org/packages/source/p/polib/polib-%s.tar.gz' % polib.__version__,
         license='MIT',
         platforms=['posix'],
         classifiers = [
