@@ -541,6 +541,11 @@ class TestPoFile(unittest.TestCase):
         e = po.find("Some comment starting with two '#'", by='tcomment')
         self.assertTrue(isinstance(e, polib.POEntry))
 
+    def test_word_garbage(self):
+        po = polib.pofile('tests/test_word_garbage.po')
+        e = po.find("Whatever", by='msgid')
+        self.assertTrue(isinstance(e, polib.POEntry))
+
 class TestMoFile(unittest.TestCase):
     """
     Tests for MoFile class.
