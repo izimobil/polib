@@ -2,6 +2,22 @@
 Changelog
 =========
 
+Version 1.0.4 (2014/02/19)
+--------------------------
+ - Fixed issue #43: improved check that determine if polib is dealing with a filepath or unicode content
+ - Fixed issue #44: polib now checks MO files revision number and throws an error if the number is unexpected
+ - Fixed issue #45: parse properly mo files with no header entry
+ - Fixed issue #47: added flags attribute for MOEntry to be consistant with POEntry
+ - Fixed issue #49: use integers rather than strings for msgstr_plural keys
+ - Fixed issue #51: if a PO file ends with a comment, polib adds a spurious empty entry at the end
+ - Fixed issue #52: bad magic number written on big endian platforms
+ - Fixed issue #53: added a __hash__() method to POEntry and MOEntry classes
+ - Fixed issue #54: use lowercase for state identifiers. This fixes issues with certain locales and string.lower()
+ - Fixed issue #58: use io.open() instead of codecs.open() because the latter doesn't handle very well universal line endings
+ - Make sure the mo file is closed at garbage collection, this prevents warnings on unclosed file when running tests with python >= 3.2
+ - Better way to test indianness
+ - polib download URL is now on Pypi
+
 Version 1.0.3 (2013/02/09)
 --------------------------
  - Fixed issue #38: POFile.append() raised a duplicate exception when you tried to add a new entry with the same msgid and a different msgctxt (only when check_for_duplicates option is set to True)
