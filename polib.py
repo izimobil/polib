@@ -1184,7 +1184,7 @@ class _POFileParser(object):
         )
         self.transitions = {}
         self.current_entry = POEntry()
-        self.current_state = 'ST'
+        self.current_state = 'st'
         self.current_token = None
         # two memo flags used in handlers
         self.msgstr_index = 0
@@ -1206,26 +1206,26 @@ class _POFileParser(object):
         #     * MS: a msgstr
         #     * MX: a msgstr plural
         #     * MC: a msgid or msgstr continuation line
-        all = ['ST', 'HE', 'GC', 'OC', 'FL', 'CT', 'PC', 'PM', 'PP', 'TC',
-               'MS', 'MP', 'MX', 'MI']
+        all = ['st', 'he', 'gc', 'oc', 'fl', 'ct', 'pc', 'pm', 'pp', 'tc',
+               'ms', 'mp', 'mx', 'mi']
 
-        self.add('TC', ['ST', 'HE'],                                     'HE')
-        self.add('TC', ['GC', 'OC', 'FL', 'TC', 'PC', 'PM', 'PP', 'MS',
-                        'MP', 'MX', 'MI'],                               'TC')
-        self.add('GC', all,                                              'GC')
-        self.add('OC', all,                                              'OC')
-        self.add('FL', all,                                              'FL')
-        self.add('PC', all,                                              'PC')
-        self.add('PM', all,                                              'PM')
-        self.add('PP', all,                                              'PP')
-        self.add('CT', ['ST', 'HE', 'GC', 'OC', 'FL', 'TC', 'PC', 'PM',
-                        'PP', 'MS', 'MX'],                               'CT')
-        self.add('MI', ['ST', 'HE', 'GC', 'OC', 'FL', 'CT', 'TC', 'PC',
-                 'PM', 'PP', 'MS', 'MX'],                                'MI')
-        self.add('MP', ['TC', 'GC', 'PC', 'PM', 'PP', 'MI'],             'MP')
-        self.add('MS', ['MI', 'MP', 'TC'],                               'MS')
-        self.add('MX', ['MI', 'MX', 'MP', 'TC'],                         'MX')
-        self.add('MC', ['CT', 'MI', 'MP', 'MS', 'MX', 'PM', 'PP', 'PC'], 'MC')
+        self.add('tc', ['st', 'he'],                                     'he')
+        self.add('tc', ['gc', 'oc', 'fl', 'tc', 'pc', 'pm', 'pp', 'ms',
+                        'mp', 'mx', 'mi'],                               'tc')
+        self.add('gc', all,                                              'gc')
+        self.add('oc', all,                                              'oc')
+        self.add('fl', all,                                              'fl')
+        self.add('pc', all,                                              'pc')
+        self.add('pm', all,                                              'pm')
+        self.add('pp', all,                                              'pp')
+        self.add('ct', ['st', 'he', 'gc', 'oc', 'fl', 'tc', 'pc', 'pm',
+                        'pp', 'ms', 'mx'],                               'ct')
+        self.add('mi', ['st', 'he', 'gc', 'oc', 'fl', 'ct', 'tc', 'pc',
+                 'pm', 'pp', 'ms', 'mx'],                                'mi')
+        self.add('mp', ['tc', 'gc', 'pc', 'pm', 'pp', 'mi'],             'mp')
+        self.add('ms', ['mi', 'mp', 'tc'],                               'ms')
+        self.add('mx', ['mi', 'mx', 'mp', 'tc'],                         'mx')
+        self.add('mc', ['ct', 'mi', 'mp', 'ms', 'mx', 'pm', 'pp', 'pc'], 'mc')
 
     def parse(self):
         """
@@ -1235,15 +1235,15 @@ class _POFileParser(object):
         i = 0
 
         keywords = {
-            'msgctxt': 'CT',
-            'msgid': 'MI',
-            'msgstr': 'MS',
-            'msgid_plural': 'MP',
+            'msgctxt': 'ct',
+            'msgid': 'mi',
+            'msgstr': 'ms',
+            'msgid_plural': 'mp',
         }
         prev_keywords = {
-            'msgid_plural': 'PP',
-            'msgid': 'PM',
-            'msgctxt': 'PC',
+            'msgid_plural': 'pp',
+            'msgid': 'pm',
+            'msgctxt': 'pc',
         }
 
         for line in self.fhandle:
@@ -1285,7 +1285,7 @@ class _POFileParser(object):
                 if nb_tokens <= 1:
                     continue
                 # we are on a occurrences line
-                self.process('OC', i)
+                self.process('oc', i)
 
             elif line[:1] == '"':
                 # we are on a continuation line
@@ -1293,29 +1293,29 @@ class _POFileParser(object):
                     raise IOError('Syntax error in po file %s (line %s): '
                                   'unescaped double quote found' %
                                   (self.instance.fpath, i))
-                self.process('MC', i)
+                self.process('mc', i)
 
             elif line[:7] == 'msgstr[':
                 # we are on a msgstr plural
-                self.process('MX', i)
+                self.process('mx', i)
 
             elif tokens[0] == '#,':
                 if nb_tokens <= 1:
                     continue
                 # we are on a flags line
-                self.process('FL', i)
+                self.process('fl', i)
 
             elif tokens[0] == '#' or tokens[0].startswith('##'):
                 if line == '#':
                     line += ' '
                 # we are on a translator comment line
-                self.process('TC', i)
+                self.process('tc', i)
 
             elif tokens[0] == '#.':
                 if nb_tokens <= 1:
                     continue
                 # we are on a generated comment line
-                self.process('GC', i)
+                self.process('gc', i)
 
             elif tokens[0] == '#|':
                 if nb_tokens <= 1:
@@ -1328,7 +1328,7 @@ class _POFileParser(object):
 
                 if tokens[1].startswith('"'):
                     # Continuation of previous metadata.
-                    self.process('MC', i)
+                    self.process('mc', i)
                     continue
 
                 if nb_tokens == 2:
@@ -1396,7 +1396,7 @@ class _POFileParser(object):
             the next state the fsm will have after the action.
         """
         for state in states:
-            action = getattr(self, 'handle_%s' % next_state.lower())
+            action = getattr(self, 'handle_%s' % next_state)
             self.transitions[(symbol, state)] = (action, next_state)
 
     def process(self, symbol, linenum):
@@ -1430,7 +1430,7 @@ class _POFileParser(object):
 
     def handle_tc(self):
         """Handle a translator comment."""
-        if self.current_state in ['MC', 'MS', 'MX']:
+        if self.current_state in ['mc', 'ms', 'mx']:
             self.instance.append(self.current_entry)
             self.current_entry = POEntry()
         if self.current_entry.tcomment != '':
@@ -1443,7 +1443,7 @@ class _POFileParser(object):
 
     def handle_gc(self):
         """Handle a generated comment."""
-        if self.current_state in ['MC', 'MS', 'MX']:
+        if self.current_state in ['mc', 'ms', 'mx']:
             self.instance.append(self.current_entry)
             self.current_entry = POEntry()
         if self.current_entry.comment != '':
@@ -1453,7 +1453,7 @@ class _POFileParser(object):
 
     def handle_oc(self):
         """Handle a file:num occurence."""
-        if self.current_state in ['MC', 'MS', 'MX']:
+        if self.current_state in ['mc', 'ms', 'mx']:
             self.instance.append(self.current_entry)
             self.current_entry = POEntry()
         occurrences = self.current_token[3:].split()
@@ -1471,7 +1471,7 @@ class _POFileParser(object):
 
     def handle_fl(self):
         """Handle a flags line."""
-        if self.current_state in ['MC', 'MS', 'MX']:
+        if self.current_state in ['mc', 'ms', 'mx']:
             self.instance.append(self.current_entry)
             self.current_entry = POEntry()
         self.current_entry.flags += [c.strip() for c in
@@ -1480,7 +1480,7 @@ class _POFileParser(object):
 
     def handle_pp(self):
         """Handle a previous msgid_plural line."""
-        if self.current_state in ['MC', 'MS', 'MX']:
+        if self.current_state in ['mc', 'ms', 'mx']:
             self.instance.append(self.current_entry)
             self.current_entry = POEntry()
         self.current_entry.previous_msgid_plural = \
@@ -1489,7 +1489,7 @@ class _POFileParser(object):
 
     def handle_pm(self):
         """Handle a previous msgid line."""
-        if self.current_state in ['MC', 'MS', 'MX']:
+        if self.current_state in ['mc', 'ms', 'mx']:
             self.instance.append(self.current_entry)
             self.current_entry = POEntry()
         self.current_entry.previous_msgid = \
@@ -1498,7 +1498,7 @@ class _POFileParser(object):
 
     def handle_pc(self):
         """Handle a previous msgctxt line."""
-        if self.current_state in ['MC', 'MS', 'MX']:
+        if self.current_state in ['mc', 'ms', 'mx']:
             self.instance.append(self.current_entry)
             self.current_entry = POEntry()
         self.current_entry.previous_msgctxt = \
@@ -1507,7 +1507,7 @@ class _POFileParser(object):
 
     def handle_ct(self):
         """Handle a msgctxt."""
-        if self.current_state in ['MC', 'MS', 'MX']:
+        if self.current_state in ['mc', 'ms', 'mx']:
             self.instance.append(self.current_entry)
             self.current_entry = POEntry()
         self.current_entry.msgctxt = unescape(self.current_token[1:-1])
@@ -1515,7 +1515,7 @@ class _POFileParser(object):
 
     def handle_mi(self):
         """Handle a msgid."""
-        if self.current_state in ['MC', 'MS', 'MX']:
+        if self.current_state in ['mc', 'ms', 'mx']:
             self.instance.append(self.current_entry)
             self.current_entry = POEntry()
         self.current_entry.obsolete = self.entry_obsolete
@@ -1542,23 +1542,23 @@ class _POFileParser(object):
     def handle_mc(self):
         """Handle a msgid or msgstr continuation line."""
         token = unescape(self.current_token[1:-1])
-        if self.current_state == 'CT':
+        if self.current_state == 'ct':
             self.current_entry.msgctxt += token
-        elif self.current_state == 'MI':
+        elif self.current_state == 'mi':
             self.current_entry.msgid += token
-        elif self.current_state == 'MP':
+        elif self.current_state == 'mp':
             self.current_entry.msgid_plural += token
-        elif self.current_state == 'MS':
+        elif self.current_state == 'ms':
             self.current_entry.msgstr += token
-        elif self.current_state == 'MX':
+        elif self.current_state == 'mx':
             self.current_entry.msgstr_plural[self.msgstr_index] += token
-        elif self.current_state == 'PP':
+        elif self.current_state == 'pp':
             token = token[3:]
             self.current_entry.previous_msgid_plural += token
-        elif self.current_state == 'PM':
+        elif self.current_state == 'pm':
             token = token[3:]
             self.current_entry.previous_msgid += token
-        elif self.current_state == 'PC':
+        elif self.current_state == 'pc':
             token = token[3:]
             self.current_entry.previous_msgctxt += token
         # don't change the current state
