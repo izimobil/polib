@@ -25,6 +25,16 @@ import struct
 import sys
 import textwrap
 
+try:
+    import io
+except ImportError:
+    # replacement of io.open() for python < 2.6
+    # we use codecs instead
+    class io(object):
+        @staticmethod
+        def open(fpath, mode='r', encoding=None):
+            return codecs.open(fpath, mode, encoding)
+
 
 # the default encoding to use when encoding cannot be detected
 default_encoding = 'utf-8'
@@ -417,7 +427,7 @@ class _BaseFile(list):
         if repr_method == 'to_binary':
             fhandle = open(fpath, 'wb')
         else:
-            fhandle = codecs.open(fpath, 'w', self.encoding)
+            fhandle = io.open(fpath, 'w', encoding=self.encoding)
             if not isinstance(contents, text_type):
                 contents = contents.decode(self.encoding)
         fhandle.write(contents)
@@ -1167,10 +1177,10 @@ class _POFileParser(object):
         enc = kwargs.get('encoding', default_encoding)
         if _is_file(pofile):
             try:
-                self.fhandle = codecs.open(pofile, 'rU', enc)
+                self.fhandle = io.open(pofile, 'rt', encoding=enc)
             except LookupError:
                 enc = default_encoding
-                self.fhandle = codecs.open(pofile, 'rU', enc)
+                self.fhandle = io.open(pofile, 'rt', encoding=enc)
         else:
             self.fhandle = pofile.splitlines()
 
