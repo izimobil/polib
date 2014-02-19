@@ -1600,6 +1600,14 @@ class _MOFileParser(object):
             check_for_duplicates=kwargs.get('check_for_duplicates', False)
         )
 
+    def __del__(self):
+        """
+        Make sure the file is closed, this prevents warnings on unclosed file
+        when running tests with python >= 3.2.
+        """
+        if self.fhandle:
+            self.fhandle.close()
+
     def parse(self):
         """
         Build the instance with the file handle provided in the
