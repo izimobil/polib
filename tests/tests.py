@@ -252,11 +252,23 @@ msgstr ""
             pass
         
         mofile = polib.mofile('tests/test_utf8.mo', klass=CustomMOFile)
-        self.assertEqual(mofile.__class__, CustomMOFile)     
+        self.assertEqual(mofile.__class__, CustomMOFile)
 
     def test_empty(self):
         po = polib.pofile('')
-        self.assertEqual(unicode(po), '# \nmsgid ""\nmsgstr ""\n')
+        self.assertEqual(po.__unicode__(), '# \nmsgid ""\nmsgstr ""\n')
+
+    def test_linenum_1(self):
+        po = polib.pofile('tests/test_utf8.po')
+        self.assertEqual(po[0].linenum, 18)
+
+    def test_linenum_2(self):
+        po = polib.pofile('tests/test_utf8.po')
+        self.assertEqual(po.find('XML text').linenum, 1799)
+
+    def test_linenum_3(self):
+        po = polib.pofile('tests/test_utf8.po')
+        self.assertEqual(po[-1].linenum, 3478)
 
 
 class TestBaseFile(unittest.TestCase):
