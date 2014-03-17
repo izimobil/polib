@@ -1289,7 +1289,6 @@ class _POFileParser(object):
                 continue
 
             self.current_token = line
-            is_real_entry = False
 
             if tokens[0] == '#:':
                 if nb_tokens <= 1:
