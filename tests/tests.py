@@ -254,6 +254,10 @@ msgstr ""
         mofile = polib.mofile('tests/test_utf8.mo', klass=CustomMOFile)
         self.assertEqual(mofile.__class__, CustomMOFile)     
 
+    def test_empty(self):
+        po = polib.pofile('')
+        self.assertEqual(unicode(po), '# \nmsgid ""\nmsgstr ""\n')
+
 
 class TestBaseFile(unittest.TestCase):
     """

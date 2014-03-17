@@ -1255,7 +1255,7 @@ class _POFileParser(object):
             'msgid': 'pm',
             'msgctxt': 'pc',
         }
-
+        tokens = []
         for line in self.fhandle:
             i += 1
             line = line.strip()
@@ -1364,7 +1364,8 @@ class _POFileParser(object):
                 raise IOError('Syntax error in po file %s (line %s)' %
                               (self.instance.fpath, i))
 
-        if self.current_entry and not tokens[0].startswith('#'):
+        if self.current_entry and len(tokens) > 0 and \
+           not tokens[0].startswith('#'):
             # since entries are added when another entry is found, we must add
             # the last entry here (only if there are lines). Trailing comments
             # are ignored
