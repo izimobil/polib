@@ -1569,13 +1569,10 @@ class _POFileParser(object):
         elif self.current_state == 'mx':
             self.current_entry.msgstr_plural[self.msgstr_index] += token
         elif self.current_state == 'pp':
-            token = token[3:]
             self.current_entry.previous_msgid_plural += token
         elif self.current_state == 'pm':
-            token = token[3:]
             self.current_entry.previous_msgid += token
         elif self.current_state == 'pc':
-            token = token[3:]
             self.current_entry.previous_msgctxt += token
         # don't change the current state
         return False

@@ -1,0 +1,20 @@
+# test file for previous msgid
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#: disk-utils/cfdisk.c:1825
+#| msgctxt ""
+#| "\n"
+#| "Some message context"
+#| msgid ""
+#| "\n"
+#| "Partition table entries are not in disk order\n"
+msgid "The new msgid"
+msgstr ""
+
+
+#| msgctxt "Some message context"
+#| msgid "Partition table entries are not in disk order2\n"
+msgid "The new msgid2"
+msgstr ""

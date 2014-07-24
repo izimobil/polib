@@ -97,6 +97,50 @@ msgstr "bar"
         po = polib.pofile('tests/test_obsolete_previousmsgid.po')
         self.assertTrue(isinstance(po, polib.POFile))
 
+    def test_previous_msgid_1(self):
+        """
+        Test previous msgid multiline.
+        """
+        po = polib.pofile('tests/test_previous_msgid.po')
+        expected = "\nPartition table entries are not in disk order\n"
+        self.assertEquals(
+            unicode(po[0].previous_msgid),
+            expected
+        )
+
+    def test_previous_msgid_2(self):
+        """
+        Test previous msgid single line.
+        """
+        po = polib.pofile('tests/test_previous_msgid.po')
+        expected = "Partition table entries are not in disk order2\n"
+        self.assertEquals(
+            unicode(po[1].previous_msgid),
+            expected
+        )
+
+    def test_previous_msgctxt_1(self):
+        """
+        Test previous msgctxt multiline.
+        """
+        po = polib.pofile('tests/test_previous_msgid.po')
+        expected = "\nSome message context"
+        self.assertEquals(
+            unicode(po[0].previous_msgctxt),
+            expected
+        )
+
+    def test_previous_msgctxt_2(self):
+        """
+        Test previous msgctxt single line.
+        """
+        po = polib.pofile('tests/test_previous_msgid.po')
+        expected = "Some message context"
+        self.assertEquals(
+            unicode(po[1].previous_msgctxt),
+            expected
+        )
+
     def test_unescaped_double_quote1(self):
         """
         Test that polib reports an error when unescaped double quote is found.
