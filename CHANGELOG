@@ -2,6 +2,12 @@
 Changelog
 =========
 
+Version 1.0.5 (2014/08/22)
+--------------------------
+ - Fixed issue #59: tokens variable referenced before assignment
+ - Implemented feature request #56: line number information in PO entries
+ - Fixed issue #61: polib does not handle previous msgid on multines properly
+
 Version 1.0.4 (2014/02/19)
 --------------------------
  - Fixed issue #43: improved check that determine if polib is dealing with a filepath or unicode content
