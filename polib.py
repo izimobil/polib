@@ -639,7 +639,7 @@ class POFile(_BaseFile):
         if total == 0:
             return 100
         translated = len(self.translated_entries())
-        return int((100.00 / float(total)) * translated)
+        return int(translated * 100 / float(total))
 
     def translated_entries(self):
         """
