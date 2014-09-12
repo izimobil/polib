@@ -3,20 +3,20 @@ polib
 =====
 
 .. image:: https://pypip.in/download/polib/badge.svg
-    :target: https://pypi.python.org/pypi/polib/
     :alt: Downloads
 
+
 .. image:: https://pypip.in/py_versions/polib/badge.svg
-    :target: https://pypi.python.org/pypi/polib/
     :alt: Supported Python versions
 
+
 .. image:: https://pypip.in/status/polib/badge.svg
-    :target: https://pypi.python.org/pypi/polib/
     :alt: Development Status
 
+
 .. image:: https://pypip.in/license/polib/badge.svg
-    :target: https://pypi.python.org/pypi/polib/
     :alt: License
+
 
 polib is a library to manipulate, create, modify gettext files (pot, po and mo
 files). You can load existing files, iterate through it's entries, add, modify
