@@ -17,4 +17,6 @@ test:
 	@type tox >/dev/null 2>&1 && { tox; } || { ./runtests.sh; }
 
 dist: clean
-	@python setup.py sdist
+	@python setup.py register
+	@python setup.py sdist upload
+	@python setup.py bdist_wheel upload

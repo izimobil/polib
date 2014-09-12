@@ -10,9 +10,11 @@ polib setup script.
 
 __author__ = 'David Jean Louis <izimobil@gmail.com>'
 
-from distutils.core import setup
+try:
+    from setuptools import setup
+except ImportError:
+    from distutils.core import setup
 import codecs
-
 import polib
 
 author_data = __author__.split(' ')
@@ -26,8 +28,6 @@ else:
     mode = 'r'
 
 long_desc = r'''
-.. contents:: Table of Contents
-
 %s
 
 %s
@@ -63,6 +63,7 @@ if __name__ == '__main__':
             'Programming Language :: Python :: 3.1',
             'Programming Language :: Python :: 3.2',
             'Programming Language :: Python :: 3.3',
+            'Programming Language :: Python :: 3.4',
             'Topic :: Software Development :: Libraries :: Python Modules',
             'Topic :: Software Development :: Internationalization',
             'Topic :: Software Development :: Localization',
