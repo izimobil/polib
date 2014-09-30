@@ -3,19 +3,19 @@
 Welcome to polib's documentation!
 =================================
 
-.. image:: https://pypip.in/download/polib/badge.svg
+.. image:: https://pypip.in/download/polib/badge.png
     :target: https://pypi.python.org/pypi/polib/
     :alt: Downloads
 
-.. image:: https://pypip.in/py_versions/polib/badge.svg
+.. image:: https://pypip.in/py_versions/polib/badge.png
     :target: https://pypi.python.org/pypi/polib/
     :alt: Supported Python versions
 
-.. image:: https://pypip.in/status/polib/badge.svg
+.. image:: https://pypip.in/status/polib/badge.png
     :target: https://pypi.python.org/pypi/polib/
     :alt: Development Status
 
-.. image:: https://pypip.in/license/polib/badge.svg
+.. image:: https://pypip.in/license/polib/badge.png
     :target: https://pypi.python.org/pypi/polib/
     :alt: License
 
