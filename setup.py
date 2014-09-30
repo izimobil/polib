@@ -19,7 +19,7 @@ import polib
 
 author_data = __author__.split(' ')
 maintainer = ' '.join(author_data[0:-1])
-maintainer_email = author_data[-1]
+maintainer_email = author_data[-1][1:-1]
 desc = 'A library to manipulate gettext files (po and mo files).'
 
 if polib.PY3:
@@ -51,15 +51,18 @@ if __name__ == '__main__':
         classifiers = [
             'Development Status :: 5 - Production/Stable',
             'Environment :: Console',
-            'Intended Audience :: System Administrators',
+            'Environment :: Web Environment',
             'Intended Audience :: Developers',
+            'Intended Audience :: System Administrators',
             'License :: OSI Approved :: MIT License',
-            'Natural Language :: French',
             'Operating System :: OS Independent',
             'Programming Language :: Python',
+            'Programming Language :: Python :: 2',
             'Programming Language :: Python :: 2.5',
             'Programming Language :: Python :: 2.6',
             'Programming Language :: Python :: 2.7',
+            'Programming Language :: Python :: 3',
+            'Programming Language :: Python :: 3.0',
             'Programming Language :: Python :: 3.1',
             'Programming Language :: Python :: 3.2',
             'Programming Language :: Python :: 3.3',
