@@ -7,6 +7,8 @@ all: lint test clean
 
 clean:
 	@find . -name '*.pyc' |xargs rm -f
+	@find . -name '*.pyo' |xargs rm -f
+	@find . -name '*.orig' |xargs rm -f
 	@rm -rf MANIFEST build dist .coverage .tox __pycache__ docs/_build
 
 lint:
