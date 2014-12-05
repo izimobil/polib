@@ -486,7 +486,8 @@ class _BaseFile(list):
             'Language',
             'MIME-Version',
             'Content-Type',
-            'Content-Transfer-Encoding'
+            'Content-Transfer-Encoding',
+            'Plural-Forms'
         ]
         ordered_data = []
         for data in data_order:
