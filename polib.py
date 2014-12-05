@@ -483,6 +483,7 @@ class _BaseFile(list):
             'PO-Revision-Date',
             'Last-Translator',
             'Language-Team',
+            'Language',
             'MIME-Version',
             'Content-Type',
             'Content-Transfer-Encoding'
