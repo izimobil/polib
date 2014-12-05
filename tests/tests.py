@@ -103,7 +103,7 @@ msgstr "bar"
         """
         po = polib.pofile('tests/test_previous_msgid.po')
         expected = "\nPartition table entries are not in disk order\n"
-        self.assertEquals(
+        self.assertEqual(
             po[0].previous_msgid,
             expected
         )
@@ -114,7 +114,7 @@ msgstr "bar"
         """
         po = polib.pofile('tests/test_previous_msgid.po')
         expected = "Partition table entries are not in disk order2\n"
-        self.assertEquals(
+        self.assertEqual(
             po[1].previous_msgid,
             expected
         )
@@ -125,7 +125,7 @@ msgstr "bar"
         """
         po = polib.pofile('tests/test_previous_msgid.po')
         expected = "\nSome message context"
-        self.assertEquals(
+        self.assertEqual(
             po[0].previous_msgctxt,
             expected
         )
@@ -136,7 +136,7 @@ msgstr "bar"
         """
         po = polib.pofile('tests/test_previous_msgid.po')
         expected = "Some message context"
-        self.assertEquals(
+        self.assertEqual(
             po[1].previous_msgctxt,
             expected
         )
