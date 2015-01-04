@@ -9,7 +9,7 @@ clean:
 	@find . -name '*.pyc' |xargs rm -f
 	@find . -name '*.pyo' |xargs rm -f
 	@find . -name '*.orig' |xargs rm -f
-	@rm -rf MANIFEST build dist .coverage .tox __pycache__ docs/_build
+	@rm -rf MANIFEST build dist .coverage .tox __pycache__ docs/_build *.egg-info
 
 lint:
 	@type pep8 >/dev/null 2>&1 || { echo >&2 "Please install pep8 package."; exit 1; }
