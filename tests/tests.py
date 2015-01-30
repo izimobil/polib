@@ -300,7 +300,7 @@ msgstr ""
 
     def test_empty(self):
         po = polib.pofile('')
-        self.assertEqual(po.__unicode__(), '# \nmsgid ""\nmsgstr ""\n')
+        self.assertEqual(po.__unicode__(), '#\nmsgid ""\nmsgstr ""\n')
 
     def test_linenum_1(self):
         po = polib.pofile('tests/test_utf8.po')
@@ -481,7 +481,7 @@ msgstr ""
         pofile.append(c1)
         pofile.append(c2)
         pofile.sort()
-        expected = u('''# 
+        expected = u('''#
 msgid ""
 msgstr ""
 
@@ -515,7 +515,7 @@ msgstr ""
 
     def test_trailing_comment(self):
         pofile  = polib.pofile('tests/test_trailing_comment.po')
-        expected = r'''# 
+        expected = r'''#
 msgid ""
 msgstr "Content-Type: text/plain; charset=UTF-8\n"
 

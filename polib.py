@@ -483,10 +483,10 @@ class _BaseFile(list):
             'PO-Revision-Date',
             'Last-Translator',
             'Language-Team',
-            'Language',
             'MIME-Version',
             'Content-Type',
             'Content-Transfer-Encoding',
+            'Language',
             'Plural-Forms'
         ]
         ordered_data = []
@@ -611,7 +611,9 @@ class POFile(_BaseFile):
         """
         ret, headers = '', self.header.split('\n')
         for header in headers:
-            if header[:1] in [',', ':']:
+            if not len(header):
+                ret += "#\n"
+            elif header[:1] in [',', ':']:
                 ret += '#%s\n' % header
             else:
                 ret += '# %s\n' % header
@@ -897,9 +899,8 @@ class _BaseEntry(object):
 
         ret = ['%s%s%s "%s"' % (delflag, fieldname, plural_index,
                                 escape(lines.pop(0)))]
-        for mstr in lines:
-            #import pdb; pdb.set_trace()
-            ret.append('%s"%s"' % (delflag, escape(mstr)))
+        for line in lines:
+            ret.append('%s"%s"' % (delflag, escape(line)))
         return ret
 # }}}
 # class POEntry {{{
@@ -1552,7 +1553,8 @@ class _POFileParser(object):
 
     def handle_mx(self):
         """Handle a msgstr plural."""
-        index, value = self.current_token[7], self.current_token[11:-1]
+        index = self.current_token[7]
+        value = self.current_token[self.current_token.find('"') + 1:-1]
         self.current_entry.msgstr_plural[int(index)] = unescape(value)
         self.msgstr_index = int(index)
         return True

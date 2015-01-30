@@ -1,7 +1,7 @@
 # translation of django.po to Castellano
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) 2007 THE PACKAGE'S COPYRIGHT HOLDER.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: django\n"
