@@ -69,7 +69,7 @@ parsing the charset in the header of the pofile)::
 Loading a catalog and specifying explicitly the encoding
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-For some reason you may want to specify the file encoding explicitely (because
+For some reason you may want to specify the file encoding explicitly (because
 the charset is not specified in the po file header for example), to do so::
 
     import polib
@@ -88,14 +88,14 @@ available for example), polib handles this case::
     mo = polib.mofile('path/to/catalog.mo')
     print mo
 
-As for po files, mofile also allows to specify the encoding explicitely.
+As for po files, mofile also allows to specify the encoding explicitly.
 
 
 Creating po catalogs from scratch
 ---------------------------------
 
 polib allows you to create catalog from scratch, this can be done with the
-POFile class, for exemple to create a simple catalog you could do::
+POFile class, for example to create a simple catalog you could do::
 
     import polib
 

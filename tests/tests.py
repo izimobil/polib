@@ -78,7 +78,7 @@ msgstr "bar"
 
     def test_pofile_and_mofile7(self):
         """
-        Test that encoding is ok when encoding is explicitely given.
+        Test that encoding is ok when encoding is explicitly given.
         """
         po = polib.pofile('tests/test_iso-8859-15.po', encoding='iso-8859-15')
         self.assertTrue(po.encoding == 'iso-8859-15')

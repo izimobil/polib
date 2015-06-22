@@ -12,14 +12,14 @@ Version 1.0.5 (2014/08/22)
 --------------------------
  - Fixed issue #59: tokens variable referenced before assignment
  - Implemented feature request #56: line number information in PO entries
- - Fixed issue #61: polib does not handle previous msgid on multines properly
+ - Fixed issue #61: polib does not handle previous msgid on multilines properly
 
 Version 1.0.4 (2014/02/19)
 --------------------------
  - Fixed issue #43: improved check that determine if polib is dealing with a filepath or unicode content
  - Fixed issue #44: polib now checks MO files revision number and throws an error if the number is unexpected
  - Fixed issue #45: parse properly mo files with no header entry
- - Fixed issue #47: added flags attribute for MOEntry to be consistant with POEntry
+ - Fixed issue #47: added flags attribute for MOEntry to be consistent with POEntry
  - Fixed issue #49: use integers rather than strings for msgstr_plural keys
  - Fixed issue #51: if a PO file ends with a comment, polib adds a spurious empty entry at the end
  - Fixed issue #52: bad magic number written on big endian platforms
@@ -27,7 +27,7 @@ Version 1.0.4 (2014/02/19)
  - Fixed issue #54: use lowercase for state identifiers. This fixes issues with certain locales and string.lower()
  - Fixed issue #58: use io.open() instead of codecs.open() because the latter doesn't handle very well universal line endings
  - Make sure the mo file is closed at garbage collection, this prevents warnings on unclosed file when running tests with python >= 3.2
- - Better way to test indianness
+ - Better way to test endianness
  - polib download URL is now on Pypi
 
 Version 1.0.3 (2013/02/09)
@@ -36,11 +36,11 @@ Version 1.0.3 (2013/02/09)
  - Fixed issue #39: Added __init__.py file for convenience
  - Fixed issue #41: UnicodeDecodeError when running setup.py build on python3 with C locale
  - polib is now fully PEP8 compliant
- - Small improvements: remove unused "typ" var (thanks Rodrigo Silva), mproved Makefile, Make sure _BaseFile.__contains__ returns a boolean value
+ - Small improvements: remove unused "typ" var (thanks Rodrigo Silva), improved Makefile, Make sure _BaseFile.__contains__ returns a boolean value
 
 Version 1.0.2 (2012/10/23)
 --------------------------
- - allow empty comments, flags or occurences lines
+ - allow empty comments, flags or occurrences lines
 
 Version 1.0.1 (2012/09/11)
 --------------------------
@@ -64,7 +64,7 @@ polib is now 5 years old ;) so the 0.7.X branch will be the last before the 1.X 
 
 Version 0.6.4 (2011/07/13)
 --------------------------
- - Better api, autodetected_encoding is no longer required to explicitely set the encoding (fixes issue #23),
+ - Better api, autodetected_encoding is no longer required to explicitly set the encoding (fixes issue #23),
  - Fixed issue #24 Support indented PO files (thanks to François Poirotte).
 
 Version 0.6.3 (2011/02/19)
@@ -103,7 +103,7 @@ Version 0.5.3 (2010/08/29)
  - correctly unescape lines containing both \\\\n and \\n (thanks to Martin Geisler),
  - fixed issue #6: __str__() methods are returning unicode instead of str,
  - fixed issue #8: POFile.merge error when an entry is obsolete in a .po, that this entry reappears in the .pot and that we merge the two,
- - added support to instanciate POFile objects using data instead of file path (thanks to Diego Búrigo Zacarão),
+ - added support to instantiate POFile objects using data instead of file path (thanks to Diego Búrigo Zacarão),
  - fixed issue #9: POFile.merge drop fuzzy attributes from translations (thanks to Tim Gerundt),
  - fixed issue #10: Finding entries with the same msgid and different context (msgctxt).
 
@@ -142,7 +142,7 @@ Version 0.4.1 (2009/03/04)
 --------------------------
  - fixed issue #0006: plural msgstrs were saved unsorted,
  - fixed issue #0008: long comment lines broke 'save()' method,
- - removed performance shortcuts: they were in fact inefficient, I was misleaded by the python profile module, kudos to Thomas for making me realise that,
+ - removed performance shortcuts: they were in fact inefficient, I was mislead by the python profile module, kudos to Thomas for making me realise that,
  - fixed issue #0010: wrong polib version number,
  - fixed issue #0011: occurrences parsing is now more robust and can handle weird references formats (like in eToys OLPC po files),
  - fixed issue #0012: improved merge() method.

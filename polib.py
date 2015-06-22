@@ -339,7 +339,7 @@ class _BaseFile(list):
 
     def __contains__(self, entry):
         """
-        Overriden ``list`` method to implement the membership test (in and
+        Overridden ``list`` method to implement the membership test (in and
         not in).
         The method considers that an entry is in the file if it finds an entry
         that has the same msgid (the test is **case sensitive**) and the same
@@ -358,7 +358,7 @@ class _BaseFile(list):
 
     def append(self, entry):
         """
-        Overriden method to check for duplicates entries, if a user tries to
+        Overridden method to check for duplicates entries, if a user tries to
         add an entry that is already in the file, the method will raise a
         ``ValueError`` exception.
 
@@ -373,7 +373,7 @@ class _BaseFile(list):
 
     def insert(self, index, entry):
         """
-        Overriden method to check for duplicates entries, if a user tries to
+        Overridden method to check for duplicates entries, if a user tries to
         add an entry that is already in the file, the method will raise a
         ``ValueError`` exception.
 
@@ -1213,7 +1213,7 @@ class _POFileParser(object):
         #     * HE: Header
         #     * TC: a translation comment
         #     * GC: a generated comment
-        #     * OC: a file/line occurence
+        #     * OC: a file/line occurrence
         #     * FL: a flags line
         #     * CT: a message context
         #     * PC: a previous msgctxt
@@ -1471,7 +1471,7 @@ class _POFileParser(object):
         return True
 
     def handle_oc(self):
-        """Handle a file:num occurence."""
+        """Handle a file:num occurrence."""
         if self.current_state in ['mc', 'ms', 'mx']:
             self.instance.append(self.current_entry)
             self.current_entry = POEntry(linenum=self.current_line)
