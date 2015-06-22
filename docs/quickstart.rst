@@ -88,7 +88,7 @@ available for example), polib handles this case::
     mo = polib.mofile('path/to/catalog.mo')
     print mo
 
-As for po files, mofile also allows to specify the encoding explicitly.
+As for po files, mofile also allows specifying the encoding explicitly.
 
 
 Creating po catalogs from scratch

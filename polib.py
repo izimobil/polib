@@ -454,7 +454,7 @@ class _BaseFile(list):
             boolean, whether to also search in entries that are obsolete.
 
         ``msgctxt``
-            string, allows to specify a specific message context for the
+            string, allows specifying a specific message context for the
             search.
         """
         if include_obsolete_entries:
