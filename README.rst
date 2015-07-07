@@ -2,19 +2,19 @@
 polib
 =====
 
-.. image:: https://pypip.in/download/polib/badge.png
+.. image:: https://img.shields.io/pypi/dm/polib.svg
     :alt: Downloads
 
 
-.. image:: https://pypip.in/py_versions/polib/badge.png
+.. image:: https://img.shields.io/pypi/pyversions/polib.svg
     :alt: Supported Python versions
 
 
-.. image:: https://pypip.in/status/polib/badge.png
+.. image:: https://img.shields.io/pypi/status/polib.svg
     :alt: Development Status
 
 
-.. image:: https://pypip.in/license/polib/badge.png
+.. image:: https://img.shields.io/pypi/l/polib.svg
     :alt: License
 
 
