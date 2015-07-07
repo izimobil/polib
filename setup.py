@@ -23,16 +23,16 @@ maintainer_email = author_data[-1][1:-1]
 desc = 'A library to manipulate gettext files (po and mo files).'
 
 if polib.PY3:
-    mode = 'rb'
+    enc = {'encoding': 'UTF-8'}
 else:
-    mode = 'r'
+    enc = {}
 
 long_desc = r'''
 %s
 
 %s
 
-''' % (open('README.rst', mode).read(), open('CHANGELOG', mode).read())
+''' % (open('README.rst', **enc).read(), open('CHANGELOG', **enc).read())
 
 if __name__ == '__main__':
     setup(
