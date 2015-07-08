@@ -2,6 +2,15 @@
 Changelog
 =========
 
+Version 1.0.7 (2015/07/08)
+--------------------------
+ - Fixed bad parsing of indented msgstr_plural
+ - Fixed ordering of "Language" metadata entry
+ - Removed space after "#" in header if comment line is empty (like gettext tools)
+ - Fixed typos / grammar errors (thanks Jakub Wilk)
+ - Take into account msgid_plural if needed when comparing entries (thanks Leonardo Constantino Oliveira)
+ - Fixed issue #63 (str() on a bytes instance when using python3) (thanks Jakub Wilk)
+
 Version 1.0.6 (2015/01/04)
 --------------------------
  - Wheel support
