@@ -88,7 +88,7 @@ msgstr "bar"
         Test that weird occurrences are correctly parsed.
         """
         po = polib.pofile('tests/test_weird_occurrences.po')
-        self.assertEqual(len(po), 46)
+        self.assertEqual(len(po), 47)
 
     def test_pofile_and_mofile9(self):
         """
@@ -313,6 +313,10 @@ msgstr ""
     def test_linenum_3(self):
         po = polib.pofile('tests/test_utf8.po')
         self.assertEqual(po[-1].linenum, 3478)
+
+    def test_windows_path_occurrences(self):
+        po = polib.pofile('tests/test_weird_occurrences.po')
+        self.assertEqual(po[0].occurrences, [('C:\\foo\\bar.py', '12')])
 
 
 class TestBaseFile(unittest.TestCase):

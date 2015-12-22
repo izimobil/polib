@@ -1490,7 +1490,7 @@ class _POFileParser(object):
         for occurrence in occurrences:
             if occurrence != '':
                 try:
-                    fil, line = occurrence.split(':')
+                    fil, line = occurrence.rsplit(':', 1)
                     if not line.isdigit():
                         fil = fil + line
                         line = ''
