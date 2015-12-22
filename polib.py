@@ -953,12 +953,12 @@ class POEntry(_BaseEntry):
         """
         Returns the unicode representation of the entry.
         """
-        if self.obsolete:
-            return _BaseEntry.__unicode__(self, wrapwidth)
-
         ret = []
         # comments first, if any (with text wrapping as xgettext does)
-        comments = [('comment', '#. '), ('tcomment', '# ')]
+        if self.obsolete:
+            comments = [('tcomment', '# ')]
+        else:
+            comments = [('comment', '#. '), ('tcomment', '# ')]
         for c in comments:
             val = getattr(self, c[0])
             if val:
@@ -975,7 +975,7 @@ class POEntry(_BaseEntry):
                         ret.append('%s%s' % (c[1], comment))
 
         # occurrences (with text wrapping as xgettext does)
-        if self.occurrences:
+        if not self.obsolete and self.occurrences:
             filelist = []
             for fpath, lineno in self.occurrences:
                 if lineno:
@@ -1005,17 +1005,17 @@ class POEntry(_BaseEntry):
         # previous context and previous msgid/msgid_plural
         fields = ['previous_msgctxt', 'previous_msgid',
                   'previous_msgid_plural']
+        if self.obsolete:
+            prefix = "#~| "
+        else:
+            prefix = "#| "
         for f in fields:
             val = getattr(self, f)
             if val:
-                ret += self._str_field(f, "#| ", "", val, wrapwidth)
+                ret += self._str_field(f, prefix, "", val, wrapwidth)
 
         ret.append(_BaseEntry.__unicode__(self, wrapwidth))
         ret = u('\n').join(ret)
-
-        assert isinstance(ret, text_type)
-        #if type(ret) != types.UnicodeType:
-        #    return unicode(ret, self.encoding)
         return ret
 
     def __cmp__(self, other):
