@@ -14,6 +14,12 @@ msgstr ""
 "X-Etoys-Domain: etoys\n"
 "X-Etoys-SystemVersion: etoys3.0 of 24 February 2008 update 2029\n"
 
+
+# Windows pathes
+#: C:\foo\bar.py:12
+msgid "Windows path"
+msgstr "Windows path"
+
 #. Test for empty comment lines
 #. 
 #,
