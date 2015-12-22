@@ -1,0 +1,12 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Spam\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Whatever"
+msgstr ""
+"Some text here.\n"
+"Some more text.\n"
+"And some more."
+
