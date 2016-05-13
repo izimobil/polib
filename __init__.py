@@ -2,4 +2,4 @@
 # version of polib as a mercurial sub-repository for example.
 #
 # This file will NOT be installed when installing polib with pip, setuptools,
-# or any other mecanism based on the setup.py file.
+# or any other mechanism based on the setup.py file.

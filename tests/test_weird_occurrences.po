@@ -15,7 +15,7 @@ msgstr ""
 "X-Etoys-SystemVersion: etoys3.0 of 24 February 2008 update 2029\n"
 
 
-# Windows pathes
+# Windows paths
 #: C:\foo\bar.py:12
 msgid "Windows path"
 msgstr "Windows path"
