@@ -268,7 +268,7 @@ def unescape(st):
 class _BaseFile(list):
     """
     Common base class for the :class:`~polib.POFile` and :class:`~polib.MOFile`
-    classes. This class should **not** be instanciated directly.
+    classes. This class should **not** be instantiated directly.
     """
 
     def __init__(self, *args, **kwargs):
@@ -780,7 +780,7 @@ class MOFile(_BaseFile):
 class _BaseEntry(object):
     """
     Base class for :class:`~polib.POEntry` and :class:`~polib.MOEntry` classes.
-    This class should **not** be instanciated directly.
+    This class should **not** be instantiated directly.
     """
 
     def __init__(self, *args, **kwargs):

@@ -209,7 +209,7 @@ msgstr ""
     
     def test_detect_encoding1(self):
         """
-        Test that given enconding is returned when file has no encoding defined.
+        Test that given encoding is returned when file has no encoding defined.
         """
         self.assertEqual(polib.detect_encoding('tests/test_noencoding.po'), 'utf-8')
 

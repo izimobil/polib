@@ -145,7 +145,7 @@ Version 0.4.2 (2009/06/05)
  - fixed issue #0015: no LICENSE file included in tarball,  
  - removed Version/Date from README,
  - added test pot files to MANIFEST.in,
- - performance improvment in find() method (thanks Thomas !).
+ - performance improvement in find() method (thanks Thomas !).
 
 Version 0.4.1 (2009/03/04)
 --------------------------
@@ -159,7 +159,7 @@ Version 0.4.1 (2009/03/04)
 Version 0.4.0 (2008/11/26)
 --------------------------
  - fixed bug #0005: percent_translated divide by 0 on empty po files,
- - fixed bug #0004: occurrences that have hiphens are wrapped when they should not,
+ - fixed bug #0004: occurrences that have hyphens are wrapped when they should not,
  - changes in how encoding is handled,
  - remove deprecation warnings for typo on "occurrences",
  - added POEntry.__cmp__() method to sort entries like gettext does,
