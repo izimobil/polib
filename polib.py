@@ -367,7 +367,9 @@ class _BaseFile(list):
         ``entry``
             an instance of :class:`~polib._BaseEntry`.
         """
-        if self.check_for_duplicates and entry in self:
+        # check_for_duplicates may not be defined (yet) when unpickling.
+        # But if pickling, we never want to check for duplicates anyway.
+        if getattr(self, 'check_for_duplicates', False) and entry in self:
             raise ValueError('Entry "%s" already exists' % entry.msgid)
         super(_BaseFile, self).append(entry)
 
