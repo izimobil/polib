@@ -262,6 +262,18 @@ def unescape(st):
         return m  # handles escaped double quote
     return re.sub(r'\\(\\|n|t|r|")', unescape_repl, st)
 # }}}
+# function natural_sort() {{{
+
+
+def natural_sort(lst):
+    """
+    Sort naturally the given list.
+    Credits: http://stackoverflow.com/a/4836734
+    """
+    convert = lambda text: int(text) if text.isdigit() else text.lower() 
+    alphanum_key = lambda key: [ convert(c) for c in re.split('([0-9]+)', key) ] 
+    return sorted(lst, key = alphanum_key)
+# }}}
 # class _BaseFile {{{
 
 
@@ -500,7 +512,7 @@ class _BaseFile(list):
                 pass
         # the rest of the metadata will be alphabetically ordered since there
         # are no specs for this AFAIK
-        for data in sorted(metadata.keys()):
+        for data in natural_sort(metadata.keys()):
             value = metadata[data]
             ordered_data.append((data, value))
         return ordered_data

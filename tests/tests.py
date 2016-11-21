@@ -418,7 +418,10 @@ class TestBaseFile(unittest.TestCase):
             ('Language-Team', u('LANGUAGE <LL@li.org>')),
             ('MIME-Version', u('1.0')),
             ('Content-Type', u('text/plain; charset=UTF-8')),
-            ('Content-Transfer-Encoding', u('8bit'))
+            ('Content-Transfer-Encoding', u('8bit')),
+            ('X-Poedit-SearchPath-1', u('Foo')),
+            ('X-Poedit-SearchPath-2', u('Bar')),
+            ('X-Poedit-SearchPath-10', u('Baz')),
         ]
         self.assertEqual(pofile.ordered_metadata(), mdata)
 
