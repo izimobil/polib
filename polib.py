@@ -1668,7 +1668,7 @@ class _MOFileParser(object):
         version, numofstrings = self._readbinary(ii, 8)
         # from MO file format specs: "A program seeing an unexpected major
         # revision number should stop reading the MO file entirely"
-        if version not in (0, 1):
+        if version >> 16 not in (0, 1):
             raise IOError('Invalid mo file, unexpected major revision number')
         self.instance.version = version
         # original strings and translation strings hash table offset
