@@ -673,6 +673,7 @@ msgstr[1] "pluriel"
 
     def test_invalid_version(self):
         self.assertRaises(IOError, polib.mofile, 'tests/test_invalid_version.mo')
+        polib.mofile('tests/test_version_1.1.mo')
 
     def test_no_header(self):
         mo = polib.mofile('tests/test_no_header.mo')
