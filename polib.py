@@ -1036,7 +1036,6 @@ class POEntry(_BaseEntry):
         """
         Called by comparison operations if rich comparison is not defined.
         """
-
         # First: Obsolete test
         if self.obsolete != other.obsolete:
             if self.obsolete:
@@ -1047,33 +1046,10 @@ class POEntry(_BaseEntry):
         occ1 = sorted(self.occurrences[:])
         occ2 = sorted(other.occurrences[:])
         pos = 0
-        for entry1 in occ1:
-            try:
-                entry2 = occ2[pos]
-            except IndexError:
-                return 1
-            pos = pos + 1
-            if entry1[0] != entry2[0]:
-                if entry1[0] > entry2[0]:
-                    return 1
-                else:
-                    return -1
-            if entry1[1] != entry2[1]:
-                if entry1[1] > entry2[1]:
-                    return 1
-                else:
-                    return -1
-        # Compare msgid_plural if set
-        if self.msgid_plural:
-            if not other.msgid_plural:
-                return 1
-            for pos in self.msgid_plural:
-                if pos not in other.msgid_plural:
-                    return 1
-                if self.msgid_plural[pos] > other.msgid_plural[pos]:
-                    return 1
-                if self.msgid_plural[pos] < other.msgid_plural[pos]:
-                    return -1
+        if occ1 > occ2:
+            return 1
+        if occ1 < occ2:
+            return -1
         # Compare context
         msgctxt = self.msgctxt or 0
         othermsgctxt = other.msgctxt or 0
@@ -1081,10 +1057,30 @@ class POEntry(_BaseEntry):
             return 1
         elif msgctxt < othermsgctxt:
             return -1
-        # Finally: Compare message ID
+        # Compare msgid_plural
+        msgid_plural = self.msgid_plural or 0
+        othermsgid_plural = other.msgid_plural or 0
+        if msgid_plural > othermsgid_plural:
+            return 1
+        elif msgid_plural < othermsgid_plural:
+            return -1
+        # Compare msgstr_plural
+        msgstr_plural = self.msgstr_plural or 0
+        othermsgstr_plural = other.msgstr_plural or 0
+        if msgstr_plural > othermsgstr_plural:
+            return 1
+        elif msgstr_plural < othermsgstr_plural:
+            return -1
+        # Compare msgid
         if self.msgid > other.msgid:
             return 1
         elif self.msgid < other.msgid:
+            return -1
+        return 0
+        # Compare msgstr
+        if self.msgstr > other.msgstr:
+            return 1
+        elif self.msgstr < other.msgstr:
             return -1
         return 0
 
