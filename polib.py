@@ -1074,6 +1074,11 @@ class POEntry(_BaseEntry):
                     return 1
                 if self.msgid_plural[pos] < other.msgid_plural[pos]:
                     return -1
+        # Compare context
+        if self.msgctxt > other.msgctxt:
+            return 1
+        elif self.msgctxt < other.msgctxt:
+            return -1
         # Finally: Compare message ID
         if self.msgid > other.msgid:
             return 1
