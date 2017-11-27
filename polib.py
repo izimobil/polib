@@ -12,11 +12,6 @@ modify entries, comments or metadata, etc. or create new po files from scratch.
 :func:`~polib.mofile` convenience functions.
 """
 
-__author__ = 'David Jean Louis <izimobil@gmail.com>'
-__version__ = '1.1.0'
-__all__ = ['pofile', 'POFile', 'POEntry', 'mofile', 'MOFile', 'MOEntry',
-           'default_encoding', 'escape', 'unescape', 'detect_encoding', ]
-
 import array
 import codecs
 import os
@@ -34,6 +29,12 @@ except ImportError:
         @staticmethod
         def open(fpath, mode='r', encoding=None):
             return codecs.open(fpath, mode, encoding)
+
+
+__author__ = 'David Jean Louis <izimobil@gmail.com>'
+__version__ = '1.1.0'
+__all__ = ['pofile', 'POFile', 'POEntry', 'mofile', 'MOFile', 'MOEntry',
+           'default_encoding', 'escape', 'unescape', 'detect_encoding', ]
 
 
 # the default encoding to use when encoding cannot be detected
@@ -270,9 +271,14 @@ def natural_sort(lst):
     Sort naturally the given list.
     Credits: http://stackoverflow.com/a/4836734
     """
-    convert = lambda text: int(text) if text.isdigit() else text.lower() 
-    alphanum_key = lambda key: [ convert(c) for c in re.split('([0-9]+)', key) ] 
-    return sorted(lst, key = alphanum_key)
+    def convert(text):
+        return int(text) if text.isdigit() else text.lower()
+
+    def alphanum_key(key):
+        return [convert(c) for c in re.split('([0-9]+)', key)]
+
+    return sorted(lst, key=alphanum_key)
+
 # }}}
 # class _BaseFile {{{
 
@@ -333,10 +339,6 @@ class _BaseFile(list):
         for entry in self.obsolete_entries():
             ret.append(entry.__unicode__(self.wrapwidth))
         ret = u('\n').join(ret)
-
-        assert isinstance(ret, text_type)
-        #if type(ret) != text_type:
-        #    return unicode(ret, self.encoding)
         return ret
 
     if PY3:
@@ -552,7 +554,6 @@ class _BaseFile(list):
         # add metadata entry
         entries.sort(key=lambda o: o.msgid_with_context.encode('utf-8'))
         mentry = self.metadata_as_entry()
-        #mentry.msgstr = mentry.msgstr.replace('\\n', '').lstrip()
         entries = [mentry] + entries
         entries_len = len(entries)
         ids, strs = b(''), b('')
@@ -715,7 +716,9 @@ class POFile(_BaseFile):
             object POFile, the reference catalog.
         """
         # Store entries in dict/set for faster access
-        self_entries = dict((entry.msgid_with_context, entry) for entry in self)
+        self_entries = dict(
+            (entry.msgid_with_context, entry) for entry in self
+        )
         refpot_msgids = set(entry.msgid_with_context for entry in refpot)
         # Merge entries that are in the refpot
         for entry in refpot:
@@ -1836,12 +1839,12 @@ class TextWrapper(textwrap.TextWrapper):
                 del chunks[-1]
 
             while chunks:
-                l = len(chunks[-1])
+                length = len(chunks[-1])
 
                 # Can at least squeeze this chunk onto the current line.
-                if cur_len + l <= width:
+                if cur_len + length <= width:
                     cur_line.append(chunks.pop())
-                    cur_len += l
+                    cur_len += length
 
                 # Nope, this line is full.
                 else:
