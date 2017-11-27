@@ -475,11 +475,25 @@ class _BaseFile(list):
             entries = self[:]
         else:
             entries = [e for e in self if not e.obsolete]
+        matches = []
         for e in entries:
             if getattr(e, by) == st:
                 if msgctxt is not False and e.msgctxt != msgctxt:
                     continue
-                return e
+                matches.append(e)
+        if len(matches) == 1:
+            return matches[0]
+        elif len(matches) > 1:
+            if not msgctxt:
+                # find the entry with no msgctx
+                e = None
+                for m in matches:
+                    if not m.msgctxt:
+                        e = m
+                if e:
+                    return e
+                # fallback to the first entry found
+                return matches[0]
         return None
 
     def ordered_metadata(self):

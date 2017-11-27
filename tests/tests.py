@@ -389,6 +389,13 @@ class TestBaseFile(unittest.TestCase):
         self.assertEqual(entry1.msgstr, u('test context 1'))
         self.assertEqual(entry2.msgstr, u('test context 2'))
 
+    def test_find5(self):
+        pofile = polib.pofile('tests/test_msgctxt.po')
+        entry1 = pofile.find('some string')
+        entry2 = pofile.find('some string', msgctxt='Some message context')
+        self.assertEqual(entry1.msgstr, u('une cha\u00eene sans contexte'))
+        self.assertEqual(entry2.msgstr, u('une cha\u00eene avec contexte'))
+
     def test_save1(self):
         pofile = polib.POFile()
         self.assertRaises(IOError, pofile.save)
@@ -661,13 +668,16 @@ msgstr "Content-Type: text/plain; charset=UTF-8\u005cn"
 
 msgctxt "Some message context"
 msgid "some string"
-msgstr "une cha\u00eene"
+msgstr "une cha\u00eene avec contexte"
 
 msgctxt "Some other message context"
 msgid "singular"
 msgid_plural "plural"
 msgstr[0] "singulier"
 msgstr[1] "pluriel"
+
+msgid "some string"
+msgstr "une cha\u00eene sans contexte"
 ''')
         self.assertEqual(mo.__unicode__(), expected)
 
