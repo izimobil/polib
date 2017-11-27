@@ -2,6 +2,20 @@
 Changelog
 =========
 
+Version 1.1.0 (2017/11/27)
+--------------------------
+ - Fixed entries sorting when generating mo file (Fixes #78)
+ - Fixed find method (Fixes #84)
+ - Refactored POEntry.__cmp__ method (this should fix issues #60, #65 and #79)
+ - Fixed duplicated entries when merging po file with pot file (fixes #68)
+ - Fixed "None" string being outputted when polib deals with syntax error in string (Fixes issue #66)
+ - Added a fuzzy property to entries (Fixes #76)
+ - Take into account the message context when comparing entries
+ - Leave occurence untouched if line number is not a number (fixes #80 and #90)
+ - Fixed test for mo files that was failing because since gettext version 0.19.8.1, msgfmt skips the "POT-Creation-Date" metadata entry (Fixes #86)
+ - Fixed major revision number comparison
+ - Dropped python 2.4 support
+
 Version 1.0.8 (2016/11/21)
 --------------------------
  - Fixed issue #70 (occurrences parsing for windows pathes)
