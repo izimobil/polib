@@ -304,15 +304,15 @@ msgstr ""
 
     def test_linenum_1(self):
         po = polib.pofile('tests/test_utf8.po')
-        self.assertEqual(po[0].linenum, 18)
+        self.assertEqual(po[0].linenum, 17)
 
     def test_linenum_2(self):
         po = polib.pofile('tests/test_utf8.po')
-        self.assertEqual(po.find('XML text').linenum, 1799)
+        self.assertEqual(po.find('XML text').linenum, 1798)
 
     def test_linenum_3(self):
         po = polib.pofile('tests/test_utf8.po')
-        self.assertEqual(po[-1].linenum, 3478)
+        self.assertEqual(po[-1].linenum, 3477)
 
     def test_windows_path_occurrences(self):
         po = polib.pofile('tests/test_weird_occurrences.po')
