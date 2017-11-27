@@ -701,18 +701,18 @@ class POFile(_BaseFile):
             object POFile, the reference catalog.
         """
         # Store entries in dict/set for faster access
-        self_entries = dict((entry.msgid, entry) for entry in self)
-        refpot_msgids = set(entry.msgid for entry in refpot)
+        self_entries = dict((entry.msgid_with_context, entry) for entry in self)
+        refpot_msgids = set(entry.msgid_with_context for entry in refpot)
         # Merge entries that are in the refpot
         for entry in refpot:
-            e = self_entries.get(entry.msgid)
+            e = self_entries.get(entry.msgid_with_context)
             if e is None:
                 e = POEntry()
                 self.append(e)
             e.merge(entry)
         # ok, now we must "obsolete" entries that are not in the refpot anymore
         for entry in self:
-            if entry.msgid not in refpot_msgids:
+            if entry.msgid_with_context not in refpot_msgids:
                 entry.obsolete = True
 # }}}
 # class MOFile {{{
@@ -1150,6 +1150,12 @@ class POEntry(_BaseEntry):
     @property
     def fuzzy(self):
         return 'fuzzy' in self.flags
+
+    @property
+    def msgid_with_context(self):
+        if self.msgctxt:
+            return '%s%s%s' % (self.msgctxt, "\x04", self.msgid)
+        return self.msgid
 
     def __hash__(self):
         return hash((self.msgid, self.msgstr))
