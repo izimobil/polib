@@ -12,8 +12,8 @@ clean:
 	@rm -rf MANIFEST build dist .coverage .tox __pycache__ docs/_build *.egg-info
 
 lint:
-	@type pep8 >/dev/null 2>&1 || { echo >&2 "Please install pep8 package."; exit 1; }
-	@pep8 -r polib.py && { echo >&2 "PEP8: congrats, everything is clean !"; }
+	@type pycodestyle >/dev/null 2>&1 || { echo >&2 "Please install pycodestyle package."; exit 1; }
+	@pycodestyle -r polib.py && { echo >&2 "PEP8: congrats, everything is clean !"; }
 
 test:
 	@type tox >/dev/null 2>&1 && { tox; } || { ./runtests.sh; }
