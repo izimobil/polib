@@ -550,7 +550,7 @@ class _BaseFile(list):
             else:
                 return 0
         # add metadata entry
-        entries.sort(key=lambda o: o.msgctxt or o.msgid)
+        entries.sort(key=lambda o: o.msgid_with_context.encode('utf-8'))
         mentry = self.metadata_as_entry()
         #mentry.msgstr = mentry.msgstr.replace('\\n', '').lstrip()
         entries = [mentry] + entries
