@@ -1506,7 +1506,7 @@ class _POFileParser(object):
                 try:
                     fil, line = occurrence.rsplit(':', 1)
                     if not line.isdigit():
-                        fil = fil + line
+                        fil = occurrence
                         line = ''
                     self.current_entry.occurrences.append((fil, line))
                 except (ValueError, AttributeError):
