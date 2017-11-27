@@ -154,7 +154,7 @@ msgid "Some msgstr with "double\" quotes"
             self.fail("Unescaped quote not detected")
         except IOError:
             exc = sys.exc_info()[1]
-            msg = 'Syntax error in po file None (line 3): unescaped double quote found'
+            msg = 'Syntax error in po file (line 3): unescaped double quote found'
             self.assertEqual(str(exc), msg)
 
     def test_unescaped_double_quote2(self):
@@ -171,7 +171,7 @@ msgstr ""
             self.fail("Unescaped quote not detected")
         except IOError:
             exc = sys.exc_info()[1]
-            msg = 'Syntax error in po file None (line 4): unescaped double quote found'
+            msg = 'Syntax error in po file (line 4): unescaped double quote found'
             self.assertEqual(str(exc), msg)
 
     def test_unescaped_double_quote3(self):
@@ -187,7 +187,7 @@ msgid ""Some msgstr with double\" quotes"
             self.fail("Unescaped quote not detected")
         except IOError:
             exc = sys.exc_info()[1]
-            msg = 'Syntax error in po file None (line 3): unescaped double quote found'
+            msg = 'Syntax error in po file (line 3): unescaped double quote found'
             self.assertEqual(str(exc), msg)
 
     def test_unescaped_double_quote4(self):
@@ -204,7 +204,7 @@ msgstr ""
             self.fail("Unescaped quote not detected")
         except IOError:
             exc = sys.exc_info()[1]
-            msg = 'Syntax error in po file None (line 4): unescaped double quote found'
+            msg = 'Syntax error in po file (line 4): unescaped double quote found'
             self.assertEqual(str(exc), msg)
     
     def test_detect_encoding1(self):

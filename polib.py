@@ -1315,6 +1315,7 @@ class _POFileParser(object):
             'msgctxt': 'pc',
         }
         tokens = []
+        fpath = '%s ' % self.instance.fpath if self.instance.fpath else ''
         for line in self.fhandle:
             self.current_line += 1
             line = line.strip()
@@ -1340,9 +1341,9 @@ class _POFileParser(object):
             if tokens[0] in keywords and nb_tokens > 1:
                 line = line[len(tokens[0]):].lstrip()
                 if re.search(r'([^\\]|^)"', line[1:-1]):
-                    raise IOError('Syntax error in po file %s (line %s): '
+                    raise IOError('Syntax error in po file %s(line %s): '
                                   'unescaped double quote found' %
-                                  (self.instance.fpath, self.current_line))
+                                  (fpath, self.current_line))
                 self.current_token = line
                 self.process(keywords[tokens[0]])
                 continue
@@ -1358,9 +1359,9 @@ class _POFileParser(object):
             elif line[:1] == '"':
                 # we are on a continuation line
                 if re.search(r'([^\\]|^)"', line[1:-1]):
-                    raise IOError('Syntax error in po file %s (line %s): '
+                    raise IOError('Syntax error in po file %s(line %s): '
                                   'unescaped double quote found' %
-                                  (self.instance.fpath, self.current_line))
+                                  (fpath, self.current_line))
                 self.process('mc')
 
             elif line[:7] == 'msgstr[':
@@ -1387,8 +1388,8 @@ class _POFileParser(object):
 
             elif tokens[0] == '#|':
                 if nb_tokens <= 1:
-                    raise IOError('Syntax error in po file %s (line %s)' %
-                                  (self.instance.fpath, self.current_line))
+                    raise IOError('Syntax error in po file %s(line %s)' %
+                                  (fpath, self.current_line))
 
                 # Remove the marker and any whitespace right after that.
                 line = line[2:].lstrip()
@@ -1401,16 +1402,16 @@ class _POFileParser(object):
 
                 if nb_tokens == 2:
                     # Invalid continuation line.
-                    raise IOError('Syntax error in po file %s (line %s): '
+                    raise IOError('Syntax error in po file %s(line %s): '
                                   'invalid continuation line' %
-                                  (self.instance.fpath, self.current_line))
+                                  (fpath, self.current_line))
 
                 # we are on a "previous translation" comment line,
                 if tokens[1] not in prev_keywords:
                     # Unknown keyword in previous translation comment.
-                    raise IOError('Syntax error in po file %s (line %s): '
+                    raise IOError('Syntax error in po file %s(line %s): '
                                   'unknown keyword %s' %
-                                  (self.instance.fpath, self.current_line,
+                                  (fpath, self.current_line,
                                    tokens[1]))
 
                 # Remove the keyword and any whitespace
@@ -1420,8 +1421,8 @@ class _POFileParser(object):
                 self.process(prev_keywords[tokens[1]])
 
             else:
-                raise IOError('Syntax error in po file %s (line %s)' %
-                              (self.instance.fpath, self.current_line))
+                raise IOError('Syntax error in po file %s(line %s)' %
+                              (fpath, self.current_line))
 
         if self.current_entry and len(tokens) > 0 and \
            not tokens[0].startswith('#'):
