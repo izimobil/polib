@@ -670,13 +670,13 @@ class POFile(_BaseFile):
         Convenience method that returns the list of untranslated entries.
         """
         return [e for e in self if not e.translated() and not e.obsolete
-                and not 'fuzzy' in e.flags]
+                and not e.fuzzy]
 
     def fuzzy_entries(self):
         """
         Convenience method that returns the list of fuzzy entries.
         """
-        return [e for e in self if 'fuzzy' in e.flags]
+        return [e for e in self if e.fuzzy]
 
     def obsolete_entries(self):
         """
@@ -1075,9 +1075,11 @@ class POEntry(_BaseEntry):
                 if self.msgid_plural[pos] < other.msgid_plural[pos]:
                     return -1
         # Compare context
-        if self.msgctxt > other.msgctxt:
+        msgctxt = self.msgctxt or 0
+        othermsgctxt = other.msgctxt or 0
+        if msgctxt > othermsgctxt:
             return 1
-        elif self.msgctxt < other.msgctxt:
+        elif msgctxt < othermsgctxt:
             return -1
         # Finally: Compare message ID
         if self.msgid > other.msgid:
@@ -1109,7 +1111,7 @@ class POEntry(_BaseEntry):
         Returns ``True`` if the entry has been translated or ``False``
         otherwise.
         """
-        if self.obsolete or 'fuzzy' in self.flags:
+        if self.obsolete or self.fuzzy:
             return False
         if self.msgstr != '':
             return True
@@ -1128,7 +1130,7 @@ class POEntry(_BaseEntry):
         self.msgctxt = other.msgctxt
         self.occurrences = other.occurrences
         self.comment = other.comment
-        fuzzy = 'fuzzy' in self.flags
+        fuzzy = self.fuzzy
         self.flags = other.flags[:]  # clone flags
         if fuzzy:
             self.flags.append('fuzzy')
@@ -1144,6 +1146,10 @@ class POEntry(_BaseEntry):
                     self.msgstr_plural[pos]
                 except KeyError:
                     self.msgstr_plural[pos] = ''
+
+    @property
+    def fuzzy(self):
+        return 'fuzzy' in self.flags
 
     def __hash__(self):
         return hash((self.msgid, self.msgstr))
