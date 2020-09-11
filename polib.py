@@ -1321,6 +1321,8 @@ class _POFileParser(object):
         fpath = '%s ' % self.instance.fpath if self.instance.fpath else ''
         for line in self.fhandle:
             self.current_line += 1
+            if self.current_line == 1:
+                line = line.replace('\ufeff', '')
             line = line.strip()
             if line == '':
                 continue

@@ -18,7 +18,7 @@ class TestFunctions(unittest.TestCase):
 
     def test_pofile_and_mofile1(self):
         """
-        Test bad usage of pofile/mofile. 
+        Test bad usage of pofile/mofile.
         """
         data = u('''# test for pofile/mofile with string buffer
 msgid ""
@@ -95,6 +95,28 @@ msgstr "bar"
         Test that obsolete previous msgid are ignored
         """
         po = polib.pofile('tests/test_obsolete_previousmsgid.po')
+        self.assertTrue(isinstance(po, polib.POFile))
+
+    def test_ufeff_data_pofile(self):
+        """
+        Test that an ufeff prefixed pofile returns a POFile instance.
+        """
+        data = u('''\ufeff# test for pofile/mofile with ufeff
+msgid ""
+msgstr ""
+"Project-Id-Version: django\n"
+
+msgid "foo"
+msgstr "bar"
+''')
+        po = polib.pofile(data)
+        self.assertTrue(isinstance(po, polib.POFile))
+
+    def test_ufeff_pofile(self):
+        """
+        Test that an ufeff prefixed pofile returns a POFile instance.
+        """
+        po = polib.pofile('tests/test_ufeff.po')
         self.assertTrue(isinstance(po, polib.POFile))
 
     def test_previous_msgid_1(self):
@@ -206,7 +228,7 @@ msgstr ""
             exc = sys.exc_info()[1]
             msg = 'Syntax error in po file (line 4): unescaped double quote found'
             self.assertEqual(str(exc), msg)
-    
+
     def test_detect_encoding1(self):
         """
         Test that given encoding is returned when file has no encoding defined.
@@ -238,7 +260,7 @@ msgstr ""
         try:
             self.assertEqual(polib.detect_encoding(data), 'UTF-8')
         finally:
-            f.close()    
+            f.close()
 
     def test_detect_encoding5(self):
         """
@@ -275,26 +297,26 @@ msgstr ""
             polib.unescape('\\\\t and \\\\n and \\\\r and \\\\" and \\\\\\\\'),
             '\\t and \\n and \\r and \\" and \\\\'
         )
-        
+
     def test_pofile_with_subclass(self):
         """
-        Test that the pofile function correctly returns an instance of the 
+        Test that the pofile function correctly returns an instance of the
         passed in class
         """
         class CustomPOFile(polib.POFile):
             pass
-        
+
         pofile = polib.pofile('tests/test_indented.po', klass=CustomPOFile)
         self.assertEqual(pofile.__class__, CustomPOFile)
-        
+
     def test_mofile_with_subclass(self):
         """
-        Test that the mofile function correctly returns an instance of the 
+        Test that the mofile function correctly returns an instance of the
         passed in class
         """
         class CustomMOFile(polib.MOFile):
             pass
-        
+
         mofile = polib.mofile('tests/test_utf8.mo', klass=CustomMOFile)
         self.assertEqual(mofile.__class__, CustomMOFile)
 
@@ -659,7 +681,7 @@ class TestMoFile(unittest.TestCase):
             self.assertEqual(s1, s2)
         finally:
             os.remove(tmpfile)
-        
+
     def test_msgctxt(self):
         #import pdb; pdb.set_trace()
         mo = polib.mofile('tests/test_msgctxt.mo')
