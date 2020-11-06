@@ -1,0 +1,8 @@
+﻿# test for pofile/mofile with ufeff
+msgid ""
+msgstr ""
+"Project-Id-Version: django
+"
+
+msgid "foo"
+msgstr "bar"
