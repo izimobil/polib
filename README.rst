@@ -29,7 +29,7 @@ polib is pretty stable now and is used by many
 `opensource projects <http://polib.readthedocs.org/en/latest/projects.html>`_.
 
 The project code and bugtracker is hosted on 
-`Bitbucket <http://bitbucket.org/izi/polib/>`_. 
+`GitHub <https://github.com/izimobil/polib>`_. 
 
 polib is generously documented, you can `browse the documentation online 
 <http://polib.readthedocs.org/>`_, a good start is to read 
