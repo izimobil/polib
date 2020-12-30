@@ -62,20 +62,20 @@ From a command line in that directory, type::
     privileges (e.g., ``sudo python setup.py install``).
 
 
-Manual installation from a Mercurial checkout
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Manual installation from a Git checkout
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If you'd like to try out the latest in-development code, you can obtain it
 from the polib repository, which is hosted at
-`Bitbucket <http://bitbucket.org/>`_ and uses `Mercurial
-<http://www.selenic.com/mercurial/wiki/>`_ for version control.
+`Github <https://github.com/>`_ and uses `Git
+<https://git-scm.com/>`_ for version control.
 
-To obtain the latest code and documentation, you'll need to have Mercurial
+To obtain the latest code and documentation, you'll need to have Git
 installed, at which point you can type::
 
-    hg clone http://bitbucket.org/izi/polib/
+    git clone https://github.com/izimobil/polib/
 
-This will create a copy of the polib Mercurial repository on your computer;
+This will create a copy of the polib Git repository on your computer;
 you can then add the ``polib.py`` file to your Python import path, or use the
 ``setup.py`` script to install as a package.
 
