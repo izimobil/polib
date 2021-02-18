@@ -933,6 +933,12 @@ class _BaseEntry(object):
         for line in lines:
             ret.append('%s"%s"' % (delflag, escape(line)))
         return ret
+
+    @property
+    def msgid_with_context(self):
+        if self.msgctxt:
+            return '%s%s%s' % (self.msgctxt, "\x04", self.msgid)
+        return self.msgid
 # }}}
 # class POEntry {{{
 
@@ -1163,12 +1169,6 @@ class POEntry(_BaseEntry):
     @property
     def fuzzy(self):
         return 'fuzzy' in self.flags
-
-    @property
-    def msgid_with_context(self):
-        if self.msgctxt:
-            return '%s%s%s' % (self.msgctxt, "\x04", self.msgid)
-        return self.msgid
 
     def __hash__(self):
         return hash((self.msgid, self.msgstr))
