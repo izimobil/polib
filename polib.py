@@ -216,8 +216,8 @@ def detect_encoding(file, binary_mode=False):
             mode = 'r'
             rx = rxt
         f = open(file, mode)
-        for l in f.readlines():
-            match = rx.search(l)
+        for line in f.readlines():
+            match = rx.search(line)
             if match:
                 f.close()
                 enc = match.group(1).strip()
@@ -1019,7 +1019,7 @@ class POEntry(_BaseEntry):
                 # what we want for filenames, so the dirty hack is to
                 # temporally replace hyphens with a char that a file cannot
                 # contain, like "*"
-                ret += [l.replace('*', '-') for l in wrap(
+                ret += [line.replace('*', '-') for line in wrap(
                     filestr.replace('-', '*'),
                     wrapwidth,
                     initial_indent='#: ',
@@ -1322,7 +1322,9 @@ class _POFileParser(object):
         for line in self.fhandle:
             self.current_line += 1
             if self.current_line == 1:
-                line = line.replace('\ufeff', '')
+                BOM = codecs.BOM_UTF8.decode('utf-8')
+                if line.startswith(BOM):
+                    line = line[len(BOM):]
             line = line.strip()
             if line == '':
                 continue
