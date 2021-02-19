@@ -5,20 +5,20 @@ Contributing to polib
 
 You are very welcome to contribute to the project!
 The bugtracker, wiki and mercurial repository can be found at the 
-`project's page <http://bitbucket.org/izi/polib/>`_.
+`project's page <https://github.com/izimobil/polib/>`_.
 
 New releases are also published at the 
-`cheeseshop <http://cheeseshop.python.org/pypi/polib/>`_.
+`"cheeseshop" (PyPI) <https://pypi.org/project/polib/>`_.
 
 How to contribute
 ~~~~~~~~~~~~~~~~~
 
 There are various possibilities to get involved, for example you can:
 
-* `Report bugs <http://www.bitbucket.org/izi/polib/issues/new/>`_
+* `Report bugs <https://github.com/izimobil/polib/issues/new/>`_
   preferably with patches if you can;
-* Enhance this `documentation <http://www.bitbucket.org/izi/polib/src/tip/docs/>`_
-* `Fork the code <http://www.bitbucket.org/izi/polib/>`_, implement new
+* Enhance this `documentation <https://github.com/izimobil/polib/tree/master/docs/>`_
+* `Fork the code <https://github.com/izimobil/polib/>`_, implement new
   features, test and send a pull request
 
 Running the test suite
