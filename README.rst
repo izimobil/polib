@@ -2,27 +2,16 @@
 polib
 =====
 
-.. image:: https://img.shields.io/pypi/dm/polib.svg
-    :alt: Downloads
+|build-status-image| |codecov-image| |documentation-status-image| |pypi-version| |py-versions|
 
-
-.. image:: https://img.shields.io/pypi/pyversions/polib.svg
-    :alt: Supported Python versions
-
-
-.. image:: https://img.shields.io/pypi/status/polib.svg
-    :alt: Development Status
-
-
-.. image:: https://img.shields.io/pypi/l/polib.svg
-    :alt: License
-
+Overview
+--------
 
 polib is a library to manipulate, create, modify gettext files (pot, po and mo
 files). You can load existing files, iterate through it's entries, add, modify
 entries, comments or metadata, etc... or create new po files from scratch.
 
-polib supports out of the box any version of python ranging from 2.5 to latest
+polib supports out of the box any version of python ranging from 2.7 to latest
 3.X version.
 
 polib is pretty stable now and is used by many 
@@ -35,4 +24,45 @@ polib is generously documented, you can `browse the documentation online
 <http://polib.readthedocs.org/>`_, a good start is to read 
 `the quickstart guide  <http://polib.readthedocs.org/en/latest/quickstart.html>`_.
 
-Thanks for downloading polib !
+
+Installation
+~~~~~~~~~~~~
+
+Just use ``pip``:
+
+.. code:: bash
+
+    $ pip install polib
+
+
+Basic example
+~~~~~~~~~~~~~
+
+.. code:: python
+
+    import polib
+
+    pofile = polib.pofile('/path/to/pofile.po')
+
+    for entry in pofile:
+        print(entry.msgid, entry.msgtxt)
+
+
+.. |build-status-image| image:: https://secure.travis-ci.org/izimobil/polib.svg?branch=master
+   :target: http://travis-ci.org/izimobil/polib?branch=master
+   :alt: Travis build
+
+.. |codecov-image| image:: https://codecov.io/gh/izimobil/polib/branch/master/graph/badge.svg
+  :target: https://codecov.io/gh/izimobil/polib
+
+.. |pypi-version| image:: https://img.shields.io/pypi/v/polib.svg
+   :target: https://pypi.python.org/pypi/djangorestframework-datatables
+   :alt: Pypi version
+
+.. |documentation-status-image| image:: https://readthedocs.org/projects/polib/badge/?version=latest
+   :target: http://polib.readthedocs.io/en/latest/?badge=latest
+   :alt: Documentation Status
+
+.. |py-versions| image:: https://img.shields.io/pypi/pyversions/polib.svg
+   :target: https://img.shields.io/pypi/pyversions/polib.svg
+   :alt: Python versions
