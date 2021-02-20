@@ -1071,28 +1071,27 @@ class POEntry(_BaseEntry):
         # Work on a copy to protect original
         occ1 = sorted(self.occurrences[:])
         occ2 = sorted(other.occurrences[:])
-        pos = 0
         if occ1 > occ2:
             return 1
         if occ1 < occ2:
             return -1
         # Compare context
-        msgctxt = self.msgctxt or 0
-        othermsgctxt = other.msgctxt or 0
+        msgctxt = self.msgctxt or '0'
+        othermsgctxt = other.msgctxt or '0'
         if msgctxt > othermsgctxt:
             return 1
         elif msgctxt < othermsgctxt:
             return -1
         # Compare msgid_plural
-        msgid_plural = self.msgid_plural or 0
-        othermsgid_plural = other.msgid_plural or 0
+        msgid_plural = self.msgid_plural or '0'
+        othermsgid_plural = other.msgid_plural or '0'
         if msgid_plural > othermsgid_plural:
             return 1
         elif msgid_plural < othermsgid_plural:
             return -1
         # Compare msgstr_plural
-        msgstr_plural = self.msgstr_plural or 0
-        othermsgstr_plural = other.msgstr_plural or 0
+        msgstr_plural = self.msgstr_plural or '0'
+        othermsgstr_plural = other.msgstr_plural or '0'
         if msgstr_plural > othermsgstr_plural:
             return 1
         elif msgstr_plural < othermsgstr_plural:
@@ -1102,7 +1101,6 @@ class POEntry(_BaseEntry):
             return 1
         elif self.msgid < other.msgid:
             return -1
-        return 0
         # Compare msgstr
         if self.msgstr > other.msgstr:
             return 1
