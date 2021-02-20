@@ -782,25 +782,5 @@ msgstr "oof"
         self.assertEqual(mo.__unicode__(), expected)
 
 
-class TestTextWrap(unittest.TestCase):
-
-    def test_wrap1(self):
-        text = '  Some line that is longer than fifteen characters (whitespace will not be preserved)  '
-        ret = polib.TextWrapper(width=15).wrap(text)
-        expected = [
-            '  Some line', 'that is longer', 'than fifteen', 'characters',
-            '(whitespace', 'will not be', 'preserved)'
-        ]
-        self.assertEqual(ret, expected)
-
-    def test_wrap2(self):
-        text = '  Some line that is longer than fifteen characters (whitespace will be preserved)  '
-        ret = polib.TextWrapper(width=15, drop_whitespace=False).wrap(text)
-        expected = [
-            '  Some line ', 'that is longer ', 'than fifteen ', 'characters ',
-            '(whitespace ', 'will be ', 'preserved)  '
-        ]
-        self.assertEqual(ret, expected)
-
 if __name__ == '__main__':
     unittest.main()
