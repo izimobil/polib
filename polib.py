@@ -19,16 +19,7 @@ import re
 import struct
 import sys
 import textwrap
-
-try:
-    import io
-except ImportError:
-    # replacement of io.open() for python < 2.6
-    # we use codecs instead
-    class io(object):
-        @staticmethod
-        def open(fpath, mode='r', encoding=None, newline=None):
-            return codecs.open(fpath, mode, encoding)
+import io
 
 
 __author__ = 'David Jean Louis <izimobil@gmail.com>'
@@ -102,8 +93,8 @@ def _is_file(filename_or_contents):
         In the latter case, this function will always return False.
     """
     try:
-        return os.path.exists(filename_or_contents)
-    except (ValueError, UnicodeEncodeError):
+        return os.path.isfile(filename_or_contents)
+    except (TypeError, ValueError, UnicodeEncodeError):
         return False
 # }}}
 # function pofile() {{{

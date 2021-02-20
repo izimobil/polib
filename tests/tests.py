@@ -340,6 +340,11 @@ msgstr ""
         po = polib.pofile('tests/test_weird_occurrences.po')
         self.assertEqual(po[0].occurrences, [('C:\\foo\\bar.py', '12')])
 
+    def test_is_file(self):
+        self.assertTrue(polib._is_file(os.path.abspath(__file__)))
+        self.assertFalse(polib._is_file('This is not a file !!!!'))
+        self.assertFalse(polib._is_file(True))
+
 
 class TestBaseFile(unittest.TestCase):
     """
@@ -641,6 +646,62 @@ class TestPoFile(unittest.TestCase):
         po = polib.pofile('tests/test_word_garbage.po')
         e = po.find("Whatever", by='msgid')
         self.assertTrue(isinstance(e, polib.POEntry))
+
+    def test_compare1(self):
+        entry = polib.POEntry(msgid="foo")
+        other = polib.POEntry(msgctxt="Some context", msgid="foo")
+        self.assertNotEqual(entry, other)
+
+    def test_compare2(self):
+        entry = polib.POEntry(msgid="foo")
+        other = polib.POEntry(msgid_plural="Plural", msgid="foo")
+        self.assertNotEqual(entry, other)
+
+    def test_compare3(self):
+        entry = polib.POEntry(
+            msgid_plural="Plural", msgid="foo"
+        )
+        other = polib.POEntry(
+            msgid_plural="Plural", msgstr_plural="Pluriel", msgid="foo"
+        )
+        self.assertNotEqual(entry, other)
+
+    def test_compare4(self):
+        entry = polib.POEntry(msgctxt="Some context", msgid="foo")
+        other = polib.POEntry(msgctxt="Other context", msgid="foo")
+        self.assertNotEqual(entry, other)
+
+    def test_compare5(self):
+        entry = polib.POEntry(msgid_plural="Some plural", msgid="foo")
+        other = polib.POEntry(msgid_plural="Other plural", msgid="foo")
+        self.assertNotEqual(entry, other)
+
+    def test_compare6(self):
+        entry = polib.POEntry(msgstr_plural="Some plural", msgid="foo")
+        other = polib.POEntry(msgstr_plural="Other plural", msgid="foo")
+        self.assertTrue(entry > other)
+
+    def test_compare7(self):
+        entry = polib.POEntry(msgstr="Some msgstr", msgid="foo")
+        other = polib.POEntry(msgstr="Other msgstr", msgid="foo")
+        self.assertTrue(entry >= other)
+        self.assertNotEqual(entry, other)
+        entry = polib.POEntry(msgstr="A msgstr", msgid="foo")
+        other = polib.POEntry(msgstr="Other msgstr", msgid="foo")
+        self.assertTrue(entry <= other)
+        self.assertNotEqual(entry, other)
+
+    def test_compare8(self):
+        entry = polib.POEntry(
+            msgctxt="Some context", msgid_plural="Plural",
+            msgstr_plural="Pluriel", msgid="foo"
+        )
+        other = polib.POEntry(
+            msgctxt="Some context", msgid_plural="Plural",
+            msgstr_plural="Pluriel", msgid="foo"
+        )
+        self.assertEqual(entry, other)
+
 
 class TestMoFile(unittest.TestCase):
     """
