@@ -86,7 +86,7 @@ available for example), polib handles this case::
 
     import polib
     mo = polib.mofile('path/to/catalog.mo')
-    print mo
+    print(mo)
 
 As for po files, mofile also allows specifying the encoding explicitly.
 
@@ -144,7 +144,7 @@ entries, even obsolete and fuzzy entries)::
 
     po = polib.pofile('path/to/catalog.po')
     for entry in po:
-        print entry.msgid, entry.msgstr
+        print(entry.msgid, entry.msgstr)
 
 Iterating over **all** entries except obsolete entries::
 
@@ -153,7 +153,7 @@ Iterating over **all** entries except obsolete entries::
     po = polib.pofile('path/to/catalog.po')
     valid_entries = [e for e in po if not e.obsolete]
     for entry in valid_entries:
-        print entry.msgid, entry.msgstr
+        print(entry.msgid, entry.msgstr)
 
 Iterating over translated entries only::
 
@@ -161,7 +161,7 @@ Iterating over translated entries only::
 
     po = polib.pofile('path/to/catalog.po')
     for entry in po.translated_entries():
-        print entry.msgid, entry.msgstr
+        print(entry.msgid, entry.msgstr)
 
 And so on... 
 You could also iterate over the list of POEntry objects returned by the 
@@ -179,7 +179,7 @@ Getting the percent of translated entries
     import polib
 
     po = polib.pofile('path/to/catalog.po')
-    print po.percent_translated()
+    print(po.percent_translated())
 
 
 Compiling po to mo files and reversing mo files to po files
