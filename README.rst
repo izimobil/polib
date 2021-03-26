@@ -45,7 +45,7 @@ Basic example
     pofile = polib.pofile('/path/to/pofile.po')
 
     for entry in pofile:
-        print(entry.msgid, entry.msgtxt)
+        print(entry.msgid, entry.msgstr)
 
 
 .. |build-status-image| image:: https://secure.travis-ci.org/izimobil/polib.svg?branch=master
