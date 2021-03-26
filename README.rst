@@ -2,7 +2,7 @@
 polib
 =====
 
-|build-status-image| |codecov-image| |documentation-status-image| |pypi-version| |py-versions|
+|pypi-version| |pypi-stats| |build-status-image| |codecov-image| |documentation-status-image| |py-versions|
 
 Overview
 --------
