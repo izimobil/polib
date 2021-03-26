@@ -59,6 +59,10 @@ Basic example
    :target: https://pypi.python.org/pypi/djangorestframework-datatables
    :alt: Pypi version
 
+.. |pypi-stats| image:: https://img.shields.io/pypi/dm/polib.svg
+   :target: https://pypistats.org/packages/polib
+   :alt: Pypi downloads
+
 .. |documentation-status-image| image:: https://readthedocs.org/projects/polib/badge/?version=latest
    :target: http://polib.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation Status
