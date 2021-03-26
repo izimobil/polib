@@ -2,6 +2,13 @@
 Changelog
 =========
 
+Version 1.1.1 (2021/03/26)
+--------------------------
+ - Strip UTF-16 BOM (U+FEFF) from start of file
+ - Message context (msgctxt) support for MO files
+ - Dropped Python < 2.7 support
+ - Updated docs and README after switch from Bitbucket to Github
+
 Version 1.1.0 (2017/11/27)
 --------------------------
  - Fixed entries sorting when generating mo file (Fixes #78)

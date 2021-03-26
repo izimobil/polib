@@ -23,7 +23,7 @@ import io
 
 
 __author__ = 'David Jean Louis <izimobil@gmail.com>'
-__version__ = '1.1.0'
+__version__ = '1.1.1'
 __all__ = ['pofile', 'POFile', 'POEntry', 'mofile', 'MOFile', 'MOEntry',
            'default_encoding', 'escape', 'unescape', 'detect_encoding', ]
 
