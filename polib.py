@@ -1117,10 +1117,42 @@ class POEntry(_BaseEntry):
         return self.__cmp__(other) <= 0
 
     def __eq__(self, other):
-        return self.__cmp__(other) == 0
+        """
+        Called by comparison operations if rich comparison is not defined.
+        """
+        # First: Obsolete test
+        if self.obsolete != other.obsolete:
+            return False
+        # Work on a copy to protect original
+        occ1 = sorted(self.occurrences[:])
+        occ2 = sorted(other.occurrences[:])
+        if occ1 != occ2:
+            return False
+        # Compare context
+        msgctxt = self.msgctxt or '0'
+        othermsgctxt = other.msgctxt or '0'
+        if msgctxt != othermsgctxt:
+            return False
+        # Compare msgid_plural
+        msgid_plural = self.msgid_plural or '0'
+        othermsgid_plural = other.msgid_plural or '0'
+        if msgid_plural != othermsgid_plural:
+            return False
+        # Compare msgstr_plural
+        msgstr_plural = self.msgstr_plural or '0'
+        othermsgstr_plural = other.msgstr_plural or '0'
+        if msgstr_plural != othermsgstr_plural:
+            return False
+        # Compare msgid
+        if self.msgid != other.msgid:
+            return False
+        # Compare msgstr
+        if self.msgstr != other.msgstr:
+            return False
+        return True
 
     def __ne__(self, other):
-        return self.__cmp__(other) != 0
+        return not self.__eq__(other)
 
     def translated(self):
         """
