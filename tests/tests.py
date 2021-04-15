@@ -662,7 +662,7 @@ class TestPoFile(unittest.TestCase):
             msgid_plural="Plural", msgid="foo"
         )
         other = polib.POEntry(
-            msgid_plural="Plural", msgstr_plural="Pluriel", msgid="foo"
+            msgid_plural="Plural", msgstr_plural={0: "Value", 1: "Values"}, msgid="foo"
         )
         self.assertNotEqual(entry, other)
 
@@ -677,8 +677,8 @@ class TestPoFile(unittest.TestCase):
         self.assertNotEqual(entry, other)
 
     def test_compare6(self):
-        entry = polib.POEntry(msgstr_plural="Some plural", msgid="foo")
-        other = polib.POEntry(msgstr_plural="Other plural", msgid="foo")
+        entry = polib.POEntry(msgstr_plural={0: "Value", 1: "Values"}, msgid="foo")
+        other = polib.POEntry(msgstr_plural={0: "Other value", 1: "Other values"}, msgid="foo")
         self.assertTrue(entry > other)
 
     def test_compare7(self):
@@ -694,11 +694,11 @@ class TestPoFile(unittest.TestCase):
     def test_compare8(self):
         entry = polib.POEntry(
             msgctxt="Some context", msgid_plural="Plural",
-            msgstr_plural="Pluriel", msgid="foo"
+            msgstr_plural={0: "Value", 1: "Values"}, msgid="foo"
         )
         other = polib.POEntry(
             msgctxt="Some context", msgid_plural="Plural",
-            msgstr_plural="Pluriel", msgid="foo"
+            msgstr_plural={0: "Value", 1: "Values"}, msgid="foo"
         )
         self.assertEqual(entry, other)
 

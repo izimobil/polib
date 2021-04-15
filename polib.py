@@ -827,7 +827,7 @@ class _BaseEntry(object):
             string, the entry msgid_plural.
 
         ``msgstr_plural``
-            list, the entry msgstr_plural lines.
+            dict, the entry msgstr_plural lines.
 
         ``msgctxt``
             string, the entry context (msgctxt).
@@ -1086,8 +1086,14 @@ class POEntry(_BaseEntry):
         elif msgid_plural < othermsgid_plural:
             return -1
         # Compare msgstr_plural
-        msgstr_plural = self.msgstr_plural or '0'
-        othermsgstr_plural = other.msgstr_plural or '0'
+        if self.msgstr_plural and isinstance(self.msgstr_plural, dict):
+            msgstr_plural = list(self.msgstr_plural.values())
+        else:
+            msgstr_plural = []
+        if other.msgstr_plural and isinstance(other.msgstr_plural, dict):
+            othermsgstr_plural = list(other.msgstr_plural.values())
+        else:
+            othermsgstr_plural = []
         if msgstr_plural > othermsgstr_plural:
             return 1
         elif msgstr_plural < othermsgstr_plural:
