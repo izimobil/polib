@@ -3,29 +3,13 @@
 Welcome to polib's documentation!
 =================================
 
-.. image:: https://pypip.in/download/polib/badge.png
-    :target: https://pypi.python.org/pypi/polib/
-    :alt: Downloads
-
-.. image:: https://pypip.in/py_versions/polib/badge.png
-    :target: https://pypi.python.org/pypi/polib/
-    :alt: Supported Python versions
-
-.. image:: https://pypip.in/status/polib/badge.png
-    :target: https://pypi.python.org/pypi/polib/
-    :alt: Development Status
-
-.. image:: https://pypip.in/license/polib/badge.png
-    :target: https://pypi.python.org/pypi/polib/
-    :alt: License
-
-This documentation covers the latest release of polib.
+|pypi-version| |pypi-stats| |build-status-image| |codecov-image| |documentation-status-image| |py-versions|
 
 polib is a library to manipulate, create, modify gettext files (pot, po and mo
 files). You can load existing files, iterate through it's entries, add, modify
 entries, comments or metadata, etc. or create new po files from scratch.
 
-polib supports out of the box any version of python ranging from 2.4 to latest
+polib supports out of the box any version of python ranging from 2.7 to latest
 3.X version.
 
 polib is pretty stable now and is used by many
@@ -52,3 +36,26 @@ Contents:
    api
    contributing
    projects
+
+.. |build-status-image| image:: https://secure.travis-ci.org/izimobil/polib.svg?branch=master
+   :target: http://travis-ci.org/izimobil/polib?branch=master
+   :alt: Travis build
+
+.. |codecov-image| image:: https://codecov.io/gh/izimobil/polib/branch/master/graph/badge.svg
+  :target: https://codecov.io/gh/izimobil/polib
+
+.. |pypi-version| image:: https://img.shields.io/pypi/v/polib.svg
+   :target: https://pypi.python.org/pypi/djangorestframework-datatables
+   :alt: Pypi version
+
+.. |pypi-stats| image:: https://img.shields.io/pypi/dm/polib.svg
+   :target: https://pypistats.org/packages/polib
+   :alt: Pypi downloads
+
+.. |documentation-status-image| image:: https://readthedocs.org/projects/polib/badge/?version=latest
+   :target: http://polib.readthedocs.io/en/latest/?badge=latest
+   :alt: Documentation Status
+
+.. |py-versions| image:: https://img.shields.io/pypi/pyversions/polib.svg
+   :target: https://img.shields.io/pypi/pyversions/polib.svg
+   :alt: Python versions
