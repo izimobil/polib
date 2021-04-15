@@ -16,7 +16,7 @@ How to contribute
 There are various possibilities to get involved, for example you can:
 
 * `Report bugs <https://github.com/izimobil/polib/issues/new/>`_
-  preferably with patches if you can;
+  preferably with patches if you can
 * Enhance this `documentation <https://github.com/izimobil/polib/tree/master/docs/>`_
 * `Fork the code <https://github.com/izimobil/polib/>`_, implement new
   features, test and send a pull request
@@ -28,6 +28,12 @@ To run the tests, just type the following on a terminal::
 
     $ cd /path/to/polib/
     $ ./runtests.sh
+
+You can also use tox::
+
+    $ cd /path/to/polib/
+    $ pip install tox
+    $ tox
 
 If you want to generate coverage information::
 
