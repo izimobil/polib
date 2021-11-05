@@ -34,7 +34,7 @@ default_encoding = 'utf-8'
 # python 2/3 compatibility helpers {{{
 
 
-if sys.version_info[0] < 3:
+if sys.version_info < (3,):
     PY3 = False
     text_type = unicode
 
