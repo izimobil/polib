@@ -140,7 +140,8 @@ def mofile(mofile, **kwargs):
     Arguments:
 
     ``mofile``
-        string, full or relative path to the mo file or its content (data).
+        string, full or relative path to the mo file or its content (string
+        or bytes).
 
     ``wrapwidth``
         integer, the wrap width, only useful when the ``-w`` option was passed
@@ -193,9 +194,14 @@ def detect_encoding(file, binary_mode=False):
         return True
 
     if not _is_file(file):
-        match = rxt.search(file)
+        try:
+            match = rxt.search(file)
+        except TypeError:
+            match = rxb.search(file)
         if match:
             enc = match.group(1).strip()
+            if not isinstance(enc, text_type):
+                enc = enc.decode('utf-8')
             if charset_exists(enc):
                 return enc
     else:
@@ -1669,7 +1675,10 @@ class _MOFileParser(object):
             whether to check for duplicate entries when adding entries to the
             file (optional, default: ``False``).
         """
-        self.fhandle = open(mofile, 'rb')
+        if _is_file(mofile):
+            self.fhandle = open(mofile, 'rb')
+        else:
+            self.fhandle = io.BytesIO(mofile)
 
         klass = kwargs.get('klass')
         if klass is None:
@@ -1685,7 +1694,7 @@ class _MOFileParser(object):
         Make sure the file is closed, this prevents warnings on unclosed file
         when running tests with python >= 3.2.
         """
-        if self.fhandle:
+        if self.fhandle and hasattr(self.fhandle, 'close'):
             self.fhandle.close()
 
     def parse(self):

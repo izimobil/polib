@@ -48,6 +48,7 @@ polib has two main entry points for working with gettext catalogs:
   new po or mo files.
 
 References
+
 * `Gettext Manual <http://www.gnu.org/software/gettext/manual/>`_
 * `PO file format <http://www.gnu.org/software/gettext/manual/html_node/gettext_9.html>`_
 * `MO file format <http://www.gnu.org/software/gettext/manual/html_node/gettext_136.html>`_
@@ -78,6 +79,22 @@ the charset is not specified in the po file header for example), to do so::
         encoding='iso-8859-15'
     )
 
+Loading a catalog from a string
+-------------------------------
+
+If you have a catalog as a string variable, you can load it simply like this::
+
+    import polib
+    po_str = '''
+    msgid ""
+    msgstr ""
+    "Project-Id-Version: django\n"
+
+    msgid "foo"
+    msgstr "bar"
+    '''
+    po = polib.pofile(po_str)
+
 Loading an mo file
 ~~~~~~~~~~~~~~~~~~
 
@@ -89,6 +106,16 @@ available for example), polib handles this case::
     print(mo)
 
 As for po files, mofile also allows specifying the encoding explicitly.
+
+Loading an mo file from a bytes object
+--------------------------------------
+
+If you have a bytes representation of a n mo file in a variable,
+you can load it simply like this::
+
+    import polib
+    mo_bytes = b"\xde\x12\x04\x95\x00\x00\x00\x00\x05\x00\x00\x00\x1c\x00\x00\x00D\x00\x00\x00\x07\x00\x00\x00l\x00\x00\x00\x00\x00\x00\x00\x88\x00\x00\x00\x10\x00\x00\x00\x89\x00\x00\x00\x07\x00\x00\x00\x9a\x00\x00\x00\x0c\x00\x00\x00\xa2\x00\x00\x00\x0b\x00\x00\x00\xaf\x00\x00\x00(\x00\x00\x00\xbb\x00\x00\x00\n\x00\x00\x00\xe4\x00\x00\x00\x10\x00\x00\x00\xef\x00\x00\x00\x0f\x00\x00\x00\x00\x01\x00\x00\x16\x00\x00\x00\x10\x01\x00\x00\x01\x00\x00\x00\x03\x00\x00\x00\x05\x00\x00\x00\x00\x00\x00\x00\x04\x00\x00\x00\x00\x00\x00\x00\x02\x00\x00\x00\x00SNAR_BEZEICHNUNG\x00conform\x00inconclusive\x00non-conform\x00Content-Type: text/plain; charset=UTF-8\n\x00Feldfrucht\x00\xc3\x9cbereinstimmung\x00Nicht eindeutig\x00Keine \xc3\x9cbereinstimmung\x00"
+    mo = polib.mofile(mo_bytes)
 
 
 Creating po catalogs from scratch
