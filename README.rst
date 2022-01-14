@@ -46,6 +46,9 @@ Basic example
 
     for entry in pofile:
         print(entry.msgid, entry.msgstr)
+        entry.msgstr = 'Your translation'
+        po.save('/path/to/pofile.po')
+    
 
 
 .. |build-status-image| image:: https://secure.travis-ci.org/izimobil/polib.svg?branch=master
