@@ -710,6 +710,9 @@ class TestPoFile(unittest.TestCase):
         )
         self.assertEqual(entry, other)
 
+    def test_fuzzy_obsolete(self):
+        pofile = polib.pofile('tests/test_obsolete_is_not_fuzzy.po')
+        self.assertEqual(len(pofile.fuzzy_entries()), 1)
 
 class TestMoFile(unittest.TestCase):
     """
