@@ -18,3 +18,10 @@ msgstr ""
 #| msgid "Partition table entries are not in disk order2\n"
 msgid "The new msgid2"
 msgstr ""
+
+
+#| msgctxt "Some other message context"
+#| msgid ""
+msgctxt "The new msgctxt3"
+msgid "The new msgid3"
+msgstr ""

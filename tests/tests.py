@@ -149,6 +149,23 @@ msgstr "bar"
             expected
         )
 
+    def test_previous_msgid_3(self):
+        """
+        Test saving empty previous msgid.
+        """
+        po = polib.pofile('tests/test_previous_msgid.po')
+        fd, tmpfile = tempfile.mkstemp()
+        os.close(fd)
+        po.save(tmpfile)
+        po = polib.pofile(tmpfile)
+        os.remove(tmpfile)
+
+        expected = ""
+        self.assertEqual(
+            po[2].previous_msgid,
+            expected
+        )
+
     def test_previous_msgctxt_1(self):
         """
         Test previous msgctxt multiline.
