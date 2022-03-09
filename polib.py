@@ -1053,7 +1053,7 @@ class POEntry(_BaseEntry):
             prefix = "#| "
         for f in fields:
             val = getattr(self, f)
-            if val:
+            if val is not None:
                 ret += self._str_field(f, prefix, "", val, wrapwidth)
 
         ret.append(_BaseEntry.__unicode__(self, wrapwidth))
