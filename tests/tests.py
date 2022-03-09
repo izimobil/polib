@@ -254,6 +254,18 @@ msgstr ""
             msg = 'Syntax error in po file (line 4): unescaped double quote found'
             self.assertEqual(str(exc), msg)
 
+    def test_syntax_error1(self):
+        """
+        Test that syntax error is raised while processing a symbol parsing.
+        """
+        try:
+            polib.pofile('tests/test_syntax_error1.po')
+            self.fail("Syntax error not detected")
+        except IOError:
+            exc = sys.exc_info()[1]
+            msg = "Syntax error in po file tests/test_syntax_error1.po (line 5)"
+            self.assertEqual(str(exc), msg)
+
     def test_detect_encoding1(self):
         """
         Test that given encoding is returned when file has no encoding defined.
