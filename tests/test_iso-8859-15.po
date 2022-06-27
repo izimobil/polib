@@ -10,10 +10,10 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO_8859-15\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#. Added for wrapping test, this is a long extracted comment that should be
-#. wrapped by polib, blah, blah, foobar
 # Added for wrapping test, this is a long translated comment that should be
 # wrapped by polib, blah, blah, foobar
+#. Added for wrapping test, this is a long extracted comment that should be
+#. wrapped by polib, blah, blah, foobar
 #: /foo/bar/baz/spam.py:710
 #: /foo/bar/baz/spam-ham-foo-bar-baz-spam-something-bar.py
 msgid "Test wrapping"
@@ -38,7 +38,7 @@ msgstr ""
 msgid "1 line --%d%%--"
 msgstr "1 ligne --%d%%--"
 
-#. ctrl_x_mode == 0, ^P/^N compl.
 # DB - todo : Faut-il une majuscule à "mode" ?
+#. ctrl_x_mode == 0, ^P/^N compl.
 msgid " ^X mode (^]^D^E^F^I^K^L^N^O^Ps^U^V^Y)"
 msgstr " mode ^X (^]^D^E^F^I^K^L^N^O^Ps^U^V^Y)"

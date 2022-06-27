@@ -1,0 +1,8 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+# First comment line
+#. Second comment line
+msgid "foo"
+msgstr "oof"
