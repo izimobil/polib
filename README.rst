@@ -56,7 +56,7 @@ Basic example
   :target: https://codecov.io/gh/izimobil/polib
 
 .. |pypi-version| image:: https://img.shields.io/pypi/v/polib.svg
-   :target: https://pypi.python.org/pypi/djangorestframework-datatables
+   :target: https://pypi.python.org/pypi/polib
    :alt: Pypi version
 
 .. |pypi-stats| image:: https://img.shields.io/pypi/dm/polib.svg
