@@ -1000,7 +1000,7 @@ class POEntry(_BaseEntry):
         if self.obsolete:
             comments = [('tcomment', '# ')]
         else:
-            comments = [('comment', '#. '), ('tcomment', '# ')]
+            comments = [('tcomment', '# '), ('comment', '#. ')]
         for c in comments:
             val = getattr(self, c[0])
             if val:

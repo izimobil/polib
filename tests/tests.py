@@ -602,6 +602,22 @@ msgstr "oof"
 '''
         self.assertEqual(str(pofile), expected)
 
+    def test_comment_ordering(self):
+        """
+        Test that "# " comments appear before "#. " comments when writing.
+        """
+        pofile  = polib.pofile('tests/test_comment_ordering.po')
+        expected = r'''#
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8\n"
+
+# First comment line
+#. Second comment line
+msgid "foo"
+msgstr "oof"
+'''
+        self.assertEqual(str(pofile), expected)
+
 class TestPoFile(unittest.TestCase):
     """
     Tests for PoFile class.
