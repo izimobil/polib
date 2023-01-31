@@ -230,13 +230,16 @@ def detect_encoding(file, binary_mode=False):
 
 def escape(st):
     """
-    Escapes the characters ``\\\\``, ``\\t``, ``\\n``, ``\\r`` and ``"`` in
-    the given string ``st`` and returns it.
+    Escapes the characters ``\\\\``, ``\\t``, ``\\n``, ``\\r``, ``\\v``,
+    ``\\b``, ``\\f`` and ``"`` in the given string ``st`` and returns it.
     """
     return st.replace('\\', r'\\')\
              .replace('\t', r'\t')\
              .replace('\r', r'\r')\
              .replace('\n', r'\n')\
+             .replace('\v', r'\v')\
+             .replace('\b', r'\b')\
+             .replace('\f', r'\f')\
              .replace('\"', r'\"')
 # }}}
 # function unescape() {{{
@@ -244,8 +247,8 @@ def escape(st):
 
 def unescape(st):
     """
-    Unescapes the characters ``\\\\``, ``\\t``, ``\\n``, ``\\r`` and ``"`` in
-    the given string ``st`` and returns it.
+    Unescapes the characters ``\\\\``, ``\\t``, ``\\n``, ``\\r``, ``\\v``,
+    ``\\b``, ``\\f`` and ``"`` in the given string ``st`` and returns it.
     """
     def unescape_repl(m):
         m = m.group(1)
@@ -255,10 +258,16 @@ def unescape(st):
             return '\t'
         if m == 'r':
             return '\r'
+        if m == 'v':
+            return '\v'
+        if m == 'b':
+            return '\b'
+        if m == 'f':
+            return '\f'
         if m == '\\':
             return '\\'
         return m  # handles escaped double quote
-    return re.sub(r'\\(\\|n|t|r|")', unescape_repl, st)
+    return re.sub(r'\\(\\|n|t|r|v|b|f|")', unescape_repl, st)
 # }}}
 # function natural_sort() {{{
 
@@ -911,7 +920,7 @@ class _BaseEntry(object):
         else:
             escaped_field = escape(field)
             specialchars_count = 0
-            for c in ['\\', '\n', '\r', '\t', '"']:
+            for c in ['\\', '\n', '\r', '\t', '\v', '\b', '\f', '"']:
                 specialchars_count += field.count(c)
             # comparison must take into account fieldname length + one space
             # + 2 quotes (eg. msgid "<string>")
