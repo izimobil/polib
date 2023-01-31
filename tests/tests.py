@@ -759,6 +759,13 @@ class TestPoFile(unittest.TestCase):
         pofile = polib.pofile('tests/test_obsolete_is_not_fuzzy.po')
         self.assertEqual(len(pofile.fuzzy_entries()), 1)
 
+    def test_set_fuzzy(self):
+        pofile = polib.pofile('tests/test_set_fuzzy.po')
+        pofile[0].fuzzy = True
+        pofile[1].fuzzy = False
+        self.assertTrue(pofile[0].fuzzy)
+        self.assertFalse(pofile[1].fuzzy)
+
 class TestMoFile(unittest.TestCase):
     """
     Tests for MoFile class.
