@@ -212,17 +212,16 @@ def detect_encoding(file, binary_mode=False):
         else:
             mode = 'r'
             rx = rxt
-        f = open(file, mode)
-        for line in f.readlines():
-            match = rx.search(line)
-            if match:
-                f.close()
-                enc = match.group(1).strip()
-                if not isinstance(enc, text_type):
-                    enc = enc.decode('utf-8')
-                if charset_exists(enc):
-                    return enc
-        f.close()
+        with open(file, mode) as f:
+            for line in f.readlines():
+                match = rx.search(line)
+                if match:
+                    f.close()
+                    enc = match.group(1).strip()
+                    if not isinstance(enc, text_type):
+                        enc = enc.decode('utf-8')
+                    if charset_exists(enc):
+                        return enc
     return default_encoding
 # }}}
 # function escape() {{{
@@ -450,18 +449,19 @@ class _BaseFile(list):
         if fpath is None:
             fpath = self.fpath
         if repr_method == 'to_binary':
-            fhandle = open(fpath, 'wb')
+            with open(fpath, 'wb') as fhandle:
+                fhandle.write(contents)
         else:
-            fhandle = io.open(
+            with io.open(
                 fpath,
                 'w',
                 encoding=self.encoding,
                 newline=newline
-            )
-            if not isinstance(contents, text_type):
-                contents = contents.decode(self.encoding)
-        fhandle.write(contents)
-        fhandle.close()
+            ) as fhandle:
+                if not isinstance(contents, text_type):
+                    contents = contents.decode(self.encoding)
+                fhandle.write(contents)
+
         # set the file path if not set
         if self.fpath is None and fpath:
             self.fpath = fpath
@@ -1240,7 +1240,7 @@ class MOEntry(_BaseEntry):
 
 class _POFileParser(object):
     """
-    A finite state machine to parse efficiently and correctly po
+    A finite state machine to efficiently and correctly parse po
     file format.
     """
 
@@ -1330,157 +1330,158 @@ class _POFileParser(object):
         Run the state machine, parse the file line by line and call process()
         with the current matched symbol.
         """
+        try:
+            keywords = {
+                'msgctxt': 'ct',
+                'msgid': 'mi',
+                'msgstr': 'ms',
+                'msgid_plural': 'mp',
+            }
+            prev_keywords = {
+                'msgid_plural': 'pp',
+                'msgid': 'pm',
+                'msgctxt': 'pc',
+            }
+            tokens = []
+            fpath = '%s ' % self.instance.fpath if self.instance.fpath else ''
+            for line in self.fhandle:
+                self.current_line += 1
+                if self.current_line == 1:
+                    BOM = codecs.BOM_UTF8.decode('utf-8')
+                    if line.startswith(BOM):
+                        line = line[len(BOM):]
+                line = line.strip()
+                if line == '':
+                    continue
 
-        keywords = {
-            'msgctxt': 'ct',
-            'msgid': 'mi',
-            'msgstr': 'ms',
-            'msgid_plural': 'mp',
-        }
-        prev_keywords = {
-            'msgid_plural': 'pp',
-            'msgid': 'pm',
-            'msgctxt': 'pc',
-        }
-        tokens = []
-        fpath = '%s ' % self.instance.fpath if self.instance.fpath else ''
-        for line in self.fhandle:
-            self.current_line += 1
-            if self.current_line == 1:
-                BOM = codecs.BOM_UTF8.decode('utf-8')
-                if line.startswith(BOM):
-                    line = line[len(BOM):]
-            line = line.strip()
-            if line == '':
-                continue
+                tokens = line.split(None, 2)
+                nb_tokens = len(tokens)
 
-            tokens = line.split(None, 2)
-            nb_tokens = len(tokens)
+                if tokens[0] == '#~|':
+                    continue
 
-            if tokens[0] == '#~|':
-                continue
+                if tokens[0] == '#~' and nb_tokens > 1:
+                    line = line[3:].strip()
+                    tokens = tokens[1:]
+                    nb_tokens -= 1
+                    self.entry_obsolete = 1
+                else:
+                    self.entry_obsolete = 0
 
-            if tokens[0] == '#~' and nb_tokens > 1:
-                line = line[3:].strip()
-                tokens = tokens[1:]
-                nb_tokens -= 1
-                self.entry_obsolete = 1
-            else:
-                self.entry_obsolete = 0
+                # Take care of keywords like
+                # msgid, msgid_plural, msgctxt & msgstr.
+                if tokens[0] in keywords and nb_tokens > 1:
+                    line = line[len(tokens[0]):].lstrip()
+                    if re.search(r'([^\\]|^)"', line[1:-1]):
+                        raise IOError('Syntax error in po file %s(line %s): '
+                                      'unescaped double quote found' %
+                                      (fpath, self.current_line))
+                    self.current_token = line
+                    self.process(keywords[tokens[0]])
+                    continue
 
-            # Take care of keywords like
-            # msgid, msgid_plural, msgctxt & msgstr.
-            if tokens[0] in keywords and nb_tokens > 1:
-                line = line[len(tokens[0]):].lstrip()
-                if re.search(r'([^\\]|^)"', line[1:-1]):
-                    raise IOError('Syntax error in po file %s(line %s): '
-                                  'unescaped double quote found' %
-                                  (fpath, self.current_line))
                 self.current_token = line
-                self.process(keywords[tokens[0]])
-                continue
 
-            self.current_token = line
+                if tokens[0] == '#:':
+                    if nb_tokens <= 1:
+                        continue
+                    # we are on a occurrences line
+                    self.process('oc')
 
-            if tokens[0] == '#:':
-                if nb_tokens <= 1:
-                    continue
-                # we are on a occurrences line
-                self.process('oc')
+                elif line[:1] == '"':
+                    # we are on a continuation line
+                    if re.search(r'([^\\]|^)"', line[1:-1]):
+                        raise IOError('Syntax error in po file %s(line %s): '
+                                      'unescaped double quote found' %
+                                      (fpath, self.current_line))
+                    self.process('mc')
 
-            elif line[:1] == '"':
-                # we are on a continuation line
-                if re.search(r'([^\\]|^)"', line[1:-1]):
-                    raise IOError('Syntax error in po file %s(line %s): '
-                                  'unescaped double quote found' %
-                                  (fpath, self.current_line))
-                self.process('mc')
+                elif line[:7] == 'msgstr[':
+                    # we are on a msgstr plural
+                    self.process('mx')
 
-            elif line[:7] == 'msgstr[':
-                # we are on a msgstr plural
-                self.process('mx')
+                elif tokens[0] == '#,':
+                    if nb_tokens <= 1:
+                        continue
+                    # we are on a flags line
+                    self.process('fl')
 
-            elif tokens[0] == '#,':
-                if nb_tokens <= 1:
-                    continue
-                # we are on a flags line
-                self.process('fl')
+                elif tokens[0] == '#' or tokens[0].startswith('##'):
+                    if line == '#':
+                        line += ' '
+                    # we are on a translator comment line
+                    self.process('tc')
 
-            elif tokens[0] == '#' or tokens[0].startswith('##'):
-                if line == '#':
-                    line += ' '
-                # we are on a translator comment line
-                self.process('tc')
+                elif tokens[0] == '#.':
+                    if nb_tokens <= 1:
+                        continue
+                    # we are on a generated comment line
+                    self.process('gc')
 
-            elif tokens[0] == '#.':
-                if nb_tokens <= 1:
-                    continue
-                # we are on a generated comment line
-                self.process('gc')
+                elif tokens[0] == '#|':
+                    if nb_tokens <= 1:
+                        raise IOError('Syntax error in po file %s(line %s)' %
+                                      (fpath, self.current_line))
 
-            elif tokens[0] == '#|':
-                if nb_tokens <= 1:
+                    # Remove the marker and any whitespace right after that.
+                    line = line[2:].lstrip()
+                    self.current_token = line
+
+                    if tokens[1].startswith('"'):
+                        # Continuation of previous metadata.
+                        self.process('mc')
+                        continue
+
+                    if nb_tokens == 2:
+                        # Invalid continuation line.
+                        raise IOError('Syntax error in po file %s(line %s): '
+                                      'invalid continuation line' %
+                                      (fpath, self.current_line))
+
+                    # we are on a "previous translation" comment line,
+                    if tokens[1] not in prev_keywords:
+                        # Unknown keyword in previous translation comment.
+                        raise IOError('Syntax error in po file %s(line %s): '
+                                      'unknown keyword %s' %
+                                      (fpath, self.current_line,
+                                       tokens[1]))
+
+                    # Remove the keyword and any whitespace
+                    # between it and the starting quote.
+                    line = line[len(tokens[1]):].lstrip()
+                    self.current_token = line
+                    self.process(prev_keywords[tokens[1]])
+
+                else:
                     raise IOError('Syntax error in po file %s(line %s)' %
                                   (fpath, self.current_line))
 
-                # Remove the marker and any whitespace right after that.
-                line = line[2:].lstrip()
-                self.current_token = line
+            if self.current_entry and len(tokens) > 0 and \
+               not tokens[0].startswith('#'):
+                # since entries are added when another entry is found, we must add
+                # the last entry here (only if there are lines). Trailing comments
+                # are ignored
+                self.instance.append(self.current_entry)
 
-                if tokens[1].startswith('"'):
-                    # Continuation of previous metadata.
-                    self.process('mc')
-                    continue
-
-                if nb_tokens == 2:
-                    # Invalid continuation line.
-                    raise IOError('Syntax error in po file %s(line %s): '
-                                  'invalid continuation line' %
-                                  (fpath, self.current_line))
-
-                # we are on a "previous translation" comment line,
-                if tokens[1] not in prev_keywords:
-                    # Unknown keyword in previous translation comment.
-                    raise IOError('Syntax error in po file %s(line %s): '
-                                  'unknown keyword %s' %
-                                  (fpath, self.current_line,
-                                   tokens[1]))
-
-                # Remove the keyword and any whitespace
-                # between it and the starting quote.
-                line = line[len(tokens[1]):].lstrip()
-                self.current_token = line
-                self.process(prev_keywords[tokens[1]])
-
-            else:
-                raise IOError('Syntax error in po file %s(line %s)' %
-                              (fpath, self.current_line))
-
-        if self.current_entry and len(tokens) > 0 and \
-           not tokens[0].startswith('#'):
-            # since entries are added when another entry is found, we must add
-            # the last entry here (only if there are lines). Trailing comments
-            # are ignored
-            self.instance.append(self.current_entry)
-
-        # before returning the instance, check if there's metadata and if
-        # so extract it in a dict
-        metadataentry = self.instance.find('')
-        if metadataentry:  # metadata found
-            # remove the entry
-            self.instance.remove(metadataentry)
-            self.instance.metadata_is_fuzzy = metadataentry.flags
-            key = None
-            for msg in metadataentry.msgstr.splitlines():
-                try:
-                    key, val = msg.split(':', 1)
-                    self.instance.metadata[key] = val.strip()
-                except (ValueError, KeyError):
-                    if key is not None:
-                        self.instance.metadata[key] += '\n' + msg.strip()
-        # close opened file
-        if not isinstance(self.fhandle, list):  # must be file
-            self.fhandle.close()
+            # before returning the instance, check if there's metadata and if
+            # so extract it in a dict
+            metadataentry = self.instance.find('')
+            if metadataentry:  # metadata found
+                # remove the entry
+                self.instance.remove(metadataentry)
+                self.instance.metadata_is_fuzzy = metadataentry.flags
+                key = None
+                for msg in metadataentry.msgstr.splitlines():
+                    try:
+                        key, val = msg.split(':', 1)
+                        self.instance.metadata[key] = val.strip()
+                    except (ValueError, KeyError):
+                        if key is not None:
+                            self.instance.metadata[key] += '\n' + msg.strip()
+        finally:
+            # close opened file
+            if not isinstance(self.fhandle, list):  # must be file
+                self.fhandle.close()
         return self.instance
 
     def add(self, symbol, states, next_state):
