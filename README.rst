@@ -48,8 +48,8 @@ Basic example
         print(entry.msgid, entry.msgstr)
 
 
-.. |build-status-image| image:: https://secure.travis-ci.org/izimobil/polib.svg?branch=master
-   :target: http://travis-ci.org/izimobil/polib?branch=master
+.. |build-status-image| image:: https://api.travis-ci.com/izimobil/polib.svg?branch=master
+   :target: https://app.travis-ci.com/github/izimobil/polib
    :alt: Travis build
 
 .. |codecov-image| image:: https://codecov.io/gh/izimobil/polib/branch/master/graph/badge.svg
