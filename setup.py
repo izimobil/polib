@@ -27,12 +27,13 @@ if polib.PY3:
 else:
     enc = {}
 
-long_desc = r'''
+with open('README.rst', **enc) as readme_f:
+    with open('CHANGELOG', **enc) as changelog_f:
+        long_desc = r'''
 %s
 
 %s
-
-''' % (open('README.rst', **enc).read(), open('CHANGELOG', **enc).read())
+''' % (readme_f.read(), changelog_f.read())
 
 if __name__ == '__main__':
     setup(
