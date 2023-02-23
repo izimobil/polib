@@ -1458,9 +1458,9 @@ class _POFileParser(object):
 
             if self.current_entry and len(tokens) > 0 and \
                not tokens[0].startswith('#'):
-                # since entries are added when another entry is found, we must add
-                # the last entry here (only if there are lines). Trailing comments
-                # are ignored
+                # since entries are added when another entry is found, we must
+                # add the last entry here (only if there are lines). Trailing
+                # comments are ignored
                 self.instance.append(self.current_entry)
 
             # before returning the instance, check if there's metadata and if
