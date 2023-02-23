@@ -2,6 +2,20 @@
 Changelog
 =========
 
+Version 1.2.0 (2023/02/23)
+--------------------------
+ - Added setter for the fuzzy property
+ - Escape/unescape \v, \b and \f
+ - Added path to error message processing parser symbols
+ - Ensure empty previous values for msgid and msgstr are properly saved
+ - Fixed relative ordering of comments and translator comments
+ - Do not count obsolete entries in fuzzy() method
+ - Close files properly
+ - Fixed support for loading mo files from bytes object
+ - Fixed msgstr_plural comparison
+ - Simplified python version check
+ - Updated docs
+
 Version 1.1.1 (2021/03/26)
 --------------------------
  - Strip UTF-16 BOM (U+FEFF) from start of file
