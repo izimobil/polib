@@ -1,6 +1,6 @@
 language: python
 
-dist: jammy
+dist: focal
 
 python:
   - "2.7"
