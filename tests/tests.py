@@ -643,7 +643,7 @@ class TestPoFile(unittest.TestCase):
             os.close(fd)
             po = polib.pofile(reffile, autodetect_encoding=False, encoding=encoding)
             po.save_as_mofile(tmpfile1)
-            subprocess.call([msgfmt, '--no-hash', '-o', tmpfile2, reffile])
+            subprocess.call([msgfmt, '--no-hash', '--endianness=%s' % sys.byteorder, '-o', tmpfile2, reffile])
             try:
                 f = open(tmpfile1, 'rb')
                 s1 = f.read()
