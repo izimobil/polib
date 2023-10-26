@@ -1006,6 +1006,23 @@ class POEntry(_BaseEntry):
         """
         ret = []
         # comments first, if any (with text wrapping as xgettext does)
+        self._unicode_comments(ret, wrapwidth=wrapwidth)
+
+        # occurrences (with text wrapping as xgettext does)
+        self._unicode_occurrences(ret, wrapwidth=wrapwidth)
+
+        # flags (TODO: wrapping ?)
+        self._unicode_flags(ret, wrapwidth=wrapwidth)
+
+        # previous context and previous msgid/msgid_plural
+        self._unicode_previous(ret, wrapwidth=wrapwidth)
+
+        ret.append(_BaseEntry.__unicode__(self, wrapwidth))
+        ret = u('\n').join(ret)
+        return ret
+
+    def _unicode_comments(self, ret, **kwargs):
+        wrapwidth = kwargs.get('wrapwidth')
         if self.obsolete:
             comments = [('tcomment', '# ')]
         else:
@@ -1025,7 +1042,8 @@ class POEntry(_BaseEntry):
                     else:
                         ret.append('%s%s' % (c[1], comment))
 
-        # occurrences (with text wrapping as xgettext does)
+    def _unicode_occurrences(self, ret, **kwargs):
+        wrapwidth = kwargs.get('wrapwidth')
         if not self.obsolete and self.occurrences:
             filelist = []
             for fpath, lineno in self.occurrences:
@@ -1049,11 +1067,12 @@ class POEntry(_BaseEntry):
             else:
                 ret.append('#: ' + filestr)
 
-        # flags (TODO: wrapping ?)
+    def _unicode_flags(self, ret, **kwargs):
         if self.flags:
             ret.append('#, %s' % ', '.join(self.flags))
 
-        # previous context and previous msgid/msgid_plural
+    def _unicode_previous(self, ret, **kwargs):
+        wrapwidth = kwargs.get('wrapwidth')
         fields = ['previous_msgctxt', 'previous_msgid',
                   'previous_msgid_plural']
         if self.obsolete:
@@ -1064,10 +1083,6 @@ class POEntry(_BaseEntry):
             val = getattr(self, f)
             if val is not None:
                 ret += self._str_field(f, prefix, "", val, wrapwidth)
-
-        ret.append(_BaseEntry.__unicode__(self, wrapwidth))
-        ret = u('\n').join(ret)
-        return ret
 
     def __cmp__(self, other):
         """
