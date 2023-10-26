@@ -872,12 +872,34 @@ class _BaseEntry(object):
             delflag = ''
         ret = []
         # write the msgctxt if any
+        self._unicode_msgctxt(ret, wrapwidth=wrapwidth, delflag=delflag)
+        # write the msgid
+        self._unicode_msgid(ret, wrapwidth=wrapwidth, delflag=delflag)
+        # write the msgid_plural if any
+        self._unicode_msgid_plural(ret, wrapwidth=wrapwidth, delflag=delflag)
+
+        ret.append('')
+        ret = u('\n').join(ret)
+        return ret
+
+    def _unicode_msgctxt(self, ret, **kwargs):
+        wrapwidth = kwargs.get("wrapwidth")
+        delflag = kwargs.get("delflag")
+
         if self.msgctxt is not None:
             ret += self._str_field("msgctxt", delflag, "", self.msgctxt,
                                    wrapwidth)
-        # write the msgid
+
+    def _unicode_msgid(self, ret, **kwargs):
+        wrapwidth = kwargs .get("wrapwidth")
+        delflag = kwargs.get("delflag")
+
         ret += self._str_field("msgid", delflag, "", self.msgid, wrapwidth)
-        # write the msgid_plural if any
+
+    def _unicode_msgid_plural(self, ret, **kwargs):
+        wrapwidth = kwargs .get("wrapwidth")
+        delflag = kwargs.get("delflag")
+
         if self.msgid_plural:
             ret += self._str_field("msgid_plural", delflag, "",
                                    self.msgid_plural, wrapwidth)
@@ -895,9 +917,6 @@ class _BaseEntry(object):
             # otherwise write the msgstr
             ret += self._str_field("msgstr", delflag, "", self.msgstr,
                                    wrapwidth)
-        ret.append('')
-        ret = u('\n').join(ret)
-        return ret
 
     if PY3:
         def __str__(self):
