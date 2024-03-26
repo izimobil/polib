@@ -7,6 +7,10 @@ import subprocess
 import sys
 import tempfile
 import unittest
+try:
+    from shutil import which
+except ImportError:
+    from distutils.spawn import find_executable as which  # Deprecated in 3.10, removed in 3.12.
 
 sys.path.insert(1, os.path.abspath('.'))
 
@@ -627,8 +631,7 @@ class TestPoFile(unittest.TestCase):
         """
         Test for the POFile.save_as_mofile() method.
         """
-        import distutils.spawn
-        msgfmt = distutils.spawn.find_executable('msgfmt')
+        msgfmt = which('msgfmt')
         if msgfmt is None:
             try:
                 return unittest.skip('msgfmt is not installed')
