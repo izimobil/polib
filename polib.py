@@ -828,7 +828,17 @@ class _BaseEntry(object):
     This class should **not** be instantiated directly.
     """
 
-    def __init__(self, *args, **kwargs):
+    def __init__(
+            self,
+            *,
+            msgid='',
+            msgstr='',
+            msgid_plural='',
+            msgstr_plural=None,
+            msgctxt=None,
+            obsolete=False,
+            encoding=None,
+    ):
         """
         Constructor, accepts the following keyword arguments:
 
@@ -854,13 +864,14 @@ class _BaseEntry(object):
             string, the encoding to use, defaults to ``default_encoding``
             global variable (optional).
         """
-        self.msgid = kwargs.get('msgid', '')
-        self.msgstr = kwargs.get('msgstr', '')
-        self.msgid_plural = kwargs.get('msgid_plural', '')
-        self.msgstr_plural = kwargs.get('msgstr_plural', {})
-        self.msgctxt = kwargs.get('msgctxt', None)
-        self.obsolete = kwargs.get('obsolete', False)
-        self.encoding = kwargs.get('encoding', default_encoding)
+        self.msgid = msgid
+        self.msgstr = msgstr
+        self.msgid_plural = msgid_plural
+        self.msgstr_plural = msgstr_plural or {}
+        assert isinstance(self.msgstr_plural, dict)
+        self.msgctxt = msgctxt
+        self.obsolete = obsolete
+        self.encoding = encoding or default_encoding
 
     def __unicode__(self, wrapwidth=78):
         """
@@ -962,7 +973,25 @@ class POEntry(_BaseEntry):
     Represents a po file entry.
     """
 
-    def __init__(self, *args, **kwargs):
+    def __init__(
+        self,
+        *,
+        msgid='',
+        msgstr='',
+        msgid_plural='',
+        msgstr_plural=None,
+        msgctxt=None,
+        obsolete=False,
+        encoding=None,
+        linenum=None,
+        previous_msgctxt=None,
+        previous_msgid = None,
+        previous_msgid_plural=None,
+        flags=None,
+        comment='',
+        tcomment='',
+        occurrences=None,
+    ):
         """
         Constructor, accepts the following keyword arguments:
 
@@ -990,15 +1019,23 @@ class POEntry(_BaseEntry):
         ``linenum``
             integer, the line number of the entry
         """
-        _BaseEntry.__init__(self, *args, **kwargs)
-        self.comment = kwargs.get('comment', '')
-        self.tcomment = kwargs.get('tcomment', '')
-        self.occurrences = kwargs.get('occurrences', [])
-        self.flags = kwargs.get('flags', [])
-        self.previous_msgctxt = kwargs.get('previous_msgctxt', None)
-        self.previous_msgid = kwargs.get('previous_msgid', None)
-        self.previous_msgid_plural = kwargs.get('previous_msgid_plural', None)
-        self.linenum = kwargs.get('linenum', None)
+        super().__init__(
+            msgid=msgid,
+            msgstr=msgstr,
+            msgid_plural=msgid_plural,
+            msgstr_plural=msgstr_plural,
+            msgctxt=msgctxt,
+            obsolete=obsolete,
+            encoding=encoding,
+        )
+        self.comment = comment
+        self.tcomment = tcomment
+        self.occurrences = occurrences or []
+        self.flags = flags or []
+        self.previous_msgctxt = previous_msgctxt
+        self.previous_msgid = previous_msgid
+        self.previous_msgid_plural = previous_msgid_plural
+        self.linenum = linenum
 
     def __unicode__(self, wrapwidth=78):
         """
