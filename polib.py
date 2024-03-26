@@ -73,7 +73,8 @@ def _pofile_or_mofile(f, type, **kwargs):
         f,
         encoding=enc,
         check_for_duplicates=kwargs.get('check_for_duplicates', False),
-        klass=kwargs.get('klass')
+        klass=kwargs.get('klass'),
+        eklass=kwargs.get('eklass')
     )
     instance = parser.parse()
     instance.wrapwidth = kwargs.get('wrapwidth', 78)
@@ -1272,8 +1273,11 @@ class _POFileParser(object):
             self.fhandle = pofile.splitlines()
 
         klass = kwargs.get('klass')
+        eklass = kwargs.get('eklass')
         if klass is None:
             klass = POFile
+        if eklass is None:
+             eklass = POEntry
         self.instance = klass(
             pofile=pofile,
             encoding=enc,
@@ -1281,7 +1285,7 @@ class _POFileParser(object):
         )
         self.transitions = {}
         self.current_line = 0
-        self.current_entry = POEntry(linenum=self.current_line)
+        self.current_entry = eklass(linenum=self.current_line)
         self.current_state = 'st'
         self.current_token = None
         # two memo flags used in handlers
