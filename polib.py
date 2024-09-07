@@ -230,7 +230,7 @@ def detect_encoding(file, binary_mode=False):
 def escape(st):
     """
     Escapes the characters ``\\\\``, ``\\t``, ``\\n``, ``\\r``, ``\\v``,
-    ``\\b``, ``\\f`` and ``"`` in the given string ``st`` and returns it.
+    ``\\b``, ``\\f``, ``\\a`` and ``"`` in the given string ``st`` and returns it.
     """
     return st.replace('\\', r'\\')\
              .replace('\t', r'\t')\
@@ -239,6 +239,7 @@ def escape(st):
              .replace('\v', r'\v')\
              .replace('\b', r'\b')\
              .replace('\f', r'\f')\
+             .replace('\a', r'\a')\
              .replace('\"', r'\"')
 # }}}
 # function unescape() {{{
@@ -247,7 +248,7 @@ def escape(st):
 def unescape(st):
     """
     Unescapes the characters ``\\\\``, ``\\t``, ``\\n``, ``\\r``, ``\\v``,
-    ``\\b``, ``\\f`` and ``"`` in the given string ``st`` and returns it.
+    ``\\b``, ``\\f``, ``\\a`` and ``"`` in the given string ``st`` and returns it.
     """
     def unescape_repl(m):
         m = m.group(1)
@@ -263,10 +264,12 @@ def unescape(st):
             return '\b'
         if m == 'f':
             return '\f'
+        if m == 'a':
+            return '\a'
         if m == '\\':
             return '\\'
         return m  # handles escaped double quote
-    return re.sub(r'\\(\\|n|t|r|v|b|f|")', unescape_repl, st)
+    return re.sub(r'\\(\\|n|t|r|v|b|f|a|")', unescape_repl, st)
 # }}}
 # function natural_sort() {{{
 
@@ -920,7 +923,7 @@ class _BaseEntry(object):
         else:
             escaped_field = escape(field)
             specialchars_count = 0
-            for c in ['\\', '\n', '\r', '\t', '\v', '\b', '\f', '"']:
+            for c in ['\\', '\n', '\r', '\t', '\v', '\b', '\f', '\a', '"']:
                 specialchars_count += field.count(c)
             # comparison must take into account fieldname length + one space
             # + 2 quotes (eg. msgid "<string>")
