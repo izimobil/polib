@@ -61,6 +61,8 @@ The ``MOEntry`` class
     :members:
 
 
-The ``BaseFile`` class (parent class of both POEntry and MOEntry)
------------------------------------------------------------------
+The ``_BaseFile`` class
+-----------------------
 .. autoclass:: polib._BaseFile
+    :members:
+
