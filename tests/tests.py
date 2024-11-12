@@ -27,7 +27,7 @@ class TestFunctions(unittest.TestCase):
         data = u('''# test for pofile/mofile with string buffer
 msgid ""
 msgstr ""
-"Project-Id-Version: django\n"
+"Project-Id-Version: django"
 
 msgid "foo"
 msgstr "bar"
@@ -116,7 +116,7 @@ msgstr "bar"
         data = u('''\ufeff# test for pofile/mofile with ufeff
 msgid ""
 msgstr ""
-"Project-Id-Version: django\n"
+"Project-Id-Version: django"
 
 msgid "foo"
 msgstr "bar"
@@ -257,6 +257,35 @@ msgstr ""
             exc = sys.exc_info()[1]
             msg = 'Syntax error in po file (line 4): unescaped double quote found'
             self.assertEqual(str(exc), msg)
+
+    def test_no_double_quote_delimiters(self):
+        """
+        Test that polib reports an error when a string is not delimited by double quotes.
+        """
+        invalid_msgstr = r'''
+msgid "A"
+msgstr *B"
+'''
+        invalid_msgid = r'''
+msgid "A/
+msgstr "B"
+'''
+        invalid_msgid_plural = r'''
+msgid_plural A
+msgstr "B"
+'''
+        invalid_msgstr_continuation = r'''
+msgid "A"
+msgstr ""
+"B
+'''
+        for data in (invalid_msgid, invalid_msgid_plural, invalid_msgstr, invalid_msgstr_continuation):
+            try:
+                polib.pofile(data)
+                self.fail("Strings not delimited by double quotes not detected")
+            except IOError as ex:
+                msg = 'string not delimited by double quotes'
+                self.assertIn(msg, str(ex))
 
     def test_syntax_error1(self):
         """
