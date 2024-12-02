@@ -203,7 +203,7 @@ msgid "Some msgstr with "double\" quotes"
         try:
             po = polib.pofile(data)
             self.fail("Unescaped quote not detected")
-        except IOError:
+        except OSError:
             exc = sys.exc_info()[1]
             msg = 'Syntax error in po file (line 3): unescaped double quote found'
             self.assertEqual(str(exc), msg)
@@ -220,7 +220,7 @@ msgstr ""
         try:
             po = polib.pofile(data)
             self.fail("Unescaped quote not detected")
-        except IOError:
+        except OSError:
             exc = sys.exc_info()[1]
             msg = 'Syntax error in po file (line 4): unescaped double quote found'
             self.assertEqual(str(exc), msg)
@@ -236,7 +236,7 @@ msgid ""Some msgstr with double\" quotes"
         try:
             po = polib.pofile(data)
             self.fail("Unescaped quote not detected")
-        except IOError:
+        except OSError:
             exc = sys.exc_info()[1]
             msg = 'Syntax error in po file (line 3): unescaped double quote found'
             self.assertEqual(str(exc), msg)
@@ -253,7 +253,7 @@ msgstr ""
         try:
             po = polib.pofile(data)
             self.fail("Unescaped quote not detected")
-        except IOError:
+        except OSError:
             exc = sys.exc_info()[1]
             msg = 'Syntax error in po file (line 4): unescaped double quote found'
             self.assertEqual(str(exc), msg)
@@ -283,7 +283,7 @@ msgstr ""
             try:
                 polib.pofile(data)
                 self.fail("Strings not delimited by double quotes not detected")
-            except IOError as ex:
+            except OSError as ex:
                 msg = 'string not delimited by double quotes'
                 self.assertIn(msg, str(ex))
 
@@ -294,7 +294,7 @@ msgstr ""
         try:
             polib.pofile('tests/test_syntax_error1.po')
             self.fail("Syntax error not detected")
-        except IOError:
+        except OSError:
             exc = sys.exc_info()[1]
             msg = "Syntax error in po file tests/test_syntax_error1.po (line 5)"
             self.assertEqual(str(exc), msg)
@@ -495,7 +495,7 @@ class TestBaseFile(unittest.TestCase):
 
     def test_save1(self):
         pofile = polib.POFile()
-        self.assertRaises(IOError, pofile.save)
+        self.assertRaises(OSError, pofile.save)
 
     def test_save2(self):
         fd, tmpfile = tempfile.mkstemp()
@@ -860,7 +860,7 @@ msgstr "une cha\u00eene sans contexte"
         self.assertEqual(mo.__unicode__(), expected)
 
     def test_invalid_version(self):
-        self.assertRaises(IOError, polib.mofile, 'tests/test_invalid_version.mo')
+        self.assertRaises(OSError, polib.mofile, 'tests/test_invalid_version.mo')
         polib.mofile('tests/test_version_1.1.mo')
 
     def test_no_header(self):
