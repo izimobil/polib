@@ -355,8 +355,8 @@ msgstr ""
         Tests the escape function.
         """
         self.assertEqual(
-            polib.escape('\\t and \\n and \\r and " and \\ and \\\\ and \\v and \\b and \\f'),
-            '\\\\t and \\\\n and \\\\r and \\" and \\\\ and \\\\\\\\ and \\\\v and \\\\b and \\\\f'
+            polib.escape('\\t and \\n and \\r and " and \\ and \\\\ and \\v and \\b and \\f and \\a'),
+            '\\\\t and \\\\n and \\\\r and \\" and \\\\ and \\\\\\\\ and \\\\v and \\\\b and \\\\f and \\\\a'
         )
 
     def test_unescape(self):
@@ -364,8 +364,8 @@ msgstr ""
         Tests the unescape function.
         """
         self.assertEqual(
-            polib.unescape('\\t and \\n and \\r and \\" and \\\\ and \\v and \\b and \\f'),
-            '\t and \n and \r and \" and \\ and \v and \b and \f'
+            polib.unescape('\\t and \\n and \\r and \\" and \\\\ and \\v and \\b and \\f and \\a'),
+            '\t and \n and \r and \" and \\ and \v and \b and \f and \a'
         )
 
     def test_pofile_with_subclass(self):
