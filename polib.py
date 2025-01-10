@@ -1376,6 +1376,10 @@ class _POFileParser(object):
                         raise IOError('Syntax error in po file %s(line %s): '
                                       'unescaped double quote found' %
                                       (fpath, self.current_line))
+                    if line[0] != '"' or line[-1] != '"':
+                        raise IOError('Syntax error in po file %s(line %s): '
+                                      'string not delimited by double quotes' %
+                                      (fpath, self.current_line))
                     self.current_token = line
                     self.process(keywords[tokens[0]])
                     continue
@@ -1393,6 +1397,10 @@ class _POFileParser(object):
                     if re.search(r'([^\\]|^)"', line[1:-1]):
                         raise IOError('Syntax error in po file %s(line %s): '
                                       'unescaped double quote found' %
+                                      (fpath, self.current_line))
+                    if line[-1] != '"':
+                        raise IOError('Syntax error in po file %s(line %s): '
+                                      'string not delimited by double quotes' %
                                       (fpath, self.current_line))
                     self.process('mc')
 
