@@ -60,3 +60,9 @@ The ``MOEntry`` class
 .. autoclass:: polib.MOEntry
     :members:
 
+
+The ``_BaseFile`` class
+-----------------------
+.. autoclass:: polib._BaseFile
+    :members:
+
