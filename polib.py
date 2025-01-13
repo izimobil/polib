@@ -17,9 +17,9 @@ import codecs
 import os
 import re
 import struct
-import sys
 import textwrap
 import io
+import warnings
 
 
 __author__ = 'David Jean Louis <izimobil@gmail.com>'
@@ -31,28 +31,14 @@ __all__ = ['pofile', 'POFile', 'POEntry', 'mofile', 'MOFile', 'MOEntry',
 # the default encoding to use when encoding cannot be detected
 default_encoding = 'utf-8'
 
-# python 2/3 compatibility helpers {{{
+# python 2/3 compatibility helpers (obsolescent) {{{
+text_type = str
 
+def b(s):
+    return s.encode("latin-1")
 
-if sys.version_info < (3,):
-    PY3 = False
-    text_type = unicode
-
-    def b(s):
-        return s
-
-    def u(s):
-        return unicode(s, "unicode_escape")
-
-else:
-    PY3 = True
-    text_type = str
-
-    def b(s):
-        return s.encode("latin-1")
-
-    def u(s):
-        return s
+def u(s):
+    return s
 # }}}
 # _pofile_or_mofile {{{
 
@@ -166,7 +152,7 @@ def mofile(mofile, **kwargs):
 # function detect_encoding() {{{
 
 
-def detect_encoding(file, binary_mode=False):
+def detect_encoding(file, binary_mode=None):
     """
     Try to detect the encoding used by the ``file``. The ``file`` argument can
     be a PO or MO file path or a string containing the contents of the file.
@@ -179,11 +165,17 @@ def detect_encoding(file, binary_mode=False):
         string, full or relative path to the po/mo file or its content.
 
     ``binary_mode``
-        boolean, set this to True if ``file`` is a mo file.
+        OBSOLETE. ``file`` is always treated as binary.
     """
+    if binary_mode is not None:
+        warnings.warn(
+            "binary_mode parameter is obsolete, file is always treated as binary",
+            DeprecationWarning,
+        )
+
     PATTERN = r'"?Content-Type:.+? charset=([\w_\-:\.]+)'
-    rxt = re.compile(u(PATTERN))
-    rxb = re.compile(b(PATTERN))
+    rxt = re.compile(PATTERN)
+    rxb = re.compile(PATTERN.encode("latin-1"))
 
     def charset_exists(charset):
         """Check whether ``charset`` is valid or not."""
@@ -200,25 +192,21 @@ def detect_encoding(file, binary_mode=False):
             match = rxb.search(file)
         if match:
             enc = match.group(1).strip()
-            if not isinstance(enc, text_type):
+            if not isinstance(enc, str):
                 enc = enc.decode('utf-8')
             if charset_exists(enc):
                 return enc
     else:
-        # For PY3, always treat as binary
-        if binary_mode or PY3:
-            mode = 'rb'
-            rx = rxb
-        else:
-            mode = 'r'
-            rx = rxt
+        # always treat as binary
+        mode = 'rb'
+        rx = rxb
         with open(file, mode) as f:
             for line in f.readlines():
                 match = rx.search(line)
                 if match:
                     f.close()
                     enc = match.group(1).strip()
-                    if not isinstance(enc, text_type):
+                    if not isinstance(enc, str):
                         enc = enc.decode('utf-8')
                     if charset_exists(enc):
                         return enc
@@ -346,18 +334,11 @@ class _BaseFile(list):
             ret.append(entry.__unicode__(self.wrapwidth))
         for entry in self.obsolete_entries():
             ret.append(entry.__unicode__(self.wrapwidth))
-        ret = u('\n').join(ret)
+        ret = '\n'.join(ret)
         return ret
 
-    if PY3:
-        def __str__(self):
-            return self.__unicode__()
-    else:
-        def __str__(self):
-            """
-            Returns the string representation of the file.
-            """
-            return unicode(self).encode(self.encoding)
+    def __str__(self):
+        return self.__unicode__()
 
     def __contains__(self, entry):
         """
@@ -461,7 +442,7 @@ class _BaseFile(list):
                 encoding=self.encoding,
                 newline=newline
             ) as fhandle:
-                if not isinstance(contents, text_type):
+                if not isinstance(contents, str):
                     contents = contents.decode(self.encoding)
                 fhandle.write(contents)
 
@@ -573,11 +554,11 @@ class _BaseFile(list):
         mentry = self.metadata_as_entry()
         entries = [mentry] + entries
         entries_len = len(entries)
-        ids, strs = b(''), b('')
+        ids, strs = b'', b''
         for e in entries:
             # For each string, we need size and file offset.  Each string is
             # NUL terminated; the NUL does not count into the size.
-            msgid = b('')
+            msgid = b''
             if e.msgctxt:
                 # Contexts are stored by storing the concatenation of the
                 # context, a <EOT> byte, and the original string
@@ -592,8 +573,8 @@ class _BaseFile(list):
                 msgid += self._encode(e.msgid)
                 msgstr = self._encode(e.msgstr)
             offsets.append((len(ids), len(msgid), len(strs), len(msgstr)))
-            ids += msgid + b('\0')
-            strs += msgstr + b('\0')
+            ids += msgid + b'\0'
+            strs += msgstr + b'\0'
 
         # The header is 7 32-bit unsigned integers.
         keystart = 7 * 4 + 16 * entries_len
@@ -624,10 +605,7 @@ class _BaseFile(list):
             0, keystart
 
         )
-        if PY3 and sys.version_info.minor > 1:  # python 3.2 or superior
-            output += array.array("i", offsets).tobytes()
-        else:
-            output += array.array("i", offsets).tostring()
+        output += array.array("i", offsets).tobytes()
         output += ids
         output += strs
         return output
@@ -637,7 +615,7 @@ class _BaseFile(list):
         Encodes the given ``mixed`` argument with the file encoding if and
         only if it's an unicode string and returns the encoded string.
         """
-        if isinstance(mixed, text_type):
+        if isinstance(mixed, str):
             mixed = mixed.encode(self.encoding)
         return mixed
 # }}}
@@ -664,7 +642,7 @@ class POFile(_BaseFile):
             else:
                 ret += '# %s\n' % header
 
-        if not isinstance(ret, text_type):
+        if not isinstance(ret, str):
             ret = ret.decode(self.encoding)
 
         return ret + _BaseFile.__unicode__(self)
@@ -899,18 +877,11 @@ class _BaseEntry(object):
             ret += self._str_field("msgstr", delflag, "", self.msgstr,
                                    wrapwidth)
         ret.append('')
-        ret = u('\n').join(ret)
+        ret = '\n'.join(ret)
         return ret
 
-    if PY3:
-        def __str__(self):
-            return self.__unicode__()
-    else:
-        def __str__(self):
-            """
-            Returns the string representation of the entry.
-            """
-            return unicode(self).encode(self.encoding)
+    def __str__(self):
+        return self.__unicode__()
 
     def __eq__(self, other):
         return str(self) == str(other)
@@ -1069,7 +1040,7 @@ class POEntry(_BaseEntry):
                 ret += self._str_field(f, prefix, "", val, wrapwidth)
 
         ret.append(_BaseEntry.__unicode__(self, wrapwidth))
-        ret = u('\n').join(ret)
+        ret = '\n'.join(ret)
         return ret
 
     def __cmp__(self, other):
@@ -1770,26 +1741,26 @@ class _MOFileParser(object):
             self.fhandle.seek(msgstrs_index[i][1])
             msgstr = self.fhandle.read(msgstrs_index[i][0])
             if i == 0 and not msgid:  # metadata
-                raw_metadata, metadata = msgstr.split(b('\n')), {}
+                raw_metadata, metadata = msgstr.split(b'\n'), {}
                 for line in raw_metadata:
-                    tokens = line.split(b(':'), 1)
-                    if tokens[0] != b(''):
+                    tokens = line.split(b':', 1)
+                    if tokens[0] != b'':
                         try:
                             k = tokens[0].decode(encoding)
                             v = tokens[1].decode(encoding)
                             metadata[k] = v.strip()
                         except IndexError:
-                            metadata[k] = u('')
+                            metadata[k] = ''
                 self.instance.metadata = metadata
                 continue
             # test if we have a plural entry
-            msgid_tokens = msgid.split(b('\0'))
+            msgid_tokens = msgid.split(b'\0')
             if len(msgid_tokens) > 1:
                 entry = self._build_entry(
                     msgid=msgid_tokens[0],
                     msgid_plural=msgid_tokens[1],
                     msgstr_plural=dict((k, v) for k, v in
-                                       enumerate(msgstr.split(b('\0'))))
+                                       enumerate(msgstr.split(b'\0')))
                 )
             else:
                 entry = self._build_entry(msgid=msgid, msgstr=msgstr)
@@ -1800,7 +1771,7 @@ class _MOFileParser(object):
 
     def _build_entry(self, msgid, msgstr=None, msgid_plural=None,
                      msgstr_plural=None):
-        msgctxt_msgid = msgid.split(b('\x04'))
+        msgctxt_msgid = msgid.split(b'\x04')
         encoding = self.instance.encoding
         if len(msgctxt_msgid) > 1:
             kwargs = {

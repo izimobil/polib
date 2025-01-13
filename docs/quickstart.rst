@@ -6,7 +6,7 @@ Quick start guide
 Installing polib
 ----------------
 
-polib requires python 2.7 or superior.
+polib requires python 3.6 or superior.
 
 There are several ways to install polib, this is explained 
 in :ref:`the installation section <installation>`.

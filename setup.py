@@ -22,10 +22,7 @@ maintainer = ' '.join(author_data[0:-1])
 maintainer_email = author_data[-1][1:-1]
 desc = 'A library to manipulate gettext files (po and mo files).'
 
-if polib.PY3:
-    enc = {'encoding': 'UTF-8'}
-else:
-    enc = {}
+enc = {'encoding': 'UTF-8'}
 
 with open('README.rst', **enc) as readme_f:
     with open('CHANGELOG', **enc) as changelog_f:
@@ -58,8 +55,6 @@ if __name__ == '__main__':
             'License :: OSI Approved :: MIT License',
             'Operating System :: OS Independent',
             'Programming Language :: Python',
-            'Programming Language :: Python :: 2',
-            'Programming Language :: Python :: 2.7',
             'Programming Language :: Python :: 3',
             'Programming Language :: Python :: 3.6',
             'Programming Language :: Python :: 3.7',
