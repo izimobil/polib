@@ -1037,7 +1037,7 @@ class POEntry(_BaseEntry):
                 else:
                     filelist.append(fpath)
             filestr = ' '.join(filelist)
-            if wrapwidth > 0 and len(filestr) + 3 > wrapwidth:
+            if wrapwidth == 0 or len(filestr) + 3 > wrapwidth:
                 # textwrap split words that contain hyphen, this is not
                 # what we want for filenames, so the dirty hack is to
                 # temporally replace hyphens with a char that a file cannot
