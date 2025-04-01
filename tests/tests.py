@@ -553,7 +553,7 @@ class TestBaseFile(unittest.TestCase):
         f.close()
         self.assertEqual(str(pofile), expected)
 
-    def test_wrapping(self):
+    def test_wrapping1(self):
         pofile  = polib.pofile('tests/test_wrap.po', wrapwidth=50)
         expected = r'''# test wrapping
 msgid ""
@@ -571,6 +571,25 @@ msgid ""
 "Some line that contain special characters "
 "\"foobar\" and that contains whitespace at the "
 "end          "
+msgstr ""
+'''
+        self.assertEqual(str(pofile), expected)
+
+    def test_wrapping2(self):
+        """
+        Test do wrap occurrences when wrapwidth is 0
+        """
+        pofile  = polib.pofile('tests/test_wrap_occurrences.po', wrapwidth=0)
+        expected = r'''# test wrapping
+msgid ""
+msgstr ""
+
+#: db/models/manipulators.py:310
+#: contrib/admin/views/main.py:342
+#: contrib/admin/views/main.py:344 
+#: contrib/admin/views/main.py:346
+#: core/validators.py:275
+msgid "This line will not be wrapped"
 msgstr ""
 '''
         self.assertEqual(str(pofile), expected)
