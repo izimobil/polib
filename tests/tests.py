@@ -109,6 +109,34 @@ msgstr "bar"
         mo = polib.mofile(mo_bytes)
         self.assertTrue(isinstance(mo, polib.MOFile))
 
+    def test_line_endings_data_pofile(self):
+        """
+        Test that a pofile with novel line endings returns a POFile instance.
+        """
+        data = u('''# test for line endings
+msgid ""
+msgstr ""
+
+msgid "file\x1cseparator\x1c"
+msgstr "foo"
+
+msgid "line\u2028separator\u2028"
+msgstr "bar"
+''')
+        po = polib.pofile(data)
+        self.assertTrue(isinstance(po, polib.POFile))
+        self.assertEqual(po[0].msgid, "file\x1cseparator\x1c")
+        self.assertEqual(po[1].msgid, "line\u2028separator\u2028")
+
+    def test_line_endings_pofile(self):
+        """
+        Test that a pofile with novel line endings returns a POFile instance.
+        """
+        po = polib.pofile('tests/test_line_endings.po')
+        self.assertTrue(isinstance(po, polib.POFile))
+        self.assertEqual(po[0].msgid, "file\x1cseparator\x1c")
+        self.assertEqual(po[1].msgid, "line\u2028separator\u2028")
+
     def test_ufeff_data_pofile(self):
         """
         Test that an ufeff prefixed pofile returns a POFile instance.

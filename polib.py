@@ -1272,7 +1272,7 @@ class _POFileParser(object):
                 enc = default_encoding
                 self.fhandle = io.open(pofile, 'rt', encoding=enc)
         else:
-            self.fhandle = pofile.splitlines()
+            self.fhandle = io.StringIO(pofile)
 
         klass = kwargs.get('klass')
         if klass is None:

@@ -1,0 +1,9 @@
+# test for line endings
+msgid ""
+msgstr ""
+
+msgid "fileseparator"
+msgstr "foo"
+
+msgid "line separator "
+msgstr "bar"
