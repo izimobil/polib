@@ -1289,7 +1289,7 @@ class _POFileParser(object):
         self.current_token = None
         # two memo flags used in handlers
         self.msgstr_index = 0
-        self.entry_obsolete = 0
+        self.entry_obsolete = False
         # Configure the state machine, by adding transitions.
         # Signification of symbols:
         #     * ST: Beginning of the file (start)
@@ -1367,9 +1367,9 @@ class _POFileParser(object):
                     line = line[3:].strip()
                     tokens = tokens[1:]
                     nb_tokens -= 1
-                    self.entry_obsolete = 1
+                    self.entry_obsolete = True
                 else:
-                    self.entry_obsolete = 0
+                    self.entry_obsolete = False
 
                 # Take care of keywords like
                 # msgid, msgid_plural, msgctxt & msgstr.
