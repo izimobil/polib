@@ -2,6 +2,7 @@ name: compilation
 
 on:
   - push
+  - pull_request
 
 jobs:
   build-test:
