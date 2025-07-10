@@ -683,12 +683,12 @@ class POFile(_BaseFile):
     def percent_translated(self):
         """
         Convenience method that returns the percentage of translated
-        messages.
+        words.
         """
-        total = len([e for e in self if not e.obsolete])
+        total = self.total_words()
         if total == 0:
             return 100
-        translated = len(self.translated_entries())
+        translated = self.translated_words()
         return int(translated * 100 / float(total))
 
     def translated_entries(self):
@@ -748,6 +748,12 @@ class POFile(_BaseFile):
         for entry in self:
             if entry.msgid_with_context not in refpot_msgids:
                 entry.obsolete = True
+
+    def total_words(self) -> int:
+        return sum(e.msgid_words() for e in self if not e.obsolete)
+
+    def translated_words(self) -> int:
+        return sum(e.msgid_words() for e in self if e.translated())
 # }}}
 # class MOFile {{{
 
@@ -956,6 +962,9 @@ class _BaseEntry(object):
         if self.msgctxt:
             return '%s%s%s' % (self.msgctxt, "\x04", self.msgid)
         return self.msgid
+
+    def msgid_words(self) -> int:
+        return len(self.msgid.split())
 # }}}
 # class POEntry {{{
 

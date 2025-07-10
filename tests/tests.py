@@ -415,6 +415,10 @@ msgstr ""
         self.assertFalse(polib._is_file('This is not a file !!!!'))
         self.assertFalse(polib._is_file(True))
 
+    def test_entry_words(self):
+        po = polib.pofile('tests/test_utf8.po')
+        self.assertEqual(po[0].msgid_words(), 2)
+
 
 class TestBaseFile(unittest.TestCase):
     """
@@ -697,13 +701,21 @@ class TestPoFile(unittest.TestCase):
 
     def test_percent_translated(self):
         po = polib.pofile('tests/test_pofile_helpers.po')
-        self.assertEqual(po.percent_translated(), 53)
+        self.assertEqual(po.percent_translated(), 54)
         po = polib.POFile()
         self.assertEqual(po.percent_translated(), 100)
 
     def test_translated_entries(self):
         po = polib.pofile('tests/test_pofile_helpers.po')
         self.assertEqual(len(po.translated_entries()), 7)
+
+    def test_total_words(self):
+        po = polib.pofile('tests/test_pofile_helpers.po')
+        self.assertEqual(po.total_words(), 74)
+
+    def test_translated_words(self):
+        po = polib.pofile('tests/test_pofile_helpers.po')
+        self.assertEqual(po.translated_words(), 40)
 
     def test_untranslated_entries(self):
         po = polib.pofile('tests/test_pofile_helpers.po')
