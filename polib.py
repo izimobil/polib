@@ -1411,7 +1411,9 @@ class _POFileParser(object):
                     # we are on a msgstr plural
                     self.process('mx')
 
-                elif tokens[0] == '#,':
+                # https://www.gnu.org/software/gettext/manual/html_node/PO-File-Format-Evolution.html
+                # > emit all flags in a ‘#,’ line and no ‘#=’ line at all.
+                elif tokens[0] == '#,' or tokens[0] == '#=':
                     if nb_tokens <= 1:
                         continue
                     # we are on a flags line
