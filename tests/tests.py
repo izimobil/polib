@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import codecs
 import os
 import subprocess
 import sys
@@ -531,14 +530,14 @@ class TestBaseFile(unittest.TestCase):
 
     def test_unicode1(self):
         pofile  = polib.pofile('tests/test_merge_after.po')
-        f = codecs.open('tests/test_merge_after.po', encoding='utf8')
+        f = open('tests/test_merge_after.po', encoding='utf8')
         expected = f.read()
         f.close()
         self.assertEqual(pofile.__unicode__(), expected)
 
     def test_unicode2(self):
         pofile  = polib.pofile('tests/test_iso-8859-15.po')
-        f = codecs.open('tests/test_iso-8859-15.po', encoding='iso-8859-15')
+        f = open('tests/test_iso-8859-15.po', encoding='iso-8859-15')
         expected = f.read()
         f.close()
         self.assertEqual(pofile.__unicode__(), expected)
@@ -546,7 +545,7 @@ class TestBaseFile(unittest.TestCase):
     def test_str(self):
         pofile  = polib.pofile('tests/test_iso-8859-15.po')
         if polib.PY3:
-            f = codecs.open('tests/test_iso-8859-15.po', encoding='iso-8859-15')
+            f = open('tests/test_iso-8859-15.po', encoding='iso-8859-15')
         else:
             f = open('tests/test_iso-8859-15.po')
         expected = f.read()
